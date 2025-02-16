@@ -182,5 +182,13 @@ function parseArray<T>(
   const numbers = values.map(parseFunction);
   const error = numbers.find((n) => n.error)?.error;
   if (error) return { error };
-  return { data: numbers.map((n) => n.data!) };
+  return {
+    data: numbers.map((n) => {
+      if (n.data === undefined) {
+        // handle undefined or error
+        return null;
+      }
+      return n.data;
+    }),
+  };
 }
