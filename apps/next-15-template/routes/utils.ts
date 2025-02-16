@@ -78,7 +78,7 @@ function parseShape(
           if (isPartOfUnion) return {};
           continue;
         }
-        const result = fieldSchema?.safeParse(fieldData.data!);
+        const result = fieldSchema?.safeParse(fieldData.data);
         if (result?.success) parsed[key] = result?.data;
       } else if (fieldSchema instanceof z.ZodDefault) {
         const result = fieldSchema.safeParse(undefined);
