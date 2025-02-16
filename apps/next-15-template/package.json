@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dr:build": "pnpm dlx declarative-routing build",
+    "dr:build:watch": "pnpm dlx declarative-routing build --watch",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,6 +18,7 @@
     "lucide-react": "0.475.0",
     "next": "15.1.7",
     "next-themes": "0.4.4",
+    "query-string": "^9.1.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "server-only": "0.0.1",
