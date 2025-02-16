@@ -15,7 +15,19 @@ function processSchema(
   paramsArray: Record<string, string[]>,
 ): Record<string, any> {
   if (schema instanceof z.ZodOptional) {
-    schema = schema._def.innerType;
+function processSchema(
+  schema: z.ZodTypeAny,
+  paramsArray: Record<string, string[]>
+): Record<string, any> {
+  let finalSchema = schema;
+  if (finalSchema instanceof z.ZodOptional) {
+    finalSchema = finalSchema._def.innerType;
+  }
+
+  switch (finalSchema.constructor) {
+    // ...
+  }
+}
   }
   switch (schema.constructor) {
     case z.ZodObject: {
