@@ -145,7 +145,7 @@ function parseValues(schema: any, values: string[]): ParsedData<any> {
       }
     }
     default:
-      return { error: "unsupported type " + String(schema.constructor) };
+      return { error: `unsupported type ${String(schema.constructor)}` };
   }
 }
 
