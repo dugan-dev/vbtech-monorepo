@@ -20,10 +20,14 @@ export default $config({
       dev: "us-west-2",
     } as const;
 
+    const PROTECTED_STAGES = ["production"] as const;
+
     return {
       name: "vbtech-monorepo",
       removal: input?.stage === "production" ? "retain" : "remove",
-      protect: ["production"].includes(input?.stage),
+      protect: PROTECTED_STAGES.includes(
+        input.stage as (typeof PROTECTED_STAGES)[number],
+      ),
       home: "aws",
       providers: {
         aws: {
