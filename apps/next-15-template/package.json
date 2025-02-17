@@ -7,6 +7,7 @@
     "dev": "next dev --turbopack",
     "dr:build": "pnpm dlx declarative-routing build",
     "dr:build:watch": "pnpm dlx declarative-routing build --watch",
+    "ui:add": "pnpm dlx shadcn@canary add",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
