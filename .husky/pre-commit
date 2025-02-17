@@ -1,7 +1,7 @@
 echo "🔍 Checking if dependencies are missing or outdated..."
 
 # Check for changes in any package.json or pnpm-lock.yaml across the monorepo
-if git diff --cached --name-only | grep -E '(package.json|pnpm-lock.yaml)$' > /dev/null; then
+if git diff --cached --name-only | grep -E '(^|/)(package\.json|pnpm-lock\.yaml)$' > /dev/null; then
   echo "⚠️ Detected changes to dependencies. Running pnpm install --check..."
 
   # This ensures dependencies are installed and up to date
