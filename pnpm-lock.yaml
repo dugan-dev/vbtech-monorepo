@@ -14,6 +14,9 @@ importers:
       '@manypkg/cli':
         specifier: 0.23.0
         version: 0.23.0
+      '@types/aws-lambda':
+        specifier: 8.10.147
+        version: 8.10.147
       '@workspace/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
@@ -77,6 +80,9 @@ importers:
       sharp:
         specifier: 0.33.5
         version: 0.33.5
+      sst:
+        specifier: 3.9.4
+        version: 3.9.4
       zod:
         specifier: 3.24.2
         version: 3.24.2
@@ -1249,6 +1255,9 @@ packages:
   '@turbo/workspaces@2.4.2':
     resolution: {integrity: sha512-HdXoW7LxCL+cvoEx8SBdg98o7DupN48hEvoEeUJ08R0ud8cLHCO8/2heyG/X/Y60pY9uxhpwjsmn9l5Dx75uMA==}
     hasBin: true
+
+  '@types/aws-lambda@8.10.147':
+    resolution: {integrity: sha512-nD0Z9fNIZcxYX5Mai2CTmFD7wX7UldCkW2ezCF8D1T5hdiLsnTWDGRpfRYntU6VjTdLQjOvyszru7I1c1oCQew==}
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
@@ -4631,6 +4640,8 @@ snapshots:
       picocolors: 1.0.1
       semver: 7.6.2
       update-check: 1.5.4
+
+  '@types/aws-lambda@8.10.147': {}
 
   '@types/estree@1.0.6': {}
 
