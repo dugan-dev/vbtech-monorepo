@@ -15,19 +15,7 @@ function processSchema(
   paramsArray: Record<string, string[]>,
 ): Record<string, any> {
   if (schema instanceof z.ZodOptional) {
-function processSchema(
-  schema: z.ZodTypeAny,
-  paramsArray: Record<string, string[]>
-): Record<string, any> {
-  let finalSchema = schema;
-  if (finalSchema instanceof z.ZodOptional) {
-    finalSchema = finalSchema._def.innerType;
-  }
-
-  switch (finalSchema.constructor) {
-    // ...
-  }
-}
+    schema = schema._def.innerType;
   }
   switch (schema.constructor) {
     case z.ZodObject: {
@@ -79,9 +67,7 @@ function parseShape(
   const parsed: Record<string, any> = {};
 
   for (const key in shape) {
-    if (Object.hasOwn(shape, key)) {
-       ...
-    }
+    if (shape.hasOwnProperty(key)) {
       const fieldSchema: z.ZodTypeAny | undefined = shape[key];
       if (paramsArray[key]) {
         const fieldData = convertToRequiredType(paramsArray[key], fieldSchema!);
@@ -90,7 +76,7 @@ function parseShape(
           if (isPartOfUnion) return {};
           continue;
         }
-        const result = fieldSchema?.safeParse(fieldData.data);
+        const result = fieldSchema?.safeParse(fieldData.data!);
         if (result?.success) parsed[key] = result?.data;
       } else if (fieldSchema instanceof z.ZodDefault) {
         const result = fieldSchema.safeParse(undefined);
@@ -157,7 +143,7 @@ function parseValues(schema: any, values: string[]): ParsedData<any> {
       }
     }
     default:
-      return { error: `unsupported type ${String(schema.constructor)}` };
+      return { error: "unsupported type " + String(schema.constructor) };
   }
 }
 
@@ -194,13 +180,5 @@ function parseArray<T>(
   const numbers = values.map(parseFunction);
   const error = numbers.find((n) => n.error)?.error;
   if (error) return { error };
-  return {
-    data: numbers.map((n) => {
-      if (n.data === undefined) {
-        // handle undefined or error
-        return null;
-      }
-      return n.data;
-    }),
-  };
+  return { data: numbers.map((n) => n.data!) };
 }
