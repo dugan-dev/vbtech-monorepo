@@ -39,3 +39,6 @@ yarn-error.log*
 *.pem
 .tasks
 .mysql_data
+
+# sst
+.sst
