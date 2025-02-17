@@ -11,7 +11,7 @@ if git diff --cached --name-only | grep -E '(package.json|pnpm-lock.yaml)$' > /d
   fi
 fi
 
-echo "✅ Dependencies check passed.":w
+echo "✅ Dependencies check passed."
 
 pnpm lint
 pnpm format
