@@ -1,0 +1,44 @@
+{
+  "name": "web",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "dr:build": "pnpm dlx declarative-routing build",
+    "dr:build:watch": "pnpm dlx declarative-routing build --watch",
+    "ui:add": "pnpm dlx shadcn@canary add",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@calcom/embed-react": "1.5.2",
+    "@next/third-parties": "15.1.7",
+    "@t3-oss/env-nextjs": "0.12.0",
+    "@vercel/speed-insights": "1.2.0",
+    "@workspace/ui": "workspace:*",
+    "babel-plugin-react-compiler": "19.0.0-beta-21e868a-20250216",
+    "lucide-react": "0.475.0",
+    "next": "15.1.7",
+    "next-themes": "0.4.4",
+    "nextjs-linkedin-insight-tag": "0.0.6",
+    "query-string": "9.1.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "server-only": "0.0.1",
+    "sharp": "0.33.5",
+    "sst": "3.9.5",
+    "zod": "3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.4",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "postcss": "8.5.2",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.7.3"
+  }
+}
