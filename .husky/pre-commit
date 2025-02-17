@@ -1,3 +1,18 @@
+echo "🔍 Checking if dependencies are missing or outdated..."
+
+# Check for changes in any package.json or pnpm-lock.yaml across the monorepo
+if git diff --cached --name-only | grep -E '(^|/)(package\.json|pnpm-lock\.yaml)$' > /dev/null; then
+  echo "⚠️ Detected changes to dependencies. Running pnpm install --check..."
+
+  # This ensures dependencies are installed and up to date
+  if ! pnpm install --check > /dev/null; then
+    echo "🚨 Dependencies are missing or outdated! Run 'pnpm install' before committing."
+    exit 1 # Block the commit
+  fi
+fi
+
+echo "✅ Dependencies check passed."
+
 pnpm lint
 pnpm format
 #pnpm test:run
