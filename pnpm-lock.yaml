@@ -159,9 +159,6 @@ importers:
       sharp:
         specifier: 0.33.5
         version: 0.33.5
-      sst:
-        specifier: 3.9.6
-        version: 3.9.6
       zod:
         specifier: 3.24.2
         version: 3.24.2
