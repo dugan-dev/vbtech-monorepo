@@ -7,6 +7,8 @@ import "@workspace/ui/globals.css";
 import { Metadata } from "next";
 import { LinkedInInsightTag } from "nextjs-linkedin-insight-tag";
 
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 import { Providers } from "@/components/providers";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 
@@ -75,10 +77,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fontSans.variable} ${fontMono.variable} flex flex-1 font-sans antialiased`}
+        className={`${fontSans.variable} ${fontMono.variable} flex flex-col flex-1 font-sans antialiased`}
       >
         <Providers>
+          <Header />
           {children}
+          <Footer />
           <TailwindIndicator />
           <LinkedInInsightTag />
           <SpeedInsights />
