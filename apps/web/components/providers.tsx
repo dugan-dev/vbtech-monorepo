@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
+
+import { TooltipProvider } from "@workspace/ui/components/tooltip";
 
 /**
  * Wraps the provided children with a theme provider to manage the application's theme settings.
@@ -17,13 +18,5 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
  * </Providers>
  */
 export function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="light"
-      enableColorScheme
-    >
-      {children}
-    </NextThemesProvider>
-  );
+  return <TooltipProvider>{children}</TooltipProvider>;
 }
