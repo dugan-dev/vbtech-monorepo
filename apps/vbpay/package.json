@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --experimental-https --port 3001 --turbopack",
     "dr:build": "pnpm dlx declarative-routing build",
     "dr:build:watch": "pnpm dlx declarative-routing build --watch",
     "ui:add": "pnpm dlx shadcn@canary add",
