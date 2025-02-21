@@ -35,11 +35,11 @@ const MOBILE_DROPDOWN_STYLE =
 const MOBILE_DROPDOWN_ITEM_STYLE =
   "block text-sm text-gray-700 dark:text-gray-300 hover:text-primary transition-colors duration-200";
 
-export default function Header() {
+export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 w-full bg-white dark:bg-background shadow-md z-50">
+    <header className="fixed top-0 w-full bg-white shadow-md z-50 h-20">
       <nav className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold">
