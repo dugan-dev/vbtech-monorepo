@@ -14,6 +14,15 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 });
 
+/**
+ * Defines the root layout for the application.
+ *
+ * Sets up the HTML structure with the language attribute set to "en" and suppresses hydration warnings.
+ * Applies global font and antialiasing styles to the body element and wraps the provided children
+ * with a context provider for shared state and settings.
+ *
+ * @param children - The component tree to render within the layout.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -131,6 +131,17 @@ export type RouteBuilder<
   >;
 };
 
+/**
+ * Constructs a URL path builder from a dynamic route pattern.
+ *
+ * This function parses a route pattern that may include dynamic segments (e.g. "[id]"),
+ * catch-all segments (e.g. "[...slug]"), and optional catch-all segments (e.g. "[[...slug]]").
+ * It returns a builder function that takes an object of parameters and generates a URL path
+ * by replacing the dynamic placeholders with the corresponding values.
+ *
+ * @param route - The route pattern string containing dynamic or catch-all segments.
+ * @returns A function that accepts parameter values and returns the constructed URL path.
+ */
 function createPathBuilder<T extends Record<string, string | string[]>>(
   route: string,
 ): (params: T) => string {
@@ -175,6 +186,18 @@ function createPathBuilder<T extends Record<string, string | string[]>>(
   };
 }
 
+/**
+ * Creates a route builder function that validates and constructs a URL from a route template.
+ *
+ * This function returns a builder that accepts optional route parameters and search queries. The inputs are validated
+ * against the provided Zod schemas in the route metadata. If validation fails, an error is thrown with details about 
+ * the invalid input; otherwise, the builder returns a URL string with dynamic segments replaced and an appended query string 
+ * if search parameters are provided.
+ *
+ * @param route - A URL template that may include dynamic segments.
+ * @param info - Route metadata including a unique name and optional Zod schemas for validating route parameters and search queries.
+ * @returns A function that takes optional route parameters and search queries, validates them, and returns a constructed URL string.
+ */
 function createRouteBuilder<
   Params extends z.ZodSchema,
   Search extends z.ZodSchema,
@@ -210,6 +233,20 @@ function createRouteBuilder<
 
 const emptySchema = z.object({});
 
+/**
+ * Constructs a POST route builder with integrated schema validation.
+ *
+ * This function returns a route builder that validates the provided request body against a specified schema,
+ * constructs a URL using dynamic route parameters and search queries, and performs an HTTP POST request. The response
+ * is then validated against the expected result schema. Errors are thrown if the request body or response fails validation
+ * or if the fetch operation is unsuccessful.
+ *
+ * @param route - The URL pattern defining the endpoint.
+ * @param info - Route information including the route name and schemas for parameters and search queries.
+ * @param postInfo - Contains the schemas for validating the request body and the expected response.
+ *
+ * @returns A POST route builder function for executing type-safe POST requests.
+ */
 export function makePostRoute<
   Params extends z.ZodSchema,
   Search extends z.ZodSchema,
@@ -273,6 +310,20 @@ export function makePostRoute<
   return routeBuilder;
 }
 
+/**
+ * Creates a PUT route builder that validates both the request body and the response.
+ *
+ * The returned function validates the provided request body using a zod schema before executing a PUT request
+ * to a URL constructed from the given route information. After the request, it validates the JSON response against
+ * the expected result schema. If any validation fails or the HTTP response is unsuccessful, an error is thrown.
+ *
+ * @param route - The URL route template.
+ * @param info - Contains the route's name, parameter schema, and search query schema.
+ * @param putInfo - Contains the schemas for validating the request body and the response result.
+ * @returns A function that performs a PUT request with validated inputs and returns a Promise resolving to the validated response.
+ *
+ * @throws Throws an error if the body validation fails, if the HTTP response is not ok, or if the response validation fails.
+ */
 export function makePutRoute<
   Params extends z.ZodSchema,
   Search extends z.ZodSchema,
@@ -336,6 +387,19 @@ export function makePutRoute<
   return routeBuilder;
 }
 
+/**
+ * Constructs a GET route builder that performs a fetch request and validates its response.
+ *
+ * The returned function generates a URL based on the provided route and route information,
+ * then makes a GET request with optional route parameters, search queries, and fetch options.
+ * It checks for a successful HTTP response and validates the JSON payload against the specified
+ * Zod schema. If the fetch response is unsuccessful or the validation fails, an error is thrown.
+ *
+ * @param route - The base path for the route, potentially containing dynamic segments.
+ * @param info - An object containing route details including its name and the schemas for parameters and search queries.
+ * @param getInfo - Contains the result schema used to validate the fetched JSON response.
+ * @returns A GET route builder function that returns a promise resolving with the validated data.
+ */
 export function makeGetRoute<
   Params extends z.ZodSchema,
   Search extends z.ZodSchema,
@@ -380,6 +444,20 @@ export function makeGetRoute<
   return routeBuilder;
 }
 
+/**
+ * Creates a DELETE route builder that constructs a URL and performs a DELETE HTTP request.
+ *
+ * The returned function accepts optional URL parameters, search queries, and fetch options. It sends a DELETE request
+ * to the URL assembled from the provided route pattern and validation info. If the fetch response indicates failure,
+ * an error is thrown containing the route’s name and HTTP status text.
+ *
+ * @param route - The URL pattern for the route, which may include dynamic segments.
+ * @param info - An object defining the route, including its name and zod schemas for validating parameters and search queries.
+ *
+ * @returns A function that makes a DELETE request to the generated URL.
+ *
+ * @throws Error - Thrown if the DELETE request does not return a successful response.
+ */
 export function makeDeleteRoute<
   Params extends z.ZodSchema,
   Search extends z.ZodSchema,
@@ -416,6 +494,22 @@ export function makeDeleteRoute<
   return routeBuilder;
 }
 
+/**
+ * Creates a type-safe route builder with integrated React link components.
+ *
+ * This function initializes a route builder from a given URL pattern and route configuration. It augments the builder
+ * with two React components, `ParamsLink` and `Link`, that generate links by validating and embedding route parameters and
+ * search queries using the provided Zod schemas.
+ *
+ * @param route - The URL pattern for the route.
+ * @param info - An object defining the route, including its name and validation schemas for parameters and search queries.
+ *
+ * @returns A route builder that provides methods for URL generation and React components for link creation.
+ *
+ * @remarks
+ * Route parameters and search queries are validated against the provided schemas. If validation fails, errors thrown by the
+ * Zod parsing functions will propagate.
+ */
 export function makeRoute<
   Params extends z.ZodSchema,
   Search extends z.ZodSchema = typeof emptySchema,
