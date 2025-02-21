@@ -7,8 +7,8 @@ import "@workspace/ui/globals.css";
 import { Metadata } from "next";
 import { LinkedInInsightTag } from "nextjs-linkedin-insight-tag";
 
-import Footer from "@/components/footer";
-import Header from "@/components/header";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import { Providers } from "@/components/providers";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 

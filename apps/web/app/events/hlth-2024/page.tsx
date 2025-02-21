@@ -1,8 +1,6 @@
 import Image from "next/image";
 import { Briefcase, DollarSign, MapPin, Monitor, Video } from "lucide-react";
 
-import { Header } from "@/components/header";
-
 export const metadata = {
   title: "VB Tech at HLTH 2024",
   description:
@@ -30,8 +28,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center flex-1">
-      <Header />
+    <div className="mt-20 flex flex-col items-center flex-1">
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
         <section className="bg-[#252c37] text-white rounded-md">
