@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function HLTH2024Banner() {
+export function HLTH2024Banner() {
   return (
     <div className="w-full bg-[#252c37] py-3">
       <Link
