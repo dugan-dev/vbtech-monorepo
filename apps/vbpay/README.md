@@ -1,89 +1,50 @@
-# Next.js 15 Template
+# VB Pay
 
-This is a template application built with Next.js 15 and the App Router. It includes our standard configuration and can be used as a starting point for new applications.
+VBPay is a payment administration platform designed for managing payments in Accountable Care Organizations (ACO) and Value-Based Care (VBC) environments. It provides a robust interface for handling payment-related operations and administrative tasks.
 
-## Features
+## Tech Stack
 
 - Next.js 15 with App Router
-- TypeScript
-- Tailwind CSS
+- TypeScript for type safety
+- Tailwind CSS for styling
 - shadcn/ui components with custom theme
-- Type-safe routing with Declarative Routes
-- Type-safe environment variables with t3-env
+- Type-safe routing using Declarative Routes
+- Type-safe environment variables
 - Automatic component imports
 - Custom font configuration (Geist)
 
-## Creating a New App
+## Getting Started
 
-1. Copy the template:
+1. Install dependencies:
+   ```bash
+   pnpm install
+   Set up environment variables:
+   ```
 
-```bash
-cp -r apps/next-15-template apps/your-app-name
-```
+cp .env.example .env
+Update the following configuration files as needed:
 
-2. Update package information:
+next.config.ts - Next.js configuration
+env/server.ts - Server environment variables
+env/client.ts - Client environment variables
+components.json - UI component configuration
+Development
+pnpm dev
+The application will be available at http://localhost:3001.
 
-   - Change `name` in `package.json`
-   - Update import paths if needed
-   - Add app-specific dependencies
-
-3. Update configuration files:
-   - `next.config.ts`: Add app-specific Next.js configuration
-   - `env/server.ts` and `env/client.ts`: Define required environment variables
-   - `components.json`: Modify component library settings if needed
-
-## Base Configuration
-
-### TypeScript
-
-The template leverages the workspace TypeScript configuration with Next.js-specific settings.
-
-### Component Library
-
-Uses shadcn/ui with a custom configuration that shares UI components from the shared UI workspace.
-
-### Environment Variables
-
-Type-safe environment variables are configured using `@t3-oss/env-nextjs`. Add your variables to:
-
-- `env/server.ts` for server-only variables
-- `env/client.ts` for client-safe variables
-
-### Routing
-
-Uses Declarative Routes for type-safe routing. See the routes documentation for details: [README.md](./routes/README.md)
-
-## Development
-
-1. Copy environment variables:
-
-```bash
-cp .env.example .env.local
-```
-
-2. Start the development server:
-
-```bash
-pnpm dev --filter <app-name>
-```
-
-## Project Structure
-
-```
-├── app/ # App Router pages and layouts
-├── components/ # React components
-├── env/ # Environment variable configuration
+Project Structure
+apps/vbpay/
+├── app/ # App pages and API routes
+├── components/ # Reusable UI components
+├── env/ # Environment configuration
 ├── hooks/ # Custom React hooks
-├── lib/ # Utility functions
-└── routes/ # Type-safe route definitions
-```
-
-## Adding UI Components
-
-Use the UI add command to add new shadcn/ui components:
-
-```bash
-pnpm ui:add <component-name>
-```
-
-This will add the component to the shared UI package and make it available to all apps.
+├── routes/ # Type-safe route definitions
+└── utils/ # Utility functions
+Adding New UI Components
+pnpm ui:add [component-name]
+Type-Safe Features
+Routing: Using Declarative Routes for type-safe navigation
+Environment Variables: Zod schema validation for runtime safety
+API Routes: Type-safe API endpoints with request/response validation
+Documentation
+For more details about the routing system and type-safe features, refer to the documentation in the routes/README.md file.
