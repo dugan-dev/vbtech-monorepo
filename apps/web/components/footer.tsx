@@ -1,55 +1,57 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Linkedin, Mail } from "lucide-react";
 
-export default function Footer() {
+export function Footer() {
   return (
-    <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 py-10">
+    <footer className="bg-primary border-t border-gray-200 py-10 text-secondary">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo & About */}
           <div>
             <Link href="/">
-              <img
-                src="/vbtech-logo-horizontal.png"
+              <Image
+                src="/vbtech-logo-verticle.png"
+                width={200}
+                height={100}
                 alt="VB Tech Logo"
-                className="w-48 dark:invert"
               />
             </Link>
-            <p className="mt-4 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            <p className="mt-4 text-sm leading-relaxed">
               Streamlining healthcare operations through expert consulting, TPA
               services, and tech solutions.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Quick Links
-            </h3>
-            <ul className="mt-4 space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+          <div className="md:ml-12">
+            <h3 className="text-lg font-semibold ">Quick Links</h3>
+            <ul className="mt-4 space-y-2 text-sm">
               <li>
-                <Link href="/" className="hover:text-primary transition">
+                <Link href="/" className="hover:text-white transition">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-primary transition">
+                <Link href="/about" className="hover:text-white transition">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-primary transition">
+                <Link href="/contact" className="hover:text-white transition">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/privacy-policy"
-                  className="hover:text-primary transition"
-                >
+                <Link href="/privacy" className="hover:text-white transition">
                   Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-white transition">
+                  Terms of Use
                 </Link>
               </li>
             </ul>
@@ -57,14 +59,12 @@ export default function Footer() {
 
           {/* Services & Solutions */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Services & Solutions
-            </h3>
-            <ul className="mt-4 space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+            <h3 className="text-lg font-semibold ">Services & Solutions</h3>
+            <ul className="mt-4 space-y-2  text-sm">
               <li>
                 <Link
                   href="/consulting"
-                  className="hover:text-primary transition"
+                  className="hover:text-white transition"
                 >
                   Consulting Services
                 </Link>
@@ -72,7 +72,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/tpa-services"
-                  className="hover:text-primary transition"
+                  className="hover:text-white transition"
                 >
                   TPA Services
                 </Link>
@@ -80,7 +80,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/bpaas/vbpay"
-                  className="hover:text-primary transition"
+                  className="hover:text-white transition"
                 >
                   VB Pay
                 </Link>
@@ -88,7 +88,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/bpaas/backend-payments"
-                  className="hover:text-primary transition"
+                  className="hover:text-white transition"
                 >
                   Backend Payment Processing
                 </Link>
@@ -96,7 +96,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/bpaas/sox-compliance"
-                  className="hover:text-primary transition"
+                  className="hover:text-white transition"
                 >
                   SOX Compliance Tool
                 </Link>
@@ -106,7 +106,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Footer */}
-        <div className="mt-10 flex flex-col md:flex-row items-center justify-between text-gray-600 dark:text-gray-400 text-sm border-t border-gray-200 dark:border-gray-700 pt-6">
+        <div className="mt-10 flex flex-col md:flex-row items-center justify-between text-sm border-t border-gray-200 pt-6 text-secondary">
           <p>&copy; {new Date().getFullYear()} VB Tech. All rights reserved.</p>
 
           {/* Social & Contact Icons */}
@@ -114,13 +114,13 @@ export default function Footer() {
             <Link
               href="https://www.linkedin.com/company/valuebasedtech"
               target="_blank"
-              className="hover:text-primary transition"
+              className="hover:text-white transition"
             >
               <Linkedin className="w-5 h-5" />
             </Link>
             <Link
               href="mailto:info@valuebasedtech.com"
-              className="hover:text-primary transition"
+              className="hover:text-white transition"
             >
               <Mail className="w-5 h-5" />
             </Link>
