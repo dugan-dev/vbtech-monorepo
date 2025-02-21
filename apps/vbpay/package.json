@@ -33,7 +33,7 @@
     "@types/react-dom": "19.0.4",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
-    "postcss": "8.5.2",
+    "postcss": "8.5.3",
     "tailwindcss": "3.4.17",
     "typescript": "5.7.3"
   }
