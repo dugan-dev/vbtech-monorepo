@@ -8,13 +8,9 @@ import {
 } from "@workspace/ui/components/avatar";
 import { Card } from "@workspace/ui/components/card";
 
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
-
 export default function Page() {
   return (
-    <div className="flex flex-col items-center flex-1">
-      <Header />
+    <div className="mt-20 flex flex-col items-center flex-1">
       <section className="py-12">
         <div className="container px-4 md:px-6">
           <div className="grid gap-10 sm:px-10 md:grid-cols-2 md:gap-16">
@@ -187,7 +183,6 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
   );
 }
