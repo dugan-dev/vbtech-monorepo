@@ -112,6 +112,73 @@ importers:
         specifier: 5.7.3
         version: 5.7.3
 
+  apps/vbpay:
+    dependencies:
+      '@t3-oss/env-nextjs':
+        specifier: 0.12.0
+        version: 0.12.0(typescript@5.7.3)(zod@3.24.2)
+      '@workspace/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      babel-plugin-react-compiler:
+        specifier: 19.0.0-beta-21e868a-20250216
+        version: 19.0.0-beta-21e868a-20250216
+      lucide-react:
+        specifier: 0.475.0
+        version: 0.475.0(react@19.0.0)
+      next:
+        specifier: 15.1.7
+        version: 15.1.7(babel-plugin-react-compiler@19.0.0-beta-21e868a-20250216)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next-themes:
+        specifier: 0.4.4
+        version: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      query-string:
+        specifier: 9.1.1
+        version: 9.1.1
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+      server-only:
+        specifier: 0.0.1
+        version: 0.0.1
+      sharp:
+        specifier: 0.33.5
+        version: 0.33.5
+      sst:
+        specifier: 3.9.7
+        version: 3.9.7
+      zod:
+        specifier: 3.24.2
+        version: 3.24.2
+    devDependencies:
+      '@types/node':
+        specifier: 22.13.4
+        version: 22.13.4
+      '@types/react':
+        specifier: 19.0.10
+        version: 19.0.10
+      '@types/react-dom':
+        specifier: 19.0.4
+        version: 19.0.4(@types/react@19.0.10)
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      postcss:
+        specifier: 8.5.2
+        version: 8.5.2
+      tailwindcss:
+        specifier: 3.4.17
+        version: 3.4.17(ts-node@10.9.2(@types/node@22.13.4)(typescript@5.7.3))
+      typescript:
+        specifier: 5.7.3
+        version: 5.7.3
+
   apps/web:
     dependencies:
       '@calcom/embed-react':
