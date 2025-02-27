@@ -1,5 +1,7 @@
 /// <reference path="./.sst/platform/config.d.ts" />
 
+import { Auth } from "./infra/auth.js";
+
 export default $config({
   app(input) {
     const validStages = ["production", "staging", "dev"];
@@ -38,5 +40,22 @@ export default $config({
     };
   },
 
-  async run() {},
+  async run() {
+    const stage = $app.stage;
+    const client = process.env.VBTECH_CLIENT || undefined;
+
+    if (!client) {
+      throw new Error("Missing required environment variable: VBTECH_CLIENT");
+    }
+
+    const { userPool, userPoolClient, identityPool } = await Auth({
+      stage,
+    });
+
+    return {
+      userPool,
+      userPoolClient,
+      identityPool,
+    };
+  },
 });
