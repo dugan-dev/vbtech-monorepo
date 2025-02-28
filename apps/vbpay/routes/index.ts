@@ -2,6 +2,7 @@
 import { z } from "zod";
 
 import * as HomeRoute from "@/app/page.info";
+import * as SigninPageRoute from "@/app/sign-in/[[...sign-in]]/page.info";
 
 import { makeRoute } from "./makeRoute";
 
@@ -12,4 +13,8 @@ const defaultInfo = {
 export const Home = makeRoute("/", {
   ...defaultInfo,
   ...HomeRoute.Route,
+});
+export const SigninPage = makeRoute("/sign-in/[[...sign-in]]", {
+  ...defaultInfo,
+  ...SigninPageRoute.Route,
 });
