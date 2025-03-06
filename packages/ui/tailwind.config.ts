@@ -73,6 +73,20 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
     },
+    keyframes: {
+      "caret-blink": {
+        "0%,70%,100%": { opacity: "1" },
+        "20%,50%": { opacity: "0" },
+      },
+      spin: {
+        "0%": { transform: "rotate(0deg)" },
+        "100%": { transform: "rotate(360deg)" },
+      },
+    },
+    animation: {
+      "caret-blink": "caret-blink 1.25s ease-out infinite",
+      spin: "spin 1s linear infinite",
+    },
   },
   plugins: [tailwindcssAnimate],
 } satisfies Config;
