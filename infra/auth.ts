@@ -1,9 +1,26 @@
 export async function Auth({ stage }: { stage: string }) {
+  // Create DynamoDB Table
+  const userPermissionsTable = new sst.aws.Dynamo("UserPermissionsTable", {
+    fields: {
+      userId: "string", // Partition Key: "<userId> from cognito"
+      appName: "string", // Sort Key: "<appId> from Apps type"
+      type: "string", // Type assigned to user in the app (e.g., bpo, payer, physicians, etc.)
+      entities: "list", // List of entity IDs user can access
+      permissions: "map", // Map of entity permissions (e.g., { "Entity_1": ["READ", "WRITE"] })
+    },
+    primaryIndex: { hashKey: "userId", rangeKey: "appName" },
+    globalIndexes: {
+      TypeIndex: { hashKey: "type", rangeKey: "userId" },
+      EntityIndex: { hashKey: "entities", rangeKey: "userId" },
+      PermissionIndex: { hashKey: "permissions", rangeKey: "userId" },
+    },
+  });
+
   // Create Cognito User Pool
   const userPool = new sst.aws.CognitoUserPool("UserPool", {
     advancedSecurityMode:
       stage === "production" || stage === "staging" ? "enforced" : undefined,
-    userNames: ["email"],
+    usernames: ["email"],
     mfa: "on",
     softwareToken: true,
     transform: {
@@ -17,57 +34,6 @@ export async function Auth({ stage }: { stage: string }) {
           requireUppercase: true,
           temporaryPasswordValidityDays: 3,
         };
-        args.schemas = [
-          {
-            attributeDataType: "String",
-            developerOnlyAttribute: false,
-            mutable: true,
-            name: "vbtech_apps",
-            required: false,
-          },
-          {
-            attributeDataType: "String",
-            developerOnlyAttribute: false,
-            mutable: true,
-            name: "vbpay_userType",
-            required: false,
-          },
-          {
-            attributeDataType: "String",
-            developerOnlyAttribute: false,
-            mutable: true,
-            name: "vbpay_entities",
-            required: false,
-          },
-          {
-            attributeDataType: "String",
-            developerOnlyAttribute: false,
-            mutable: true,
-            name: "vbpay_roles",
-            required: false,
-          },
-          {
-            attributeDataType: "String",
-            developerOnlyAttribute: false,
-            mutable: true,
-            name: "sox_userType",
-            required: false,
-          },
-          {
-            attributeDataType: "String",
-            developerOnlyAttribute: false,
-            mutable: true,
-            name: "sox_entities",
-            required: false,
-          },
-          {
-            attributeDataType: "String",
-            developerOnlyAttribute: false,
-            mutable: true,
-            name: "sox_roles",
-            required: false,
-          },
-        ];
       },
     },
   });
@@ -85,27 +51,36 @@ export async function Auth({ stage }: { stage: string }) {
   });
 
   // Create Cognito Identity Pool
-  const identityPool = new sst.aws.CognitoIdentityPool(
-    `IdentityPool`,
-    {
-      userPool: userPool.id,
-      client: userPoolClient.id,
-    },
-    {
-      permissions: {
-        authenticated: [
-          {
-            actions: [],
-            resources: [],
-          },
-        ],
+  const identityPool = new sst.aws.CognitoIdentityPool("IdentityPool", {
+    userPools: [
+      {
+        userPool: userPool.id,
+        client: userPoolClient.id,
       },
+    ],
+    permissions: {
+      authenticated: [
+        {
+          actions: [
+            "dynamodb:Query",
+            "dynamodb:Scan",
+            "dynamodb:GetItem",
+            "dynamodb:PutItem",
+            "dynamodb:DeleteItem",
+            "dynamodb:UpdateItem",
+            "dynamodb:BatchGetItem",
+            "dynamodb:BatchWriteItem",
+          ],
+          resources: [userPermissionsTable.table.arn],
+        },
+      ],
     },
-  );
+  });
 
   return {
     userPool,
     userPoolClient,
     identityPool,
+    userPermissionsTable,
   };
 }
