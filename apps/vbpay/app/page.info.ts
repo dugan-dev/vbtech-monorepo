@@ -1,6 +1,6 @@
 import { z } from "zod";
 
 export const Route = {
-  name: "Home",
+  name: "HomePage",
   params: z.object({}),
 };
