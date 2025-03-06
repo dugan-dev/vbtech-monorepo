@@ -1,5 +1,7 @@
 /// <reference path="./.sst/platform/config.d.ts" />
 
+import { Auth } from "./infra/auth.js";
+
 export default $config({
   app(input) {
     const validStages = ["production", "staging", "dev"];
@@ -38,5 +40,44 @@ export default $config({
     };
   },
 
-  async run() {},
+  async run() {
+    // Determine which infrastructure to deploy based on environment
+    const enableVBPay = process.env.VBPAY_ENABLED || false;
+    const enableVBLink = process.env.VBLINK_ENABLED || false;
+    const enableVBComply = process.env.VBCOMPLY_ENABLED || false;
+
+    // If no infrastructure is enabled, throw an error
+    if (!enableVBPay && !enableVBLink && !enableVBComply) {
+      throw new Error(
+        "Missing required environment variable: VBPAY_ENABLED, VBLINK_ENABLED, or VBCOMPLY_ENABLED",
+      );
+    }
+
+    const client = process.env.VBTECH_CLIENT || undefined;
+
+    if (!client) {
+      throw new Error("Missing required environment variable: VBTECH_CLIENT");
+    }
+
+    const stage = $app.stage;
+
+    /* const vpc = new sst.aws.Vpc("Vpc", {
+      nat: "ec2",
+      bastion: true,
+      az: stage === "production" ? 2 : 1,
+    }); */
+
+    const { userPool, userPoolClient, identityPool, userPermissionsTable } =
+      await Auth({
+        stage,
+      });
+
+    return {
+      userPool,
+      userPoolClient,
+      identityPool,
+      userPermissionsTable,
+      // vpc,
+    };
+  },
 });

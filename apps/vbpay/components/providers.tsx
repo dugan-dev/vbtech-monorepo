@@ -1,18 +1,21 @@
 "use client";
 
 import * as React from "react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+
+import { TooltipProvider } from "@workspace/ui/components/tooltip";
+
+import { AuthProvider } from "@/components/auth-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-      enableColorScheme
-    >
-      {children}
-    </NextThemesProvider>
+    <AuthProvider>
+      <NuqsAdapter>
+        <TooltipProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </TooltipProvider>
+      </NuqsAdapter>
+    </AuthProvider>
   );
 }
