@@ -13,7 +13,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/adapter-nextjs": "1.5.3",
+    "@aws-amplify/adapter-nextjs": "1.5.4",
     "@hookform/resolvers": "4.1.3",
     "@radix-ui/react-icons": "1.3.2",
     "@t3-oss/env-nextjs": "0.12.0",
