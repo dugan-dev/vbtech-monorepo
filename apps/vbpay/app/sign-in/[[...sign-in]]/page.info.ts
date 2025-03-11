@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const Route = {
-  name: "SigninPage",
+  name: "SignIn",
   params: z.object({}),
   query: z.object({ flow: z.string() }),
 };
