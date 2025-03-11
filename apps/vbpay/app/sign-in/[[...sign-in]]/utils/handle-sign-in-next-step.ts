@@ -1,5 +1,3 @@
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { HomePage } from "@/routes";
 import { SignInOutput } from "aws-amplify/auth";
 
 export function handleSignInNextStep(
@@ -7,8 +5,6 @@ export function handleSignInNextStep(
   setCurrentState: React.Dispatch<React.SetStateAction<SignInOutput | null>>,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   handleError: (message: string) => void,
-  router: AppRouterInstance,
-  redirectUrl: string | null,
 ) {
   switch (output.nextStep.signInStep) {
     case "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED":
@@ -18,7 +14,7 @@ export function handleSignInNextStep(
       setIsLoading(false);
       break;
     case "DONE":
-      router.push(redirectUrl || HomePage({}));
+      window.location.reload();
       setIsLoading(false);
       break;
     default:
