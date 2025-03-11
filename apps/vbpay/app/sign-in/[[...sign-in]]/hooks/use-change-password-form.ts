@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { getErrorMessage } from "@/utils/get-error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { confirmSignIn, SignInOutput } from "aws-amplify/auth";
@@ -19,11 +18,6 @@ type props = {
 };
 
 export function useChangePasswordForm({ setCurrentState }: props) {
-  const searchParams = useSearchParams();
-  const redirect_url = searchParams.get("redirect_url");
-
-  const router = useRouter();
-
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -60,14 +54,7 @@ export function useChangePasswordForm({ setCurrentState }: props) {
       return;
     }
 
-    handleSignInNextStep(
-      output,
-      setCurrentState,
-      setIsLoading,
-      handleError,
-      router,
-      redirect_url,
-    );
+    handleSignInNextStep(output, setCurrentState, setIsLoading, handleError);
   };
 
   return {
