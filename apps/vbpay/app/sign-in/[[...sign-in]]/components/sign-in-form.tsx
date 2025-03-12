@@ -15,9 +15,16 @@ import { useSignInForm } from "../hooks/use-sign-in-form";
 type props = {
   setCurrentState: React.Dispatch<React.SetStateAction<SignInOutput | null>>;
   setEmail: React.Dispatch<React.SetStateAction<string | null>>;
+  setEmailForReset: React.Dispatch<React.SetStateAction<string | null>>;
+  handleForgotPassword: (email: string) => Promise<void>;
 };
 
-export function SignInForm({ setCurrentState, setEmail }: props) {
+export function SignInForm({
+  setCurrentState,
+  setEmail,
+  setEmailForReset,
+  handleForgotPassword,
+}: props) {
   const {
     form,
     onSubmit,
@@ -56,14 +63,15 @@ export function SignInForm({ setCurrentState, setEmail }: props) {
           type="button"
           variant="link"
           className="justify-self-end text-sm text-primary hover:underline"
-          onClick={() => {
-            if (!form.getValues("email")) {
+          onClick={async () => {
+            const email = form.getValues("email");
+            if (!email) {
               form.setError("email", {
                 message: "Required",
               });
             } else {
-              // TODO
-              // handleForgotPassword(signInForm.getValues("email"));
+              setEmailForReset(email);
+              await handleForgotPassword(email);
             }
           }}
           disabled={isLoading}
