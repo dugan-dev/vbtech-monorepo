@@ -51,6 +51,9 @@ export function useUpdatePasswordForm({ closeDialog }: props) {
 
     toast("Success", {
       description: "Your password has been updated successfully.",
+      dismissible: true,
+      duration: 10000,
+      position: "top-center",
     });
   };
 
