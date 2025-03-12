@@ -4,12 +4,12 @@ import { SignIn } from "./routes";
 import { authenticatedUser } from "./utils/amplify-server-utils";
 
 export async function middleware(request: NextRequest) {
-  console.log("middleware");
   const user = await authenticatedUser();
 
   const isOnSignInPage = request.nextUrl.pathname.startsWith("/sign-in");
 
   if (isOnSignInPage) {
+    // If the user is signed in, redirect them away from the sign in page
     if (user) {
       return NextResponse.redirect(new URL("/", request.url));
     }
