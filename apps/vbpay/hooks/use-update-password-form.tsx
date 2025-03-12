@@ -42,7 +42,7 @@ export function useUpdatePasswordForm({ closeDialog }: props) {
       });
     } catch (e) {
       console.error(e);
-      openErrorDialog("Error", getErrorMessage(getErrorMessage(e)));
+      openErrorDialog("Error", getErrorMessage(e));
       setIsLoading(false);
       return;
     }
