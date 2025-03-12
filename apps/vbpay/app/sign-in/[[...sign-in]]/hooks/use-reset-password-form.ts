@@ -45,8 +45,11 @@ export function useResetPasswordForm({
     setIsLoading(true);
 
     try {
+      if (!emailForReset) {
+        throw new Error("Email is required for password reset");
+      }
       await confirmResetPassword({
-        username: emailForReset!,
+        username: emailForReset,
         confirmationCode: formData.code,
         newPassword: formData.password,
       });
