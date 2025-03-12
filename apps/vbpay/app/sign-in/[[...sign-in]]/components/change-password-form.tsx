@@ -3,15 +3,8 @@
 import { SignInOutput } from "aws-amplify/auth";
 
 import { Button } from "@workspace/ui/components/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@workspace/ui/components/form";
-import { Input } from "@workspace/ui/components/input";
+import { Form } from "@workspace/ui/components/form";
+import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
 
 import { ErrorDialog } from "@/components/error-dialog";
 import { Icons } from "@/components/icons";
@@ -31,10 +24,6 @@ export function ChangePasswordForm({ setCurrentState }: props) {
     closeErrorDialog,
     errorMsg,
     errorTitle,
-    showPassword,
-    setShowPassword,
-    showConfirmPassword,
-    setShowConfirmPassword,
   } = useChangePasswordForm({ setCurrentState });
 
   return (
@@ -48,72 +37,19 @@ export function ChangePasswordForm({ setCurrentState }: props) {
         />
       )}
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2 py-4">
-        <FormField
+        <FormPasswordInput
           control={form.control}
           name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Input {...field} type={showPassword ? "text" : "password"} />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-2 top-1/2 h-7 w-7 -translate-y-1/2"
-                    onClick={() => setShowPassword((prev: boolean) => !prev)}
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
-                  >
-                    {showPassword ? (
-                      <Icons.eyeOff className="h-4 w-4" />
-                    ) : (
-                      <Icons.eye className="h-4 w-4" />
-                    )}
-                  </Button>
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="New Password"
+          isRequired
+          isDisabled={isLoading}
         />
-        <FormField
+        <FormPasswordInput
           control={form.control}
           name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Input
-                    {...field}
-                    type={showConfirmPassword ? "text" : "password"}
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-2 top-1/2 h-7 w-7 -translate-y-1/2"
-                    onClick={() =>
-                      setShowConfirmPassword((prev: boolean) => !prev)
-                    }
-                    aria-label={
-                      showConfirmPassword ? "Hide password" : "Show password"
-                    }
-                  >
-                    {showConfirmPassword ? (
-                      <Icons.eyeOff className="h-4 w-4" />
-                    ) : (
-                      <Icons.eye className="h-4 w-4" />
-                    )}
-                  </Button>
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Confirm Password"
+          isRequired
+          isDisabled={isLoading}
         />
         <Button type="submit" disabled={isLoading} className="mt-8">
           {isLoading ? (

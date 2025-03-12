@@ -19,8 +19,6 @@ type props = {
 
 export function useChangePasswordForm({ setCurrentState }: props) {
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     isErrorDialogOpen,
@@ -65,9 +63,5 @@ export function useChangePasswordForm({ setCurrentState }: props) {
     closeErrorDialog,
     errorMsg,
     errorTitle,
-    showPassword,
-    setShowPassword,
-    showConfirmPassword,
-    setShowConfirmPassword,
   };
 }
