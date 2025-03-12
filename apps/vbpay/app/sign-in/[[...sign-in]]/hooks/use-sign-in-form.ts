@@ -19,7 +19,6 @@ type props = {
 };
 
 export function useSignInForm({ setCurrentState, setEmail }: props) {
-  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -64,8 +63,6 @@ export function useSignInForm({ setCurrentState, setEmail }: props) {
   return {
     form,
     onSubmit,
-    showPassword,
-    setShowPassword,
     isLoading,
     isErrorDialogOpen,
     closeErrorDialog,

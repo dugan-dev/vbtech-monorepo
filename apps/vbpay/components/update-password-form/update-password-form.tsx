@@ -1,31 +1,27 @@
 "use client";
 
-import { SignInOutput } from "aws-amplify/auth";
-
 import { Button } from "@workspace/ui/components/button";
 import { Form } from "@workspace/ui/components/form";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
 
+import { useUpdatePasswordForm } from "@/hooks/use-update-password-form";
 import { ErrorDialog } from "@/components/error-dialog";
 import { Icons } from "@/components/icons";
 
-import { useChangePasswordForm } from "../hooks/use-change-password-form";
-
 type props = {
-  setCurrentState: React.Dispatch<React.SetStateAction<SignInOutput | null>>;
+  closeDialog: () => void;
 };
 
-export function ChangePasswordForm({ setCurrentState }: props) {
+export function UpdatePasswordForm({ closeDialog }: props) {
   const {
     form,
+    isErrorDialogOpen,
+    errorTitle,
+    errorMsg,
+    closeErrorDialog,
     onSubmit,
     isLoading,
-    isErrorDialogOpen,
-    closeErrorDialog,
-    errorMsg,
-    errorTitle,
-  } = useChangePasswordForm({ setCurrentState });
-
+  } = useUpdatePasswordForm({ closeDialog });
   return (
     <Form {...form}>
       {isErrorDialogOpen && (
@@ -36,29 +32,34 @@ export function ChangePasswordForm({ setCurrentState }: props) {
           onOpenChange={closeErrorDialog}
         />
       )}
+
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2 py-4">
         <FormPasswordInput
           control={form.control}
-          name="password"
+          name="currentPassword"
+          label="Current Password"
+          isRequired
+        />
+        <FormPasswordInput
+          control={form.control}
+          name="newPassword"
           label="New Password"
           isRequired
-          isDisabled={isLoading}
         />
         <FormPasswordInput
           control={form.control}
           name="confirmPassword"
           label="Confirm Password"
           isRequired
-          isDisabled={isLoading}
         />
-        <Button type="submit" disabled={isLoading} className="mt-8">
+        <Button type="submit" disabled={isLoading} className="mt-4">
           {isLoading ? (
             <>
               <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
-              {"Changing password..."}
+              {"Updating..."}
             </>
           ) : (
-            "Change password"
+            "Update Password"
           )}
         </Button>
       </form>

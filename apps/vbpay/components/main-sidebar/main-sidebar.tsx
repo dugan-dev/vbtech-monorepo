@@ -29,12 +29,13 @@ import { UserType } from "@/types/user-type";
 import { useAppSidebarItems } from "@/hooks/use-main-sidebar";
 import { Icons } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { UserAvatar } from "@/components/user-avatar";
 
 type props = {
-  firstName: string | undefined;
-  lastName: string | undefined;
-  email: string | undefined;
-  userType: UserType | undefined;
+  firstName: string;
+  lastName: string;
+  email: string;
+  userType: UserType;
   slug: string | undefined;
   hasLicense: boolean;
 };
@@ -150,9 +151,6 @@ export function MainSidebar({
                                 isActive={pathname === subItem.href}
                                 className="text-lg"
                                 data-testid={`app-sidebar-submenu-item-${subItem.title.toLowerCase()}`}
-                                onClick={() => {
-                                  console.log("clicked", subItem.href);
-                                }}
                               >
                                 <Link href={subItem.href || ""}>
                                   {subItem.icon && (
@@ -173,9 +171,6 @@ export function MainSidebar({
                       isActive={pathname === item.href}
                       className="text-lg"
                       data-testid={`app-sidebar-menu-item-${item.title.toLowerCase()}`}
-                      onClick={() => {
-                        console.log("clicked", item.href);
-                      }}
                     >
                       <Link href={item.href ?? ""}>
                         {item.icon && <item.icon className="mr-2" />}
@@ -190,9 +185,6 @@ export function MainSidebar({
                       data-testid={`app-sidebar-menu-item-${item.title.toLowerCase()}`}
                       disabled={true}
                       data-disabled="true"
-                      onClick={() => {
-                        console.log("clicked", item.href);
-                      }}
                     >
                       {item.icon && <item.icon className="mr-2" />}
                       <span>{item.title}</span>
@@ -206,8 +198,7 @@ export function MainSidebar({
       </SidebarContent>
       <SidebarFooter>
         <div className="mb-4 mt-4 flex items-center gap-4 px-4">
-          User Avatar Here
-          {/* TODO: Replace with user avatar. Currently, this is a placeholder. */}
+          <UserAvatar firstName={firstName} lastName={lastName} email={email} />
           <div className="min-w-0 flex-1">
             <p
               className="max-w-[180px] truncate text-sm font-medium"
