@@ -7,7 +7,7 @@
     "local:start": "docker compose -f src/docker/local-mysql-db.yml up -d",
     "local:stop": "docker compose -f src/docker/local-mysql-db.yml down",
     "local:clean": "docker compose -f src/docker/local-mysql-db.yml down -v && rm -rf .mysql_data",
-    "local:restart": "pnpm run db:stop && pnpm run db:start",
+    "local:restart": "pnpm run local:stop && pnpm run local:start",
     "local:clean:restart": "pnpm run local:stop && pnpm run local:clean && pnpm run local:start",
     "migrate:dev": "sst bind -- pnpm exec prisma migrate dev",
     "migrate:deploy": "sst bind -- pnpm exec prisma migrate deploy",
