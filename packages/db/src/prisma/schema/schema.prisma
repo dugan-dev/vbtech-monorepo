@@ -13,6 +13,6 @@ generator kysely {
 
 datasource db {
         provider     = "mysql"
-        url          = "mysql://root:vbtech@localhost:3306/vbtech"
+        url          = env("DATABASE_URL")
         relationMode = "prisma"
 }
