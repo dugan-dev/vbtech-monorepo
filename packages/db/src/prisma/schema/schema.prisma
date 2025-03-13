@@ -1,0 +1,18 @@
+generator client {
+        provider        = "prisma-client-js"
+        previewFeatures = ["prismaSchemaFolder"]
+}
+
+generator kysely {
+        provider     = "prisma-kysely"
+        output       = "../../kysely"
+        camelCase    = "true"
+        fileName     = "types.ts"
+        enumFileName = "enums.ts"
+}
+
+datasource db {
+        provider     = "mysql"
+        url          = "mysql://root:vbtech@localhost:3306/vbtech"
+        relationMode = "prisma"
+}

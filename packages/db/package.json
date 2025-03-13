@@ -1,0 +1,34 @@
+{
+  "name": "@workspace/db",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "local:start": "docker compose -f src/docker/local-mysql-db.yml up -d",
+    "local:stop": "docker compose -f src/docker/local-mysql-db.yml down",
+    "local:clean": "docker compose -f src/docker/local-mysql-db.yml down -v && rm -rf .mysql_data",
+    "local:restart": "pnpm run db:stop && pnpm run db:start",
+    "local:clean:restart": "pnpm run local:stop && pnpm run local:clean && pnpm run local:start",
+    "migrate:dev": "sst bind -- pnpm exec prisma migrate dev",
+    "migrate:deploy": "sst bind -- pnpm exec prisma migrate deploy",
+    "generate": "pnpm exec prisma generate",
+    "studio": "sst bind -- pnpm exec prisma studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "kysely": "0.27.6",
+    "mysql2": "3.13.0",
+    "server-only": "0.0.1"
+  },
+  "devDependencies": {
+    "prisma": "6.5.0",
+    "prisma-kysely": "1.8.0"
+  },
+  "prisma": {
+    "schema": "./src/prisma/schema"
+  },
+  "exports": {
+    "./types": "./src/kysely/types.ts",
+    "./database": "./src/kysely/database.ts"
+  }
+}
