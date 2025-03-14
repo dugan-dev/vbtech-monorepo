@@ -5,6 +5,11 @@ export const env = createEnv({
   server: {
     NEXT_RUNTIME: z.enum(["edge", "nodejs"]).optional(),
     NODE_ENV: z.enum(["development", "test", "production"]),
+    DB_HOST: z.string(),
+    DB_NAME: z.string(),
+    DB_USER: z.string(),
+    DB_PASSWORD: z.string(),
+    DB_PORT: z.string(),
   },
   // If you're using Next.js < 13.4.4, you'll need to specify the runtimeEnv manually
   // runtimeEnv: {
