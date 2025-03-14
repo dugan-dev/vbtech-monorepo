@@ -1,0 +1,42 @@
+model payer {
+        id              Int      @id @default(autoincrement()) @db.UnsignedInt
+        pub_id          String   @unique @db.VarChar(12)
+        created_at      DateTime @db.DateTime(0)
+        created_by      String   @db.VarChar(50)
+        updated_at      DateTime @db.DateTime(0)
+        updated_by      String   @db.VarChar(50)
+        payer_type      String   @db.VarChar(50) // "mso", "aco", "ma", "ipa", "po", "other"
+        init_perf_yr    Int      @db.Year
+        init_perf_mo    Int      @db.UnsignedTinyInt
+        cms_id          String?  @db.VarChar(5)
+        marketing_name  String   @db.VarChar(255)
+        legal_name      String?  @db.VarChar(255)
+        reference_name  String?  @db.VarChar(20)
+        tax_id          String?  @db.VarChar(9)
+        parent_org_name String?  @db.VarChar(255)
+        website_url     String?  @db.VarChar(255)
+        is_active       Boolean  @default(true)
+}
+
+model payer_hist {
+        id              Int      @id @default(autoincrement()) @db.UnsignedInt
+        hist_added_at   DateTime @db.DateTime(0)
+        pub_id          String   @db.VarChar(12)
+        created_at      DateTime @db.DateTime(0)
+        created_by      String   @db.VarChar(50)
+        updated_at      DateTime @db.DateTime(0)
+        updated_by      String   @db.VarChar(50)
+        payer_type      String   @db.VarChar(50)
+        init_perf_yr    Int?     @db.Year
+        init_perf_mo    Int?     @db.UnsignedTinyInt
+        cms_id          String?  @db.VarChar(5)
+        marketing_name  String   @db.VarChar(255)
+        legal_name      String?  @db.VarChar(255)
+        reference_name  String?  @db.VarChar(20)
+        tax_id          String?  @db.VarChar(9)
+        parent_org_name String?  @db.VarChar(255)
+        website_url     String?  @db.VarChar(255)
+        is_active       Boolean
+
+        @@index([pub_id], map: "idx_payerHist_pub_id")
+}
