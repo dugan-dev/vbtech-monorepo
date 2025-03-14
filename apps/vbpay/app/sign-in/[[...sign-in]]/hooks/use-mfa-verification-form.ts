@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { getErrorMessage } from "@/utils/get-error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { confirmSignIn, SignInOutput } from "aws-amplify/auth";
 import { useForm } from "react-hook-form";
+
+import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
 import { useErrorDialog } from "@/hooks/use-error-dialog";
 

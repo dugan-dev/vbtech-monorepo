@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { getErrorMessage } from "@/utils/get-error-message";
 import { resetPassword, type SignInOutput } from "aws-amplify/auth";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
+
+import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
 import { useErrorDialog } from "@/hooks/use-error-dialog";
 
