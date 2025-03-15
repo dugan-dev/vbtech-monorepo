@@ -5,8 +5,12 @@
     "build": {
       "dependsOn": ["^build"],
       "env": [
-        "NODE_ENV"
-      ],
+        "NODE_ENV",
+        "DB_HOST",
+        "DB_PORT",
+        "DB_USER",
+        "DB_PASSWORD",
+        "DB_NAME"      ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
@@ -35,8 +39,12 @@
       "cache": false,
       "persistent": true,
       "env": [
-        "NODE_ENV"
-      ]
+        "NODE_ENV",
+        "DB_HOST",
+        "DB_PORT",
+        "DB_USER",
+        "DB_PASSWORD",
+        "DB_NAME"      ]
     }
   }
 }
