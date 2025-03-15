@@ -16,12 +16,7 @@ jobs:
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-      DB_HOST: ${{ vars.DB_HOST }}
-      DB_PORT: ${{ vars.DB_PORT }}
-      DB_USER: ${{ vars.DB_USER }}
-      DB_PASSWORD: ${{ vars.DB_PASSWORD }}
-      DB_NAME: ${{ vars.DB_NAME }}
- 
+       
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -43,3 +38,9 @@ jobs:
  
       - name: Build
         run: pnpm build
+        env:
+          DB_HOST: ${{ vars.DB_HOST }}
+          DB_PORT: ${{ vars.DB_PORT }}
+          DB_USER: ${{ vars.DB_USER }}
+          DB_PASSWORD: ${{ vars.DB_PASSWORD }}
+          DB_NAME: ${{ vars.DB_NAME }}
