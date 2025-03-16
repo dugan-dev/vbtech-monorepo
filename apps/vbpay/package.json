@@ -23,7 +23,7 @@
     "aws-amplify": "6.13.4",
     "babel-plugin-react-compiler": "19.0.0-beta-e1e972c-20250221",
     "kysely": "0.27.6",
-    "lucide-react": "0.479.0",
+    "lucide-react": "0.482.0",
     "nanoid": "5.1.4",
     "next": "15.2.2",
     "next-safe-action": "7.10.4",
