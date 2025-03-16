@@ -109,8 +109,8 @@ importers:
   apps/vbpay:
     dependencies:
       '@aws-amplify/adapter-nextjs':
-        specifier: 1.5.4
-        version: 1.5.4(aws-amplify@6.13.5)(next@15.2.2(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        specifier: 1.5.5
+        version: 1.5.5(aws-amplify@6.13.5)(next@15.2.2(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       '@hookform/resolvers':
         specifier: 4.1.3
         version: 4.1.3(react-hook-form@7.54.2(react@19.0.0))
@@ -501,8 +501,8 @@ packages:
     resolution: {integrity: sha512-90X8pU2szlvw0AJo9EZMbYc2eQKkmO7mAdC4tD4r5co2Mm56MT37MIG8EyB7p4WRheuzGxuLDxJ63mF6+Zajiw==}
     hasBin: true
 
-  '@aws-amplify/adapter-nextjs@1.5.4':
-    resolution: {integrity: sha512-R0hlTDHTwRTt/3H6g/wBjsrd6DpsAtGiMKhyKA2rStA+nbrX6HC3hB8OB81gGV/ilNCRMTQTmB0sY+6Xgk7QbQ==}
+  '@aws-amplify/adapter-nextjs@1.5.5':
+    resolution: {integrity: sha512-J4KiHAugAg8ZPA2kAcJjYh39+3LgW2DLR4wNs7FTvBhMQp+SwNuCY8Zio9uvaSBammw6yaLuF+4/Amj2vAK8UQ==}
     peerDependencies:
       aws-amplify: ^6.13.1
       next: '>=13.5.0 <16.0.0'
@@ -5453,7 +5453,7 @@ snapshots:
 
   '@antfu/ni@0.21.8': {}
 
-  '@aws-amplify/adapter-nextjs@1.5.4(aws-amplify@6.13.5)(next@15.2.2(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
+  '@aws-amplify/adapter-nextjs@1.5.5(aws-amplify@6.13.5)(next@15.2.2(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.0.0-beta-e1e972c-20250221)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
     dependencies:
       aws-amplify: 6.13.5
       aws-jwt-verify: 4.0.1
