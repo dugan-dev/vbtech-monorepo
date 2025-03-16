@@ -5,8 +5,6 @@ import { ReferenceExpression } from "kysely";
 import { db } from "@workspace/db/database";
 import { DB } from "@workspace/db/types";
 
-import { newPubId } from "@/lib/nanoid";
-
 import { AddPayerFormOutput } from "../components/add-payer-form/add-payer-form-schema";
 
 type DuplicateCheck = {
@@ -21,7 +19,7 @@ type props = {
   userId: string;
 };
 
-export function insertPayer({ input, userId }: props) {
+export function insertPayer({ input, pubId, userId }: props) {
   return db.transaction().execute(async (trx) => {
     const duplicateChecks: DuplicateCheck[] = [
       {
@@ -70,7 +68,7 @@ export function insertPayer({ input, userId }: props) {
     return trx
       .insertInto("payer")
       .values({
-        pubId: newPubId(),
+        pubId,
         createdBy: userId,
         createdAt: now,
         updatedBy: userId,
