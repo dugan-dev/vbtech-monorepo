@@ -20,7 +20,7 @@
     "@tanstack/table-core": "8.21.2",
     "@workspace/db": "workspace:*",
     "@workspace/ui": "workspace:*",
-    "aws-amplify": "6.13.4",
+    "aws-amplify": "6.13.5",
     "babel-plugin-react-compiler": "19.0.0-beta-e1e972c-20250221",
     "kysely": "0.27.6",
     "lucide-react": "0.479.0",
