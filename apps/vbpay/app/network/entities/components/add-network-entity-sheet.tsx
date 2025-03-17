@@ -116,9 +116,11 @@ export function AddNetworkEntitySheet() {
           {(sheetState === "advanced" || sheetState === "search") &&
             isNppesSearchPending && (
               <DataTableSkeleton
-                columnCount={9}
-                rowCount={5}
+                columnCount={6}
+                rowCount={3}
                 showViewOptions={false}
+                withPagination={false}
+                heightPercent={40}
               />
             )}
         </div>
