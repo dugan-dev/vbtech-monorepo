@@ -19,6 +19,8 @@ interface props {
   withPagination?: boolean;
   shrinkZero?: boolean;
   className?: string;
+  heightPercent?: number;
+  widthPercent?: number;
 }
 
 export function DataTableSkeleton({
@@ -30,6 +32,8 @@ export function DataTableSkeleton({
   cellWidths = ["auto"],
   withPagination = true,
   shrinkZero = false,
+  heightPercent,
+  widthPercent = 70,
   className,
   ...props
 }: props) {
@@ -49,6 +53,8 @@ export function DataTableSkeleton({
         rowCount={rowCount}
         cellWidths={cellWidths}
         shrinkZero={shrinkZero}
+        heightPercent={heightPercent}
+        widthPercent={widthPercent}
       />
 
       {withPagination && <PaginationSkeleton />}
@@ -87,9 +93,26 @@ function TableContentSkeleton({
   rowCount,
   cellWidths,
   shrinkZero,
-}: Pick<props, "columnCount" | "rowCount" | "cellWidths" | "shrinkZero">) {
+  heightPercent,
+  widthPercent = 70,
+}: Pick<
+  props,
+  | "columnCount"
+  | "rowCount"
+  | "cellWidths"
+  | "shrinkZero"
+  | "heightPercent"
+  | "widthPercent"
+>) {
+  const containerStyle = {
+    width: `${widthPercent}dvw`,
+    height: heightPercent !== undefined ? `${heightPercent}dvh` : "100%",
+  };
   return (
-    <div className="bg-card text-card-foreground size-full overflow-scroll rounded-lg border shadow-sm">
+    <div
+      className="bg-card text-card-foreground overflow-scroll rounded-lg border shadow-sm"
+      style={containerStyle}
+    >
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
