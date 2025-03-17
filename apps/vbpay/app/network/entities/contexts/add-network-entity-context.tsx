@@ -106,7 +106,11 @@ export function AddNetworkEntityProvider({ children }: props) {
 
   useEffect(() => {
     if (nppesSearchSelection.orgNpi !== "") {
-      addNetworkEntityForm.reset(nppesSearchSelection);
+      const entityType = addNetworkEntityForm.watch("netEntType");
+      addNetworkEntityForm.reset({
+        ...nppesSearchSelection,
+        netEntType: entityType,
+      });
       if (sheetState === "advanced") {
         setSheetState("search");
       }

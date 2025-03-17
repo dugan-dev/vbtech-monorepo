@@ -12,17 +12,29 @@ import {
 interface props<TData> {
   table: TableType<TData>;
   suppressRowNumber?: boolean;
+  widthPercent?: number;
+  heightPercent?: number;
 }
 
 export function DataTableTable<TData>({
   table,
   suppressRowNumber = false,
+  widthPercent = 70,
+  heightPercent,
 }: props<TData>) {
   // tanstack/react-table is not compatible with react compilier so we need to opt-out of automatic memoization.
   "use no memo";
 
+  const containerStyle = {
+    width: `${widthPercent}dvw`,
+    height: heightPercent !== undefined ? `${heightPercent}dvh` : "100%",
+  };
+
   return (
-    <div className="bg-card text-card-foreground size-full overflow-scroll rounded-lg border shadow-sm max-w-[80dvw]">
+    <div
+      className="bg-card text-card-foreground overflow-scroll rounded-lg border shadow-sm"
+      style={containerStyle}
+    >
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

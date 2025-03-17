@@ -52,6 +52,8 @@ interface DataTableProps<TData, TValue> {
     ) => void;
   };
   meta?: DataTableMeta<TData>;
+  widthPercent?: number;
+  heightPercent?: number;
 }
 
 export function DataTable<TData, TValue>({
@@ -63,6 +65,8 @@ export function DataTable<TData, TValue>({
   options,
   utils,
   meta,
+  widthPercent,
+  heightPercent,
 }: DataTableProps<TData, TValue>) {
   // tanstack/react-table is not compatible with react compilier so we need to opt-out of automatic memoization.
   "use no memo";
@@ -160,6 +164,8 @@ export function DataTable<TData, TValue>({
       <DataTableTable
         table={table}
         suppressRowNumber={options.suppressRowNumber}
+        widthPercent={widthPercent}
+        heightPercent={heightPercent}
       />
 
       {/* Pagination */}
