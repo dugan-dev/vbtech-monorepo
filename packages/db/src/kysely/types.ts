@@ -39,6 +39,57 @@ export type network_entity_hist = {
   orgNpi: string | null;
   isActive: number;
 };
+export type network_physician = {
+  id: Generated<number>;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  payerPubId: string;
+  taxId: string | null;
+  npi: string | null;
+  orgNpi: string | null;
+  firstName: string;
+  lastName: string;
+  type: string;
+  class: string;
+  soleProprietor: Generated<number>;
+  primaryTaxonomyCode: string | null;
+  specialty: string | null;
+  credential: string | null;
+  isActive: Generated<number>;
+  poNetEntPubId: string | null;
+  pracNetEntPubId: string | null;
+  faclNetEntPubId: string | null;
+  vendorNetEntPubId: string | null;
+};
+export type network_physician_hist = {
+  id: Generated<number>;
+  histAddedAt: Timestamp;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  pubId: string;
+  payerPubId: string;
+  taxId: string | null;
+  npi: string | null;
+  orgNpi: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  type: string | null;
+  class: string | null;
+  soleProprietor: number;
+  primaryTaxonomyCode: string | null;
+  specialty: string | null;
+  credential: string | null;
+  isActive: number;
+  poNetEntPubId: string | null;
+  pracNetEntPubId: string | null;
+  faclNetEntPubId: string | null;
+  vendorNetEntPubId: string | null;
+};
 export type payer = {
   id: Generated<number>;
   pubId: string;
@@ -81,6 +132,8 @@ export type payer_hist = {
 export type DB = {
   networkEntity: network_entity;
   networkEntityHist: network_entity_hist;
+  networkPhysician: network_physician;
+  networkPhysicianHist: network_physician_hist;
   payer: payer;
   payerHist: payer_hist;
 };
