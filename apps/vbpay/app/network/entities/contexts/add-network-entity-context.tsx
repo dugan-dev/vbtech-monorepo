@@ -34,7 +34,6 @@ const NPI_LENGTH = 10;
 const MIN_ZIP_LENGTH = 4;
 
 // Types
-
 type SheetState = "search" | "advanced";
 
 type FormValidationFields = {
@@ -106,11 +105,13 @@ export function AddNetworkEntityProvider({ children }: props) {
 
   useEffect(() => {
     if (nppesSearchSelection.orgNpi !== "") {
-      const entityType = addNetworkEntityForm.watch("netEntType");
-      addNetworkEntityForm.reset({
-        ...nppesSearchSelection,
-        netEntType: entityType,
-      });
+      const formData = addNetworkEntityForm.getValues();
+      const newFormData: AddNetworkEntityFormInput = {
+        ...formData,
+        marketingName: nppesSearchSelection.marketingName,
+        orgNpi: nppesSearchSelection.orgNpi,
+      };
+      addNetworkEntityForm.reset(newFormData);
       if (sheetState === "advanced") {
         setSheetState("search");
       }

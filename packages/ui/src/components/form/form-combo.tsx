@@ -86,7 +86,7 @@ export function FormCombo({
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-full justify-between",
+                    "w-full justify-between bg-primary-foreground hover:bg-primary-foreground hover:text-primary",
                     !field.value && "text-muted-foreground",
                     className,
                   )}

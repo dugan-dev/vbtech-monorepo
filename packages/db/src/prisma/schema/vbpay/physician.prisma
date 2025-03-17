@@ -1,0 +1,79 @@
+model network_physician {
+        id                    Int      @id @default(autoincrement()) @db.UnsignedInt
+        pub_id                String   @unique @db.VarChar(12)
+        created_at            DateTime @db.DateTime(0)
+        created_by            String   @db.VarChar(50)
+        updated_at            DateTime @db.DateTime(0)
+        updated_by            String   @db.VarChar(50)
+        payer_pub_id          String   @db.VarChar(12)
+        tax_id                String?  @db.VarChar(9)
+        npi                   String?  @db.VarChar(10)
+        org_npi               String?  @db.VarChar(10)
+        first_name            String   @db.VarChar(50)
+        last_name             String   @db.VarChar(50)
+        type                  String   @db.VarChar(50) // "individual participant", "fqhc individual", "organizational provider"
+        class                 String   @db.VarChar(50) // "participant", "preferred"
+        sole_proprietor       Boolean  @default(false)
+        primary_taxonomy_code String?  @db.VarChar(10)
+        specialty             String?  @db.VarChar(100) // source from nppes
+        credential            String?  @db.VarChar(50) // source from nppes
+        is_active             Boolean  @default(true)
+        po_net_ent_pub_id     String?  @db.VarChar(12)
+        prac_net_ent_pub_id   String?  @db.VarChar(12)
+        facl_net_ent_pub_id   String?  @db.VarChar(12)
+        vendor_net_ent_pub_id String?  @db.VarChar(12)
+
+        @@index([payer_pub_id], map: "idx_netPhys_payer_pub_id")
+        @@index([npi], map: "idx_netPhys_npi")
+        @@index([org_npi], map: "idx_netPhys_org_npi")
+        @@index([first_name, last_name], map: "idx_netPhys_first_name_last_name")
+        @@index([tax_id], map: "idx_netPhys_tax_id")
+        @@index([is_active], map: "idx_netPhys_is_active")
+        @@index([specialty], map: "idx_netPhys_specialty")
+        @@index([credential], map: "idx_netPhys_credential")
+        @@index([po_net_ent_pub_id], map: "idx_netPhys_po_net_ent_pub_id")
+        @@index([prac_net_ent_pub_id], map: "idx_netPhys_prac_net_ent_pub_id")
+        @@index([facl_net_ent_pub_id], map: "idx_netPhys_facl_net_ent_pub_id")
+        @@index([vendor_net_ent_pub_id], map: "idx_netPhys_vendor_net_ent_pub_id")
+}
+
+model network_physician_hist {
+        id                    Int      @id @default(autoincrement()) @db.UnsignedInt
+        hist_added_at         DateTime @db.DateTime(0)
+        created_at            DateTime @db.DateTime(0)
+        created_by            String   @db.VarChar(50)
+        updated_at            DateTime @db.DateTime(0)
+        updated_by            String   @db.VarChar(50)
+        pub_id                String   @db.VarChar(12)
+        payer_pub_id          String   @db.VarChar(12)
+        tax_id                String?  @db.VarChar(9)
+        npi                   String?  @db.VarChar(10)
+        org_npi               String?  @db.VarChar(10)
+        first_name            String?  @db.VarChar(50)
+        last_name             String?  @db.VarChar(50)
+        type                  String?  @db.VarChar(50)
+        class                 String?  @db.VarChar(50)
+        sole_proprietor       Boolean
+        primary_taxonomy_code String?  @db.VarChar(10)
+        specialty             String?  @db.VarChar(100)
+        credential            String?  @db.VarChar(50)
+        is_active             Boolean
+        po_net_ent_pub_id     String?  @db.VarChar(12)
+        prac_net_ent_pub_id   String?  @db.VarChar(12)
+        facl_net_ent_pub_id   String?  @db.VarChar(12)
+        vendor_net_ent_pub_id String?  @db.VarChar(12)
+
+        @@index([pub_id], map: "idx_netPhysHist_pub_id")
+        @@index([payer_pub_id], map: "idx_netPhysHist_payer_pub_id")
+        @@index([npi], map: "idx_netPhysHist_npi")
+        @@index([org_npi], map: "idx_netPhysHist_org_npi")
+        @@index([first_name, last_name], map: "idx_netPhysHist_first_name_last_name")
+        @@index([tax_id], map: "idx_netPhysHist_tax_id")
+        @@index([is_active], map: "idx_netPhysHist_is_active")
+        @@index([specialty], map: "idx_netPhysHist_specialty")
+        @@index([credential], map: "idx_netPhysHist_credential")
+        @@index([po_net_ent_pub_id], map: "idx_netPhysHist_po_net_ent_pub_id")
+        @@index([prac_net_ent_pub_id], map: "idx_netPhysHist_prac_net_ent_pub_id")
+        @@index([facl_net_ent_pub_id], map: "idx_netPhysHist_facl_net_ent_pub_id")
+        @@index([vendor_net_ent_pub_id], map: "idx_netPhysHist_vendor_net_ent_pub_id")
+}
