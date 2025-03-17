@@ -1,0 +1,52 @@
+model network_entity {
+        id             Int      @id @default(autoincrement()) @db.UnsignedInt
+        pub_id         String   @unique @db.VarChar(12)
+        created_at     DateTime @db.DateTime(0)
+        created_by     String   @db.VarChar(50)
+        updated_at     DateTime @db.DateTime(0)
+        updated_by     String   @db.VarChar(50)
+        net_ent_type   String   @db.VarChar(50) // "po", "prac", "facl", "vendor"
+        payer_pub_id   String   @db.VarChar(12)
+        marketing_name String   @db.VarChar(255)
+        legal_name     String?  @db.VarChar(255)
+        reference_name String?  @db.VarChar(20)
+        org_npi        String?  @db.VarChar(10)
+        tax_id         String?  @db.VarChar(9)
+        is_active      Boolean  @default(true)
+
+        @@index([payer_pub_id], map: "idx_netEnt_payer_pub_id")
+        @@index([payer_pub_id, net_ent_type], map: "idx_netEnt_payer_pub_id_net_ent_type")
+        @@index([org_npi], map: "idx_netEnt_org_npi")
+        @@index([tax_id], map: "idx_netEnt_tax_id")
+        @@index([is_active], map: "idx_netEnt_is_active")
+        @@index([marketing_name], map: "idx_netEnt_marketing_name")
+        @@index([legal_name], map: "idx_netEnt_legal_name")
+        @@index([reference_name], map: "idx_netEnt_reference_name")
+}
+
+model network_entity_hist {
+        id             Int      @id @default(autoincrement()) @db.UnsignedInt
+        hist_added_at  DateTime @db.DateTime(0)
+        created_at     DateTime @db.DateTime(0)
+        created_by     String   @db.VarChar(50)
+        updated_at     DateTime @db.DateTime(0)
+        updated_by     String   @db.VarChar(50)
+        pub_id         String   @db.VarChar(12)
+        payer_pub_id   String   @db.VarChar(12)
+        net_ent_type   String   @db.VarChar(50)
+        marketing_name String   @db.VarChar(255)
+        legal_name     String?  @db.VarChar(255)
+        reference_name String?  @db.VarChar(20)
+        tax_id         String?  @db.VarChar(9)
+        org_npi        String?  @db.VarChar(10)
+        is_active      Boolean
+
+        @@index([pub_id], map: "idx_netEntHist_pub_id")
+        @@index([payer_pub_id], map: "idx_netEntHist_payer_pub_id")
+        @@index([payer_pub_id, net_ent_type], map: "idx_netEntHist_payer_pub_id_net_ent_type")
+        @@index([org_npi], map: "idx_netEntHist_org_npi")
+        @@index([tax_id], map: "idx_netEntHist_tax_id")
+        @@index([is_active], map: "idx_netEntHist_is_active")
+        @@index([marketing_name], map: "idx_netEntHist_marketing_name")
+        @@index([legal_name], map: "idx_netEntHist_legal_name")
+}

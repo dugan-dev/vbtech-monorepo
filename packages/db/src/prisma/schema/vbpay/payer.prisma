@@ -16,6 +16,18 @@ model payer {
         parent_org_name String?  @db.VarChar(255)
         website_url     String?  @db.VarChar(255)
         is_active       Boolean  @default(true)
+
+        @@index([payer_type], map: "idx_payer_payer_type")
+        @@index([init_perf_yr], map: "idx_payer_init_perf_yr")
+        @@index([init_perf_mo], map: "idx_payer_init_perf_mo")
+        @@index([cms_id], map: "idx_payer_cms_id")
+        @@index([marketing_name], map: "idx_payer_marketing_name")
+        @@index([legal_name], map: "idx_payer_legal_name")
+        @@index([reference_name], map: "idx_payer_reference_name")
+        @@index([tax_id], map: "idx_payer_tax_id")
+        @@index([parent_org_name], map: "idx_payer_parent_org_name")
+        @@index([website_url], map: "idx_payer_website_url")
+        @@index([is_active], map: "idx_payer_is_active")
 }
 
 model payer_hist {
@@ -39,4 +51,14 @@ model payer_hist {
         is_active       Boolean
 
         @@index([pub_id], map: "idx_payerHist_pub_id")
+        @@index([init_perf_yr], map: "idx_payerHist_init_perf_yr")
+        @@index([init_perf_mo], map: "idx_payerHist_init_perf_mo")
+        @@index([cms_id], map: "idx_payerHist_cms_id")
+        @@index([marketing_name], map: "idx_payerHist_marketing_name")
+        @@index([legal_name], map: "idx_payerHist_legal_name")
+        @@index([reference_name], map: "idx_payerHist_reference_name")
+        @@index([tax_id], map: "idx_payerHist_tax_id")
+        @@index([parent_org_name], map: "idx_payerHist_parent_org_name")
+        @@index([website_url], map: "idx_payerHist_website_url")
+        @@index([is_active], map: "idx_payerHist_is_active")
 }
