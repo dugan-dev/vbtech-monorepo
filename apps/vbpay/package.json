@@ -21,7 +21,7 @@
     "@workspace/db": "workspace:*",
     "@workspace/ui": "workspace:*",
     "aws-amplify": "6.13.5",
-    "babel-plugin-react-compiler": "19.0.0-beta-e1e972c-20250221",
+    "babel-plugin-react-compiler": "19.0.0-beta-3229e95-20250315",
     "kysely": "0.27.6",
     "lucide-react": "0.482.0",
     "nanoid": "5.1.4",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@types/node": "22.13.10",
-    "@types/react": "19.0.10",
+    "@types/react": "19.0.11",
     "@types/react-dom": "19.0.4",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",

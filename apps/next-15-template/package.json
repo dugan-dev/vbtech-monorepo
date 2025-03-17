@@ -15,7 +15,7 @@
   "dependencies": {
     "@t3-oss/env-nextjs": "0.12.0",
     "@workspace/ui": "workspace:*",
-    "babel-plugin-react-compiler": "19.0.0-beta-e1e972c-20250221",
+    "babel-plugin-react-compiler": "19.0.0-beta-3229e95-20250315",
     "lucide-react": "0.482.0",
     "next": "15.2.2",
     "next-themes": "0.4.6",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@types/node": "22.13.10",
-    "@types/react": "19.0.10",
+    "@types/react": "19.0.11",
     "@types/react-dom": "19.0.4",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
