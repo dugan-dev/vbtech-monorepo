@@ -26,6 +26,7 @@ export function NppesNetworkEntityResultsTable({
         initialPageSize: rowsPerPage,
         enableGlobalSearch: false,
         hideEditPagination: true,
+        hidePagination: true,
         hideTableViewOptions: true,
       }}
       initialColumnVisibility={{
@@ -35,6 +36,7 @@ export function NppesNetworkEntityResultsTable({
       meta={{
         returnFormData: handleReturnFormData,
       }}
+      heightPercent={40}
     />
   );
 }
