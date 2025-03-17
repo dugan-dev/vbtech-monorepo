@@ -232,7 +232,7 @@ export function AddNetworkPhysicianProvider({
       openErrorDialog(
         "Error",
         error.validationErrors
-          ? "Invalid inputs. Please double check the data and try again. If the problem persists please contact support."
+          ? `Invalid inputs. Please double check the data and try again. If the problem persists please contact support. ${JSON.stringify(error)}`
           : error.serverError
             ? error.serverError
             : (error as string),
@@ -272,7 +272,7 @@ export function AddNetworkPhysicianProvider({
     } as AddNetworkPhysicianFormOutput;
 
     execInsertNetworkPhysicianAction({
-      payerPubId,
+      payerPubId: payerPubId || "",
       formData: transformedData,
       revalidationPath,
     });
