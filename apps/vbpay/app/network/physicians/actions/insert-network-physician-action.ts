@@ -13,7 +13,7 @@ import { insertPhysician } from "../repos/insert-network-physician";
 
 const insertNetworkPhysicianActionSchema = z.object({
   revalidationPath: z.string().optional(),
-  payerPubId: z.string().length(12),
+  payerPubId: z.string(),
   formData: AddNetworkPhysicianFormSchema,
 });
 
