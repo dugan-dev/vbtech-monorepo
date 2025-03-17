@@ -213,7 +213,7 @@ export const ManageNetworkPhysiciansTableColumns: ColumnDef<NetworkPhysician>[] 
     },
     {
       id: "Org NPI",
-      accessorKey: "npi",
+      accessorKey: "orgNpi",
       enableSorting: true,
       sortingFn: "alphanumeric",
       filterFn: "includesString",
