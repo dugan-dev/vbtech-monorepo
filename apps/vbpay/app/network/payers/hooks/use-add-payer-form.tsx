@@ -47,7 +47,7 @@ export function useAddPayerForm({ onSuccess }: props) {
         openErrorDialog(
           "Error",
           error.validationErrors
-            ? "Invalid inputs. Please double check the data and try again. If the problem persists please contact support."
+            ? `Invalid inputs. Please double check the data and try again. If the problem persists please contact support. ${JSON.stringify(error)}`
             : error.serverError
               ? error.serverError
               : (error as string),
@@ -59,8 +59,8 @@ export function useAddPayerForm({ onSuccess }: props) {
     execInsertPayerAction({
       formData: {
         ...formData,
-        initPerfMo: Number(formData.initPerfMo),
-        initPerfYr: Number(formData.initPerfYr),
+        initPerfMo: formData.initPerfMo,
+        initPerfYr: formData.initPerfYr,
       },
       revalidationPath,
     });

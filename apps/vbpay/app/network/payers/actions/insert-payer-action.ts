@@ -8,22 +8,12 @@ import { z } from "zod";
 import { newPubId } from "@/lib/nanoid";
 import { authedActionClient } from "@/lib/safe-action";
 
+import { AddPayerFormSchema } from "../components/add-payer-form/add-payer-form-schema";
 import { insertPayer } from "../repos/insert-payer";
 
 const insertPayerActionSchema = z.object({
   revalidationPath: z.string(),
-  formData: z.object({
-    payerType: z.string(),
-    initPerfYr: z.number(),
-    initPerfMo: z.number(),
-    cmsId: z.string().length(5).optional(),
-    marketingName: z.string().max(255),
-    legalName: z.string().max(255).optional(),
-    referenceName: z.string().max(20).optional(),
-    taxId: z.string().length(9).optional(),
-    parentOrgName: z.string().max(255).optional(),
-    websiteUrl: z.string().url().optional(),
-  }),
+  formData: AddPayerFormSchema,
 });
 
 export const insertPayerAction = authedActionClient
@@ -35,8 +25,8 @@ export const insertPayerAction = authedActionClient
     await insertPayer({
       input: {
         ...formData,
-        newPubId: pubId,
       },
+      pubId,
       userId: ctx.userId,
     });
 

@@ -5,59 +5,27 @@ import { ReferenceExpression } from "kysely";
 import { db } from "@workspace/db/database";
 import { DB } from "@workspace/db/types";
 
-import { newPubId } from "@/lib/nanoid";
-
-type PayerInput = {
-  newPubId: string;
-  payerType: string;
-  initPerfYr: number;
-  initPerfMo: number;
-  cmsId?: string;
-  marketingName: string;
-  legalName?: string;
-  referenceName?: string;
-  taxId?: string;
-  parentOrgName?: string;
-  websiteUrl?: string;
-};
-
-type Payer = {
-  pubId: string;
-  payerType: string;
-  initPerfYr: number;
-  initPerfMo: number;
-  cmsId: string | null;
-  marketingName: string;
-  legalName: string | null;
-  referenceName: string | null;
-  taxId: string | null;
-  parentOrgName: string | null;
-  websiteUrl: string | null;
-  isActive: number;
-  createdBy: string;
-  createdAt: Date;
-  updatedBy: string;
-  updatedAt: Date;
-};
+import { AddPayerFormOutput } from "../components/add-payer-form/add-payer-form-schema";
 
 type DuplicateCheck = {
   value: string | undefined;
-  field: keyof Payer;
+  field: keyof AddPayerFormOutput;
   displayName: string;
 };
 
 type props = {
-  input: PayerInput;
+  input: AddPayerFormOutput;
+  pubId: string;
   userId: string;
 };
 
-export function insertPayer({ input, userId }: props) {
+export function insertPayer({ input, pubId, userId }: props) {
   return db.transaction().execute(async (trx) => {
     const duplicateChecks: DuplicateCheck[] = [
       {
         value: input.marketingName,
         field: "marketingName",
-        displayName: "Practice Name",
+        displayName: "Marketing Name",
       },
       {
         value: input.referenceName,
@@ -65,6 +33,11 @@ export function insertPayer({ input, userId }: props) {
         displayName: "Acronym/Nickname",
       },
       { value: input.taxId, field: "taxId", displayName: "Tax ID" },
+      {
+        value: input.cmsId,
+        field: "cmsId",
+        displayName: "CMS ID",
+      },
     ];
 
     const duplicateResults = await Promise.all(
@@ -95,14 +68,14 @@ export function insertPayer({ input, userId }: props) {
     return trx
       .insertInto("payer")
       .values({
-        pubId: newPubId(),
+        pubId,
         createdBy: userId,
         createdAt: now,
         updatedBy: userId,
         updatedAt: now,
         payerType: input.payerType,
-        initPerfYr: input.initPerfYr,
-        initPerfMo: input.initPerfMo,
+        initPerfYr: parseInt(input.initPerfYr),
+        initPerfMo: parseInt(input.initPerfMo),
         cmsId: input.cmsId,
         marketingName: input.marketingName,
         legalName: input.legalName,
