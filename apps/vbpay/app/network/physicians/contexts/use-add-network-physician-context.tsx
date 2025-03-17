@@ -326,12 +326,12 @@ export function AddNetworkPhysicianProvider({
   }): FormValidationFields => {
     return {
       npi: Boolean(fields.npi?.length === NPI_LENGTH),
-      firstName: Boolean(fields.firstName?.length ?? 0 > MIN_SEARCH_LENGTH),
-      lastName: Boolean(fields.lastName?.length ?? 0 > MIN_SEARCH_LENGTH),
-      city: Boolean(fields.city?.length ?? 0 > MIN_SEARCH_LENGTH),
-      state: Boolean(fields.state?.length ?? 0 > 1),
-      zip: Boolean(fields.zip?.length ?? 0 > MIN_ZIP_LENGTH),
-      taxonomy: Boolean(fields.taxonomy?.length ?? 0 > MIN_SEARCH_LENGTH),
+      firstName: Boolean((fields.firstName?.length ?? 0) > MIN_SEARCH_LENGTH),
+      lastName: Boolean((fields.lastName?.length ?? 0) > MIN_SEARCH_LENGTH),
+      city: Boolean((fields.city?.length ?? 0) > MIN_SEARCH_LENGTH),
+      state: Boolean((fields.state?.length ?? 0) > 1),
+      zip: Boolean((fields.zip?.length ?? 0) > MIN_ZIP_LENGTH),
+      taxonomy: Boolean((fields.taxonomy?.length ?? 0) > MIN_SEARCH_LENGTH),
     };
   };
 
