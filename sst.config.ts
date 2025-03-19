@@ -67,16 +67,14 @@ export default $config({
       az: stage === "production" ? 2 : 1,
     }); */
 
-    const { userPool, userPoolClient, identityPool, userPermissionsTable } =
-      await Auth({
-        stage,
-      });
+    const { userPool, userPoolClient, identityPool } = await Auth({
+      stage,
+    });
 
     return {
       userPool,
       userPoolClient,
       identityPool,
-      userPermissionsTable,
       // vpc,
     };
   },

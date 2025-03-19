@@ -1,24 +1,7 @@
 export async function Auth({ stage }: { stage: string }) {
-  // Create DynamoDB Table
-  const userPermissionsTable = new sst.aws.Dynamo("UserPermissionsTable", {
-    fields: {
-      userId: "string", // Partition Key: "<userId> from cognito"
-      appName: "string", // Sort Key: "<appId> from Apps type"
-      type: "string", // Type assigned to user in the app (e.g., bpo, payer, physicians, etc.)
-      entities: "list", // List of entity IDs user can access
-      permissions: "map", // Map of entity permissions (e.g., { "Entity_1": ["READ", "WRITE"] })
-    },
-    primaryIndex: { hashKey: "userId", rangeKey: "appName" },
-    globalIndexes: {
-      TypeIndex: { hashKey: "type", rangeKey: "userId" },
-      EntityIndex: { hashKey: "entities", rangeKey: "userId" },
-      PermissionIndex: { hashKey: "permissions", rangeKey: "userId" },
-    },
-  });
-
   // Create Cognito User Pool
   const userPool = new sst.aws.CognitoUserPool("UserPool", {
-    advancedSecurityMode:
+    advancedSecurity:
       stage === "production" || stage === "staging" ? "enforced" : undefined,
     usernames: ["email"],
     mfa: "on",
@@ -34,6 +17,14 @@ export async function Auth({ stage }: { stage: string }) {
           requireUppercase: true,
           temporaryPasswordValidityDays: 3,
         };
+        // Generate 50 custom attributes (app1:attrs through app50:attrs)
+        args.schemas = Array.from({ length: 50 }, (_, i) => ({
+          attributeDataType: "String",
+          name: `app${i + 1}:attrs`,
+          developerOnlyAttribute: false,
+          mutable: true,
+          required: false,
+        }));
       },
     },
   });
@@ -58,29 +49,21 @@ export async function Auth({ stage }: { stage: string }) {
         client: userPoolClient.id,
       },
     ],
+    /*
     permissions: {
       authenticated: [
         {
-          actions: [
-            "dynamodb:Query",
-            "dynamodb:Scan",
-            "dynamodb:GetItem",
-            "dynamodb:PutItem",
-            "dynamodb:DeleteItem",
-            "dynamodb:UpdateItem",
-            "dynamodb:BatchGetItem",
-            "dynamodb:BatchWriteItem",
-          ],
-          resources: [userPermissionsTable.table.arn],
+          actions: [],
+          resources: [],
         },
       ],
     },
+    */
   });
 
   return {
     userPool,
     userPoolClient,
     identityPool,
-    userPermissionsTable,
   };
 }
