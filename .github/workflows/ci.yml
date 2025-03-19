@@ -20,6 +20,9 @@ jobs:
       DB_USER: ${{ vars.DB_USER }}
       DB_PASSWORD: ${{ vars.DB_PASSWORD }}
       DB_NAME: ${{ vars.DB_NAME }}
+      AWS_SECRET_ACCESS_KEY: ${{ vars.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+      AWS_SESSION_TOKEN: ${{ vars.AWS_SESSION_TOKEN }}
       NODE_ENV: "production"
  
     steps:
@@ -49,6 +52,9 @@ jobs:
           echo "DB_USER=${{ vars.DB_USER }}" >> apps/vbpay/.env
           echo "DB_PASSWORD=${{ vars.DB_PASSWORD }}" >> apps/vbpay/.env
           echo "DB_NAME=${{ vars.DB_NAME }}" >> apps/vbpay/.env
+          echo "AWS_SECRET_ACCESS_KEY=${{ vars.AWS_SECRET_ACCESS_KEY }}" >> apps/vbpay/.env
+          echo "AWS_ACCESS_KEY_ID=${{ vars.AWS_ACCESS_KEY_ID }}" >> apps/vbpay/.env
+          echo "AWS_SESSION_TOKEN=${{ vars.AWS_SESSION_TOKEN }}" >> apps/vbpay/.env
           echo "NODE_ENV=production" >> apps/vbpay/.env
  
       - name: Build
@@ -60,6 +66,9 @@ jobs:
           DB_USER: ${{ vars.DB_USER }}
           DB_PASSWORD: ${{ vars.DB_PASSWORD }}
           DB_NAME: ${{ vars.DB_NAME }}
+          AWS_SECRET_ACCESS_KEY: ${{ vars.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+          AWS_SESSION_TOKEN: ${{ vars.AWS_SESSION_TOKEN }}
           NODE_ENV: "production"
           # Configure Turbo to pass environment variables to the builds
           TURBO_FORCE: true
