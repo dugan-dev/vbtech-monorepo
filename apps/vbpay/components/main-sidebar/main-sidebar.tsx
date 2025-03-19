@@ -35,7 +35,7 @@ type props = {
   firstName: string;
   lastName: string;
   email: string;
-  userType: UserType;
+  userType: UserType | undefined;
   slug: string | undefined;
   hasLicense: boolean;
 };
