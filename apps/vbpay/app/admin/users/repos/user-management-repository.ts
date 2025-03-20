@@ -14,11 +14,16 @@ const userPoolId = "us-west-2_tTyr5jsaW";
 const limit = 60;
 
 // Initialize the client
+// Validate required credentials
+if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+  throw new Error("AWS credentials are not properly configured");
+}
+
 const cognitoClient = new CognitoIdentityProviderClient({
   region: "us-west-2",
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     sessionToken: process.env.AWS_SESSION_TOKEN,
   },
 });
