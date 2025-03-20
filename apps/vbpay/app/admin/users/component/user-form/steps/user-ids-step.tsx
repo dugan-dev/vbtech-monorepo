@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { Button } from "@workspace/ui/components/button";
@@ -55,21 +54,6 @@ export function UserIdsStep({
   // Determine if multiple IDs are allowed based on user type
   const allowMultipleIds = selectedType === "bpo" || selectedType === "payers";
 
-  const watchUserType = form.watch("type");
-
-  // if no IDs, add one
-  useEffect(() => {
-    if (!form.getValues("ids")?.length) {
-      form.setValue("ids", [
-        {
-          id: "",
-          userMode: "aco",
-          userRoles: ["view"],
-        },
-      ]);
-    }
-  }, [watchUserType]);
-
   // Add a new ID
   const addNewId = () => {
     const currentIds = form.getValues("ids");
@@ -105,7 +89,7 @@ export function UserIdsStep({
     facility: "Facility",
   };
 
-  const labelForType = typeToLabelMap[selectedType];
+  const labelForType = typeToLabelMap[selectedType] || "";
 
   const typeToItemsMap = {
     bpo: payers,
@@ -118,7 +102,7 @@ export function UserIdsStep({
     facility: facilities,
   };
 
-  const itemsForType = typeToItemsMap[selectedType];
+  const itemsForType = typeToItemsMap[selectedType] || [];
 
   const idsArray = form.getValues("ids") as Partial<UserFormData["ids"]>;
   const hasMultipleIds = idsArray.length > 1;
@@ -134,17 +118,18 @@ export function UserIdsStep({
               : `Add a ${labelForType.toLowerCase()} and assign roles.`}
           </p>
         </div>
-        {allowMultipleIds && (
-          <Button
-            type="button"
-            variant="outline"
-            onClick={addNewId}
-            disabled={isSubmitting}
-          >
-            <Icons.plus className="mr-2 h-4 w-4" />
-            Add {labelForType}
-          </Button>
-        )}
+        {allowMultipleIds ||
+          (idsArray.length === 0 && (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={addNewId}
+              disabled={isSubmitting}
+            >
+              <Icons.plus className="mr-2 h-4 w-4" />
+              Add {labelForType}
+            </Button>
+          ))}
       </div>
 
       <div className="space-y-4">

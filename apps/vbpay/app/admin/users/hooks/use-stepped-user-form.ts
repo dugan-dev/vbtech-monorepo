@@ -7,12 +7,13 @@ import { toast } from "sonner";
 
 import { UserCognito } from "@/types/user-cognito";
 import { UserRole } from "@/types/user-role";
+import { UserType } from "@/types/user-type";
 import { useDidMountEffect } from "@/hooks/use-did-mount-effect";
 import { useErrorDialog } from "@/hooks/use-error-dialog";
 
 import { createUserAction } from "../action/create-user-action";
 import { editUserAction } from "../action/edit-user-action";
-import { UserFormStepValues } from "../component/user-form/steps/steps";
+import { UserFormStepValues } from "../component/user-form/steps/user-form-step-values";
 import {
   UserFormDefaultValues,
   UserFormInput,
@@ -32,8 +33,9 @@ export function useSteppedUserForm({
   setIsSubmitting,
 }: props) {
   const [currentStep, setCurrentStep] = useState(user ? 3 : 1);
-
-  // Define steps
+  const [selectedUserType, setSelectedUserType] = useState<UserType | null>(
+    user?.appAttrs.type || null,
+  );
 
   // Navigate to next step
   const nextStep = async () => {
@@ -184,8 +186,11 @@ export function useSteppedUserForm({
   }
 
   useDidMountEffect(() => {
-    if (!user || user.appAttrs.type !== type) {
+    if (type !== selectedUserType) {
       form.setValue("ids", []);
+      form.setValue("super", false);
+      form.setValue("admin", false);
+      setSelectedUserType(type as UserType);
     }
   }, [type]);
 
@@ -198,7 +203,6 @@ export function useSteppedUserForm({
     errorMsg,
     errorTitle,
     closeErrorDialog,
-    watchUserType: type,
     isStepValid,
     prevStep,
     nextStep,
