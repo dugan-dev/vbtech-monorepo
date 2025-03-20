@@ -29,7 +29,7 @@ const UserRolesBpo = [
   "read-notifications",
   "write-notifications",
 ] as const;
-const UserRolesBpoPayerPayers = [
+const UserRolesPayerPayers = [
   "view",
   "edit",
   "add",
@@ -66,6 +66,6 @@ export {
   UserRoleLabels,
   type UserRole,
   UserRolesBpo,
-  UserRolesBpoPayerPayers,
+  UserRolesPayerPayers,
   UserRolesPayees,
 };
