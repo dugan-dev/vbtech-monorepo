@@ -20,9 +20,10 @@ jobs:
       DB_USER: ${{ vars.DB_USER }}
       DB_PASSWORD: ${{ vars.DB_PASSWORD }}
       DB_NAME: ${{ vars.DB_NAME }}
-      AWS_SECRET_ACCESS_KEY: ${{ vars.AWS_SECRET_ACCESS_KEY }}
-      AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
-      AWS_SESSION_TOKEN: ${{ vars.AWS_SESSION_TOKEN }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY || vars.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID || vars.AWS_ACCESS_KEY_ID }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN || vars.AWS_SESSION_TOKEN }}
+      AWS_REGION: "us-west-2"
       NODE_ENV: "production"
  
     steps:
@@ -56,6 +57,10 @@ jobs:
           echo "AWS_ACCESS_KEY_ID=${{ vars.AWS_ACCESS_KEY_ID }}" >> apps/vbpay/.env
           echo "AWS_SESSION_TOKEN=${{ vars.AWS_SESSION_TOKEN }}" >> apps/vbpay/.env
           echo "NODE_ENV=production" >> apps/vbpay/.env
+          
+          # Verify AWS credentials are properly set
+          echo "Verifying AWS credentials in .env file:"
+          grep -v PASSWORD apps/vbpay/.env | grep -v SECRET
  
       - name: Build
         run: pnpm build
@@ -72,3 +77,6 @@ jobs:
           NODE_ENV: "production"
           # Configure Turbo to pass environment variables to the builds
           TURBO_FORCE: true
+          # Ensure Next.js has access to these environment variables during build
+          NEXT_PUBLIC_RUNTIME_ENV: "server"
+          NEXT_TELEMETRY_DISABLED: 1

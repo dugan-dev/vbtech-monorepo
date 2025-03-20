@@ -15,12 +15,25 @@ const limit = 60;
 
 // Initialize the client
 // Validate required credentials
-if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY) {
+if (
+  !process.env.AWS_ACCESS_KEY_ID ||
+  !process.env.AWS_SECRET_ACCESS_KEY ||
+  !process.env.AWS_SESSION_TOKEN
+) {
+  console.error("AWS credentials missing in environment variables");
   throw new Error("AWS credentials are not properly configured");
 }
 
+// Log credential availability (without exposing the actual values)
+console.log("AWS credentials check:", {
+  accessKeyIdExists: !!process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKeyExists: !!process.env.AWS_SECRET_ACCESS_KEY,
+  sessionTokenExists: !!process.env.AWS_SESSION_TOKEN,
+  region: process.env.AWS_REGION || "us-west-2",
+});
+
 const cognitoClient = new CognitoIdentityProviderClient({
-  region: "us-west-2",
+  region: process.env.AWS_REGION || "us-west-2",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
