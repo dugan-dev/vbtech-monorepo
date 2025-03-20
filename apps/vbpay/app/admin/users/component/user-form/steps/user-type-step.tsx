@@ -25,11 +25,11 @@ import { UserFormData } from "../user-form-schema";
 
 type props = {
   isSubmitting: boolean;
-  selectedType: UserType;
 };
 
-export function UserTypeStep({ isSubmitting, selectedType }: props) {
+export function UserTypeStep({ isSubmitting }: props) {
   const form = useFormContext<UserFormData>();
+  const selectedType = form.watch("type") as UserType;
   const canShowAdminAndSuperGlobals =
     selectedType === "bpo" ||
     selectedType === "payers" ||

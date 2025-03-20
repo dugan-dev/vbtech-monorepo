@@ -5,7 +5,6 @@ import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 
 import { UserCognito } from "@/types/user-cognito";
-import { UserType } from "@/types/user-type";
 import { ErrorDialog } from "@/components/error-dialog";
 
 import { useSteppedUserForm } from "../../hooks/use-stepped-user-form";
@@ -47,7 +46,6 @@ export function SteppedUserForm({
     errorMsg,
     errorTitle,
     closeErrorDialog,
-    watchUserType,
     isStepValid,
     nextStep,
     prevStep,
@@ -91,7 +89,6 @@ export function SteppedUserForm({
               {/* Step 2: User Type & Permissions */}
               <div className={currentStep === 2 ? "block" : "hidden"}>
                 <UserTypeStep
-                  selectedType={watchUserType as UserType}
                   isSubmitting={isPendingCreateUser || isPendingEditUser}
                 />
               </div>
@@ -100,7 +97,6 @@ export function SteppedUserForm({
               <div className={currentStep === 3 ? "block" : "hidden"}>
                 <UserIdsStep
                   isSubmitting={isPendingCreateUser || isPendingEditUser}
-                  selectedType={watchUserType as UserType}
                   physicians={physicians}
                   payers={payers}
                   practices={practices}

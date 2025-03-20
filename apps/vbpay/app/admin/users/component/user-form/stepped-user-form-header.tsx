@@ -1,6 +1,6 @@
 import { Icons } from "@/components/icons";
 
-import { UserFormStepValues } from "./steps/steps";
+import { UserFormStepValues } from "./steps/user-form-step-values";
 
 type props = {
   currentStep: number;

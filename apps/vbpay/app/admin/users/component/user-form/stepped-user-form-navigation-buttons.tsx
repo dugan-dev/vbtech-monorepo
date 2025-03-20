@@ -3,7 +3,7 @@ import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-butt
 
 import { Icons } from "@/components/icons";
 
-import { UserFormStepValues } from "./steps/steps";
+import { UserFormStepValues } from "./steps/user-form-step-values";
 
 type props = {
   isStepValid: (step: number) => boolean;
