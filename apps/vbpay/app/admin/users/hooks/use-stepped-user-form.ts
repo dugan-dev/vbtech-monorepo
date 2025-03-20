@@ -108,7 +108,8 @@ export function useSteppedUserForm({
       return type !== ""; // Ensure type is selected
     }
     if (step === 3) {
-      return ids.every((id) => id.id.length > 0 && id.userRoles.length > 0);
+-      return ids.every((id) => id.id.length > 0 && id.userRoles.length > 0);
++      return ids.length > 0 && ids.every((id) => id.id.length > 0 && id.userRoles.length > 0);
     }
     return false;
   };
