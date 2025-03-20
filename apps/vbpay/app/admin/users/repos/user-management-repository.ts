@@ -32,28 +32,40 @@ async function getAllUsers() {
 
   try {
     const response = await cognitoClient.send(command);
-    const users: UserCognito[] = response!.Users!.map((user) => ({
-      userId: user.Username!,
-      email: user.Attributes!.find((attr) => attr.Name === "email")!.Value!,
-      firstName: user.Attributes!.find((attr) => attr.Name === "given_name")!
-        .Value!,
-      lastName: user.Attributes!.find((attr) => attr.Name === "family_name")!
-        .Value!,
-      appAttrs: JSON.parse(
-        user.Attributes!.find((attr) => attr.Name === "custom:app1:attrs")!
-          .Value!,
-      ),
-      accountStatus: user.Enabled ? "ENABLED" : "DISABLED",
-      confirmationStatus: user.UserStatus!,
-      mfa: user.MFAOptions?.join(", "),
-      createdAt: user.UserCreateDate!,
-      lastUpdatedAt: user.UserLastModifiedDate!,
-    }));
+    const users: UserCognito[] = (response?.Users || []).map((user) => {
+      // Find attributes safely
+      const findAttr = (name: string) =>
+        user.Attributes?.find((attr) => attr.Name === name)?.Value || "";
+
+      // Parse app attributes safely
+      let appAttrs = {};
+      try {
+        const appAttrsStr = findAttr("custom:app1:attrs");
+        if (appAttrsStr) {
+          appAttrs = JSON.parse(appAttrsStr);
+        }
+      } catch (e) {
+        console.error("Error parsing app attributes:", e);
+      }
+
+      return {
+        userId: user.Username!,
+        email: findAttr("email"),
+        firstName: findAttr("given_name"),
+        lastName: findAttr("family_name"),
+        appAttrs,
+        accountStatus: user.Enabled ? "ENABLED" : "DISABLED",
+        confirmationStatus: user.UserStatus || "UNKNOWN",
+        mfa: user.MFAOptions?.join(", "),
+        createdAt: user.UserCreateDate || new Date(),
+        lastUpdatedAt: user.UserLastModifiedDate || new Date(),
+      };
+    });
 
     return users;
   } catch (error) {
     console.error("Error listing users:", error);
-    throw error;
+    throw new Error(`Failed to list users: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
 
