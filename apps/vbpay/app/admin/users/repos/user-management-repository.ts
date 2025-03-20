@@ -29,11 +29,11 @@ console.log("AWS credentials check:", {
   accessKeyIdExists: !!process.env.AWS_ACCESS_KEY_ID,
   secretAccessKeyExists: !!process.env.AWS_SECRET_ACCESS_KEY,
   sessionTokenExists: !!process.env.AWS_SESSION_TOKEN,
-  region: process.env.AWS_REGION || "us-west-2",
+  region: "us-west-2",
 });
 
 const cognitoClient = new CognitoIdentityProviderClient({
-  region: process.env.AWS_REGION || "us-west-2",
+  region: "us-west-2",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,

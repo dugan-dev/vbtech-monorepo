@@ -23,7 +23,6 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY || vars.AWS_SECRET_ACCESS_KEY }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID || vars.AWS_ACCESS_KEY_ID }}
       AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN || vars.AWS_SESSION_TOKEN }}
-      AWS_REGION: "us-west-2"
       NODE_ENV: "production"
  
     steps:
