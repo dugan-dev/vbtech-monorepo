@@ -21,7 +21,6 @@ type props = {
   isDisabled?: boolean;
   isRequired?: boolean;
   infoHover?: React.ReactNode;
-  className?: string;
   showFormMessageWithLabel?: boolean;
 };
 
