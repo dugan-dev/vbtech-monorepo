@@ -8,7 +8,6 @@ export type UserCognito = {
   appAttrs: UserAppAttrs;
   accountStatus: string;
   confirmationStatus: string;
-  mfa: string | undefined;
   createdAt: Date;
   lastUpdatedAt: Date;
 };

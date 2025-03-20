@@ -37,40 +37,49 @@ async function getAllUsers() {
 
   try {
     const response = await cognitoClient.send(command);
-    const users: UserCognito[] = (response?.Users || []).map((user) => {
-      // Find attributes safely
-      const findAttr = (name: string) =>
-        user.Attributes?.find((attr) => attr.Name === name)?.Value || "";
+    const users: UserCognito[] = (response?.Users || [])
+      .filter((user) => user.Username) // Filter out any users without a Username
+      .map((user) => {
+        // Find attributes safely
+        const findAttr = (name: string) =>
+          user.Attributes?.find((attr) => attr.Name === name)?.Value || "";
 
-      // Parse app attributes safely
-      let appAttrs = {};
-      try {
-        const appAttrsStr = findAttr("custom:app1:attrs");
-        if (appAttrsStr) {
-          appAttrs = JSON.parse(appAttrsStr);
+        // Parse app attributes safely
+        let appAttrs: UserAppAttrs = {
+          app: "",
+          super: false,
+          admin: false,
+          type: "vendor", // Default value from UserType
+        };
+
+        try {
+          const appAttrsStr = findAttr("custom:app1:attrs");
+          if (appAttrsStr) {
+            appAttrs = JSON.parse(appAttrsStr) as UserAppAttrs;
+          }
+        } catch (e) {
+          console.error("Error parsing app attributes:", e);
         }
-      } catch (e) {
-        console.error("Error parsing app attributes:", e);
-      }
 
-      return {
-        userId: user.Username!,
-        email: findAttr("email"),
-        firstName: findAttr("given_name"),
-        lastName: findAttr("family_name"),
-        appAttrs,
-        accountStatus: user.Enabled ? "ENABLED" : "DISABLED",
-        confirmationStatus: user.UserStatus || "UNKNOWN",
-        mfa: user.MFAOptions?.join(", "),
-        createdAt: user.UserCreateDate || new Date(),
-        lastUpdatedAt: user.UserLastModifiedDate || new Date(),
-      };
-    });
+        return {
+          userId: user.Username!, // The non-null assertion operator ensures this is treated as a string
+          email: findAttr("email"),
+          firstName: findAttr("given_name"),
+          lastName: findAttr("family_name"),
+          appAttrs,
+          accountStatus: user.Enabled ? "ENABLED" : "DISABLED",
+          confirmationStatus: user.UserStatus || "UNKNOWN",
+          createdAt: user.UserCreateDate || new Date(),
+          lastUpdatedAt: user.UserLastModifiedDate || new Date(),
+        };
+      });
 
     return users;
   } catch (error) {
     console.error("Error listing users:", error);
-    throw new Error(`Failed to list users: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `Failed to list users: ${error instanceof Error ? error.message : String(error)}`,
+    );
   }
 }
 

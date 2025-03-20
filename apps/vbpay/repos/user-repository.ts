@@ -7,50 +7,8 @@ import {
 import { UserAppAttrs } from "@/types/user-app-attrs";
 
 const USER_DATA_CACHE_KEY = "userDataCacheKey";
-// (Other code in apps/vbpay/repos/user-repository.ts above...)
+let uId = "";
 
-
-// --- Removed global variable declaration ---
-// -let uId = "";
-
-// (Within the function that calls getCachedUserData)
-// Updated call to pass user.userId directly:
-return getCachedUserData(
-  user.userId,
-  email || "",
-  firstName || "",
-  lastName || "",
-  parsedTyped,
-);
-
-// Later in the file, update the cached function definition:
-const getCachedUserData = cache(
-  async (
-    userId: string,
-    email: string,
-    firstName: string,
-    lastName: string,
-    usersAppAttrs: UserAppAttrs,
-  ) => {
-    return {
-      isAuthenticated: true,
-      userId,
-      email,
-      firstName,
-      lastName,
-      usersAppAttrs,
-    };
-  },
-  [USER_DATA_CACHE_KEY],
-  {
-    revalidate: 600,
-    tags: [USER_DATA_CACHE_KEY + userId],
-  },
-);
-  
-// (Other code in the file below...)
-
-// Move the authentication outside the cached function
 export async function getUserData() {
   const [user, attributes] = await Promise.all([
     authenticatedUser(),
