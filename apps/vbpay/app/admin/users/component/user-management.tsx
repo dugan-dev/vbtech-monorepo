@@ -9,9 +9,8 @@ import { formatPhysicianNameNpi } from "@/utils/format-physician-name-and-npi";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 
-import { NetworkEntityType } from "@/types/network-entity-type";
-
 import { getAllUsers } from "../repos/user-management-repository";
+import { filterEntitiesByType } from "../utils/filter-entities-by-type";
 import { UserManagementTable } from "./user-management-table/user-management-table";
 
 export async function UserManagement() {
@@ -32,42 +31,10 @@ export async function UserManagement() {
   */
 
   // Filter the entities into the different types and map them to the format we need for the UI
-  const practices = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "prac")
-    .map((entity) => ({
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-      value: entity.pubId,
-    }));
-  const pos = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "po")
-    .map((entity) => ({
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-      value: entity.pubId,
-    }));
-  const facilities = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "facl")
-    .map((entity) => ({
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-      value: entity.pubId,
-    }));
-  const vendors = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "vendor")
-    .map((entity) => ({
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-      value: entity.pubId,
-    }));
+  const practices = filterEntitiesByType(entities, "prac");
+  const pos = filterEntitiesByType(entities, "po");
+  const facilities = filterEntitiesByType(entities, "facl");
+  const vendors = filterEntitiesByType(entities, "vendor");
   const payersCombo = payers.map((payer) => ({
     label: formatMarketingAndRefName(payer.marketingName, payer.referenceName),
     value: payer.pubId,

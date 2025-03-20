@@ -15,7 +15,7 @@ import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
 import { UserCognito } from "@/types/user-cognito";
 import { UserTypeLabels } from "@/types/user-type";
 import { ClientFormattedDate } from "@/components/client-formatted-date";
-import { Icons } from "@/components/icons";
+import { UserTypeIcon } from "@/components/user-type-icon";
 
 import { EditUserSheet } from "../edit-user-sheet";
 
@@ -89,25 +89,7 @@ export const UserManagementTableColumns: ColumnDef<UserCognito>[] = [
       return (
         <div className="flex flex-wrap gap-2">
           <Badge variant="outline" className="flex items-center gap-1">
-            {userType === "physician" ? (
-              <Icons.stethoscope className="size-4" />
-            ) : userType === "practice" ? (
-              <Icons.building className="size-4" />
-            ) : userType === "facility" ? (
-              <Icons.hotel className="size-4" />
-            ) : userType === "po" ? (
-              <Icons.building2 className="size-4" />
-            ) : userType === "payer" ? (
-              <Icons.heartPulse className="size-4" />
-            ) : userType === "payers" ? (
-              <Icons.heartPulse className="size-4" />
-            ) : userType === "bpo" ? (
-              <Icons.heartPulse className="size-4" />
-            ) : userType === "vendor" ? (
-              <Icons.hotel className="size-4" />
-            ) : (
-              ""
-            )}
+            <UserTypeIcon userType={userType} />
             {UserTypeLabels[userType]}
           </Badge>
           {isAdmin && <Badge variant="secondary">Admin</Badge>}
@@ -179,25 +161,7 @@ export const UserManagementTableColumns: ColumnDef<UserCognito>[] = [
                     key={id.id}
                     className="flex items-center gap-1"
                   >
-                    {usersType === "physician" ? (
-                      <Icons.stethoscope className="size-4" />
-                    ) : usersType === "practice" ? (
-                      <Icons.building className="size-4" />
-                    ) : usersType === "facility" ? (
-                      <Icons.hotel className="size-4" />
-                    ) : usersType === "po" ? (
-                      <Icons.building2 className="size-4" />
-                    ) : usersType === "payer" ? (
-                      <Icons.heartPulse className="size-4" />
-                    ) : usersType === "payers" ? (
-                      <Icons.heartPulse className="size-4" />
-                    ) : usersType === "bpo" ? (
-                      <Icons.heartPulse className="size-4" />
-                    ) : usersType === "vendor" ? (
-                      <Icons.hotel className="size-4" />
-                    ) : (
-                      ""
-                    )}
+                    <UserTypeIcon userType={usersType} />
                     {usersType === "physician"
                       ? physicians.find(
                           (physician) => physician.physPubId === id.id,
