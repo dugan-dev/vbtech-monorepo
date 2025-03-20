@@ -1,25 +1,22 @@
 import {
   UserRole,
-  UserRoles,
   UserRolesBpo,
-  UserRolesBpoPayerPayers,
   UserRolesPayees,
+  UserRolesPayerPayers,
 } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 
 export function getRolesForUserType(userType: UserType) {
-  if (userType === "bpo") {
-    return UserRolesBpo as unknown as UserRole[];
-  } else if (userType === "payer" || userType === "payers") {
-    return UserRolesBpoPayerPayers as unknown as UserRole[];
-  } else if (
-    userType === "physician" ||
-    userType === "practice" ||
-    userType === "facility" ||
-    userType === "po" ||
-    userType === "vendor"
-  ) {
-    return UserRolesPayees as unknown as UserRole[];
-  }
-  return UserRoles as unknown as UserRole[];
+  const roleMap: Record<UserType, UserRole[]> = {
+    bpo: UserRolesBpo as unknown as UserRole[],
+    payers: UserRolesPayerPayers as unknown as UserRole[],
+    payer: UserRolesPayerPayers as unknown as UserRole[],
+    po: UserRolesPayees as unknown as UserRole[],
+    facility: UserRolesPayees as unknown as UserRole[],
+    practice: UserRolesPayees as unknown as UserRole[],
+    physician: UserRolesPayees as unknown as UserRole[],
+    vendor: UserRolesPayees as unknown as UserRole[],
+  };
+
+  return roleMap[userType];
 }
