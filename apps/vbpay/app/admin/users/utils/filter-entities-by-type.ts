@@ -10,9 +10,17 @@ export function filterEntitiesByType(
   return entities
     .filter((entity) => (entity.netEntType as NetworkEntityType) === type)
     .map((entity) => ({
-      label:
-        entity.netEntType ===
-        formatMarketingAndRefName(entity.marketingName, entity.referenceName),
+export function filterEntitiesByType(
+  entities: NetworkEntity[],
+  type: NetworkEntityType,
+) {
+  return entities
+    .filter((entity) => (entity.netEntType as NetworkEntityType) === type)
+    .map((entity) => ({
+      label: formatMarketingAndRefName(entity.marketingName, entity.referenceName),
+      value: entity.pubId,
+    }));
+}
       value: entity.pubId,
     }));
 }
