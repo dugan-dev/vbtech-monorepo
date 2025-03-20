@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { Button } from "@workspace/ui/components/button";
@@ -24,7 +25,7 @@ import { ComboItem } from "@workspace/ui/types/combo-item";
 
 import { UserModeLabels, UserModes } from "@/types/user-mode";
 import { UserRoleLabels, type UserRole } from "@/types/user-role";
-import type { UserType } from "@/types/user-type";
+import { UserType } from "@/types/user-type";
 import { Icons } from "@/components/icons";
 
 import { getRolesForUserType } from "../../../utils/get-roles-for-user-type";
@@ -32,7 +33,6 @@ import { UserFormData } from "../user-form-schema";
 
 type props = {
   isSubmitting: boolean;
-  selectedType: UserType;
   physicians: ComboItem[];
   payers: ComboItem[];
   practices: ComboItem[];
@@ -43,7 +43,6 @@ type props = {
 
 export function UserIdsStep({
   isSubmitting,
-  selectedType,
   physicians,
   payers,
   practices,
@@ -52,19 +51,24 @@ export function UserIdsStep({
   vendors,
 }: props) {
   const form = useFormContext<UserFormData>();
+  const selectedType = form.getValues("type") as UserType;
   // Determine if multiple IDs are allowed based on user type
   const allowMultipleIds = selectedType === "bpo" || selectedType === "payers";
 
+  const watchUserType = form.watch("type");
+
   // if no IDs, add one
-  if (!form.getValues("ids")?.length) {
-    form.setValue("ids", [
-      {
-        id: "",
-        userMode: "aco",
-        userRoles: ["view"],
-      },
-    ]);
-  }
+  useEffect(() => {
+    if (!form.getValues("ids")?.length) {
+      form.setValue("ids", [
+        {
+          id: "",
+          userMode: "aco",
+          userRoles: ["view"],
+        },
+      ]);
+    }
+  }, [watchUserType]);
 
   // Add a new ID
   const addNewId = () => {
@@ -90,39 +94,34 @@ export function UserIdsStep({
     }
   };
 
-  const labelForType =
-    selectedType === "bpo" ||
-    selectedType === "payers" ||
-    selectedType === "payer"
-      ? "Payer"
-      : selectedType === "po"
-        ? "Physician Org"
-        : selectedType === "physician"
-          ? "Physician"
-          : selectedType === "vendor"
-            ? "Vendor"
-            : selectedType === "practice"
-              ? "Practice"
-              : selectedType === "facility"
-                ? "Facility"
-                : "";
+  const typeToLabelMap = {
+    bpo: "Payer",
+    payers: "Payer",
+    payer: "Payer",
+    po: "Physician Org",
+    physician: "Physician",
+    vendor: "Vendor",
+    practice: "Practice",
+    facility: "Facility",
+  };
 
-  const itemsForType =
-    selectedType === "bpo" ||
-    selectedType === "payers" ||
-    selectedType === "payer"
-      ? payers
-      : selectedType === "po"
-        ? pos
-        : selectedType === "physician"
-          ? physicians
-          : selectedType === "vendor"
-            ? vendors
-            : selectedType === "practice"
-              ? practices
-              : selectedType === "facility"
-                ? facilities
-                : [];
+  const labelForType = typeToLabelMap[selectedType];
+
+  const typeToItemsMap = {
+    bpo: payers,
+    payers: payers,
+    payer: payers,
+    po: pos,
+    physician: physicians,
+    vendor: vendors,
+    practice: practices,
+    facility: facilities,
+  };
+
+  const itemsForType = typeToItemsMap[selectedType];
+
+  const idsArray = form.getValues("ids") as Partial<UserFormData["ids"]>;
+  const hasMultipleIds = idsArray.length > 1;
 
   return (
     <div className="space-y-6">
@@ -149,126 +148,124 @@ export function UserIdsStep({
       </div>
 
       <div className="space-y-4">
-        {(form.getValues("ids") as Partial<UserFormData["ids"]>).map(
-          (_, index) => (
-            <Card key={index} className="overflow-hidden">
-              <CardContent className="p-4 pt-4">
-                <div className="flex justify-between items-center mb-4">
-                  <h4 className="font-medium">ID #{index + 1}</h4>
-                  {allowMultipleIds && form.getValues("ids").length > 1 && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeId(index)}
-                      disabled={isSubmitting}
-                    >
-                      <Icons.trash2 className="h-4 w-4 text-destructive" />
-                      <span className="sr-only">Remove {labelForType}</span>
-                    </Button>
-                  )}
-                </div>
+        {idsArray.map((_, index) => (
+          <Card key={"id" + index} className="overflow-hidden">
+            <CardContent className="p-4 pt-4">
+              <div className="flex justify-between items-center mb-4">
+                <h4 className="font-medium">ID #{index + 1}</h4>
+                {allowMultipleIds && hasMultipleIds && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removeId(index)}
+                    disabled={isSubmitting}
+                  >
+                    <Icons.trash2 className="h-4 w-4 text-destructive" />
+                    <span className="sr-only">Remove {labelForType}</span>
+                  </Button>
+                )}
+              </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                  <FormCombo
-                    control={form.control}
-                    name={`ids.${index}.id`}
-                    label={labelForType}
-                    comboItems={itemsForType}
-                    isDisabled={isSubmitting}
-                    isRequired
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name={`ids.${index}.userMode`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Mode</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          disabled={isSubmitting}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select mode" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {UserModes.map((mode) => (
-                              <SelectItem key={mode} value={mode}>
-                                {UserModeLabels[mode]}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <FormCombo
+                  control={form.control}
+                  name={`ids.${index}.id`}
+                  label={labelForType}
+                  comboItems={itemsForType}
+                  isDisabled={isSubmitting}
+                  isRequired
+                />
 
                 <FormField
                   control={form.control}
-                  name={`ids.${index}.userRoles`}
-                  render={() => (
+                  name={`ids.${index}.userMode`}
+                  render={({ field }) => (
                     <FormItem>
-                      <div className="mb-2">
-                        <FormLabel>Roles</FormLabel>
-                      </div>
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                        {getRolesForUserType(selectedType).map((role) => (
-                          <FormField
-                            key={role}
-                            control={form.control}
-                            name={`ids.${index}.userRoles`}
-                            render={({ field }) => {
-                              return (
-                                <FormItem
-                                  key={role}
-                                  className="flex flex-row items-start space-x-3 space-y-0"
-                                >
-                                  <FormControl>
-                                    <Checkbox
-                                      checked={field.value?.includes(role)}
-                                      onCheckedChange={(checked) => {
-                                        const currentRoles = field.value || [];
-                                        return checked
-                                          ? field.onChange([
-                                              ...currentRoles,
-                                              role,
-                                            ])
-                                          : field.onChange(
-                                              currentRoles.filter(
-                                                (v: UserRole) => v !== role,
-                                              ),
-                                            );
-                                      }}
-                                      disabled={isSubmitting}
-                                    />
-                                  </FormControl>
-                                  <FormLabel className="text-sm font-normal">
-                                    {
-                                      UserRoleLabels[
-                                        role as keyof typeof UserRoleLabels
-                                      ]
-                                    }
-                                  </FormLabel>
-                                </FormItem>
-                              );
-                            }}
-                          />
-                        ))}
-                      </div>
+                      <FormLabel>Mode</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        disabled={isSubmitting}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select mode" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {UserModes.map((mode) => (
+                            <SelectItem key={mode} value={mode}>
+                              {UserModeLabels[mode]}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </CardContent>
-            </Card>
-          ),
-        )}
+              </div>
+
+              <FormField
+                control={form.control}
+                name={`ids.${index}.userRoles`}
+                render={() => (
+                  <FormItem>
+                    <div className="mb-2">
+                      <FormLabel>Roles</FormLabel>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                      {getRolesForUserType(selectedType).map((role) => (
+                        <FormField
+                          key={role}
+                          control={form.control}
+                          name={`ids.${index}.userRoles`}
+                          render={({ field }) => {
+                            return (
+                              <FormItem
+                                key={role}
+                                className="flex flex-row items-start space-x-3 space-y-0"
+                              >
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(role)}
+                                    onCheckedChange={(checked) => {
+                                      const currentRoles = field.value || [];
+                                      return checked
+                                        ? field.onChange([
+                                            ...currentRoles,
+                                            role,
+                                          ])
+                                        : field.onChange(
+                                            currentRoles.filter(
+                                              (v: UserRole) => v !== role,
+                                            ),
+                                          );
+                                    }}
+                                    disabled={isSubmitting}
+                                  />
+                                </FormControl>
+                                <FormLabel className="text-sm font-normal">
+                                  {
+                                    UserRoleLabels[
+                                      role as keyof typeof UserRoleLabels
+                                    ]
+                                  }
+                                </FormLabel>
+                              </FormItem>
+                            );
+                          }}
+                        />
+                      ))}
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </div>
   );
