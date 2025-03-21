@@ -11,6 +11,7 @@ jobs:
     name: Build
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    # Remove environment variables from the job level
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
@@ -35,44 +36,60 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       
-      # Create .env file for vbpay
-      - name: Create env file
+      # Create a more comprehensive .env file with explicit values
+      - name: Create env file for vbpay
         run: |
-          echo "DB_HOST=${{ vars.DB_HOST }}" > apps/vbpay/.env
-          echo "DB_PORT=${{ vars.DB_PORT }}" >> apps/vbpay/.env
-          echo "DB_USER=${{ vars.DB_USER }}" >> apps/vbpay/.env
-          echo "DB_PASSWORD=${{ vars.DB_PASSWORD }}" >> apps/vbpay/.env
-          echo "DB_NAME=${{ vars.DB_NAME }}" >> apps/vbpay/.env
-          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> apps/vbpay/.env
-          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> apps/vbpay/.env
-          echo "AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}" >> apps/vbpay/.env
-          echo "NODE_ENV=production" >> apps/vbpay/.env
-      
-      # Debug environment to verify variables are set
-      - name: Debug environment
-        run: |
-          echo "Checking if .env file exists:"
-          ls -la apps/vbpay/
-          echo "AWS credentials check (should show 'set' if defined):"
-          if [ -n "$AWS_ACCESS_KEY_ID" ]; then echo "AWS_ACCESS_KEY_ID is set"; else echo "AWS_ACCESS_KEY_ID is NOT set"; fi
-          if [ -n "$AWS_SECRET_ACCESS_KEY" ]; then echo "AWS_SECRET_ACCESS_KEY is set"; else echo "AWS_SECRET_ACCESS_KEY is NOT set"; fi
-          if [ -n "$AWS_SESSION_TOKEN" ]; then echo "AWS_SESSION_TOKEN is set"; else echo "AWS_SESSION_TOKEN is NOT set"; fi
+          cat > apps/vbpay/.env << EOL
+          # Database Configuration
+          DB_HOST=${{ vars.DB_HOST }}
+          DB_PORT=${{ vars.DB_PORT }}
+          DB_USER=${{ vars.DB_USER }}
+          DB_PASSWORD=${{ vars.DB_PASSWORD }}
+          DB_NAME=${{ vars.DB_NAME }}
           
-      # Direct export of environment variables before build
-      - name: Build
+          # AWS Configuration
+          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
+          AWS_REGION=us-east-1
+          
+          # Application Configuration
+          NODE_ENV=production
+          EOL
+          
+          # Show .env file was created (without showing contents)
+          echo "Created .env file at apps/vbpay/.env"
+          ls -la apps/vbpay/.env
+      
+      # Configure AWS CLI with credentials to ensure proper AWS setup
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+      
+      # Verify AWS credentials are working
+      - name: Verify AWS credentials
         run: |
-          export AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}"
-          export AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-          export AWS_SESSION_TOKEN="${{ secrets.AWS_SESSION_TOKEN }}"
-          export DB_HOST="${{ vars.DB_HOST }}"
-          export DB_PORT="${{ vars.DB_PORT }}"
-          export DB_USER="${{ vars.DB_USER }}"
-          export DB_PASSWORD="${{ vars.DB_PASSWORD }}"
-          export DB_NAME="${{ vars.DB_NAME }}"
-          export NODE_ENV="production"
-          # Print the values of AWS variables (without revealing secrets)
-          echo "AWS credentials status: $(if [ -n \"$AWS_ACCESS_KEY_ID\" ] && [ -n \"$AWS_SECRET_ACCESS_KEY\" ]; then echo 'CONFIGURED'; else echo 'MISSING'; fi)"
-          pnpm turbo build --force
+          aws sts get-caller-identity
+          echo "AWS credentials verified"
+      
+      # Build with explicit environment variables
+      - name: Build
+        run: pnpm turbo build --force
         env:
+          # Explicitly set all required environment variables for the build
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+          AWS_REGION: us-east-1
+          DB_HOST: ${{ vars.DB_HOST }}
+          DB_PORT: ${{ vars.DB_PORT }}
+          DB_USER: ${{ vars.DB_USER }}
+          DB_PASSWORD: ${{ vars.DB_PASSWORD }}
+          DB_NAME: ${{ vars.DB_NAME }}
+          NODE_ENV: production
           TURBO_FORCE: true
           NEXT_PUBLIC_RUNTIME_ENV: production
