@@ -6,6 +6,7 @@ import {
   CognitoIdentityProviderClient,
   ListUsersCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
+import { env } from "env/server";
 
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserCognito } from "@/types/user-cognito";
@@ -13,32 +14,12 @@ import { UserCognito } from "@/types/user-cognito";
 const userPoolId = "us-west-2_tTyr5jsaW";
 const limit = 60;
 
-// Initialize the client
-// Validate required credentials
-if (
-  !process.env.AWS_ACCESS_KEY_ID ||
-  !process.env.AWS_SECRET_ACCESS_KEY ||
-  !process.env.AWS_SESSION_TOKEN ||
-  !process.env.AWS_REGION
-) {
-  console.error("AWS credentials missing in environment variables");
-  throw new Error("AWS credentials are not properly configured");
-}
-
-// Log credential availability (without exposing the actual values)
-console.log("AWS credentials check:", {
-  accessKeyIdExists: !!process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKeyExists: !!process.env.AWS_SECRET_ACCESS_KEY,
-  sessionTokenExists: !!process.env.AWS_SESSION_TOKEN,
-  region: process.env.AWS_REGION,
-});
-
 const cognitoClient = new CognitoIdentityProviderClient({
-  region: process.env.AWS_REGION,
+  region: env.AWS_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    sessionToken: process.env.AWS_SESSION_TOKEN,
+    accessKeyId: env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    sessionToken: env.AWS_SESSION_TOKEN,
   },
 });
 
