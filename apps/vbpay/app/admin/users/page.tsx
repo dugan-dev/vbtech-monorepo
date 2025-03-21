@@ -1,3 +1,5 @@
+import { UserManagement } from "./component/user-management";
+
 export default async function Page() {
-  return <h1>Admin User Management</h1>;
+  return <UserManagement />;
 }

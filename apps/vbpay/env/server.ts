@@ -10,6 +10,9 @@ export const env = createEnv({
     DB_USER: z.string(),
     DB_PASSWORD: z.string(),
     DB_PORT: z.string(),
+    AWS_ACCESS_KEY_ID: z.string(),
+    AWS_SECRET_ACCESS_KEY: z.string(),
+    AWS_SESSION_TOKEN: z.string(),
   },
   // If you're using Next.js < 13.4.4, you'll need to specify the runtimeEnv manually
   // runtimeEnv: {

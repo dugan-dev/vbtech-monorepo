@@ -10,14 +10,28 @@
         "DB_PORT",
         "DB_USER",
         "DB_PASSWORD",
-        "DB_NAME"      ],
+        "DB_NAME",
+        "AWS_REGION",
+        "AWS_ACCESS_KEY_ID",
+        "AWS_SECRET_ACCESS_KEY",
+        "AWS_SESSION_TOKEN"
+      ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
       "dependsOn": ["^lint"],
       "env": [
-        "NODE_ENV"
+        "NODE_ENV",
+        "DB_HOST",
+        "DB_PORT",
+        "DB_USER",
+        "DB_PASSWORD",
+        "DB_NAME",
+        "AWS_REGION",
+        "AWS_ACCESS_KEY_ID",
+        "AWS_SECRET_ACCESS_KEY",
+        "AWS_SESSION_TOKEN"
       ]
     },
     "format": {
@@ -26,13 +40,31 @@
     "lint:fix": {
       "dependsOn": ["^lint:fix"],
       "env": [
-        "NODE_ENV"
+        "NODE_ENV",
+        "DB_HOST",
+        "DB_PORT",
+        "DB_USER",
+        "DB_PASSWORD",
+        "AWS_REGION",
+        "DB_NAME",
+        "AWS_ACCESS_KEY_ID",
+        "AWS_SECRET_ACCESS_KEY",
+        "AWS_SESSION_TOKEN"
       ]
     },
     "check-types": {
       "dependsOn": ["^check-types"],
       "env": [
-        "NODE_ENV"
+        "NODE_ENV",
+        "DB_HOST",
+        "DB_PORT",
+        "DB_USER",
+        "DB_PASSWORD",
+        "DB_NAME",
+        "AWS_REGION",
+        "AWS_ACCESS_KEY_ID",
+        "AWS_SECRET_ACCESS_KEY",
+        "AWS_SESSION_TOKEN"
       ]
     },
     "dev": {
@@ -44,7 +76,12 @@
         "DB_PORT",
         "DB_USER",
         "DB_PASSWORD",
-        "DB_NAME"      ]
+        "DB_NAME",
+        "AWS_REGION",
+        "AWS_ACCESS_KEY_ID",
+        "AWS_SECRET_ACCESS_KEY",
+        "AWS_SESSION_TOKEN"
+      ]
     }
   }
 }

@@ -2,10 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "@workspace/ui/globals.css";
 
-import {
-  authenticatedUser,
-  authenticatedUserAttributes,
-} from "@/utils/amplify-server-utils";
+import { getUserData } from "@/repos/user-repository";
 
 import { Toaster } from "@workspace/ui/components/sonner";
 
@@ -27,11 +24,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await authenticatedUser();
-  const userAttributes = user ? await authenticatedUserAttributes() : undefined;
-  const firstName = userAttributes?.given_name;
-  const lastName = userAttributes?.family_name;
-  const email = userAttributes?.email;
+  const { isAuthenticated, firstName, lastName, email, usersAppAttrs } =
+    await getUserData();
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -39,13 +33,13 @@ export default async function RootLayout({
       >
         <Providers>
           <div className="flex flex-1">
-            {user && (
+            {isAuthenticated && (
               <MainSidebar
                 firstName={firstName || ""}
                 lastName={lastName || ""}
                 email={email || ""}
-                userType={"bpo"}
-                slug={"test1234"}
+                userType={usersAppAttrs?.type}
+                slug={usersAppAttrs?.slug}
                 hasLicense={true}
               />
             )}
