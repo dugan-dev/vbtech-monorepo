@@ -118,18 +118,17 @@ export function UserIdsStep({
               : `Add a ${labelForType.toLowerCase()} and assign roles.`}
           </p>
         </div>
-        {allowMultipleIds ||
-          (idsArray.length === 0 && (
-            <Button
-              type="button"
-              variant="outline"
-              onClick={addNewId}
-              disabled={isSubmitting}
-            >
-              <Icons.plus className="mr-2 h-4 w-4" />
-              Add {labelForType}
-            </Button>
-          ))}
+        {(allowMultipleIds || idsArray.length === 0) && (
+          <Button
+            type="button"
+            variant="outline"
+            onClick={addNewId}
+            disabled={isSubmitting}
+          >
+            <Icons.plus className="mr-2 h-4 w-4" />
+            Add {labelForType}
+          </Button>
+        )}
       </div>
 
       <div className="space-y-4">
