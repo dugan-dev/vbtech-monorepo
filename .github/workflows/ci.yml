@@ -14,16 +14,6 @@ jobs:
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-      # Set the environment variables at the job level
-      DB_HOST: ${{ vars.DB_HOST }}
-      DB_PORT: ${{ vars.DB_PORT }}
-      DB_USER: ${{ vars.DB_USER }}
-      DB_PASSWORD: ${{ vars.DB_PASSWORD }}
-      DB_NAME: ${{ vars.DB_NAME }}
-      AWS_SECRET_ACCESS_KEY: ${{ vars.AWS_SECRET_ACCESS_KEY }}
-      AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
-      AWS_SESSION_TOKEN: ${{ vars.AWS_SESSION_TOKEN }}
-      NODE_ENV: "production"
       NEXT_TELEMETRY_DISABLED: 1
  
     steps:
@@ -53,14 +43,36 @@ jobs:
           echo "DB_USER=${{ vars.DB_USER }}" >> apps/vbpay/.env
           echo "DB_PASSWORD=${{ vars.DB_PASSWORD }}" >> apps/vbpay/.env
           echo "DB_NAME=${{ vars.DB_NAME }}" >> apps/vbpay/.env
-          echo "AWS_SECRET_ACCESS_KEY=${{ vars.AWS_SECRET_ACCESS_KEY }}" >> apps/vbpay/.env
-          echo "AWS_ACCESS_KEY_ID=${{ vars.AWS_ACCESS_KEY_ID }}" >> apps/vbpay/.env
-          echo "AWS_SESSION_TOKEN=${{ vars.AWS_SESSION_TOKEN }}" >> apps/vbpay/.env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> apps/vbpay/.env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> apps/vbpay/.env
+          echo "AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}" >> apps/vbpay/.env
           echo "NODE_ENV=production" >> apps/vbpay/.env
       
-      # Modified build step to exclude problematic packages
+      # Debug environment to verify variables are set
+      - name: Debug environment
+        run: |
+          echo "Checking if .env file exists:"
+          ls -la apps/vbpay/
+          echo "AWS credentials check (should show 'set' if defined):"
+          if [ -n "$AWS_ACCESS_KEY_ID" ]; then echo "AWS_ACCESS_KEY_ID is set"; else echo "AWS_ACCESS_KEY_ID is NOT set"; fi
+          if [ -n "$AWS_SECRET_ACCESS_KEY" ]; then echo "AWS_SECRET_ACCESS_KEY is set"; else echo "AWS_SECRET_ACCESS_KEY is NOT set"; fi
+          if [ -n "$AWS_SESSION_TOKEN" ]; then echo "AWS_SESSION_TOKEN is set"; else echo "AWS_SESSION_TOKEN is NOT set"; fi
+          
+      # Direct export of environment variables before build
       - name: Build
-        run: pnpm turbo build
+        run: |
+          export AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}"
+          export AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          export AWS_SESSION_TOKEN="${{ secrets.AWS_SESSION_TOKEN }}"
+          export DB_HOST="${{ vars.DB_HOST }}"
+          export DB_PORT="${{ vars.DB_PORT }}"
+          export DB_USER="${{ vars.DB_USER }}"
+          export DB_PASSWORD="${{ vars.DB_PASSWORD }}"
+          export DB_NAME="${{ vars.DB_NAME }}"
+          export NODE_ENV="production"
+          # Print the values of AWS variables (without revealing secrets)
+          echo "AWS credentials status: $(if [ -n \"$AWS_ACCESS_KEY_ID\" ] && [ -n \"$AWS_SECRET_ACCESS_KEY\" ]; then echo 'CONFIGURED'; else echo 'MISSING'; fi)"
+          pnpm turbo build --force
         env:
           TURBO_FORCE: true
           NEXT_PUBLIC_RUNTIME_ENV: production
