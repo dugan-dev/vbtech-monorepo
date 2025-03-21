@@ -51,7 +51,7 @@ jobs:
           AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
-          AWS_REGION=us-east-1
+          AWS_REGION=${{ vars.AWS_REGION }}
           
           # Application Configuration
           NODE_ENV=production
@@ -99,7 +99,7 @@ jobs:
           
           cat > ~/.aws/config << EOL
           [default]
-          region = us-east-1
+          region = ${{ vars.AWS_REGION }} 
           EOL
           
           chmod 600 ~/.aws/credentials
@@ -115,7 +115,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          AWS_REGION: us-east-1
+          AWS_REGION: ${{ vars.AWS_REGION }}
           AWS_SDK_LOAD_CONFIG: 1
           DB_HOST: ${{ vars.DB_HOST }}
           DB_PORT: ${{ vars.DB_PORT }}
