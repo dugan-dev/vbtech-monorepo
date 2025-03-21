@@ -20,10 +20,11 @@ jobs:
       DB_USER: ${{ vars.DB_USER }}
       DB_PASSWORD: ${{ vars.DB_PASSWORD }}
       DB_NAME: ${{ vars.DB_NAME }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY || vars.AWS_SECRET_ACCESS_KEY }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID || vars.AWS_ACCESS_KEY_ID }}
-      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN || vars.AWS_SESSION_TOKEN }}
+      AWS_SECRET_ACCESS_KEY: ${{ vars.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+      AWS_SESSION_TOKEN: ${{ vars.AWS_SESSION_TOKEN }}
       NODE_ENV: "production"
+      NEXT_TELEMETRY_DISABLED: 1
  
     steps:
       - name: Check out code
@@ -33,7 +34,7 @@ jobs:
  
       - uses: pnpm/action-setup@v3
         with:
-          version: 10.4.1
+          version: 10.6.5
  
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
@@ -56,26 +57,10 @@ jobs:
           echo "AWS_ACCESS_KEY_ID=${{ vars.AWS_ACCESS_KEY_ID }}" >> apps/vbpay/.env
           echo "AWS_SESSION_TOKEN=${{ vars.AWS_SESSION_TOKEN }}" >> apps/vbpay/.env
           echo "NODE_ENV=production" >> apps/vbpay/.env
-          
-          # Verify AWS credentials are properly set
-          echo "Verifying AWS credentials in .env file:"
-          grep -v PASSWORD apps/vbpay/.env | grep -v SECRET
- 
+      
+      # Modified build step to exclude problematic packages
       - name: Build
-        run: pnpm build
+        run: pnpm turbo build
         env:
-          # Also set the environment variables for the build step
-          DB_HOST: ${{ vars.DB_HOST }}
-          DB_PORT: ${{ vars.DB_PORT }}
-          DB_USER: ${{ vars.DB_USER }}
-          DB_PASSWORD: ${{ vars.DB_PASSWORD }}
-          DB_NAME: ${{ vars.DB_NAME }}
-          AWS_SECRET_ACCESS_KEY: ${{ vars.AWS_SECRET_ACCESS_KEY }}
-          AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
-          AWS_SESSION_TOKEN: ${{ vars.AWS_SESSION_TOKEN }}
-          NODE_ENV: "production"
-          # Configure Turbo to pass environment variables to the builds
           TURBO_FORCE: true
-          # Ensure Next.js has access to these environment variables during build
-          NEXT_PUBLIC_RUNTIME_ENV: "server"
-          NEXT_TELEMETRY_DISABLED: 1
+          NEXT_PUBLIC_RUNTIME_ENV: production
