@@ -11,7 +11,6 @@ jobs:
     name: Build
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    # Remove environment variables from the job level
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
@@ -36,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       
-      # Create a more comprehensive .env file with explicit values
+      # Create a comprehensive .env file with explicit values
       - name: Create env file for vbpay
         run: |
           cat > apps/vbpay/.env << EOL
@@ -57,25 +56,56 @@ jobs:
           NODE_ENV=production
           EOL
           
-          # Show .env file was created (without showing contents)
           echo "Created .env file at apps/vbpay/.env"
           ls -la apps/vbpay/.env
       
-      # Configure AWS CLI with credentials to ensure proper AWS setup
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: us-east-1
-      
-      # Verify AWS credentials are working
-      - name: Verify AWS credentials
+      # Examine AWS environment variable existence (without revealing values)
+      - name: Check AWS environment variables
         run: |
-          aws sts get-caller-identity
-          echo "AWS credentials verified"
+          if [ -n "$AWS_ACCESS_KEY_ID" ]; then 
+            echo "AWS_ACCESS_KEY_ID exists with length: ${#AWS_ACCESS_KEY_ID}"
+          else 
+            echo "AWS_ACCESS_KEY_ID is not set"
+          fi
+          
+          if [ -n "$AWS_SECRET_ACCESS_KEY" ]; then 
+            echo "AWS_SECRET_ACCESS_KEY exists with length: ${#AWS_SECRET_ACCESS_KEY}"
+          else 
+            echo "AWS_SECRET_ACCESS_KEY is not set"
+          fi
+          
+          if [ -n "$AWS_SESSION_TOKEN" ]; then 
+            echo "AWS_SESSION_TOKEN exists with length: ${#AWS_SESSION_TOKEN}"
+          else 
+            echo "AWS_SESSION_TOKEN is not set"
+          fi
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
       
+      # Extract AWS credentials for the page precompilation step
+      - name: Extract AWS config for Next.js
+        run: |
+          mkdir -p ~/.aws
+          
+          cat > ~/.aws/credentials << EOL
+          [default]
+          aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token = ${{ secrets.AWS_SESSION_TOKEN }}
+          EOL
+          
+          cat > ~/.aws/config << EOL
+          [default]
+          region = us-east-1
+          EOL
+          
+          chmod 600 ~/.aws/credentials
+          chmod 600 ~/.aws/config
+          
+          echo "AWS config files created"
+        
       # Build with explicit environment variables
       - name: Build
         run: pnpm turbo build --force
@@ -85,6 +115,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
           AWS_REGION: us-east-1
+          AWS_SDK_LOAD_CONFIG: 1
           DB_HOST: ${{ vars.DB_HOST }}
           DB_PORT: ${{ vars.DB_PORT }}
           DB_USER: ${{ vars.DB_USER }}
