@@ -17,7 +17,7 @@ import { UserTypeLabels } from "@/types/user-type";
 import { ClientFormattedDate } from "@/components/client-formatted-date";
 import { UserTypeIcon } from "@/components/user-type-icon";
 
-import { EditUserSheet } from "../edit-user-sheet";
+import { UserManagementDropdown } from "./user-management-dropdown";
 
 export const UserManagementTableColumns: ColumnDef<UserCognito>[] = [
   {
@@ -236,20 +236,23 @@ export const UserManagementTableColumns: ColumnDef<UserCognito>[] = [
       <DataTableColumnHeader title="Actions" column={column} />
     ),
     cell: ({ row, table }) => {
+      const accountStatus = row.original.accountStatus;
+      const confirmationStatus = row.original.confirmationStatus;
       /* TODO: Wrap with userType check and/or permission check. */
-      /* TODO: Add more actions (e.g. reset password, reset MFA, etc.). */
       return (
-        <div className="flex space-x-2">
-          <EditUserSheet
-            user={row.original}
-            physicians={table.options.meta?.meta?.physicians ?? []}
-            payers={table.options.meta?.meta?.payers ?? []}
-            practices={table.options.meta?.meta?.practices ?? []}
-            pos={table.options.meta?.meta?.pos ?? []}
-            facilities={table.options.meta?.meta?.facilities ?? []}
-            vendors={table.options.meta?.meta?.vendors ?? []}
-          />
-        </div>
+        <UserManagementDropdown
+          accountStatus={accountStatus}
+          confirmationStatus={confirmationStatus}
+          user={row.original}
+          payers={table.options.meta?.meta?.payers as ComboItem[]}
+          practices={table.options.meta?.meta?.practices as ComboItem[]}
+          pos={table.options.meta?.meta?.pos as ComboItem[]}
+          facilities={table.options.meta?.meta?.facilities as ComboItem[]}
+          vendors={table.options.meta?.meta?.vendors as ComboItem[]}
+          physicians={
+            table.options.meta?.meta?.physicians as DataTablePhysician[]
+          }
+        />
       );
     },
   },
