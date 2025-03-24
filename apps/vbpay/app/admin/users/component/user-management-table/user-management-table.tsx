@@ -21,6 +21,27 @@ type props = {
   usersType: UserType;
 };
 
+/**
+ * Renders the user management interface.
+ *
+ * Displays an empty view prompting to add a user when the provided user list is empty,
+ * or a data table with current user records and an add user sheet when users are available.
+ * The table is configured with preset column visibility and includes related metadata.
+ *
+ * @param users - Array of user objects; an empty array triggers the empty state view.
+ * @param practices - Array of practice options.
+ * @param facilities - Array of facility options.
+ * @param vendors - Array of vendor options.
+ * @param payers - Array of payer options.
+ * @param pos - Array of point-of-service options.
+ * @param physicians - Array of physician data for user assignments.
+ * @param usersType - Metadata defining the type of users.
+ *
+ * @returns A JSX element representing the user management interface.
+ *
+ * @remarks Permission checks are not implemented yet; a future update should wrap this
+ * component to validate if the current user has appropriate permissions.
+ */
 export function UserManagementTable({
   users,
   practices,

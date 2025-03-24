@@ -40,6 +40,23 @@ type props = {
   user: UserCognito;
 };
 
+/**
+ * Renders a dropdown menu for managing user account actions.
+ *
+ * This component displays a dropdown menu that provides options to edit a user, force a password change,
+ * disable the user, or enable the user depending on the current account status and available handlers.
+ * It also manages various confirmation and error dialogs as well as a dialog to display a temporary password.
+ *
+ * @param accountStatus - The current status of the user account.
+ * @param confirmationStatus - A flag indicating the confirmation state for user actions.
+ * @param user - The user object containing account details.
+ * @param payers - List of options for payer selection in the edit user sheet.
+ * @param practices - List of options for practice selection in the edit user sheet.
+ * @param pos - List of options for point-of-service selection in the edit user sheet.
+ * @param facilities - List of options for facility selection in the edit user sheet.
+ * @param vendors - List of options for vendor selection in the edit user sheet.
+ * @param physicians - List of physician data for the edit user sheet.
+ */
 export function UserManagementDropdown({
   accountStatus,
   confirmationStatus,

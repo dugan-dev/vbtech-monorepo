@@ -15,14 +15,13 @@ const getRandomChar = (alphabet: string): string => {
 };
 
 /**
- * Generates a secure random password that meets the following requirements:
- * - At least one uppercase letter
- * - At least one lowercase letter
- * - At least one digit
- * - At least one symbol
- * - Minimum length (default is 12 characters)
+ * Generates a secure random password.
  *
- * @returns {string} The generated password.
+ * The password is exactly 12 characters long and includes at least one uppercase letter,
+ * one lowercase letter, one digit, and one symbol. It combines required characters with
+ * additional random characters from a composite set and shuffles them to ensure an unpredictable order.
+ *
+ * @returns The generated password.
  */
 export function generateTempPassword(): string {
   // Ensure at least one character from each required set

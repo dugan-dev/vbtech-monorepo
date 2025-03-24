@@ -127,7 +127,21 @@ async function createUser(
   }
 }
 
-// Admin create user function
+/**
+ * Updates an existing user's attributes in the AWS Cognito user pool.
+ *
+ * This function sends an update command to modify a user's email, first name, last name, and custom application attributes.
+ * The email is automatically marked as verified.
+ *
+ * @param email - The new email address for the user.
+ * @param firstName - The new given name for the user.
+ * @param lastName - The new family name for the user.
+ * @param appAttrs - A set of custom application attributes.
+ * @param userId - The Cognito username of the user to update.
+ * @returns A promise resolving to the response from the Cognito client.
+ *
+ * @throws {Error} If the update operation fails.
+ */
 async function editUser(
   email: string,
   firstName: string,
@@ -170,6 +184,16 @@ async function editUser(
   }
 }
 
+/**
+ * Disables a user account in the Cognito user pool.
+ *
+ * Constructs and sends an AdminDisableUserCommand using the given user identifier. If the operation fails,
+ * the error is logged and rethrown.
+ *
+ * @param userId - The unique identifier of the user to disable.
+ * @returns The response from AWS Cognito after successfully disabling the user.
+ * @throws {Error} If the operation to disable the user fails.
+ */
 async function disableUser(userId: string) {
   const command = new AdminDisableUserCommand({
     UserPoolId: userPoolId,
@@ -184,6 +208,15 @@ async function disableUser(userId: string) {
   }
 }
 
+/**
+ * Enables a disabled user account in the Cognito user pool.
+ *
+ * This function sends an AdminEnableUserCommand using the provided user identifier to activate a previously disabled account. It returns the response from the Cognito client upon success.
+ *
+ * @param userId The identifier of the user to enable.
+ * @returns The response from the Cognito client after enabling the user.
+ * @throws {Error} If the Cognito client fails to enable the user.
+ */
 async function enableUser(userId: string) {
   const command = new AdminEnableUserCommand({
     UserPoolId: userPoolId,
@@ -198,6 +231,16 @@ async function enableUser(userId: string) {
   }
 }
 
+/**
+ * Resets the specified user's password by generating a temporary password and requiring a password change on next login.
+ *
+ * This function creates a temporary password, updates the user's password in the Cognito user pool by marking it as non-permanent,
+ * and returns the temporary password. The user will be required to change this password upon their next login.
+ *
+ * @param userId - The identifier of the user whose password is being reset.
+ * @returns An object containing the temporary password as `tempPass`.
+ * @throws {Error} If the password reset operation fails.
+ */
 async function forceChangePassword(userId: string) {
   const tempPass = generateTempPassword();
   const command = new AdminSetUserPasswordCommand({
