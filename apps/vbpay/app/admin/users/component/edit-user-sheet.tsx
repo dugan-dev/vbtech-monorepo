@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import { Button } from "@workspace/ui/components/button";
 import {
   Sheet,
@@ -29,6 +27,10 @@ type props = {
   facilities: ComboItem[];
   vendors: ComboItem[];
   user: UserCognito;
+  isActionPending: boolean;
+  setIsActionPending: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
+  onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export function EditUserSheet({
   user,
@@ -38,10 +40,11 @@ export function EditUserSheet({
   pos,
   facilities,
   vendors,
+  isActionPending,
+  setIsActionPending,
+  open,
+  onOpenChange,
 }: props) {
-  const [open, onOpenChange] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleSuccess = () => {
     onOpenChange(false);
   };
@@ -55,7 +58,7 @@ export function EditUserSheet({
               variant="secondary"
               size="icon"
               onClick={() => onOpenChange(true)}
-              disabled={isSubmitting}
+              disabled={isActionPending}
             >
               <Icons.userCog className="size-5" />
             </Button>
@@ -79,7 +82,7 @@ export function EditUserSheet({
               pos={pos}
               facilities={facilities}
               vendors={vendors}
-              setIsSubmitting={setIsSubmitting}
+              setIsSubmitting={setIsActionPending}
               user={user}
             />
           </div>

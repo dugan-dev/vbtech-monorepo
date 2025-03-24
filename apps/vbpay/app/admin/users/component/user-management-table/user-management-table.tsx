@@ -1,5 +1,3 @@
-"use client";
-
 import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
@@ -7,10 +5,8 @@ import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
 import { UserCognito } from "@/types/user-cognito";
 import { UserType } from "@/types/user-type";
 import { EmptyView } from "@/components/empty-view";
-import { ErrorDialog } from "@/components/error-dialog";
 import { Icons } from "@/components/icons";
 
-import { useUserManagementTable } from "../../hooks/use-user-management-table";
 import { AddUserSheet } from "../add-user-sheet";
 import { UserManagementTableColumns } from "./user-management-table-columns";
 
@@ -35,9 +31,6 @@ export function UserManagementTable({
   physicians,
   usersType,
 }: props) {
-  const { isErrorDialogOpen, errorMsg, errorTitle, closeErrorDialog } =
-    useUserManagementTable();
-
   if (users.length === 0) {
     return (
       <EmptyView
@@ -50,49 +43,39 @@ export function UserManagementTable({
   }
 
   return (
-    <>
-      <DataTable
-        columns={UserManagementTableColumns}
-        data={users}
-        options={{
-          initialPageSize: 8,
-          enableGlobalSearch: true,
-        }}
-        // TODO: Wrap with user is to determine if user has appropriate permissions.
-        itemsAboveTable={
-          <AddUserSheet
-            vendors={vendors}
-            physicians={physicians}
-            payers={payers}
-            pos={pos}
-            practices={practices}
-            facilities={facilities}
-          />
-        }
-        meta={{
-          payers,
-          pos,
-          facilities,
-          practices,
-          physicians,
-          vendors,
-          usersType,
-        }}
-        initialColumnVisibility={{
-          "Created At": false,
-          "Updated At": false,
-          "Last Active": false,
-          "Last Sign In": false,
-        }}
-      />
-      {isErrorDialogOpen && (
-        <ErrorDialog
-          open={isErrorDialogOpen}
-          onOpenChange={closeErrorDialog}
-          description={errorMsg}
-          title={errorTitle}
+    <DataTable
+      columns={UserManagementTableColumns}
+      data={users}
+      options={{
+        initialPageSize: 8,
+        enableGlobalSearch: true,
+      }}
+      // TODO: Wrap with user is to determine if user has appropriate permissions.
+      itemsAboveTable={
+        <AddUserSheet
+          vendors={vendors}
+          physicians={physicians}
+          payers={payers}
+          pos={pos}
+          practices={practices}
+          facilities={facilities}
         />
-      )}
-    </>
+      }
+      meta={{
+        payers,
+        pos,
+        facilities,
+        practices,
+        physicians,
+        vendors,
+        usersType,
+      }}
+      initialColumnVisibility={{
+        "Created At": false,
+        "Updated At": false,
+        "Last Active": false,
+        "Last Sign In": false,
+      }}
+    />
   );
 }

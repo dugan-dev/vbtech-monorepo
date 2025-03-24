@@ -2,6 +2,10 @@ import "server-only";
 
 import {
   AdminCreateUserCommand,
+  AdminDisableUserCommand,
+  AdminEnableUserCommand,
+  AdminResetUserPasswordCommand,
+  AdminSetUserPasswordCommand,
   AdminUpdateUserAttributesCommand,
   CognitoIdentityProviderClient,
   ListUsersCommand,
@@ -10,6 +14,8 @@ import { env } from "env/server";
 
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserCognito } from "@/types/user-cognito";
+
+import { generateTempPassword } from "../utils/generate-temp-password";
 
 const userPoolId = "us-west-2_tTyr5jsaW";
 const limit = 60;
@@ -159,9 +165,62 @@ async function editUser(
   try {
     return await cognitoClient.send(command);
   } catch (error) {
-    console.error("Error creating admin user:", error);
+    console.error("Error editing user:", error);
     throw error;
   }
 }
 
-export { getAllUsers, createUser, editUser };
+async function disableUser(userId: string) {
+  const command = new AdminDisableUserCommand({
+    UserPoolId: userPoolId,
+    Username: userId,
+  });
+
+  try {
+    return await cognitoClient.send(command);
+  } catch (error) {
+    console.error("Error disabling existing user:", error);
+    throw error;
+  }
+}
+
+async function enableUser(userId: string) {
+  const command = new AdminEnableUserCommand({
+    UserPoolId: userPoolId,
+    Username: userId,
+  });
+
+  try {
+    return await cognitoClient.send(command);
+  } catch (error) {
+    console.error("Error enabling existing user:", error);
+    throw error;
+  }
+}
+
+async function forceChangePassword(userId: string) {
+  const tempPass = generateTempPassword();
+  const command = new AdminSetUserPasswordCommand({
+    UserPoolId: userPoolId,
+    Username: userId,
+    Password: tempPass,
+    Permanent: false, // Ensures user is forced to change their password on next login.
+  });
+
+  try {
+    await cognitoClient.send(command);
+    return { tempPass };
+  } catch (error) {
+    console.error("Error resetting user password:", error);
+    throw error;
+  }
+}
+
+export {
+  createUser,
+  disableUser,
+  editUser,
+  enableUser,
+  getAllUsers,
+  forceChangePassword,
+};
