@@ -23,10 +23,6 @@ type DataTableMeta<_TData> = {
   updateSelectedProcedureCode?: (prcdCode: DataTableProcedureCode) => void;
   updateSelectedApprover?: (approver: DataTableApprover) => void;
   usersType?: string;
-  handleLockUser?: (userId: string) => void;
-  handleUnlockUser?: (userId: string) => void;
-  handleUnbanUser?: (userId: string) => void;
-  handleBanUser?: (userId: string) => void;
 };
 
 type DataTableProcedureCode = {
