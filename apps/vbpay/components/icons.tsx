@@ -32,6 +32,7 @@ import {
   DollarSign,
   Download,
   Edit,
+  Ellipsis,
   Eye,
   EyeOff,
   FileKey,
@@ -69,6 +70,7 @@ import {
   UserCog,
   UserPlus,
   Users,
+  UserX,
   Wrench,
 } from "lucide-react";
 
@@ -105,6 +107,7 @@ export const Icons = {
   diff: Diff,
   dollarSign: DollarSign,
   download: Download,
+  ellipsis: Ellipsis,
   eye: Eye,
   eyeNone: EyeNoneIcon,
   eyeOff: EyeOff,
@@ -142,6 +145,7 @@ export const Icons = {
   sun: Sun,
   unlock: Unlock,
   user: User,
+  userX: UserX,
   userCog: UserCog,
   users: Users,
   userPlus: UserPlus,
