@@ -18,7 +18,10 @@ const actionSchema = z.object({
 });
 
 export const createUserAction = authedActionClient
-  .metadata({ actionName: "createUserAction" })
+  .metadata({
+    actionName: "createUserAction",
+    adminOnly: true,
+  })
   .schema(actionSchema)
   .action(async ({ parsedInput: { formData, revalidationPath } }) => {
     const appAttrs: UserAppAttrs = {

@@ -15,7 +15,7 @@ const actionSchema = z.object({
 });
 
 export const forceChangeUserPasswordAction = authedActionClient
-  .metadata({ actionName: "forceChangeUserPasswordAction" })
+  .metadata({ actionName: "forceChangeUserPasswordAction", adminOnly: true })
   .schema(actionSchema)
   .action(async ({ parsedInput: { userId, revalidationPath } }) => {
     const { tempPass } = await forceChangePassword(userId);

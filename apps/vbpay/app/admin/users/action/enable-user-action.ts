@@ -15,7 +15,7 @@ const actionSchema = z.object({
 });
 
 export const enableUserAction = authedActionClient
-  .metadata({ actionName: "enableUserAction" })
+  .metadata({ actionName: "enableUserAction", adminOnly: true })
   .schema(actionSchema)
   .action(async ({ parsedInput: { userId, revalidationPath } }) => {
     await enableUser(userId);
