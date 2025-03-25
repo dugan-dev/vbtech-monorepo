@@ -38,9 +38,8 @@ export default async function RootLayout({
                 firstName={firstName || ""}
                 lastName={lastName || ""}
                 email={email || ""}
-                userType={usersAppAttrs?.type}
-                slug={usersAppAttrs?.slug}
                 hasLicense={true}
+                userAppAttrs={usersAppAttrs}
               />
             )}
             <div className="flex-1">

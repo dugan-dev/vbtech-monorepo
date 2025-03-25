@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { filterMainSidebarItems } from "@/utils/filter-main-sidebar-items";
 import { useTheme } from "next-themes";
 
 import {
@@ -25,8 +26,7 @@ import {
 } from "@workspace/ui/components/sidebar";
 import { useIsMounted } from "@workspace/ui/hooks/use-is-mounted";
 
-import { UserType } from "@/types/user-type";
-import { useAppSidebarItems } from "@/hooks/use-main-sidebar";
+import { UserAppAttrs } from "@/types/user-app-attrs";
 import { Icons } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { UserAvatar } from "@/components/user-avatar";
@@ -35,21 +35,29 @@ type props = {
   firstName: string;
   lastName: string;
   email: string;
-  userType: UserType | undefined;
-  slug: string | undefined;
   hasLicense: boolean;
+  userAppAttrs: UserAppAttrs | null;
 };
 
 export function MainSidebar({
   firstName,
   lastName,
   email,
-  userType,
-  slug,
   hasLicense,
+  userAppAttrs,
 }: props) {
   const mounted = useIsMounted();
-  const appSidebarNavItems = useAppSidebarItems(userType, slug);
+  const rolesForSlug = userAppAttrs?.ids?.find(
+    (id) => id.id === userAppAttrs.slug,
+  )?.userRoles;
+  const appSidebarNavItems = userAppAttrs
+    ? filterMainSidebarItems({
+        type: userAppAttrs.type,
+        roles: rolesForSlug,
+        isAdmin: userAppAttrs.admin,
+        slug: userAppAttrs.slug,
+      })
+    : [];
   const { theme } = useTheme();
   const pathname = usePathname();
 
@@ -154,7 +162,7 @@ export function MainSidebar({
                               >
                                 <Link href={subItem.href || ""}>
                                   {subItem.icon && (
-                                    <subItem.icon className="mr-2" />
+                                    <subItem.icon className="ml-2" />
                                   )}
                                   <span>{subItem.title}</span>
                                 </Link>
