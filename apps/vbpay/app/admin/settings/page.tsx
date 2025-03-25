@@ -1,3 +1,17 @@
+import "server-only";
+
+import { UserType } from "@/types/user-type";
+import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
+
+const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
+
 export default async function Page() {
-  return <h1>Admin Settings</h1>;
+  return (
+    <RestrictByUserAppAttrsServer
+      allowedUserTypes={ALLOWED_USER_TYPES}
+      adminOnly
+    >
+      <h1>Admin Settings</h1>
+    </RestrictByUserAppAttrsServer>
+  );
 }
