@@ -12,12 +12,9 @@ import * as BeneficiariesSearchRoute from "@/app/beneficiaries/search/page.info"
 import * as BeneficiaryRoute from "@/app/beneficiary/[slug]/page.info";
 import * as NetworkEntitiesRoute from "@/app/network/entities/page.info";
 import * as NetworkEntityRoute from "@/app/network/entity/[slug]/page.info";
-import * as NewNetworkEntityRoute from "@/app/network/entity/new/page.info";
 import * as NetworkPayerRoute from "@/app/network/payer/[slug]/page.info";
-import * as NewNetworkPayerRoute from "@/app/network/payer/new/page.info";
 import * as NetworkPayersRoute from "@/app/network/payers/page.info";
 import * as NetworkPhysicianRoute from "@/app/network/physician/[slug]/page.info";
-import * as NewNetworkPhysicianRoute from "@/app/network/physician/new/page.info";
 import * as NetworkPhysiciansRoute from "@/app/network/physicians/page.info";
 import * as HomeRoute from "@/app/page.info";
 import * as QueuesCompletedRoute from "@/app/queues/completed/page.info";
@@ -85,17 +82,9 @@ export const NetworkEntity = makeRoute("/network/entity/[slug]", {
   ...defaultInfo,
   ...NetworkEntityRoute.Route,
 });
-export const NewNetworkEntity = makeRoute("/network/entity/new", {
-  ...defaultInfo,
-  ...NewNetworkEntityRoute.Route,
-});
 export const NetworkPayer = makeRoute("/network/payer/[slug]", {
   ...defaultInfo,
   ...NetworkPayerRoute.Route,
-});
-export const NewNetworkPayer = makeRoute("/network/payer/new", {
-  ...defaultInfo,
-  ...NewNetworkPayerRoute.Route,
 });
 export const NetworkPayers = makeRoute("/network/payers", {
   ...defaultInfo,
@@ -104,10 +93,6 @@ export const NetworkPayers = makeRoute("/network/payers", {
 export const NetworkPhysician = makeRoute("/network/physician/[slug]", {
   ...defaultInfo,
   ...NetworkPhysicianRoute.Route,
-});
-export const NewNetworkPhysician = makeRoute("/network/physician/new", {
-  ...defaultInfo,
-  ...NewNetworkPhysicianRoute.Route,
 });
 export const NetworkPhysicians = makeRoute("/network/physicians", {
   ...defaultInfo,
