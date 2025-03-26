@@ -41,7 +41,6 @@ const UserRolesPayerPayers = [
   "write-notifications",
 ] as const;
 const UserRolesPayees = [
-  "view",
   "read-files",
   "write-files",
   "read-notifications",
