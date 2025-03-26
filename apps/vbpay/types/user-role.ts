@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 type UserRole =
-  | "view"
   | "edit"
   | "add"
+  | "upload"
   | "approve"
   | "read-files"
   | "write-files"
@@ -11,28 +11,29 @@ type UserRole =
   | "write-notifications";
 
 const UserRoles = [
-  "view",
   "edit",
   "add",
+  "upload",
   "approve",
   "read-files",
   "write-files",
   "read-notifications",
   "write-notifications",
 ] as const;
+
 const UserRolesBpo = [
-  "view",
   "edit",
   "add",
+  "upload",
   "read-files",
   "write-files",
   "read-notifications",
   "write-notifications",
 ] as const;
 const UserRolesPayerPayers = [
-  "view",
   "edit",
   "add",
+  "upload",
   "approve",
   "read-files",
   "write-files",
@@ -40,7 +41,6 @@ const UserRolesPayerPayers = [
   "write-notifications",
 ] as const;
 const UserRolesPayees = [
-  "view",
   "read-files",
   "write-files",
   "read-notifications",
@@ -48,9 +48,9 @@ const UserRolesPayees = [
 ] as const;
 
 const UserRoleLabels = {
-  view: "View",
   edit: "Edit",
   add: "Add",
+  upload: "Upload",
   approve: "Approve",
   "read-files": "Read Files",
   "write-files": "Write Files",

@@ -9,7 +9,6 @@ export async function getPayersForTable({
 }: {
   usersPayerPubIds: string[];
 }): Promise<Payer[]> {
-  console.log("usersPayerPubIds", usersPayerPubIds);
   return await db
     .selectFrom("payer")
     .select([
@@ -26,8 +25,7 @@ export async function getPayersForTable({
       "websiteUrl",
       "isActive",
     ])
-    // TODO: Add filter for usersPayerPubIds
-    // .where("pubId", "in", usersPayerPubIds)
+    .where("pubId", "in", usersPayerPubIds)
     .orderBy("marketingName", "asc")
     .execute();
 }

@@ -1,11 +1,15 @@
+import "server-only";
+
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "@workspace/ui/globals.css";
 
-import { getUserData } from "@/repos/user-repository";
+import { getUsersData } from "@/repos/user-repository";
+import { authenticatedUser } from "@/utils/amplify-server-utils";
 
 import { Toaster } from "@workspace/ui/components/sonner";
 
+import { UserAppAttrs } from "@/types/user-app-attrs";
 import { MainSidebar } from "@/components/main-sidebar/main-sidebar";
 import { Providers } from "@/components/providers";
 
@@ -24,8 +28,25 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isAuthenticated, firstName, lastName, email, usersAppAttrs } =
-    await getUserData();
+  const user = await authenticatedUser();
+  let firstName = "";
+  let lastName = "";
+  let email = "";
+  let usersAppAttrs: UserAppAttrs | null = null;
+  if (user) {
+    const {
+      firstName: fName,
+      lastName: lName,
+      email: uEmail,
+      usersAppAttrs: uAppAttrs,
+    } = await getUsersData({
+      userId: user.userId,
+    });
+    firstName = fName || "";
+    lastName = lName || "";
+    email = uEmail || "";
+    usersAppAttrs = uAppAttrs;
+  }
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -33,14 +54,13 @@ export default async function RootLayout({
       >
         <Providers>
           <div className="flex flex-1">
-            {isAuthenticated && (
+            {user && usersAppAttrs && (
               <MainSidebar
                 firstName={firstName || ""}
                 lastName={lastName || ""}
                 email={email || ""}
-                userType={usersAppAttrs?.type}
-                slug={usersAppAttrs?.slug}
                 hasLicense={true}
+                userAppAttrs={usersAppAttrs}
               />
             )}
             <div className="flex-1">

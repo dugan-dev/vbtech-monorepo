@@ -21,8 +21,7 @@ export async function getNetworkEntitiesForTable({
       "taxId",
       "isActive",
     ])
-    // TODO: Add filter for selectedPayer
-    //.where("payerPubId", "=", selectedPayer)
+    .where("payerPubId", "=", selectedPayer)
     .orderBy("marketingName", "asc")
     .execute();
 }

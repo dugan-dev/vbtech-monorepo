@@ -1,27 +1,26 @@
 import "server-only";
 
 import { Suspense } from "react";
+import { getUsersData } from "@/repos/user-repository";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 
 import { PayerTypeLabels, PayerTypes } from "@/types/payer-type";
+import { MissingInvalidView } from "@/components/missing-invalid-view";
 
 import { getPayersForTable } from "../repos/get-payers-for-table";
 import { ManagePayersTable } from "./manage-payers-table/manage-payers-table";
 
-export async function ManagePayers() {
-  /*
-  const [usersType, usersAllowedIds, globalSettings] = await Promise.all([
-    getUserType(),
-    getUserAllowedIds(),
-    getGlobalSettings(),
-  ]);
+type props = {
+  userId: string;
+};
 
-  if (usersType !== "bpo" && usersType !== "aco" && usersType !== "payer") {
-    forbidden();
-  }
+export async function ManagePayers({ userId }: props) {
+  const { usersAppAttrs } = await getUsersData({
+    userId,
+  });
 
-  if (usersAllowedIds.length === 0) {
+  if (!usersAppAttrs.ids || usersAppAttrs.ids.length === 0) {
     return (
       <MissingInvalidView
         title="Missing Users Allowed Payer IDs"
@@ -29,10 +28,9 @@ export async function ManagePayers() {
       />
     );
   }
-  */
 
   const payers = await getPayersForTable({
-    usersPayerPubIds: [""],
+    usersPayerPubIds: usersAppAttrs.ids.map((id) => id.id),
   });
 
   /*
@@ -59,9 +57,8 @@ export async function ManagePayers() {
       <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
         <ManagePayersTable
           payers={payers}
-          // TODO: replace with usersType
-          usersType={"bpo"}
-          // TODO: replace with payerTypes
+          usersAppAttrs={usersAppAttrs}
+          // TODO: replace with allowed payerTypes from globalSettings
           payerTypes={PayerTypes.map((type) => ({
             label: PayerTypeLabels[type],
             value: type,

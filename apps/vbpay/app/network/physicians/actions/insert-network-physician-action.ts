@@ -5,6 +5,8 @@ import "server-only";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
+import { UserRole } from "@/types/user-role";
+import { UserType } from "@/types/user-type";
 import { newPubId } from "@/lib/nanoid";
 import { authedActionClient } from "@/lib/safe-action";
 
@@ -17,8 +19,15 @@ const insertNetworkPhysicianActionSchema = z.object({
   formData: AddNetworkPhysicianFormSchema,
 });
 
+const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+
+const REQUIRED_USER_ROLE: UserRole = "add";
+
 export const insertNetworkPhysicianAction = authedActionClient
-  .metadata({ actionName: "insertPhysicianAction" })
+  .metadata({
+    actionName: "insertPhysicianAction",
+    allowedTypes: ALLOWED_USER_TYPES,
+  })
   .schema(insertNetworkPhysicianActionSchema)
   .action(
     async ({
@@ -26,11 +35,25 @@ export const insertNetworkPhysicianAction = authedActionClient
       ctx,
     }) => {
       const pubId = newPubId();
+      const { userId, usersAppAttrs } = ctx;
+
+      const payerPermisssions = usersAppAttrs.ids?.find(
+        (id) => id.id === payerPubId,
+      );
+
+      if (
+        !payerPermisssions ||
+        !payerPermisssions.userRoles.includes(REQUIRED_USER_ROLE)
+      ) {
+        throw new Error(
+          "User does not have permission to add a physician for this payer.",
+        );
+      }
 
       await insertPhysician({
         pubId,
         payerPubId,
-        userId: ctx.userId,
+        userId,
         formData,
       });
 

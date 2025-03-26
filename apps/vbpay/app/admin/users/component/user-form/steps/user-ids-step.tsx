@@ -62,7 +62,7 @@ export function UserIdsStep({
       {
         id: "",
         userMode: "aco",
-        userRoles: ["view"],
+        userRoles: [],
       },
     ]);
   };

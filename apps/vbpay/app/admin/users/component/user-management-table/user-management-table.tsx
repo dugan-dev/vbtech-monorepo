@@ -2,10 +2,11 @@ import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
 
+import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserCognito } from "@/types/user-cognito";
-import { UserType } from "@/types/user-type";
 import { EmptyView } from "@/components/empty-view";
 import { Icons } from "@/components/icons";
+import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { AddUserSheet } from "../add-user-sheet";
 import { UserManagementTableColumns } from "./user-management-table-columns";
@@ -18,7 +19,7 @@ type props = {
   pos: ComboItem[];
   facilities: ComboItem[];
   vendors: ComboItem[];
-  usersType: UserType;
+  usersAppAttrs: UserAppAttrs;
 };
 
 /**
@@ -35,12 +36,11 @@ type props = {
  * @param payers - Array of payer options.
  * @param pos - Array of point-of-service options.
  * @param physicians - Array of physician data for user assignments.
- * @param usersType - Metadata defining the type of users.
+ * @param usersAppAttrs - Array of user app attributes.
  *
  * @returns A JSX element representing the user management interface.
  *
- * @remarks Permission checks are not implemented yet; a future update should wrap this
- * component to validate if the current user has appropriate permissions.
+ * @remarks Permission checks are enforced through RestrictByUserAppAttrsClient.
  */
 export function UserManagementTable({
   users,
@@ -50,7 +50,7 @@ export function UserManagementTable({
   payers,
   pos,
   physicians,
-  usersType,
+  usersAppAttrs,
 }: props) {
   if (users.length === 0) {
     return (
@@ -71,16 +71,17 @@ export function UserManagementTable({
         initialPageSize: 8,
         enableGlobalSearch: true,
       }}
-      // TODO: Wrap with user is to determine if user has appropriate permissions.
       itemsAboveTable={
-        <AddUserSheet
-          vendors={vendors}
-          physicians={physicians}
-          payers={payers}
-          pos={pos}
-          practices={practices}
-          facilities={facilities}
-        />
+        <RestrictByUserAppAttrsClient usersAppAttrs={usersAppAttrs} adminOnly>
+          <AddUserSheet
+            vendors={vendors}
+            physicians={physicians}
+            payers={payers}
+            pos={pos}
+            practices={practices}
+            facilities={facilities}
+          />
+        </RestrictByUserAppAttrsClient>
       }
       meta={{
         payers,
@@ -89,7 +90,7 @@ export function UserManagementTable({
         practices,
         physicians,
         vendors,
-        usersType,
+        usersAppAttrs,
       }}
       initialColumnVisibility={{
         "Created At": false,
