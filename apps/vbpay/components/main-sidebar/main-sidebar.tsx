@@ -162,7 +162,7 @@ export function MainSidebar({
                               >
                                 <Link href={subItem.href || ""}>
                                   {subItem.icon && (
-                                    <subItem.icon className="ml-2" />
+                                    <subItem.icon className="mr-2" />
                                   )}
                                   <span>{subItem.title}</span>
                                 </Link>
