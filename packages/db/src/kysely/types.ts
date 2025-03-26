@@ -129,6 +129,29 @@ export type payer_hist = {
   websiteUrl: string | null;
   isActive: number;
 };
+export type user = {
+  id: Generated<number>;
+  userId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+export type user_hist = {
+  id: Generated<number>;
+  histAddedAt: Timestamp;
+  userId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
 export type DB = {
   networkEntity: network_entity;
   networkEntityHist: network_entity_hist;
@@ -136,4 +159,6 @@ export type DB = {
   networkPhysicianHist: network_physician_hist;
   payer: payer;
   payerHist: payer_hist;
+  user: user;
+  userHist: user_hist;
 };
