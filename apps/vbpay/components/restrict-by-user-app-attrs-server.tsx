@@ -1,40 +1,26 @@
 import { forbidden } from "next/navigation";
-import { getUserData } from "@/repos/user-repository";
+import { getUsersData } from "@/repos/user-repository";
 
 import "server-only";
 
-import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserType } from "@/types/user-type";
 
 type props = {
   children: React.ReactNode;
+  userId: string;
   allowedUserTypes?: UserType[];
   adminOnly?: boolean;
-  passedIsAuthenticated?: boolean;
-  passedUsersAppAttrs?: UserAppAttrs;
 };
 
 export async function RestrictByUserAppAttrsServer({
   children,
+  userId,
   allowedUserTypes = [],
   adminOnly = false,
-  passedIsAuthenticated,
-  passedUsersAppAttrs,
 }: props) {
-  let isAuthenticated = false;
-  let usersAppAttrs: UserAppAttrs | null = null;
-
-  if (!passedIsAuthenticated || !passedUsersAppAttrs) {
-    const { isAuthenticated: authed, usersAppAttrs: attrs } =
-      await getUserData();
-    isAuthenticated = authed;
-    usersAppAttrs = attrs;
-  }
-
-  // Only authenticated users can access this page
-  if (!isAuthenticated) {
-    return forbidden();
-  }
+  const { usersAppAttrs } = await getUsersData({
+    userId,
+  });
 
   // Only authenticated users with app attributes can access this page
   if (!usersAppAttrs) {
