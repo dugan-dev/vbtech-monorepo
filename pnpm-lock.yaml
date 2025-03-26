@@ -36,8 +36,8 @@ importers:
         specifier: 0.6.11
         version: 0.6.11(@ianvs/prettier-plugin-sort-imports@4.4.1(prettier@3.5.3))(prettier@3.5.3)
       sst:
-        specifier: 3.10.13
-        version: 3.10.13
+        specifier: 3.10.14
+        version: 3.10.14
       turbo:
         specifier: 2.4.4
         version: 2.4.4
@@ -81,8 +81,8 @@ importers:
         specifier: 0.33.5
         version: 0.33.5
       sst:
-        specifier: 3.10.13
-        version: 3.10.13
+        specifier: 3.10.14
+        version: 3.10.14
       zod:
         specifier: 3.24.2
         version: 3.24.2
@@ -184,8 +184,8 @@ importers:
         specifier: 2.0.1
         version: 2.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       sst:
-        specifier: 3.10.13
-        version: 3.10.13
+        specifier: 3.10.14
+        version: 3.10.14
       zod:
         specifier: 3.24.2
         version: 3.24.2
@@ -5138,33 +5138,33 @@ packages:
     resolution: {integrity: sha512-qC9iz2FlN7DQl3+wjwn3802RTyjCx7sDvfQEXchwa6CWOx07/WVfh91gBmQ9fahw8snwGEWU3xGzOt4tFyHLxg==}
     engines: {node: '>= 0.6'}
 
-  sst-darwin-arm64@3.10.13:
-    resolution: {integrity: sha512-oM0mtqUQhEV779Qsb/8DYBS5hThj0TUqSYJrGjPea6aNN+SYYwuo82iM7gtG530gSqvLyi6V+0HBxjT9yUvCnw==}
+  sst-darwin-arm64@3.10.14:
+    resolution: {integrity: sha512-TIrEtTlB0DtOlLRJpBrYFqj/+UbmH5N/PN2I/7Jx6CwdjDOtVsLOstuv5oLuXeo4zFVjt8CSg+Y+yitEQnhq8A==}
     cpu: [arm64]
     os: [darwin]
 
-  sst-darwin-x64@3.10.13:
-    resolution: {integrity: sha512-7OOvbFRbUPxqGrh4vuLV1fuTkyTKkt+Thzc6fqG+fM8cL5P+YjNTg5ZAojC45JD1mSOAiXZIM5fLYW4ubDz5cA==}
+  sst-darwin-x64@3.10.14:
+    resolution: {integrity: sha512-g7/x0UtfeJrAB3+bZ+Cw6riSb4YQRDPfijJgwwa7Lt0ND8+FL+q+s6m4sJ4j4K/SV/UjXqNetpdbMLIqLiUonQ==}
     cpu: [x64]
     os: [darwin]
 
-  sst-linux-arm64@3.10.13:
-    resolution: {integrity: sha512-kYsXIioO4W9YV9zVMQLaFtAT+0QzXz8RFFucwUyhLWKX9dYD+etfhECYnijyzBfO1dj8cUTMoEI3eA4jTIgKOA==}
+  sst-linux-arm64@3.10.14:
+    resolution: {integrity: sha512-eJghBsuAYgUxakAqHggtNtX+JHJTgIzNhxV2P4HtBhtfj3rS0OGBjLVxQw0t+noWz2LB7vyFuTfumyaCgI3pvA==}
     cpu: [arm64]
     os: [linux]
 
-  sst-linux-x64@3.10.13:
-    resolution: {integrity: sha512-bWatwYnSIDs64fCYF+6+Kt+lVKPYsTuRpEKRAxR9b+gIGtdnS0veeEGQ15XBPPr8ZEYlyTKWCQ4LwTSIi16CPw==}
+  sst-linux-x64@3.10.14:
+    resolution: {integrity: sha512-D4Vs0TxmUZbT4yoEYKaDrLcmKMpnkXcO23mNmo+4sFNjMNHmwPP2DrsY9PWNZqZhE9XgzCsNBBnZqBzxIHzN8g==}
     cpu: [x64]
     os: [linux]
 
-  sst-linux-x86@3.10.13:
-    resolution: {integrity: sha512-eBOABQf941uy9GZgY77hj5a8dRqmJ3u+7ZYRrGspev306i3bcI/1w4Rkid7KFYVDcouNw4UuOhuLQfS8z3Lpzw==}
+  sst-linux-x86@3.10.14:
+    resolution: {integrity: sha512-KvLBtZxBm6NBUqX3qSzIgF9fzOS9zRUZwUKpeSvR2RyJ5B31Qo2t37uh+1LXpV6uhEmfgO+thZz5TOTQTgSWsQ==}
     cpu: [x86]
     os: [linux]
 
-  sst@3.10.13:
-    resolution: {integrity: sha512-L1EkuKFikAspTJrBxM5PPARfziEnj1U7006qIr4aTO9gtqUjhj2FVgj9CDMlOQyy1Fi+dpY4bSTeo9ksqsn1Gw==}
+  sst@3.10.14:
+    resolution: {integrity: sha512-VpStT1hbESPPBTFh0TlZSW6Ugghx1/YGZ+AK5utNhPfXlyA17zjlOlb2dS+pQUBbqwOli3Aje1M4Zt39gp1J4g==}
     hasBin: true
 
   statuses@2.0.1:
@@ -11557,22 +11557,22 @@ snapshots:
 
   sqlstring@2.3.3: {}
 
-  sst-darwin-arm64@3.10.13:
+  sst-darwin-arm64@3.10.14:
     optional: true
 
-  sst-darwin-x64@3.10.13:
+  sst-darwin-x64@3.10.14:
     optional: true
 
-  sst-linux-arm64@3.10.13:
+  sst-linux-arm64@3.10.14:
     optional: true
 
-  sst-linux-x64@3.10.13:
+  sst-linux-x64@3.10.14:
     optional: true
 
-  sst-linux-x86@3.10.13:
+  sst-linux-x86@3.10.14:
     optional: true
 
-  sst@3.10.13:
+  sst@3.10.14:
     dependencies:
       aws-sdk: 2.1692.0
       aws4fetch: 1.0.18
@@ -11580,11 +11580,11 @@ snapshots:
       opencontrol: 0.0.6
       openid-client: 5.6.4
     optionalDependencies:
-      sst-darwin-arm64: 3.10.13
-      sst-darwin-x64: 3.10.13
-      sst-linux-arm64: 3.10.13
-      sst-linux-x64: 3.10.13
-      sst-linux-x86: 3.10.13
+      sst-darwin-arm64: 3.10.14
+      sst-darwin-x64: 3.10.14
+      sst-linux-arm64: 3.10.14
+      sst-linux-x64: 3.10.14
+      sst-linux-x86: 3.10.14
     transitivePeerDependencies:
       - supports-color
 
