@@ -36,12 +36,11 @@ type props = {
  * @param payers - Array of payer options.
  * @param pos - Array of point-of-service options.
  * @param physicians - Array of physician data for user assignments.
- * @param usersType - Metadata defining the type of users.
+ * @param usersAppAttrs - Array of user app attributes.
  *
  * @returns A JSX element representing the user management interface.
  *
- * @remarks Permission checks are not implemented yet; a future update should wrap this
- * component to validate if the current user has appropriate permissions.
+ * @remarks Permission checks are enforced through RestrictByUserAppAttrsClient.
  */
 export function UserManagementTable({
   users,
