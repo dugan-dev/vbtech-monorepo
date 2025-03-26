@@ -53,7 +53,7 @@ export const insertNetworkEntityAction = authedActionClient
 
       if (
         !payerPermisssions ||
-        payerPermisssions.userRoles.includes(REQUIRED_USER_ROLE)
+        !payerPermisssions.userRoles.includes(REQUIRED_USER_ROLE)
       ) {
         throw new Error(
           "User does not have permission to add an entity for this payer.",
