@@ -10,6 +10,7 @@ import { UserType } from "@/types/user-type";
 import { authedActionClient } from "@/lib/safe-action";
 
 import { UserFormSchema } from "../component/user-form/user-form-schema";
+import { insertUser } from "../repos/insert-user";
 import { createUser } from "../repos/user-management-repository";
 
 const actionSchema = z.object({
@@ -23,7 +24,8 @@ export const createUserAction = authedActionClient
     adminOnly: true,
   })
   .schema(actionSchema)
-  .action(async ({ parsedInput: { formData, revalidationPath } }) => {
+  .action(async ({ parsedInput: { formData, revalidationPath }, ctx }) => {
+    // Create user attributes
     const appAttrs: UserAppAttrs = {
       app: "VBPay",
       admin: formData.admin,
@@ -35,11 +37,25 @@ export const createUserAction = authedActionClient
         userRoles: id.userRoles,
       })),
     };
-    await createUser(
+
+    // Create user in Cognito
+    const response = await createUser(
       formData.email,
       formData.firstName,
       formData.lastName,
       appAttrs,
     );
+
+    // Insert user into database
+    const newUserId = response?.Username || "";
+    await insertUser({
+      userId: ctx.userId,
+      newUserId,
+      email: formData.email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+    });
+
+    // Revalidate page
     revalidatePath(revalidationPath);
   });
