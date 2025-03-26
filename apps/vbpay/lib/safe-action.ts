@@ -1,7 +1,8 @@
 import "server-only";
 
 import { forbidden, unauthorized } from "next/navigation";
-import { getUserData } from "@/repos/user-repository";
+import { getUsersData } from "@/repos/user-repository";
+import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { createSafeActionClient } from "next-safe-action";
 import z from "zod";
 
@@ -52,11 +53,13 @@ const authedActionClient = createSafeActionClient({
 }).use(async ({ next, metadata }) => {
   const { allowedTypes, adminOnly } = metadata;
   // get user auth data
-  const { isAuthenticated, userId, usersAppAttrs, email, firstName, lastName } =
-    await getUserData();
+  const user = await authenticatedUser();
+  const { usersAppAttrs, email, firstName, lastName } = await getUsersData({
+    userId: user?.userId || "",
+  });
 
   // throw error if no user id
-  if (!isAuthenticated || !userId || !usersAppAttrs) {
+  if (!user || !user.userId || !usersAppAttrs) {
     console.error(
       `Action error: ${metadata?.actionName}`,
       "User not authenticated.",
@@ -83,7 +86,7 @@ const authedActionClient = createSafeActionClient({
   }
 
   return await next({
-    ctx: { userId: userId, usersAppAttrs, email, firstName, lastName },
+    ctx: { userId: user.userId, usersAppAttrs, email, firstName, lastName },
   });
 });
 
