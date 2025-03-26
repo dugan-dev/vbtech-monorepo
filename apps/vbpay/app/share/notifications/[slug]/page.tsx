@@ -1,4 +1,4 @@
-import { forbidden } from "next/navigation";
+import { unauthorized } from "next/navigation";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
 import { UserRole } from "@/types/user-role";
@@ -10,7 +10,7 @@ export default async function Page() {
   const user = await authenticatedUser();
 
   if (!user) {
-    return forbidden();
+    return unauthorized();
   }
 
   return (
