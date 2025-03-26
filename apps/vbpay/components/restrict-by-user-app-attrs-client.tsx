@@ -25,15 +25,17 @@ export default function RestrictByUserAppAttrsClient({
     return null;
   }
 
-  if (
-    requiredUserRoles &&
-    !requiredUserRoles.every((role) =>
-      usersAppAttrs?.ids
-        ?.find((id) => id.id === usersAppAttrs.slug)
-        ?.userRoles.includes(role),
-    )
-  ) {
-    return null;
+  if (requiredUserRoles && requiredUserRoles.length > 0) {
+    const numIds = usersAppAttrs.ids?.length || 0;
+    const id = usersAppAttrs.slug
+      ? usersAppAttrs.ids?.find((id) => id.id === usersAppAttrs.slug)
+      : numIds === 1
+        ? usersAppAttrs.ids?.[0]
+        : null;
+
+    if (!requiredUserRoles.every((role) => id?.userRoles.includes(role))) {
+      return null;
+    }
   }
 
   return <>{children}</>;

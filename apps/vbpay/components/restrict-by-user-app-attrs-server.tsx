@@ -3,6 +3,7 @@ import { getUsersData } from "@/repos/user-repository";
 
 import "server-only";
 
+import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 
 type props = {
@@ -10,6 +11,7 @@ type props = {
   userId: string;
   allowedUserTypes?: UserType[];
   adminOnly?: boolean;
+  requiredUserRoles?: UserRole[];
 };
 
 export async function RestrictByUserAppAttrsServer({
@@ -17,6 +19,7 @@ export async function RestrictByUserAppAttrsServer({
   userId,
   allowedUserTypes = [],
   adminOnly = false,
+  requiredUserRoles = [],
 }: props) {
   const { usersAppAttrs } = await getUsersData({
     userId,
@@ -29,7 +32,7 @@ export async function RestrictByUserAppAttrsServer({
 
   // Only users with the allowed user types can access this page
   if (
-    !allowedUserTypes.length &&
+    allowedUserTypes.length > 0 &&
     !allowedUserTypes.includes(usersAppAttrs.type)
   ) {
     return forbidden();
@@ -38,6 +41,20 @@ export async function RestrictByUserAppAttrsServer({
   // Only authenticated admin users can access this page
   if (adminOnly && !usersAppAttrs.admin) {
     return forbidden();
+  }
+
+  // Only authenticated users with the required user roles can access this page
+  if (requiredUserRoles.length > 0) {
+    const numIds = usersAppAttrs.ids?.length || 0;
+    const id = usersAppAttrs.slug
+      ? usersAppAttrs.ids?.find((id) => id.id === usersAppAttrs.slug)
+      : numIds === 1
+        ? usersAppAttrs.ids?.[0]
+        : null;
+
+    if (!requiredUserRoles.every((role) => id?.userRoles.includes(role))) {
+      return forbidden();
+    }
   }
 
   return <>{children}</>;
