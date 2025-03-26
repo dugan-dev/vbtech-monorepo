@@ -22,7 +22,8 @@ type DataTableMeta<_TData> = {
   deleteSelectedApprover?: (userId: string) => void;
   updateSelectedProcedureCode?: (prcdCode: DataTableProcedureCode) => void;
   updateSelectedApprover?: (approver: DataTableApprover) => void;
-  usersType?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  usersAppAttrs?: any;
 };
 
 type DataTableProcedureCode = {
