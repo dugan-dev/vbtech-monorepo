@@ -1,42 +1,59 @@
-import {
-  authenticatedUser,
-  authenticatedUserAttributes,
-} from "@/utils/amplify-server-utils";
+import "server-only";
+
+import { unstable_cache as cache } from "next/cache";
+import { AdminGetUserCommand } from "@aws-sdk/client-cognito-identity-provider";
 
 import { UserAppAttrs } from "@/types/user-app-attrs";
+import { cognitoClient } from "@/lib/auth/cognito";
 
-export async function getUserData() {
-  const [user, attributes] = await Promise.all([
-    authenticatedUser(),
-    authenticatedUserAttributes(),
-  ]);
+type props = {
+  userId: string;
+};
 
-  if (!user || !attributes) {
-    return {
-      isAuthenticated: false,
-      userId: null,
-      email: null,
-      firstName: null,
-      lastName: null,
-      usersAppAttrs: null,
-    };
-  }
+// Define a constant for the cache tag prefix
+export const USERS_DATA_CACHE_TAG = "users-data";
 
-  const attr = attributes["custom:app1:attrs"];
-  const parsed = attr ? JSON.parse(attr) : null;
-  const usersAppAttrs: UserAppAttrs = parsed as UserAppAttrs;
+export function getUsersData({ userId }: props) {
+  const cacheKey = `${USERS_DATA_CACHE_TAG}-${userId}`;
 
-  const userId = user.userId;
-  const firstName = attributes.given_name;
-  const lastName = attributes.family_name;
-  const email = attributes.email;
+  // The cache function returns a function that needs to be executed
+  const cachedFn = cache(
+    async () => {
+      const command = new AdminGetUserCommand({
+        UserPoolId: process.env.AWS_COGNITO_USER_POOL_ID,
+        Username: userId,
+      });
 
-  return {
-    isAuthenticated: true,
-    userId,
-    email,
-    firstName,
-    lastName,
-    usersAppAttrs,
-  };
+      const response = await cognitoClient.send(command);
+
+      const appAttrs = response.UserAttributes?.find(
+        (attr) => attr.Name === "custom:app1:attrs",
+      );
+      const lastName = response.UserAttributes?.find(
+        (attr) => attr.Name === "family_name",
+      );
+      const firstName = response.UserAttributes?.find(
+        (attr) => attr.Name === "given_name",
+      );
+      const email = response.UserAttributes?.find(
+        (attr) => attr.Name === "email",
+      );
+
+      const usersAppAttrs: UserAppAttrs = appAttrs?.Value
+        ? JSON.parse(appAttrs.Value)
+        : {};
+
+      return {
+        usersAppAttrs,
+        firstName: firstName?.Value,
+        lastName: lastName?.Value,
+        email: email?.Value,
+      };
+    },
+    [cacheKey],
+    { revalidate: 600, tags: [cacheKey] },
+  );
+
+  // Return the cached function which will be executed when called
+  return cachedFn();
 }
