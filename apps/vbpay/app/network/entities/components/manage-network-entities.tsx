@@ -1,28 +1,31 @@
 import "server-only";
 
 import { Suspense } from "react";
+import { getAllPayers } from "@/repos/payer-repository";
+import { getUsersData } from "@/repos/user-repository";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
+
+import { MissingInvalidView } from "@/components/missing-invalid-view";
 
 import { getNetworkEntitiesForTable } from "../repos/getNetworkEntitiesForTable";
 import { ManageNetworkEntitiesTable } from "./manage-network-entities-table/manage-network-entities-table";
 
 type props = {
   payerIdUrlParam?: string;
+  userId: string;
 };
 
-export async function ManageNetworkEntities({ payerIdUrlParam }: props) {
-  /*const [usersType, payers, userSelectedPayer] = await Promise.all([
-    //getUserType(),
+export async function ManageNetworkEntities({
+  payerIdUrlParam,
+  userId,
+}: props) {
+  const [{ usersAppAttrs }, payers] = await Promise.all([
+    getUsersData({ userId }),
     getAllPayers(),
-    //getUserSelectedId(),
   ]);
-  /*
-  if (usersType !== "bpo" && usersType !== "aco" && usersType !== "payer") {
-    forbidden();
-  }
 
-  if (!payerIdUrlParam && !userSelectedPayer) {
+  if (!payerIdUrlParam && !usersAppAttrs.slug) {
     return (
       <MissingInvalidView
         title="Missing Payer ID Search Parameter"
@@ -33,7 +36,7 @@ export async function ManageNetworkEntities({ payerIdUrlParam }: props) {
 
   const selectedPayerId = payerIdUrlParam
     ? (payerIdUrlParam as string)
-    : userSelectedPayer;
+    : usersAppAttrs.slug;
   const isPayerIdValid = payers.some(
     (payer) => payer.pubId === selectedPayerId,
   );
@@ -46,11 +49,9 @@ export async function ManageNetworkEntities({ payerIdUrlParam }: props) {
       />
     );
   }
-*/
 
-  // TODO: pass in userSelectedPayer to table
   const entities = await getNetworkEntitiesForTable({
-    selectedPayer: payerIdUrlParam || "",
+    selectedPayer: payerIdUrlParam || usersAppAttrs.slug || "",
   });
 
   return (
@@ -58,8 +59,7 @@ export async function ManageNetworkEntities({ payerIdUrlParam }: props) {
       <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
         <ManageNetworkEntitiesTable
           entities={entities}
-          // TODO: pass userType
-          usersType={"bpo"}
+          usersAppAttrs={usersAppAttrs}
         />
       </Suspense>
     </div>

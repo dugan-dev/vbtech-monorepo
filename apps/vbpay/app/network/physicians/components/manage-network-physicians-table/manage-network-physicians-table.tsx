@@ -4,9 +4,11 @@ import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 
 import { NetworkPhysician } from "@/types/network-physician";
-import { UserType } from "@/types/user-type";
+import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UserRole } from "@/types/user-role";
 import { EmptyView } from "@/components/empty-view";
 import { Icons } from "@/components/icons";
+import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { AddNetworkPhysicianProvider } from "../../contexts/use-add-network-physician-context";
 import { AddNetworkPhysicianSheet } from "../add-network-physician-sheet";
@@ -14,16 +16,18 @@ import { ManageNetworkPhysiciansTableColumns } from "./manage-network-physicians
 
 type props = {
   physicians: NetworkPhysician[];
-  usersType: UserType;
+  usersAppAttrs: UserAppAttrs;
   pos: ComboItem[];
   pratices: ComboItem[];
   facilitites: ComboItem[];
   vendors: ComboItem[];
 };
 
+const REQUIRED_USER_ROLES: UserRole[] = ["add"];
+
 export function ManageNetworkPhysiciansTable({
   physicians,
-  usersType,
+  usersAppAttrs,
   pos,
   pratices,
   facilitites,
@@ -34,22 +38,25 @@ export function ManageNetworkPhysiciansTable({
       <EmptyView
         title="No Network Physicians Yet"
         description={
-          usersType === "bpo"
+          usersAppAttrs.type === "bpo"
             ? "Get started by adding your first network physician to the system."
             : "Network Entity configuration is pending. Please contact your support if you have any questions."
         }
         icon={<Icons.stethoscope className="h-12 w-12 text-gray-400 mb-4" />}
       >
-        {/* <UserIsClient usersType={usersType} userType="bpo"> */}
-        <AddNetworkPhysicianProvider
-          pos={pos}
-          pratices={pratices}
-          facilitites={facilitites}
-          vendors={vendors}
+        <RestrictByUserAppAttrsClient
+          usersAppAttrs={usersAppAttrs}
+          requiredUserRoles={REQUIRED_USER_ROLES}
         >
-          <AddNetworkPhysicianSheet />
-        </AddNetworkPhysicianProvider>
-        {/* </UserIsClient> */}
+          <AddNetworkPhysicianProvider
+            pos={pos}
+            pratices={pratices}
+            facilitites={facilitites}
+            vendors={vendors}
+          >
+            <AddNetworkPhysicianSheet />
+          </AddNetworkPhysicianProvider>
+        </RestrictByUserAppAttrsClient>
       </EmptyView>
     );
   }
@@ -67,19 +74,23 @@ export function ManageNetworkPhysiciansTable({
         Credential: false,
         "Org NPI": false,
       }}
-      // TODO: Add userIsBpo check
       itemsAboveTable={
-        <AddNetworkPhysicianProvider
-          pos={pos}
-          pratices={pratices}
-          facilitites={facilitites}
-          vendors={vendors}
+        <RestrictByUserAppAttrsClient
+          usersAppAttrs={usersAppAttrs}
+          requiredUserRoles={REQUIRED_USER_ROLES}
         >
-          <AddNetworkPhysicianSheet />
-        </AddNetworkPhysicianProvider>
+          <AddNetworkPhysicianProvider
+            pos={pos}
+            pratices={pratices}
+            facilitites={facilitites}
+            vendors={vendors}
+          >
+            <AddNetworkPhysicianSheet />
+          </AddNetworkPhysicianProvider>
+        </RestrictByUserAppAttrsClient>
       }
       meta={{
-        usersType,
+        usersAppAttrs,
       }}
     />
   );

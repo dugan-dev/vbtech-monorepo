@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { getAllNetworkEntities } from "@/repos/network-entity-repository";
 import { getAllNetworkPhysicians } from "@/repos/network-physician-repository";
 import { getAllPayers } from "@/repos/payer-repository";
+import { getUsersData } from "@/repos/user-repository";
 import { formatMarketingAndRefName } from "@/utils/format-marketing-name-and-ref-name";
 import { formatPhysicianNameNpi } from "@/utils/format-physician-name-and-npi";
 
@@ -13,22 +14,20 @@ import { getAllUsers } from "../repos/user-management-repository";
 import { filterEntitiesByType } from "../utils/filter-entities-by-type";
 import { UserManagementTable } from "./user-management-table/user-management-table";
 
-export async function UserManagement() {
+type props = {
+  userId: string;
+};
+
+export async function UserManagement({ userId }: props) {
   // Get all the data we need
-  const [/*usersType,*/ entities, payers, physicians, users] =
+  const [entities, payers, physicians, users, { usersAppAttrs }] =
     await Promise.all([
-      /*getUserType(),*/
       getAllNetworkEntities(),
       getAllPayers(),
       getAllNetworkPhysicians(),
       getAllUsers(),
+      getUsersData({ userId }),
     ]);
-
-  /*
-  if (usersType !== "bpo") {
-    forbidden();
-  }
-  */
 
   // Filter the entities into the different types and map them to the format we need for the UI
   const practices = filterEntitiesByType(entities, "prac");
@@ -54,8 +53,7 @@ export async function UserManagement() {
       <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
         <UserManagementTable
           users={users}
-          // TODO: Pass the usersType
-          usersType={"bpo"}
+          usersAppAttrs={usersAppAttrs}
           practices={practices}
           pos={pos}
           facilities={facilities}

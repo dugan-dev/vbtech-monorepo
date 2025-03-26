@@ -23,7 +23,7 @@ export default async function Page() {
       userId={user.userId}
       adminOnly
     >
-      <UserManagement />
+      <UserManagement userId={user.userId} />
     </RestrictByUserAppAttrsServer>
   );
 }

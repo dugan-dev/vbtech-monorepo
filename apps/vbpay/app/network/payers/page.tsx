@@ -22,7 +22,7 @@ export default async function Page() {
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <ManagePayers />
+      <ManagePayers userId={user.userId} />
     </RestrictByUserAppAttrsServer>
   );
 }

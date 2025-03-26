@@ -3,37 +3,43 @@
 import { DataTable } from "@workspace/ui/components/data-table/data-table";
 
 import { NetworkEntity } from "@/types/network-entity";
-import { UserType } from "@/types/user-type";
+import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UserRole } from "@/types/user-role";
 import { EmptyView } from "@/components/empty-view";
 import { Icons } from "@/components/icons";
+import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { AddNetworkEntityProvider } from "../../contexts/add-network-entity-context";
 import { AddNetworkEntitySheet } from "../add-network-entity-sheet";
 import { ManageNetworkEntitiesTableColumns } from "./manage-network-entities-table-columns";
 
+const REQUIRED_USER_ROLES: UserRole[] = ["add"];
+
 type props = {
   entities: NetworkEntity[];
-  usersType: UserType;
+  usersAppAttrs: UserAppAttrs;
 };
 
-export function ManageNetworkEntitiesTable({ entities, usersType }: props) {
+export function ManageNetworkEntitiesTable({ entities, usersAppAttrs }: props) {
   if (entities.length === 0) {
     return (
       <EmptyView
         title="No Network Entities Yet"
         description={
-          usersType === "bpo"
+          usersAppAttrs.type === "bpo"
             ? "Get started by adding your first network entity to the system."
             : "Network Entity configuration is pending. Please contact your support if you have any questions."
         }
         icon={<Icons.network className="h-12 w-12 text-gray-400 mb-4" />}
       >
-        {/* TODO: Add userType check. */}
-        {/* <UserIsClient usersType={usersType} userType="bpo"> */}
-        <AddNetworkEntityProvider>
-          <AddNetworkEntitySheet />
-        </AddNetworkEntityProvider>
-        {/* </UserIsClient> */}
+        <RestrictByUserAppAttrsClient
+          usersAppAttrs={usersAppAttrs}
+          requiredUserRoles={REQUIRED_USER_ROLES}
+        >
+          <AddNetworkEntityProvider>
+            <AddNetworkEntitySheet />
+          </AddNetworkEntityProvider>
+        </RestrictByUserAppAttrsClient>
       </EmptyView>
     );
   }
@@ -49,14 +55,18 @@ export function ManageNetworkEntitiesTable({ entities, usersType }: props) {
       initialColumnVisibility={{
         "Legal Business Name": false,
       }}
-      // TODO: Add userType check.
       itemsAboveTable={
-        <AddNetworkEntityProvider>
-          <AddNetworkEntitySheet />
-        </AddNetworkEntityProvider>
+        <RestrictByUserAppAttrsClient
+          usersAppAttrs={usersAppAttrs}
+          requiredUserRoles={REQUIRED_USER_ROLES}
+        >
+          <AddNetworkEntityProvider>
+            <AddNetworkEntitySheet />
+          </AddNetworkEntityProvider>
+        </RestrictByUserAppAttrsClient>
       }
       meta={{
-        usersType,
+        usersAppAttrs,
       }}
     />
   );

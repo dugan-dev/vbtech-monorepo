@@ -12,9 +12,11 @@ import {
 import { ComboItem } from "@workspace/ui/types/combo-item";
 import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
 
+import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserCognito } from "@/types/user-cognito";
 import { UserTypeLabels } from "@/types/user-type";
 import { ClientFormattedDate } from "@/components/client-formatted-date";
+import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 import { UserTypeIcon } from "@/components/user-type-icon";
 
 import { UserManagementDropdown } from "./user-management-dropdown";
@@ -238,21 +240,27 @@ export const UserManagementTableColumns: ColumnDef<UserCognito>[] = [
     cell: ({ row, table }) => {
       const accountStatus = row.original.accountStatus;
       const confirmationStatus = row.original.confirmationStatus;
-      /* TODO: Wrap with userType check and/or permission check. */
       return (
-        <UserManagementDropdown
-          accountStatus={accountStatus}
-          confirmationStatus={confirmationStatus}
-          user={row.original}
-          payers={table.options.meta?.meta?.payers as ComboItem[]}
-          practices={table.options.meta?.meta?.practices as ComboItem[]}
-          pos={table.options.meta?.meta?.pos as ComboItem[]}
-          facilities={table.options.meta?.meta?.facilities as ComboItem[]}
-          vendors={table.options.meta?.meta?.vendors as ComboItem[]}
-          physicians={
-            table.options.meta?.meta?.physicians as DataTablePhysician[]
+        <RestrictByUserAppAttrsClient
+          usersAppAttrs={
+            table.options.meta?.meta?.usersAppAttrs as UserAppAttrs
           }
-        />
+          adminOnly
+        >
+          <UserManagementDropdown
+            accountStatus={accountStatus}
+            confirmationStatus={confirmationStatus}
+            user={row.original}
+            payers={table.options.meta?.meta?.payers as ComboItem[]}
+            practices={table.options.meta?.meta?.practices as ComboItem[]}
+            pos={table.options.meta?.meta?.pos as ComboItem[]}
+            facilities={table.options.meta?.meta?.facilities as ComboItem[]}
+            vendors={table.options.meta?.meta?.vendors as ComboItem[]}
+            physicians={
+              table.options.meta?.meta?.physicians as DataTablePhysician[]
+            }
+          />
+        </RestrictByUserAppAttrsClient>
       );
     },
   },

@@ -29,7 +29,10 @@ export default async function Page({
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <ManageNetworkEntities payerIdUrlParam={pId as string} />
+      <ManageNetworkEntities
+        payerIdUrlParam={pId as string}
+        userId={user.userId}
+      />
     </RestrictByUserAppAttrsServer>
   );
 }

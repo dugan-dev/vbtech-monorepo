@@ -4,20 +4,28 @@ import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 
 import { Payer } from "@/types/payer";
-import { UserType } from "@/types/user-type";
+import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UserRole } from "@/types/user-role";
 import { EmptyView } from "@/components/empty-view";
 import { Icons } from "@/components/icons";
+import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { AddPayerSheet } from "../add-payer-sheet";
 import { ManagePayersTableColumns } from "./manage-payers-table-columns";
 
+const REQUIRED_USER_ROLES: UserRole[] = ["add"];
+
 type props = {
   payers: Payer[];
-  usersType: UserType;
   payerTypes: ComboItem[];
+  usersAppAttrs: UserAppAttrs;
 };
 
-export function ManagePayersTable({ payers, usersType, payerTypes }: props) {
+export function ManagePayersTable({
+  payers,
+  usersAppAttrs,
+  payerTypes,
+}: props) {
   if (payers.length === 0) {
     return (
       <EmptyView
@@ -25,9 +33,12 @@ export function ManagePayersTable({ payers, usersType, payerTypes }: props) {
         description="Get started by adding your first payer to the system."
         icon={<Icons.heartHandshake className="h-12 w-12 text-gray-400 mb-4" />}
       >
-        {/* Only show the add payer sheet if the user is a BPO <UserIsClient usersType={usersType} userType="bpo"> */}
-        <AddPayerSheet payerTypes={payerTypes} />
-        {/* </UserIsClient> */}
+        <RestrictByUserAppAttrsClient
+          usersAppAttrs={usersAppAttrs}
+          requiredUserRoles={REQUIRED_USER_ROLES}
+        >
+          <AddPayerSheet payerTypes={payerTypes} />
+        </RestrictByUserAppAttrsClient>
       </EmptyView>
     );
   }
@@ -45,10 +56,16 @@ export function ManagePayersTable({ payers, usersType, payerTypes }: props) {
         "Parent Organization": false,
         "Website URL": false,
       }}
-      // TODO: Wrap with <UserIsClient usersType={usersType} userType="bpo">
-      itemsAboveTable={<AddPayerSheet payerTypes={payerTypes} />}
+      itemsAboveTable={
+        <RestrictByUserAppAttrsClient
+          usersAppAttrs={usersAppAttrs}
+          requiredUserRoles={REQUIRED_USER_ROLES}
+        >
+          <AddPayerSheet payerTypes={payerTypes} />
+        </RestrictByUserAppAttrsClient>
+      }
       meta={{
-        usersType,
+        usersAppAttrs,
       }}
     />
   );

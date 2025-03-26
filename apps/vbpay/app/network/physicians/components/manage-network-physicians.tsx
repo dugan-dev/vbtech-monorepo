@@ -1,10 +1,13 @@
 import { Suspense } from "react";
+import { getAllPayers } from "@/repos/payer-repository";
+import { getUsersData } from "@/repos/user-repository";
 import { formatMarketingAndRefName } from "@/utils/format-marketing-name-and-ref-name";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 
 import { NetworkEntityType } from "@/types/network-entity-type";
+import { MissingInvalidView } from "@/components/missing-invalid-view";
 
 import { getNetworkEntitiesForAffiliation } from "../repos/get-network-entities-for-affiliation";
 import { getNetworkPhysiciansForTable } from "../repos/get-network-physicians-for-table";
@@ -12,21 +15,19 @@ import { ManageNetworkPhysiciansTable } from "./manage-network-physicians-table/
 
 type props = {
   payerIdUrlParam?: string;
+  userId: string;
 };
 
-export async function ManageNetworkPhysicians({ payerIdUrlParam }: props) {
-  // TODO: Add validation checks
-  /* const [usersType, payers, userSelectedPayer] = await Promise.all([
-    getUserType(),
+export async function ManageNetworkPhysicians({
+  payerIdUrlParam,
+  userId,
+}: props) {
+  const [payers, { usersAppAttrs }] = await Promise.all([
     getAllPayers(),
-    getUserSelectedId(),
+    getUsersData({ userId }),
   ]);
 
-  if (usersType !== "bpo" && usersType !== "aco") {
-    forbidden();
-  }
-
-  if (!payerIdUrlParam && !userSelectedPayer) {
+  if (!payerIdUrlParam && !usersAppAttrs.slug) {
     return (
       <MissingInvalidView
         title="Missing Payer ID Search Parameter"
@@ -37,7 +38,7 @@ export async function ManageNetworkPhysicians({ payerIdUrlParam }: props) {
 
   const selectedPayer = payerIdUrlParam
     ? (payerIdUrlParam as string)
-    : userSelectedPayer;
+    : usersAppAttrs.slug;
   const isPayerIdValid = payers.some((payer) => payer.pubId === selectedPayer);
 
   if (!isPayerIdValid) {
@@ -47,16 +48,14 @@ export async function ManageNetworkPhysicians({ payerIdUrlParam }: props) {
         description="The provided Payer ID is invalid. Please try again. If the problem persists please contact support."
       />
     );
-  }*/
+  }
 
   const [physicians, entities] = await Promise.all([
-    // TODO: Add filter for selectedPayer
     getNetworkPhysiciansForTable({
-      selectedPayer: payerIdUrlParam ? payerIdUrlParam : "",
+      selectedPayer: payerIdUrlParam ?? usersAppAttrs.slug ?? "",
     }),
-    // TODO: Add filter for selectedPayer
     getNetworkEntitiesForAffiliation({
-      selectedPayer: payerIdUrlParam ? payerIdUrlParam : "",
+      selectedPayer: payerIdUrlParam ?? usersAppAttrs.slug ?? "",
     }),
   ]);
 
@@ -105,8 +104,7 @@ export async function ManageNetworkPhysicians({ payerIdUrlParam }: props) {
       <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
         <ManageNetworkPhysiciansTable
           physicians={physicians}
-          // TODO: Use usersType
-          usersType={"bpo"}
+          usersAppAttrs={usersAppAttrs}
           pos={pos}
           pratices={pratices}
           facilitites={facilitites}
