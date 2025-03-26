@@ -1,4 +1,24 @@
+import { forbidden } from "next/navigation";
+import { authenticatedUser } from "@/utils/amplify-server-utils";
+
+import { UserRole } from "@/types/user-role";
+import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
+
+const REQUIRED_USER_ROLES: UserRole[] = ["read-files"];
+
 export default async function Page() {
-  // TODO: implement role level auth check and redirect when migrating.
-  return <h1>Share Files</h1>;
+  const user = await authenticatedUser();
+
+  if (!user) {
+    return forbidden();
+  }
+
+  return (
+    <RestrictByUserAppAttrsServer
+      userId={user.userId}
+      requiredUserRoles={REQUIRED_USER_ROLES}
+    >
+      <h1>Share Files</h1>
+    </RestrictByUserAppAttrsServer>
+  );
 }
