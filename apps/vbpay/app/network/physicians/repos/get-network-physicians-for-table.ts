@@ -30,8 +30,7 @@ export async function getNetworkPhysiciansForTable({
       "faclNetEntPubId",
       "vendorNetEntPubId",
     ])
-    // TODO: Add filter for selectedPayer
-    //.where("payerPubId", "=", selectedPayer)
+    .where("payerPubId", "=", selectedPayer)
     .orderBy("lastName", "asc")
     .orderBy("firstName", "asc")
     .execute();
