@@ -173,11 +173,13 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
           title: "Alignment",
           icon: Icons.bookHeart,
           href: BeneficiariesAlignment({}),
+          allowedUserTypes: ["bpo", "payers", "payer", "physician"],
         },
         {
           title: "Attribution",
           icon: Icons.clipboardList,
           href: BeneficiariesAttribution({}),
+          allowedUserTypes: ["bpo", "payers", "payer", "physician"],
         },
       ],
     },
