@@ -1,78 +1,68 @@
 import "server-only";
 
+import { revalidateTag } from "next/cache";
+import { env } from "@/env/server";
+import { USERS_DATA_CACHE_TAG } from "@/repos/user-repository";
 import {
   AdminCreateUserCommand,
   AdminDisableUserCommand,
   AdminEnableUserCommand,
   AdminSetUserPasswordCommand,
   AdminUpdateUserAttributesCommand,
-  CognitoIdentityProviderClient,
   ListUsersCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
-import { env } from "env/server";
 
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserCognito } from "@/types/user-cognito";
+import { cognitoClient } from "@/lib/auth/cognito";
 
 import { generateTempPassword } from "../utils/generate-temp-password";
 
-const userPoolId = "us-west-2_tTyr5jsaW";
 const limit = 60;
-
-const cognitoClient = new CognitoIdentityProviderClient({
-  region: env.AWS_REGION,
-  credentials: {
-    accessKeyId: env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
-    sessionToken: env.AWS_SESSION_TOKEN,
-  },
-});
 
 // List users function
 async function getAllUsers() {
   const command = new ListUsersCommand({
-    UserPoolId: userPoolId,
+    UserPoolId: env.AWS_COGNITO_USER_POOL_ID,
     Limit: limit,
   });
 
   try {
     const response = await cognitoClient.send(command);
-    const users: UserCognito[] = (response?.Users || [])
-      .filter((user) => user.Username) // Filter out any users without a Username
-      .map((user) => {
-        // Find attributes safely
-        const findAttr = (name: string) =>
-          user.Attributes?.find((attr) => attr.Name === name)?.Value || "";
+    const users: UserCognito[] = (response?.Users || []).map((user) => {
+      // Find attributes safely
+      const findAttr = (name: string) =>
+        user.Attributes?.find((attr) => attr.Name === name)?.Value || "";
 
-        // Parse app attributes safely
-        let appAttrs: UserAppAttrs = {
-          app: "",
-          super: false,
-          admin: false,
-          type: "vendor", // Default value from UserType
-        };
+      // Parse app attributes safely
+      let appAttrs: UserAppAttrs = {
+        app: "",
+        super: false,
+        admin: false,
+        type: "vendor", // Default value from UserType
+      };
 
-        try {
-          const appAttrsStr = findAttr("custom:app1:attrs");
-          if (appAttrsStr) {
-            appAttrs = JSON.parse(appAttrsStr) as UserAppAttrs;
-          }
-        } catch (e) {
-          console.error("Error parsing app attributes:", e);
+      try {
+        const appAttrsStr = findAttr("custom:app1:attrs");
+        if (appAttrsStr) {
+          appAttrs = JSON.parse(appAttrsStr) as UserAppAttrs;
         }
+      } catch (e) {
+        console.error("Error parsing app attributes:", e);
+      }
 
-        return {
-          userId: user.Username!, // The non-null assertion operator ensures this is treated as a string
-          email: findAttr("email"),
-          firstName: findAttr("given_name"),
-          lastName: findAttr("family_name"),
-          appAttrs,
-          accountStatus: user.Enabled ? "ENABLED" : "DISABLED",
-          confirmationStatus: user.UserStatus || "UNKNOWN",
-          createdAt: user.UserCreateDate || new Date(),
-          lastUpdatedAt: user.UserLastModifiedDate || new Date(),
-        };
-      });
+      return {
+        userId: user.Username!, // The non-null assertion operator ensures this is treated as a string
+        email: findAttr("email"),
+        firstName: findAttr("given_name"),
+        lastName: findAttr("family_name"),
+        appAttrs,
+        accountStatus: user.Enabled ? "ENABLED" : "DISABLED",
+        confirmationStatus: user.UserStatus || "UNKNOWN",
+        createdAt: user.UserCreateDate || new Date(),
+        lastUpdatedAt: user.UserLastModifiedDate || new Date(),
+      };
+    });
 
     return users;
   } catch (error) {
@@ -91,7 +81,7 @@ async function createUser(
   appAttrs: UserAppAttrs,
 ) {
   const command = new AdminCreateUserCommand({
-    UserPoolId: userPoolId,
+    UserPoolId: env.AWS_COGNITO_USER_POOL_ID,
     Username: email,
     UserAttributes: [
       {
@@ -149,7 +139,7 @@ async function editUser(
   userId: string,
 ) {
   const command = new AdminUpdateUserAttributesCommand({
-    UserPoolId: userPoolId,
+    UserPoolId: env.AWS_COGNITO_USER_POOL_ID,
     Username: userId,
     UserAttributes: [
       {
@@ -176,7 +166,8 @@ async function editUser(
   });
 
   try {
-    return await cognitoClient.send(command);
+    await cognitoClient.send(command);
+    revalidateTag(USERS_DATA_CACHE_TAG + "-" + userId);
   } catch (error) {
     console.error("Error editing user:", error);
     throw error;
@@ -195,12 +186,13 @@ async function editUser(
  */
 async function disableUser(userId: string) {
   const command = new AdminDisableUserCommand({
-    UserPoolId: userPoolId,
+    UserPoolId: env.AWS_COGNITO_USER_POOL_ID,
     Username: userId,
   });
 
   try {
-    return await cognitoClient.send(command);
+    await cognitoClient.send(command);
+    revalidateTag(USERS_DATA_CACHE_TAG + "-" + userId);
   } catch (error) {
     console.error("Error disabling existing user:", error);
     throw error;
@@ -218,12 +210,13 @@ async function disableUser(userId: string) {
  */
 async function enableUser(userId: string) {
   const command = new AdminEnableUserCommand({
-    UserPoolId: userPoolId,
+    UserPoolId: env.AWS_COGNITO_USER_POOL_ID,
     Username: userId,
   });
 
   try {
-    return await cognitoClient.send(command);
+    await cognitoClient.send(command);
+    revalidateTag(USERS_DATA_CACHE_TAG + "-" + userId);
   } catch (error) {
     console.error("Error enabling existing user:", error);
     throw error;
@@ -243,7 +236,7 @@ async function enableUser(userId: string) {
 async function forceChangePassword(userId: string) {
   const tempPass = generateTempPassword();
   const command = new AdminSetUserPasswordCommand({
-    UserPoolId: userPoolId,
+    UserPoolId: env.AWS_COGNITO_USER_POOL_ID,
     Username: userId,
     Password: tempPass,
     Permanent: false, // Ensures user is forced to change their password on next login.
@@ -251,6 +244,7 @@ async function forceChangePassword(userId: string) {
 
   try {
     await cognitoClient.send(command);
+    revalidateTag(USERS_DATA_CACHE_TAG + "-" + userId);
     return { tempPass };
   } catch (error) {
     console.error("Error resetting user password:", error);
