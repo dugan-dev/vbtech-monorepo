@@ -19,7 +19,6 @@ export default async function Page() {
     <RestrictByUserAppAttrsServer
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
-      adminOnly
     >
       <h1>Work by Queue</h1>
     </RestrictByUserAppAttrsServer>
