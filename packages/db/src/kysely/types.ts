@@ -152,6 +152,25 @@ export type user_hist = {
   lastName: string;
   email: string;
 };
+export type vbpay_global_settings = {
+  id: Generated<number>;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  allowedPayerTypes: string;
+  requiredFields: string;
+};
+export type vbpay_global_settings_hist = {
+  id: Generated<number>;
+  histAddedAt: Timestamp;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  allowedPayerTypes: string;
+  requiredFields: string;
+};
 export type vbpay_license = {
   id: Generated<number>;
   createdAt: Timestamp;
@@ -194,6 +213,8 @@ export type DB = {
   payerHist: payer_hist;
   user: user;
   userHist: user_hist;
+  vbpayGlobalSettings: vbpay_global_settings;
+  vbpayGlobalSettingsHist: vbpay_global_settings_hist;
   vbpayLicense: vbpay_license;
   vbpayLicenseHist: vbpay_license_hist;
 };
