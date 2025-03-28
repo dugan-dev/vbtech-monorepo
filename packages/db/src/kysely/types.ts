@@ -152,6 +152,39 @@ export type user_hist = {
   lastName: string;
   email: string;
 };
+export type vbpay_license = {
+  id: Generated<number>;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  type: string;
+  fromDate: Timestamp;
+  toDate: Timestamp;
+  clientName: string;
+  pocName: string;
+  pocPhone: string;
+  pocEmail: string;
+  numPayers: number;
+  features: string;
+};
+export type vbpay_license_hist = {
+  id: Generated<number>;
+  histAddedAt: Timestamp;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  type: string;
+  fromDate: Timestamp;
+  toDate: Timestamp;
+  clientName: string;
+  pocName: string;
+  pocPhone: string;
+  pocEmail: string;
+  numPayers: number;
+  features: string;
+};
 export type DB = {
   networkEntity: network_entity;
   networkEntityHist: network_entity_hist;
@@ -161,4 +194,6 @@ export type DB = {
   payerHist: payer_hist;
   user: user;
   userHist: user_hist;
+  vbpayLicense: vbpay_license;
+  vbpayLicenseHist: vbpay_license_hist;
 };
