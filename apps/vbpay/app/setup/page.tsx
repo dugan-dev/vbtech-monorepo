@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 import { Home, SignIn } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
+import { NotSetupView } from "./components/not-setup-view";
+
 export default async function Page() {
   // check if user is signed in and if the app is licensed.
   const [license, user] = await Promise.all([
@@ -23,9 +25,5 @@ export default async function Page() {
     redirect(Home({}));
   }
 
-  return (
-    <div>
-      <h1>Setup</h1>
-    </div>
-  );
+  return <NotSetupView userId={user.userId} />;
 }

@@ -1,18 +1,18 @@
 model vbpay_license {
-        id          Int      @id @default(autoincrement()) @db.UnsignedInt
-        created_at  DateTime @db.DateTime(0)
-        created_by  String   @db.VarChar(50)
-        updated_at  DateTime @db.DateTime(0)
-        updated_by  String   @db.VarChar(50)
-        type        String   @db.VarChar(10) // "BPaaS" or "SaaS"
-        from_date   DateTime @db.Date() // contract start date
-        to_date     DateTime @db.Date() // contract end date
-        client_name String   @db.VarChar(100)
-        poc_name    String   @db.VarChar(100)
-        poc_phone   String   @db.VarChar(15)
-        poc_email   String   @db.VarChar(255)
-        num_payers  Int      @db.UnsignedInt
-        features    String   @db.VarChar(1000)
+        id            Int      @id @default(autoincrement()) @db.UnsignedInt
+        created_at    DateTime @db.DateTime(0)
+        created_by    String   @db.VarChar(50)
+        updated_at    DateTime @db.DateTime(0)
+        updated_by    String   @db.VarChar(50)
+        type          String   @db.VarChar(10) // "BPaaS" or "SaaS"
+        from_date     DateTime @db.Date() // contract start date
+        to_date       DateTime @db.Date() // contract end date
+        client_name   String   @db.VarChar(100)
+        poc_name      String   @db.VarChar(100)
+        poc_phone     String   @db.VarChar(15)
+        poc_email     String   @db.VarChar(255)
+        num_payers    Int      @db.UnsignedInt
+        functionality String   @db.VarChar(1000)
 }
 
 model vbpay_license_hist {
@@ -30,5 +30,5 @@ model vbpay_license_hist {
         poc_phone     String   @db.VarChar(15)
         poc_email     String   @db.VarChar(255)
         num_payers    Int      @db.UnsignedInt
-        features      String   @db.VarChar(1000)
+        functionality String   @db.VarChar(1000)
 }

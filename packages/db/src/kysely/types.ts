@@ -159,7 +159,17 @@ export type vbpay_global_settings = {
   updatedAt: Timestamp;
   updatedBy: string;
   allowedPayerTypes: string;
-  requiredFields: string;
+  payerReqTaxId: Generated<number>;
+  poReqTaxId: Generated<number>;
+  poReqNpi: Generated<number>;
+  pracReqNpi: Generated<number>;
+  pracReqTaxId: Generated<number>;
+  physReqTaxId: Generated<number>;
+  physReqCred: Generated<number>;
+  physReqSpec: Generated<number>;
+  physNppesRecon: Generated<number>;
+  faclReqNpi: Generated<number>;
+  faclReqTaxId: Generated<number>;
 };
 export type vbpay_global_settings_hist = {
   id: Generated<number>;
@@ -169,7 +179,17 @@ export type vbpay_global_settings_hist = {
   updatedAt: Timestamp;
   updatedBy: string;
   allowedPayerTypes: string;
-  requiredFields: string;
+  payerReqTaxId: number;
+  poReqTaxId: number;
+  poReqNpi: number;
+  pracReqNpi: number;
+  pracReqTaxId: number;
+  physReqTaxId: number;
+  physReqCred: number;
+  physReqSpec: number;
+  physNppesRecon: number;
+  faclReqNpi: number;
+  faclReqTaxId: number;
 };
 export type vbpay_license = {
   id: Generated<number>;
@@ -185,7 +205,7 @@ export type vbpay_license = {
   pocPhone: string;
   pocEmail: string;
   numPayers: number;
-  features: string;
+  functionality: string;
 };
 export type vbpay_license_hist = {
   id: Generated<number>;
@@ -202,7 +222,7 @@ export type vbpay_license_hist = {
   pocPhone: string;
   pocEmail: string;
   numPayers: number;
-  features: string;
+  functionality: string;
 };
 export type DB = {
   networkEntity: network_entity;

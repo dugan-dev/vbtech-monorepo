@@ -1,9 +1,8 @@
 import { Button } from "@workspace/ui/components/button";
 import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-button";
 
+import { SteppedFormStep } from "@/types/stepped-form-step";
 import { Icons } from "@/components/icons";
-
-import { UserFormStepValues } from "./steps/user-form-step-values";
 
 type props = {
   isStepValid: (step: number) => boolean;
@@ -11,14 +10,16 @@ type props = {
   nextStep: () => void;
   prevStep: () => void;
   isSubmitting: boolean;
+  steps: SteppedFormStep[];
 };
 
-export function SteppedUserFormNavigationButtons({
+export function SteppedFormNavigationButtons({
   isStepValid,
   currentStep,
   nextStep,
   prevStep,
   isSubmitting,
+  steps,
 }: props) {
   return (
     <div className="flex justify-between pt-4 border-t">
@@ -32,7 +33,7 @@ export function SteppedUserFormNavigationButtons({
       </Button>
 
       <div className="flex gap-2">
-        {currentStep < UserFormStepValues.length ? (
+        {currentStep < steps.length ? (
           <Button
             type="button"
             onClick={nextStep}
