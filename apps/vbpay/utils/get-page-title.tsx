@@ -18,12 +18,15 @@ import {
   QueuesManage,
   QueuesWork,
   RecentShareNotifications,
+  Setup,
   ShareFiles,
   ShareNotificationDetail,
 } from "@/routes";
 
 export function getPageTitle(pathname: string, slug?: string) {
   switch (pathname) {
+    case Setup({}):
+      return "Setup";
     case Home({}):
       return "Home";
     case NetworkEntities({}):
