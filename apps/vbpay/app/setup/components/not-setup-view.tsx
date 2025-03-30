@@ -22,12 +22,11 @@ type props = {
 };
 
 export async function NotSetupView({ userId }: props) {
-  const usersAppAttrs = await getUsersData({ userId });
+  const userData = await getUsersData({ userId });
 
   // If the user is of type bpo and an admin, they can configure the license.
   const canConfigure =
-    usersAppAttrs.usersAppAttrs.admin &&
-    usersAppAttrs.usersAppAttrs.type === "bpo";
+    userData.usersAppAttrs.admin && userData.usersAppAttrs.type === "bpo";
 
   return (
     <Card className="w-full max-w-md">
