@@ -12,6 +12,7 @@ type props = {
 
 // Define a constant for the cache tag prefix
 export const USERS_DATA_CACHE_TAG = "users-data";
+const REVALIDATE_SECONDS = 600; // 10 minutes
 
 export function getUsersData({ userId }: props) {
   const cacheKey = `${USERS_DATA_CACHE_TAG}-${userId}`;
@@ -51,7 +52,7 @@ export function getUsersData({ userId }: props) {
       };
     },
     [cacheKey],
-    { revalidate: 600, tags: [cacheKey] },
+    { revalidate: REVALIDATE_SECONDS, tags: [cacheKey] },
   );
 
   // Return the cached function which will be executed when called

@@ -1,7 +1,10 @@
-import { forbidden } from "next/navigation";
+import { forbidden, redirect, unauthorized } from "next/navigation";
 import { getUsersData } from "@/repos/user-repository";
 
 import "server-only";
+
+import { getVBPayLicense } from "@/repos/license-repository";
+import { Setup } from "@/routes";
 
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
@@ -21,13 +24,21 @@ export async function RestrictByUserAppAttrsServer({
   adminOnly = false,
   requiredUserRoles = [],
 }: props) {
-  const { usersAppAttrs } = await getUsersData({
-    userId,
-  });
+  const [{ usersAppAttrs }, license] = await Promise.all([
+    getUsersData({
+      userId,
+    }),
+    getVBPayLicense(),
+  ]);
 
   // Only authenticated users with app attributes can access this page
   if (!usersAppAttrs) {
-    return forbidden();
+    return unauthorized();
+  }
+
+  // If the app is not licensed, redirect them to the setup page
+  if (!license) {
+    return redirect(Setup({}));
   }
 
   // Only users with the allowed user types can access this page

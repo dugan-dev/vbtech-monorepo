@@ -1,17 +1,17 @@
+import { SteppedFormStep } from "@/types/stepped-form-step";
 import { Icons } from "@/components/icons";
-
-import { UserFormStepValues } from "./steps/user-form-step-values";
 
 type props = {
   currentStep: number;
+  steps: SteppedFormStep[];
 };
 
-export function SteppedUserFormHeader({ currentStep }: props) {
+export function SteppedFormHeader({ currentStep, steps }: props) {
   return (
     <div className="bg-muted/30">
       <div className="container max-w-screen-lg mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {UserFormStepValues.map((step, i) => (
+          {steps.map((step, i) => (
             <div key={step.id} className="flex flex-1 items-center">
               <div
                 className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
@@ -29,7 +29,7 @@ export function SteppedUserFormHeader({ currentStep }: props) {
                 )}
               </div>
               <div
-                className={`ml-3 ${i === UserFormStepValues.length ? "flex-1" : "flex-1 relative"}`}
+                className={`ml-3 ${i === steps.length ? "flex-1" : "flex-1 relative"}`}
               >
                 <p
                   className={`text-sm font-medium ${
@@ -42,7 +42,7 @@ export function SteppedUserFormHeader({ currentStep }: props) {
                 >
                   {step.title}
                 </p>
-                {i !== UserFormStepValues.length && (
+                {i !== steps.length && (
                   <div
                     className={`absolute top-5 w-full h-0.5 ${
                       currentStep > step.id

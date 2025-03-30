@@ -2,47 +2,27 @@
 
 import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
-import { ComboItem } from "@workspace/ui/types/combo-item";
 
-import { UserCognito } from "@/types/user-cognito";
 import { ErrorDialog } from "@/components/error-dialog";
 import { SteppedFormHeader } from "@/components/stepped-form-header";
 import { SteppedFormNavigationButtons } from "@/components/stepped-form-navigation-buttons";
 
-import { useSteppedUserForm } from "../../hooks/use-stepped-user-form";
-import { BasicInfoStep } from "./steps/basic-info-step";
-import { UserFormStepValues } from "./steps/user-form-step-values";
-import { UserIdsStep } from "./steps/user-ids-step";
-import { UserTypeStep } from "./steps/user-type-step";
+import { useSteppedSetupForm } from "../../hooks/use-stepped-setup-form";
+import { SetupFormStepValues } from "./steps/setup-form-step-values";
+import { SetupStep1LicenseInfo } from "./steps/setup-step1-license-info";
+import { SetupStep2LicenseFunctionality } from "./steps/setup-step2-license-functionality";
+import { SetupStep3GlobalSettings } from "./steps/setup-step3-global-settings";
 
 type props = {
-  physicians: ComboItem[];
-  payers: ComboItem[];
-  practices: ComboItem[];
-  pos: ComboItem[];
-  facilities: ComboItem[];
-  vendors: ComboItem[];
-  user?: UserCognito;
   onSuccess?: () => void;
   setIsSubmitting?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function SteppedUserForm({
-  user,
-  physicians,
-  payers,
-  practices,
-  pos,
-  facilities,
-  vendors,
-  onSuccess,
-  setIsSubmitting,
-}: props) {
+export function SteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
   const {
     form,
     onSubmit,
-    isPendingCreateUser,
-    isPendingEditUser,
+    isPending,
     isErrorDialogOpen,
     errorMsg,
     errorTitle,
@@ -51,9 +31,8 @@ export function SteppedUserForm({
     nextStep,
     prevStep,
     currentStep,
-  } = useSteppedUserForm({
+  } = useSteppedSetupForm({
     onSuccess,
-    user,
     setIsSubmitting,
   });
 
@@ -70,11 +49,11 @@ export function SteppedUserForm({
       {/* Steps indicator */}
       <SheetHeader className="px-6 py-4 border-b flex flex-col bg-muted/30">
         <SheetTitle className="w-full text-center text-3xl bg-muted/30">
-          {user ? "Edit User" : "Add New User"}
+          VBPay Setup
         </SheetTitle>
         <SteppedFormHeader
           currentStep={currentStep}
-          steps={UserFormStepValues}
+          steps={SetupFormStepValues}
         />
       </SheetHeader>
 
@@ -83,41 +62,29 @@ export function SteppedUserForm({
         <div className="container max-w-screen-lg mx-auto px-6 py-8">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {/* Step 1: Basic Information */}
+              {/* Step 1: License Information */}
               <div className={currentStep === 1 ? "block" : "hidden"}>
-                <BasicInfoStep
-                  isSubmitting={isPendingCreateUser || isPendingEditUser}
-                />
+                <SetupStep1LicenseInfo isSubmitting={isPending} />
               </div>
 
-              {/* Step 2: User Type & Permissions */}
+              {/* Step 2: License Functionality */}
               <div className={currentStep === 2 ? "block" : "hidden"}>
-                <UserTypeStep
-                  isSubmitting={isPendingCreateUser || isPendingEditUser}
-                />
+                <SetupStep2LicenseFunctionality isSubmitting={isPending} />
               </div>
 
-              {/* Step 3: User IDs */}
+              {/* Step 3: Global Settings */}
               <div className={currentStep === 3 ? "block" : "hidden"}>
-                <UserIdsStep
-                  isSubmitting={isPendingCreateUser || isPendingEditUser}
-                  physicians={physicians}
-                  payers={payers}
-                  practices={practices}
-                  pos={pos}
-                  facilities={facilities}
-                  vendors={vendors}
-                />
+                <SetupStep3GlobalSettings isSubmitting={isPending} />
               </div>
 
               {/* Navigation buttons */}
               <SteppedFormNavigationButtons
-                steps={UserFormStepValues}
+                steps={SetupFormStepValues}
                 currentStep={currentStep}
                 prevStep={prevStep}
                 nextStep={nextStep}
                 isStepValid={isStepValid}
-                isSubmitting={isPendingCreateUser || isPendingEditUser}
+                isSubmitting={isPending}
               />
             </form>
           </Form>

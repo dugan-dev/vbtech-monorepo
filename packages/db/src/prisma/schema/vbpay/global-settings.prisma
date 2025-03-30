@@ -1,0 +1,40 @@
+model vbpay_global_settings {
+        id                  Int      @id @default(autoincrement()) @db.UnsignedInt
+        created_at          DateTime @db.DateTime(0)
+        created_by          String   @db.VarChar(50)
+        updated_at          DateTime @db.DateTime(0)
+        updated_by          String   @db.VarChar(50)
+        allowed_payer_types String   @db.VarChar(255)
+        payer_req_tax_id    Boolean  @default(false)
+        po_req_tax_id       Boolean  @default(false)
+        po_req_npi          Boolean  @default(false)
+        prac_req_npi        Boolean  @default(false)
+        prac_req_tax_id     Boolean  @default(false)
+        phys_req_tax_id     Boolean  @default(false)
+        phys_req_cred       Boolean  @default(false)
+        phys_req_spec       Boolean  @default(false)
+        phys_nppes_recon    Boolean  @default(false)
+        facl_req_npi        Boolean  @default(false)
+        facl_req_tax_id     Boolean  @default(false)
+}
+
+model vbpay_global_settings_hist {
+        id                  Int      @id @default(autoincrement()) @db.UnsignedInt
+        hist_added_at       DateTime @db.DateTime(0)
+        created_at          DateTime @db.DateTime(0)
+        created_by          String   @db.VarChar(50)
+        updated_at          DateTime @db.DateTime(0)
+        updated_by          String   @db.VarChar(50)
+        allowed_payer_types String   @db.VarChar(255)
+        payer_req_tax_id    Boolean
+        po_req_tax_id       Boolean
+        po_req_npi          Boolean
+        prac_req_npi        Boolean
+        prac_req_tax_id     Boolean
+        phys_req_tax_id     Boolean
+        phys_req_cred       Boolean
+        phys_req_spec       Boolean
+        phys_nppes_recon    Boolean
+        facl_req_npi        Boolean
+        facl_req_tax_id     Boolean
+}

@@ -29,10 +29,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const user = await authenticatedUser();
+
   let firstName = "";
   let lastName = "";
   let email = "";
   let usersAppAttrs: UserAppAttrs | null = null;
+
   if (user) {
     const {
       firstName: fName,
@@ -42,11 +44,13 @@ export default async function RootLayout({
     } = await getUsersData({
       userId: user.userId,
     });
+
     firstName = fName || "";
     lastName = lName || "";
     email = uEmail || "";
     usersAppAttrs = uAppAttrs;
   }
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body

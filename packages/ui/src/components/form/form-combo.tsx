@@ -85,11 +85,7 @@ export function FormCombo({
                   disabled={isDisabled}
                   variant="outline"
                   role="combobox"
-                  className={cn(
-                    "w-full justify-between bg-primary-foreground hover:bg-primary-foreground hover:text-primary",
-                    !field.value && "text-muted-foreground",
-                    className,
-                  )}
+                  className={cn("w-full justify-between", className)}
                 >
                   <span className="flex-1 truncate text-left">
                     {field.value
