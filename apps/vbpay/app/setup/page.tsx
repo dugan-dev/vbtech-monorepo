@@ -22,7 +22,7 @@ export default async function Page() {
 
   // If the app is licensed, redirect them to the home page
   if (license) {
-    redirect(Home({}));
+    return redirect(Home({}));
   }
 
   return <NotSetupView userId={user.userId} />;
