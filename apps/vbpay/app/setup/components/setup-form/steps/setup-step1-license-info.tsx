@@ -42,7 +42,7 @@ export function SetupStep1LicenseInfo({ isSubmitting }: props) {
           label="Number of Payers"
           isRequired
           type="number"
-          isDisabled={false}
+          isDisabled={isSubmitting}
         />
         <FormInput
           control={control}
@@ -50,7 +50,7 @@ export function SetupStep1LicenseInfo({ isSubmitting }: props) {
           label="From Date"
           isRequired
           type="date"
-          isDisabled={false}
+          isDisabled={isSubmitting}
         />
         <FormInput
           control={control}
@@ -58,7 +58,7 @@ export function SetupStep1LicenseInfo({ isSubmitting }: props) {
           label="To Date"
           isRequired
           type="date"
-          isDisabled={false}
+          isDisabled={isSubmitting}
         />
       </div>
 
@@ -69,7 +69,7 @@ export function SetupStep1LicenseInfo({ isSubmitting }: props) {
           label="Client Name"
           isRequired
           type="text"
-          isDisabled={false}
+          isDisabled={isSubmitting}
         />
         <FormInput
           control={control}
@@ -77,7 +77,7 @@ export function SetupStep1LicenseInfo({ isSubmitting }: props) {
           label="Point of Contact Name"
           isRequired
           type="text"
-          isDisabled={false}
+          isDisabled={isSubmitting}
         />
         <FormInput
           control={control}
@@ -85,7 +85,7 @@ export function SetupStep1LicenseInfo({ isSubmitting }: props) {
           label="Point of Contact Phone"
           isRequired
           type="tel"
-          isDisabled={false}
+          isDisabled={isSubmitting}
           formatOnChange={(value) => formatPhoneNumber(value)}
         />
         <FormInput
@@ -94,7 +94,7 @@ export function SetupStep1LicenseInfo({ isSubmitting }: props) {
           label="Point of Contact Email"
           isRequired
           type="email"
-          isDisabled={false}
+          isDisabled={isSubmitting}
         />
       </div>
     </div>
