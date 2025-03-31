@@ -39,7 +39,7 @@ function getVBPayGlobalSettings() {
   }
 
   return cache(
-    async () => {
+    () => {
       const globalSettings = getVBPayGlobalSettingsQry();
       return globalSettings;
     },

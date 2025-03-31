@@ -4,12 +4,12 @@ import { Payer } from "@/types/payer";
 
 import "server-only";
 
-export async function getPayersForTable({
+export function getPayersForTable({
   usersPayerPubIds,
 }: {
   usersPayerPubIds: string[];
 }): Promise<Payer[]> {
-  return await db
+  return db
     .selectFrom("payer")
     .select([
       "pubId",

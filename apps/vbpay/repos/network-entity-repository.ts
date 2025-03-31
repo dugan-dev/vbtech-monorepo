@@ -2,8 +2,8 @@ import { db } from "@workspace/db/database";
 
 import "server-only";
 
-export async function getAllNetworkEntities() {
-  return await db
+export function getAllNetworkEntities() {
+  return db
     .selectFrom("networkEntity")
     .select([
       "pubId",

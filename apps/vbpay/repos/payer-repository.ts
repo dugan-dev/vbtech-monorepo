@@ -2,8 +2,8 @@ import "server-only";
 
 import { db } from "@workspace/db/database";
 
-async function isPayerPubIdValid({ pubId }: { pubId: string }) {
-  const payer = await db
+function isPayerPubIdValid({ pubId }: { pubId: string }) {
+  const payer = db
     .selectFrom("payer")
     .where("pubId", "=", pubId)
     .select(["pubId"])
@@ -12,8 +12,8 @@ async function isPayerPubIdValid({ pubId }: { pubId: string }) {
   return !!payer;
 }
 
-async function getPayerByPubId({ pubId }: { pubId: string }) {
-  return await db
+function getPayerByPubId({ pubId }: { pubId: string }) {
+  return db
     .selectFrom("payer")
     .select([
       "pubId",
@@ -34,8 +34,8 @@ async function getPayerByPubId({ pubId }: { pubId: string }) {
     .executeTakeFirst();
 }
 
-async function getAllPayers() {
-  return await db
+function getAllPayers() {
+  return db
     .selectFrom("payer")
     .select([
       "pubId",
