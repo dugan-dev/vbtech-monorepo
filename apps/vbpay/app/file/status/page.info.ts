@@ -1,6 +1,6 @@
 import { z } from "zod";
 
 export const Route = {
-  name: "ActivityUpload",
+  name: "FileStatus",
   params: z.object({}),
 };

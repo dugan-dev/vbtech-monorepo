@@ -20,7 +20,7 @@ export default async function Page() {
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <h1>Activity Status</h1>
+      <h1>Capitation Payments</h1>
     </RestrictByUserAppAttrsServer>
   );
 }

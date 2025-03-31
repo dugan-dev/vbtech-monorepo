@@ -20,7 +20,7 @@ export default async function Page() {
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <h1>Activity Schedule</h1>
+      <h1>File Upload</h1>
     </RestrictByUserAppAttrsServer>
   );
 }

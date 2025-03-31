@@ -1,19 +1,21 @@
 import {
-  ActivitySchedule,
-  ActivityStatus,
-  ActivityUpload,
   AdminSettings,
   AdminUsers,
   BeneficiariesAlignment,
   BeneficiariesAttribution,
   BeneficiariesSearch,
   Beneficiary,
+  FileStatus,
+  FileUpload,
   Home,
   NetworkEntities,
   NetworkPayer,
   NetworkPayers,
   NetworkPhysician,
   NetworkPhysicians,
+  PaymentsCapitation,
+  PaymentsClaims,
+  PaymentsValueBased,
   QueuesCompleted,
   QueuesManage,
   QueuesWork,
@@ -37,12 +39,16 @@ export function getPageTitle(pathname: string, slug?: string) {
       return "Manage Network Physicians";
     case NetworkPayer({ slug: slug ?? "" }):
       return "Network Payer";
-    case ActivitySchedule({}):
-      return "Activity Schedule";
-    case ActivityStatus({}):
-      return "Activity Status";
-    case ActivityUpload({}):
-      return "Activity Upload";
+    case PaymentsClaims({}):
+      return "Claims";
+    case PaymentsCapitation({}):
+      return "Capitation";
+    case PaymentsValueBased({}):
+      return "Value Based";
+    case FileStatus({}):
+      return "File Status";
+    case FileUpload({}):
+      return "File Upload";
     case AdminSettings({}):
       return "Settings";
     case AdminUsers({}):
