@@ -2,8 +2,8 @@ import { db } from "@workspace/db/database";
 
 import "server-only";
 
-export async function getAllNetworkPhysicians() {
-  return await db
+export function getAllNetworkPhysicians() {
+  return db
     .selectFrom("networkPhysician")
     .select([
       "pubId",

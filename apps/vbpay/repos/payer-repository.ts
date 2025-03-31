@@ -12,8 +12,8 @@ async function isPayerPubIdValid({ pubId }: { pubId: string }) {
   return !!payer;
 }
 
-async function getPayerByPubId({ pubId }: { pubId: string }) {
-  return await db
+function getPayerByPubId({ pubId }: { pubId: string }) {
+  return db
     .selectFrom("payer")
     .select([
       "pubId",
@@ -30,12 +30,11 @@ async function getPayerByPubId({ pubId }: { pubId: string }) {
       "isActive",
     ])
     .where("pubId", "=", pubId)
-    .select(["pubId"])
     .executeTakeFirst();
 }
 
-async function getAllPayers() {
-  return await db
+function getAllPayers() {
+  return db
     .selectFrom("payer")
     .select([
       "pubId",
