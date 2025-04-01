@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Play } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -12,14 +12,16 @@ import { Header } from "@/components/header";
 import { Providers } from "@/components/providers";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 
-const fontSans = Geist({
+const fontSans = Play({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["400", "700"],
 });
 
-const fontMono = Geist_Mono({
+const fontMono = Play({
   subsets: ["latin"],
   variable: "--font-mono",
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
