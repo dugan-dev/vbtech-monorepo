@@ -25,6 +25,17 @@ import { NppesNetworkPhysicianResultsTable } from "@/components/nppes-network-ph
 import { useAddNetworkPhysicianContext } from "../contexts/use-add-network-physician-context";
 import { AddNetworkPhysicianForm } from "./add-network-physician-form/add-network-physician-form";
 
+/**
+ * Renders a sliding sheet interface for adding a network physician.
+ *
+ * This component utilizes context state from the useAddNetworkPhysicianContext hook to manage
+ * the sheet's visibility, form data for NPPES search, error handling, and the selection of search results.
+ * It conditionally displays an error dialog, a trigger button to open the sheet, and various sheet contents:
+ * an advanced NPPES search form, a standard physician input form, and a results table or loading skeleton,
+ * depending on the current sheet state ("advanced", "form", or "search").
+ *
+ * @returns A React element representing the network physician addition interface.
+ */
 export function AddNetworkPhysicianSheet() {
   const {
     sheetOpen,

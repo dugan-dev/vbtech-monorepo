@@ -25,6 +25,17 @@ import { NppesNetworkEntityResultsTable } from "@/components/nppes-network-entit
 import { useAddNetworkEntityContext } from "../contexts/add-network-entity-context";
 import { AddNetworkEntityForm } from "./add-network-entity-form/add-network-entity-form";
 
+/**
+ * Renders a sheet interface for adding a network entity.
+ *
+ * This component provides a multi-step UI for adding a network entity with options for an advanced
+ * NPPES search or a direct entry form. It manages its state via a context provider and conditionally
+ * displays an error dialog when needed. Depending on the current mode, it toggles between an advanced
+ * search view—with a NPPES search form and results (or a loading indicator if a search is pending)—and
+ * a basic network entity form.
+ *
+ * @returns The rendered add network entity sheet component.
+ */
 export function AddNetworkEntitySheet() {
   const {
     sheetOpen,

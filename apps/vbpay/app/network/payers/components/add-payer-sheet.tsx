@@ -20,6 +20,14 @@ type props = {
   payerTypes: ComboItem[];
 };
 
+/**
+ * Renders a sliding sheet interface for adding a new payer.
+ *
+ * This component displays a button that opens a full-screen sheet containing the AddPayerForm. When a new payer is added successfully, the sheet is closed.
+ *
+ * @param payerTypes - A collection of payer type options used to populate the add payer form.
+ * @returns A JSX element representing the add payer sheet interface.
+ */
 export function AddPayerSheet({ payerTypes }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
 
