@@ -1,10 +1,5 @@
 "use client";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@radix-ui/react-popover";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { Control } from "react-hook-form";
 
@@ -24,6 +19,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@workspace/ui/components/form";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@workspace/ui/components/popover";
 import { ScrollArea, ScrollBar } from "@workspace/ui/components/scroll-area";
 import { cn } from "@workspace/ui/lib/utils";
 import { ComboItem } from "@workspace/ui/types/combo-item";
