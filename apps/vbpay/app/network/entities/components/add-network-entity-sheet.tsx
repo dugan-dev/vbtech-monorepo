@@ -58,12 +58,12 @@ export function AddNetworkEntitySheet() {
         </Button>
       </SheetTrigger>
       <SheetContent side="top" className="h-screen w-screen border-none">
-        <div className="flex flex-col gap-2 mx-auto flex-1 xl:max-w-[80dvw]">
-          <SheetHeader>
-            <SheetTitle className="text-4xl font-semibold">
-              Add Network Entity
-            </SheetTitle>
-          </SheetHeader>
+        <SheetHeader className="px-6 py-4 border-b flex flex-col bg-muted/30">
+          <SheetTitle className="w-full text-center text-3xl bg-muted/30">
+            Add Network Entity
+          </SheetTitle>
+        </SheetHeader>
+        <div className="flex flex-col gap-2 mx-auto flex-1 xl:max-w-[80dvw] py-4">
           {sheetState === "advanced" && (
             <Card>
               <CardHeader>
