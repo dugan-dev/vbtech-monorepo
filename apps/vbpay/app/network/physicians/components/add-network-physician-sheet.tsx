@@ -25,6 +25,18 @@ import { NppesNetworkPhysicianResultsTable } from "@/components/nppes-network-ph
 import { useAddNetworkPhysicianContext } from "../contexts/use-add-network-physician-context";
 import { AddNetworkPhysicianForm } from "./add-network-physician-form/add-network-physician-form";
 
+/**
+ * Renders a modal sheet for adding a network physician.
+ *
+ * This component leverages a shared context to control modal visibility, current view state, and search interactions. It conditionally displays:
+ * - An error dialog when an error is present,
+ * - A trigger button for opening the sheet,
+ * - A header with the "Add Network Physician" title,
+ * - Either an advanced NPPES search form (encapsulated in a card) or a new physician form depending on the sheet mode,
+ * - A toggle button to switch between an advanced search view and the new physician form,
+ * - An NPPES logo indicator when in search or advanced mode,
+ * - And either a results table or a loading skeleton based on the status of the NPPES search.
+ */
 export function AddNetworkPhysicianSheet() {
   const {
     sheetOpen,

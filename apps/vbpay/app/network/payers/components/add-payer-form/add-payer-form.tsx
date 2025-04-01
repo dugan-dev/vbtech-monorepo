@@ -26,6 +26,14 @@ type props = {
   payerTypes: ComboItem[];
 };
 
+/**
+ * Renders a form for adding payer information.
+ *
+ * This component displays a structured form, organized into sections for Basic Info, Performance Period, Identification, and Organization, to collect details about a payer. It leverages a custom hook to manage form state, submission logic, and error handling, and presents an error dialog for submission issues. The submit button visually reflects the pending state to prevent duplicate submissions.
+ *
+ * @param onSuccess - Callback invoked upon successful form submission.
+ * @param payerTypes - Array of items representing the available payer types.
+ */
 export function AddPayerForm({ onSuccess, payerTypes }: props) {
   const {
     form,

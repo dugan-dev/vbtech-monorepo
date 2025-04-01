@@ -20,6 +20,15 @@ type props = {
   payerTypes: ComboItem[];
 };
 
+/**
+ * Renders a full-screen sheet interface for adding a new payer.
+ *
+ * The component displays a trigger button labeled "Add Payer". When clicked, it opens a sheet containing a header and the add payer form. On successful form submission, the sheet closes automatically.
+ *
+ * @param payerTypes - An array of payer type options for the form.
+ *
+ * @returns A React element representing the add payer sheet.
+ */
 export function AddPayerSheet({ payerTypes }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
 
