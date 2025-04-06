@@ -51,7 +51,7 @@ export async function updateVBPayLicense({
             "numPayers",
             "paymentTypes",
             "functionality",
-            eb.val(new Date()).as("histAddedAt"),
+            eb.val(now).as("histAddedAt"),
           ]),
       )
       .execute();
