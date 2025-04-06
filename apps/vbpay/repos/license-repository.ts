@@ -20,6 +20,7 @@ function getVBPayLicenseQry() {
       "pocPhone",
       "pocEmail",
       "numPayers",
+      "paymentTypes",
       "functionality",
     ])
     .executeTakeFirst();

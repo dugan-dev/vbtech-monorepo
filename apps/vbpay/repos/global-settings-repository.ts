@@ -5,7 +5,7 @@ import { db } from "@workspace/db/database";
 
 import "server-only";
 
-const GLOBAL_SETTINGS_CACHE_KEY = "GlobalSettingsCacheKey";
+const VBPAY_GLOBAL_SETTINGS_CACHE_KEY = "GlobalSettingsCacheKey";
 const REVALIDATE_SECONDS = 600; // 10 minutes
 
 function getVBPayGlobalSettingsQry() {
@@ -43,12 +43,16 @@ function getVBPayGlobalSettings() {
       const globalSettings = getVBPayGlobalSettingsQry();
       return globalSettings;
     },
-    [GLOBAL_SETTINGS_CACHE_KEY],
+    [VBPAY_GLOBAL_SETTINGS_CACHE_KEY],
     {
       revalidate: REVALIDATE_SECONDS,
-      tags: [GLOBAL_SETTINGS_CACHE_KEY],
+      tags: [VBPAY_GLOBAL_SETTINGS_CACHE_KEY],
     },
   )();
 }
 
-export { getVBPayGlobalSettings, type VBPayGlobalSettings };
+export {
+  getVBPayGlobalSettings,
+  type VBPayGlobalSettings,
+  VBPAY_GLOBAL_SETTINGS_CACHE_KEY,
+};

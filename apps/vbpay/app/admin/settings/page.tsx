@@ -1,12 +1,15 @@
 import "server-only";
 
+import { Suspense } from "react";
 import { unauthorized } from "next/navigation";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
-import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
-const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
+import { LicenseCardSkeleton } from "./components/license/license-card-skeleton";
+import { LicenseCardServer } from "./components/license/license-card.server";
+import { SettingsCardSkeleton } from "./components/settings/settings-card-skeleton";
+import { SettingsCardServer } from "./components/settings/settings-card.server";
 
 export default async function Page() {
   const user = await authenticatedUser();
@@ -16,12 +19,15 @@ export default async function Page() {
   }
 
   return (
-    <RestrictByUserAppAttrsServer
-      allowedUserTypes={ALLOWED_USER_TYPES}
-      userId={user.userId}
-      adminOnly
-    >
-      <h1>Admin Settings</h1>
+    <RestrictByUserAppAttrsServer userId={user.userId} adminOnly>
+      <div className="flex flex-col gap-4">
+        <Suspense fallback={<SettingsCardSkeleton />}>
+          <SettingsCardServer userId={user.userId} />
+        </Suspense>
+        <Suspense fallback={<LicenseCardSkeleton />}>
+          <LicenseCardServer userId={user.userId} />
+        </Suspense>
+      </div>
     </RestrictByUserAppAttrsServer>
   );
 }

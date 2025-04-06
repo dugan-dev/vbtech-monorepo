@@ -205,6 +205,7 @@ export type vbpay_license = {
   pocPhone: string;
   pocEmail: string;
   numPayers: number;
+  paymentTypes: string;
   functionality: string;
 };
 export type vbpay_license_hist = {
@@ -222,6 +223,7 @@ export type vbpay_license_hist = {
   pocPhone: string;
   pocEmail: string;
   numPayers: number;
+  paymentTypes: string;
   functionality: string;
 };
 export type DB = {

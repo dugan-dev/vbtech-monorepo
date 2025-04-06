@@ -4,21 +4,32 @@ import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
 
 import { ErrorDialog } from "@/components/error-dialog";
+import { SetupFormData } from "@/components/setup-form/setup-form-schema";
+import { SetupStep1LicenseInfo } from "@/components/setup-form/steps/setup-step1-license-info";
+import { SetupStep2LicenseFunctionality } from "@/components/setup-form/steps/setup-step2-license-functionality";
+import { SetupStep3GlobalSettings } from "@/components/setup-form/steps/setup-step3-global-settings";
 import { SteppedFormHeader } from "@/components/stepped-form-header";
 import { SteppedFormNavigationButtons } from "@/components/stepped-form-navigation-buttons";
 
-import { useSteppedSetupForm } from "../../hooks/use-stepped-setup-form";
-import { SetupFormStepValues } from "./steps/setup-form-step-values";
-import { SetupStep1LicenseInfo } from "./steps/setup-step1-license-info";
-import { SetupStep2LicenseFunctionality } from "./steps/setup-step2-license-functionality";
-import { SetupStep3GlobalSettings } from "./steps/setup-step3-global-settings";
+import { useSteppedAdminSettingsForm } from "../hooks/use-stepped-admin-settings-form";
+import {
+  AdminLicenseFormSteps,
+  AdminSettingsFormSteps,
+} from "./admin-settings-form-steps";
 
 type props = {
   onSuccess?: () => void;
   setIsSubmitting?: React.Dispatch<React.SetStateAction<boolean>>;
+  data: SetupFormData;
+  from: "license" | "settings";
 };
 
-export function SteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
+export function SteppedAdminSettingsForm({
+  onSuccess,
+  setIsSubmitting,
+  data,
+  from,
+}: props) {
   const {
     form,
     onSubmit,
@@ -31,9 +42,12 @@ export function SteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
     nextStep,
     prevStep,
     currentStep,
-  } = useSteppedSetupForm({
+    steps,
+  } = useSteppedAdminSettingsForm({
     onSuccess,
     setIsSubmitting,
+    data,
+    from,
   });
 
   return (
@@ -49,11 +63,13 @@ export function SteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
       {/* Steps indicator */}
       <SheetHeader className="px-6 py-4 border-b flex flex-col bg-muted/30">
         <SheetTitle className="w-full text-center text-3xl bg-muted/30">
-          VBPay Setup
+          {from === "license" ? "Update License" : "Update Global Settings"}
         </SheetTitle>
         <SteppedFormHeader
           currentStep={currentStep}
-          steps={SetupFormStepValues}
+          steps={
+            from === "license" ? AdminLicenseFormSteps : AdminSettingsFormSteps
+          }
         />
       </SheetHeader>
 
@@ -63,23 +79,35 @@ export function SteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {/* Step 1: License Information */}
-              <div className={currentStep === 1 ? "block" : "hidden"}>
+              <div
+                className={
+                  from === "license" && currentStep === 1 ? "block" : "hidden"
+                }
+              >
                 <SetupStep1LicenseInfo isSubmitting={isPending} />
               </div>
 
               {/* Step 2: License Functionality */}
-              <div className={currentStep === 2 ? "block" : "hidden"}>
+              <div
+                className={
+                  from === "license" && currentStep === 2 ? "block" : "hidden"
+                }
+              >
                 <SetupStep2LicenseFunctionality isSubmitting={isPending} />
               </div>
 
               {/* Step 3: Global Settings */}
-              <div className={currentStep === 3 ? "block" : "hidden"}>
+              <div
+                className={
+                  from === "settings" && currentStep === 1 ? "block" : "hidden"
+                }
+              >
                 <SetupStep3GlobalSettings isSubmitting={isPending} />
               </div>
 
               {/* Navigation buttons */}
               <SteppedFormNavigationButtons
-                steps={SetupFormStepValues}
+                steps={steps}
                 currentStep={currentStep}
                 prevStep={prevStep}
                 nextStep={nextStep}

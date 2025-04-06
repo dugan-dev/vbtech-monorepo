@@ -7,15 +7,15 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { useErrorDialog } from "@/hooks/use-error-dialog";
-
-import { completeSetupAction } from "../actions/complete-setup-action";
 import {
   SetupFormDefaultValues,
   SetupFormInput,
   SetupFormOutput,
   SetupFormSchema,
-} from "../components/setup-form/setup-form-schema";
-import { SetupFormStepValues } from "../components/setup-form/steps/setup-form-step-values";
+} from "@/components/setup-form/setup-form-schema";
+import { completeSetupAction } from "@/app/setup/actions/complete-setup-action";
+
+import { SetupFormSteps } from "../components/setup-form-steps";
 
 type props = {
   onSuccess?: () => void;
@@ -31,7 +31,7 @@ export function useSteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
     const canProceed = await form.trigger(getFieldsForStep(currentStep));
 
     if (canProceed || currentStep === 3) {
-      setCurrentStep((prev) => Math.min(prev + 1, SetupFormStepValues.length));
+      setCurrentStep((prev) => Math.min(prev + 1, SetupFormSteps.length));
     }
   };
 
