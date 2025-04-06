@@ -65,7 +65,7 @@ export async function updateVBPayGlobalSettings({
       .updateTable("vbpayGlobalSettings")
       .set({
         ...settings,
-        updatedAt: new Date(),
+        updatedAt: now,
         updatedBy: userId,
       })
       .execute();
