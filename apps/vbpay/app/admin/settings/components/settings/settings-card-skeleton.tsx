@@ -7,6 +7,13 @@ import {
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
+/**
+ * Renders a skeleton placeholder for a settings card interface.
+ *
+ * This component displays a loading state for a global settings card layout, featuring a header with a title
+ * and an icon placeholder, alongside a scrollable area with multiple skeleton items representing the settings options.
+ * It provides visual feedback to users while the actual settings data is being loaded.
+ */
 export function SettingsCardSkeleton() {
   return (
     <Card className="relative">

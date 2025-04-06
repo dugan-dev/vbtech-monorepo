@@ -24,6 +24,17 @@ type props = {
   from: "license" | "settings";
 };
 
+/**
+ * Renders a multi-step form for updating license information or global settings.
+ *
+ * This component uses an internal hook to manage form state, submission, error handling, and navigation.
+ * Depending on the value of the "from" prop, it conditionally renders the relevant steps and header.
+ *
+ * @param onSuccess - Optional callback invoked upon successful form submission.
+ * @param setIsSubmitting - Optional function to update the form's submitting state.
+ * @param data - The form data used to populate the form fields.
+ * @param from - Indicates the form type: "license" for license updates or "settings" for global settings.
+ */
 export function SteppedAdminSettingsForm({
   onSuccess,
   setIsSubmitting,

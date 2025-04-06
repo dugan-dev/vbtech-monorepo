@@ -11,6 +11,13 @@ import {
 
 import { SteppedSetupForm } from "./stepped-setup-form";
 
+/**
+ * Renders a modal sheet for managing the setup process.
+ *
+ * This component displays a "Complete Setup" button that opens a full-screen modal sheet when clicked.
+ * Within the sheet, the setup process is handled by the `SteppedSetupForm` component. On successful completion,
+ * the sheet is closed, and the button remains disabled while a submission is in progress.
+ */
 export function SetupSheet() {
   const [open, onOpenChange] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

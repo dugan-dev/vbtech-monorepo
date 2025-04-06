@@ -7,6 +7,13 @@ import {
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
+/**
+ * Renders a skeleton placeholder card for license information.
+ *
+ * The component displays a card that mimics the layout of the license details while data is loading.
+ * It features a header with the title "License Info" and a skeleton icon, and a scrollable content area
+ * containing a grid of eight placeholder rows to simulate the appearance of loading data.
+ */
 export function LicenseCardSkeleton() {
   return (
     <Card className="relative">

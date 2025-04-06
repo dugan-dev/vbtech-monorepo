@@ -24,6 +24,17 @@ type props = {
   from: "license" | "settings";
 };
 
+/**
+ * Renders a modal sheet that contains a form for updating license or global settings.
+ *
+ * This component displays a button with a tooltip; clicking the button opens a sheet that hosts a stepped form. The tooltip and form content adjust based on whether the update pertains to a license or global settings. When the form submission succeeds, the sheet automatically closes.
+ *
+ * @example
+ * <AdminSettingsSheet data={formData} from="license" />
+ *
+ * @param data - The initial form data for updating settings.
+ * @param from - Context indicator for the update, either "license" or "settings".
+ */
 export function AdminSettingsSheet({ data, from }: props) {
   const [open, onOpenChange] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

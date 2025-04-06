@@ -6,7 +6,13 @@ import { env } from "@/env/server";
 import { db } from "@workspace/db/database";
 
 const VBPAY_LICENSE_CACHE_KEY = "VBPayLicenseInfoCacheKey";
-const REVALIDATE_SECONDS = 600; // 10 minutes
+const REVALIDATE_SECONDS = 600; /**
+ * Retrieves VBPay license data from the database.
+ *
+ * Constructs a query to select key licensing fields from the "vbpayLicense" table—including type, date range, client and point-of-contact details, number of payers, payment types, and functionality—then returns the first matching record.
+ *
+ * @returns The first VBPay license record matching the query, or undefined if no data is found.
+ */
 
 function getVBPayLicenseQry() {
   return db

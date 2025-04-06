@@ -6,6 +6,17 @@ import { PayerType } from "@/types/payer-type";
 import { PaymentTypeType } from "@/types/payment-type";
 import { SetupFormData } from "@/components/setup-form/setup-form-schema";
 
+/**
+ * Transforms VBPayLicense and VBPayGlobalSettings data into a structured SetupFormData object for form initialization.
+ *
+ * This function extracts and formats license details (including type, client and point-of-contact information, payer count,
+ * and date ranges) and converts comma-separated strings into arrays for payment types and functionalities. It also maps
+ * numeric global setting flags (where a value of 1 indicates true) to booleans and splits allowed payer types into an array if provided.
+ *
+ * @param license - An object containing license information and comma-separated values for payment types and functionalities.
+ * @param settings - An object containing global settings with numeric flags for various requirements.
+ * @returns A SetupFormData object with organized licenseInfo, functionality, and globalSettings sections.
+ */
 export function formatSettingsFormData(
   license: VBPayLicense,
   settings: VBPayGlobalSettings,

@@ -28,6 +28,23 @@ type props = {
   from: "license" | "settings";
 };
 
+/**
+ * Manages a multi-step admin settings form for updating VBPay license or global settings.
+ *
+ * This hook orchestrates form handling, step navigation, and validation for a multi-step
+ * process. It leverages react-hook-form with zod validation to ensure that each form step
+ * meets the required criteria before proceeding. Depending on the "from" flag, it selects the
+ * appropriate steps and update action, resets the form on success, and displays error dialogs
+ * on failure.
+ *
+ * @param props.onSuccess - Optional callback invoked after a successful update.
+ * @param props.setIsSubmitting - Optional function to update the form's submitting state.
+ * @param props.data - Initial form data used as default values.
+ * @param props.from - Indicates the form context, either "license" for updating a VBPay license or "settings" for global settings.
+ *
+ * @returns An object containing the form instance, submission handler, pending state,
+ *          error dialog properties, and functions for step validation and navigation.
+ */
 export function useSteppedAdminSettingsForm({
   onSuccess,
   setIsSubmitting,

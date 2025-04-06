@@ -18,6 +18,17 @@ type props = {
   setIsSubmitting?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+/**
+ * Renders the VBPay setup multi-step form.
+ *
+ * This component manages a multi-step configuration process using the internal 
+ * `useSteppedSetupForm` hook. It displays a form divided into three distinct steps—license information, 
+ * license functionality, and global settings—and includes navigation controls to move between these steps.
+ * An error dialog is presented if issues occur during form processing.
+ *
+ * @param onSuccess - Optional callback invoked after a successful form submission.
+ * @param setIsSubmitting - Optional callback to update the external submitting state.
+ */
 export function SteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
   const {
     form,

@@ -23,6 +23,16 @@ interface props {
   usersAppAttrs: UserAppAttrs;
 }
 
+/**
+ * Renders a card interface for VBPay global settings with conditionally accessible admin controls.
+ *
+ * The component displays a card with a header and a scrollable content area. The header includes a title and an
+ * admin settings section that is only rendered for users whose application attributes match the allowed type ("bpo").
+ * The provided settings data is used to populate both the admin and general settings sections.
+ *
+ * @param data - Settings data used to configure and display global settings.
+ * @param usersAppAttrs - User attributes determining access to the admin settings section.
+ */
 export function SettingsCardClient({ data, usersAppAttrs }: props) {
   return (
     <Card>

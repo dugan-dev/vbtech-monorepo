@@ -4,6 +4,18 @@ import { db } from "@workspace/db/database";
 
 import "server-only";
 
+/**
+ * Updates VBPay global settings and logs the current settings to a history table.
+ *
+ * This asynchronous function runs within a database transaction to ensure atomicity. It first logs the
+ * existing settings from the "vbpayGlobalSettings" table into the "vbpayGlobalSettingsHist" history table,
+ * recording the current timestamp. It then updates the global settings with the values provided in the
+ * settings parameter while capturing the update time and the user performing the update.
+ *
+ * @param settings - The new VBPay global settings to apply.
+ * @param userId - The identifier of the user performing the update.
+ * @returns A promise resolving to the result of the update operation.
+ */
 export async function updateVBPayGlobalSettings({
   settings,
   userId,

@@ -22,6 +22,30 @@ type props = {
   setIsSubmitting?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+/**
+ * Manages a multi-step setup form with validation, navigation, and submission handling.
+ *
+ * This hook sets up a form using React Hook Form with Zod schema validation and tracks the current form step,
+ * providing helper functions to move between steps. It validates the current step's fields asynchronously before
+ * proceeding and handles submission by triggering a complete setup action. On successful submission, it resets the form,
+ * invokes an optional success callback, updates submission state, and navigates to the home route.
+ *
+ * @param onSuccess Callback invoked when the setup completes successfully.
+ * @param setIsSubmitting Optional callback to update the submission state.
+ *
+ * @returns An object containing:
+ * - form: The form instance for managing form state.
+ * - onSubmit: Handler function for form submission.
+ * - isPending: Flag indicating if the setup action is in progress.
+ * - isErrorDialogOpen: Flag indicating whether the error dialog is open.
+ * - errorMsg: Error message to display.
+ * - errorTitle: Title for the error dialog.
+ * - closeErrorDialog: Function to close the error dialog.
+ * - isStepValid: Function to validate the fields of the current step.
+ * - prevStep: Function to navigate to the previous form step.
+ * - nextStep: Function to navigate to the next form step.
+ * - currentStep: The current step number in the setup process.
+ */
 export function useSteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);

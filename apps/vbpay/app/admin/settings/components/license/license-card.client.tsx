@@ -29,6 +29,16 @@ type props = {
   usersAppAttrs: UserAppAttrs;
 };
 
+/**
+ * Renders a card displaying VBPay license information with restricted administrative settings.
+ *
+ * This component presents key license details such as type, number of payers, effective dates,
+ * client information, and payment types. Additional functionality is displayed if available.
+ * Access to the administrative settings is controlled based on user attributes.
+ *
+ * @param data - Contains the license details and functionality configuration for display.
+ * @param usersAppAttrs - Holds the current user's attributes used to determine access to admin settings.
+ */
 export function LicenseCardClient({ data, usersAppAttrs }: props) {
   return (
     <Card>
