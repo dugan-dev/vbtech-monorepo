@@ -18,10 +18,10 @@ import { SettingsContent } from "./settings-content";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
 
-interface props {
+type props = {
   data: SetupFormData;
   usersAppAttrs: UserAppAttrs;
-}
+};
 
 export function SettingsCardClient({ data, usersAppAttrs }: props) {
   return (

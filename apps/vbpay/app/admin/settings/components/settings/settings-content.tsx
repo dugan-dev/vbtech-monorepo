@@ -2,9 +2,9 @@ import { SETTINGS_GROUPS } from "@/values/global-settings-groups";
 
 import { SetupFormData } from "@/components/setup-form/setup-form-schema";
 
-interface props {
+type props = {
   data: SetupFormData;
-}
+};
 
 export function SettingsContent({ data }: props) {
   return (
