@@ -12,6 +12,7 @@ model vbpay_license {
         poc_phone     String   @db.VarChar(15)
         poc_email     String   @db.VarChar(255)
         num_payers    Int      @db.UnsignedInt
+        payment_types String   @db.VarChar(1000)
         functionality String   @db.VarChar(1000)
 }
 
@@ -30,5 +31,6 @@ model vbpay_license_hist {
         poc_phone     String   @db.VarChar(15)
         poc_email     String   @db.VarChar(255)
         num_payers    Int      @db.UnsignedInt
+        payment_types String   @db.VarChar(1000)
         functionality String   @db.VarChar(1000)
 }
