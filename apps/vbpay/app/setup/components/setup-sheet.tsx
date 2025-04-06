@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from "@workspace/ui/components/sheet";
 
-import { SteppedSetupForm } from "./setup-form/stepped-setup-form";
+import { SteppedSetupForm } from "./stepped-setup-form";
 
 export function SetupSheet() {
   const [open, onOpenChange] = useState(false);

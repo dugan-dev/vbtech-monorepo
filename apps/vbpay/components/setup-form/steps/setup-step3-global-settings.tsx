@@ -1,5 +1,6 @@
 "use client";
 
+import { SETTINGS_GROUPS } from "@/values/global-settings-groups";
 import { useFormContext } from "react-hook-form";
 
 import { FormCheckboxList } from "@workspace/ui/components/form/form-checkbox-list";
@@ -8,7 +9,6 @@ import { FormSwitch } from "@workspace/ui/components/form/form-switch";
 import { PayerTypeLabels, PayerTypes } from "@/types/payer-type";
 
 import { SetupFormData } from "../setup-form-schema";
-import { SETTINGS_GROUPS } from "./global-settings-groups";
 
 type props = {
   isSubmitting: boolean;

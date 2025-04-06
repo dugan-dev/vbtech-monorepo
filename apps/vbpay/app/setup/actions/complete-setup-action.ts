@@ -9,8 +9,8 @@ import { z } from "zod";
 import { getTzAdjustedFullDaySpan } from "@workspace/ui/lib/getTzAdjustedFullDaySpan";
 
 import { authedActionClient } from "@/lib/safe-action";
+import { SetupFormSchema } from "@/components/setup-form/setup-form-schema";
 
-import { SetupFormSchema } from "../components/setup-form/setup-form-schema";
 import { completeSetup } from "../repos/setup-repository";
 
 const actionSchema = z.object({
@@ -53,6 +53,7 @@ export const completeSetupAction = authedActionClient
           fromDate,
           toDate,
           functionality: functionality.functionality.join(","),
+          paymentTypes: functionality.paymentTypes.join(","),
         },
         globalSettings: {
           payerReqTaxId: Number(globalSettings.payerReqTaxId),

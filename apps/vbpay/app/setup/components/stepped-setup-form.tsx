@@ -4,14 +4,14 @@ import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
 
 import { ErrorDialog } from "@/components/error-dialog";
+import { SetupStep1LicenseInfo } from "@/components/setup-form/steps/setup-step1-license-info";
+import { SetupStep2LicenseFunctionality } from "@/components/setup-form/steps/setup-step2-license-functionality";
+import { SetupStep3GlobalSettings } from "@/components/setup-form/steps/setup-step3-global-settings";
 import { SteppedFormHeader } from "@/components/stepped-form-header";
 import { SteppedFormNavigationButtons } from "@/components/stepped-form-navigation-buttons";
 
-import { useSteppedSetupForm } from "../../hooks/use-stepped-setup-form";
-import { SetupFormStepValues } from "./steps/setup-form-step-values";
-import { SetupStep1LicenseInfo } from "./steps/setup-step1-license-info";
-import { SetupStep2LicenseFunctionality } from "./steps/setup-step2-license-functionality";
-import { SetupStep3GlobalSettings } from "./steps/setup-step3-global-settings";
+import { useSteppedSetupForm } from "../hooks/use-stepped-setup-form";
+import { SetupFormSteps } from "./setup-form-steps";
 
 type props = {
   onSuccess?: () => void;
@@ -51,10 +51,7 @@ export function SteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
         <SheetTitle className="w-full text-center text-3xl bg-muted/30">
           VBPay Setup
         </SheetTitle>
-        <SteppedFormHeader
-          currentStep={currentStep}
-          steps={SetupFormStepValues}
-        />
+        <SteppedFormHeader currentStep={currentStep} steps={SetupFormSteps} />
       </SheetHeader>
 
       {/* Form content */}
@@ -79,7 +76,7 @@ export function SteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
 
               {/* Navigation buttons */}
               <SteppedFormNavigationButtons
-                steps={SetupFormStepValues}
+                steps={SetupFormSteps}
                 currentStep={currentStep}
                 prevStep={prevStep}
                 nextStep={nextStep}
