@@ -16,7 +16,13 @@ export async function SettingsCardServer({ userId }: props) {
     getUsersData({ userId }),
   ]);
 
-  const formData = formatSettingsFormData(license!, settings!);
+  if (!license || !settings) {
+    // Handle the case where data is missing
+    throw new Error("Failed to load license or settings data");
+    // Or return a meaningful fallback state
+  }
+  
+  const formData = formatSettingsFormData(license, settings);
 
   return (
     <SettingsCardClient data={formData} usersAppAttrs={user.usersAppAttrs} />
