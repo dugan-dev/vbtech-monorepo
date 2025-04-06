@@ -16,7 +16,10 @@ export async function LicenseCardServer({ userId }: props) {
     getUsersData({ userId }),
   ]);
 
-  const formData = formatSettingsFormData(license!, settings!);
+  if (!license || !settings) {
+    throw new Error("License or settings data not found");
+  }
+  const formData = formatSettingsFormData(license, settings);
 
   return (
     <LicenseCardClient data={formData} usersAppAttrs={user.usersAppAttrs} />
