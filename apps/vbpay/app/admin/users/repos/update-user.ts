@@ -31,11 +31,12 @@ export function updateUser({
         "email",
         "firstName",
         "lastName",
+        "histAddedAt",
       ])
       .expression((eb) =>
         eb
           .selectFrom("user")
-          .select([
+          .select((eb) => [
             "userId",
             "createdAt",
             "createdBy",
@@ -44,6 +45,7 @@ export function updateUser({
             "email",
             "firstName",
             "lastName",
+            eb.val(now).as("histAddedAt"),
           ])
           .where("userId", "=", usersUserId),
       )
