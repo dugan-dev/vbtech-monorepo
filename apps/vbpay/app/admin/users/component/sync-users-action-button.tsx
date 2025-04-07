@@ -46,7 +46,7 @@ export function SyncUsersActionButton({ lastSync }: props) {
     },
     onSuccess: () => {
       toast("Success", {
-        description: "The user sync operartion completed successfully.",
+        description: "The user sync operation completed successfully.",
       });
     },
   });
