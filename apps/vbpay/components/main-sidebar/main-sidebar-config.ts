@@ -58,7 +58,6 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
           icon: Icons.diff,
           href: FileUpload({}),
           allowedUserTypes: ["bpo", "payers", "payer"],
-          requiredRoles: ["upload"],
         },
       ],
     },
