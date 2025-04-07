@@ -11,6 +11,7 @@ import { formatPhysicianNameNpi } from "@/utils/format-physician-name-and-npi";
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 
 import { getAllUsers } from "../repos/user-management-repository";
+import { getLastUserSync } from "../repos/user-sync-repository";
 import { filterEntitiesByType } from "../utils/filter-entities-by-type";
 import { UserManagementTable } from "./user-management-table/user-management-table";
 
@@ -20,13 +21,14 @@ type props = {
 
 export async function UserManagement({ userId }: props) {
   // Get all the data we need
-  const [entities, payers, physicians, users, { usersAppAttrs }] =
+  const [entities, payers, physicians, users, { usersAppAttrs }, lastUserSync] =
     await Promise.all([
       getAllNetworkEntities(),
       getAllPayers(),
       getAllNetworkPhysicians(),
       getAllUsers(),
       getUsersData({ userId }),
+      getLastUserSync(),
     ]);
 
   // Filter the entities into the different types and map them to the format we need for the UI
@@ -60,6 +62,7 @@ export async function UserManagement({ userId }: props) {
           vendors={vendors}
           payers={payersCombo}
           physicians={physiciansCombo}
+          lastUserSync={lastUserSync?.lastSyncAt}
         />
       </Suspense>
     </div>
