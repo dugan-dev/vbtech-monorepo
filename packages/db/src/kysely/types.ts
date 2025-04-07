@@ -152,6 +152,11 @@ export type user_hist = {
   lastName: string;
   email: string;
 };
+export type user_sync_timestamp = {
+  id: Generated<number>;
+  appName: string;
+  lastSyncAt: Timestamp;
+};
 export type vbpay_global_settings = {
   id: Generated<number>;
   createdAt: Timestamp;
@@ -235,6 +240,7 @@ export type DB = {
   payerHist: payer_hist;
   user: user;
   userHist: user_hist;
+  userSyncTimestamp: user_sync_timestamp;
   vbpayGlobalSettings: vbpay_global_settings;
   vbpayGlobalSettingsHist: vbpay_global_settings_hist;
   vbpayLicense: vbpay_license;
