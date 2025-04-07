@@ -1,7 +1,7 @@
 import { ComboItem } from "@workspace/ui/types/combo-item";
 
-export type PayerSelectionData = {
+export type UserSelectionData = {
   defaultLock: boolean;
-  selectedPayerPubId: string | undefined;
+  slug: string | undefined;
   comboItems: ComboItem[];
 };
