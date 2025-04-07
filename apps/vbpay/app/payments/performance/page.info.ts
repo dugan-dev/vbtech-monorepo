@@ -1,6 +1,6 @@
 import { z } from "zod";
 
 export const Route = {
-  name: "PaymentsValueBased",
+  name: "PaymentsPerformance",
   params: z.object({}),
 };

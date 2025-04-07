@@ -18,7 +18,7 @@ import * as NetworkPhysiciansRoute from "@/app/network/physicians/page.info";
 import * as HomeRoute from "@/app/page.info";
 import * as PaymentsCapitationRoute from "@/app/payments/capitation/page.info";
 import * as PaymentsClaimsRoute from "@/app/payments/claims/page.info";
-import * as PaymentsValueBasedRoute from "@/app/payments/value-based/page.info";
+import * as PaymentsPerformanceRoute from "@/app/payments/performance/page.info";
 import * as QueuesCompletedRoute from "@/app/queues/completed/page.info";
 import * as QueuesManageRoute from "@/app/queues/manage/page.info";
 import * as QueuesWorkRoute from "@/app/queues/work/page.info";
@@ -105,9 +105,9 @@ export const PaymentsClaims = makeRoute("/payments/claims", {
   ...defaultInfo,
   ...PaymentsClaimsRoute.Route,
 });
-export const PaymentsValueBased = makeRoute("/payments/value-based", {
+export const PaymentsPerformance = makeRoute("/payments/performance", {
   ...defaultInfo,
-  ...PaymentsValueBasedRoute.Route,
+  ...PaymentsPerformanceRoute.Route,
 });
 export const QueuesCompleted = makeRoute("/queues/completed", {
   ...defaultInfo,

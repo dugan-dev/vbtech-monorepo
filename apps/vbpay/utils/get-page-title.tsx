@@ -15,7 +15,7 @@ import {
   NetworkPhysicians,
   PaymentsCapitation,
   PaymentsClaims,
-  PaymentsValueBased,
+  PaymentsPerformance,
   QueuesCompleted,
   QueuesManage,
   QueuesWork,
@@ -43,8 +43,8 @@ export function getPageTitle(pathname: string, slug?: string) {
       return "Claims";
     case PaymentsCapitation({}):
       return "Capitation";
-    case PaymentsValueBased({}):
-      return "Value Based";
+    case PaymentsPerformance({}):
+      return "Performance";
     case FileStatus({}):
       return "File Status";
     case FileUpload({}):
