@@ -19,6 +19,15 @@ type props = {
   userId: string;
 };
 
+/**
+ * Asynchronously fetches and displays user management data.
+ *
+ * The component concurrently retrieves network entities, payers, network physicians, users, user-specific attributes, and the latest synchronization data. It then processes the data by filtering entities into practices, points of service, facilities, and vendors, and formats payer and physician information for UI consumption. The resulting data is rendered within a table component inside a Suspense wrapper that displays a loading skeleton until the data is ready.
+ *
+ * @param userId - The unique identifier of the user whose data is to be managed.
+ *
+ * @returns A React element representing the user management interface.
+ */
 export async function UserManagement({ userId }: props) {
   // Get all the data we need
   const [entities, payers, physicians, users, { usersAppAttrs }, lastUserSync] =

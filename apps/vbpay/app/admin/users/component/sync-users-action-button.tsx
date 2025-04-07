@@ -23,6 +23,15 @@ type props = {
   lastSync?: Date;
 };
 
+/**
+ * Renders a button that initiates user synchronization with Cognito.
+ *
+ * When clicked, the button triggers a sync action that updates user data. A loading animation indicates the operation in progress,
+ * a toast notification confirms a successful sync, and any errors are communicated via an error dialog.
+ * The tooltip displays additional context, including the most recent sync time or "Never" if no sync has occurred.
+ *
+ * @param lastSync - Optional date representing the last successful synchronization.
+ */
 export function SyncUsersActionButton({ lastSync }: props) {
   const revalidationPath = usePathname();
   const {

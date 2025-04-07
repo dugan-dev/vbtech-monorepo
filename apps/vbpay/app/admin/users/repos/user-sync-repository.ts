@@ -4,6 +4,16 @@ import { insertUser } from "./insert-user";
 import { updateUser } from "./update-user";
 import { getAllUsers } from "./user-management-repository";
 
+/**
+ * Synchronizes user data between the Cognito user pool and the SQL database.
+ *
+ * This function retrieves users from both Cognito and the SQL database to identify discrepancies. For each Cognito user,
+ * it inserts a new record if the user does not exist in the database or updates the record if key attributes (email,
+ * first name, or last name) differ. After processing all users, it updates or creates the synchronization timestamp for
+ * the "VBPay" application in the userSyncTimestamp table using an atomic transaction.
+ *
+ * @param userId - The identifier of the user initiating the synchronization process.
+ */
 export async function syncUsers(userId: string) {
   const usersCognito = await getAllUsers();
 
@@ -72,6 +82,13 @@ export async function syncUsers(userId: string) {
   });
 }
 
+/**
+ * Retrieves the last synchronization timestamp for the VBPay application.
+ *
+ * This function queries the "userSyncTimestamp" table for the record where the application name is "VBPay" and returns the first match, which contains the `lastSyncAt` field. If no record is found, it returns undefined.
+ *
+ * @returns A promise that resolves to the sync timestamp record with the `lastSyncAt` field, or undefined if no record exists.
+ */
 export function getLastUserSync() {
   return db
     .selectFrom("userSyncTimestamp")
