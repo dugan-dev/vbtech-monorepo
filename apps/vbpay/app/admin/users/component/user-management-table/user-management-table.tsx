@@ -9,6 +9,7 @@ import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { AddUserSheet } from "../add-user-sheet";
+import { SyncUsersActionButton } from "../sync-users-action-button";
 import { UserManagementTableColumns } from "./user-management-table-columns";
 
 type props = {
@@ -20,6 +21,7 @@ type props = {
   facilities: ComboItem[];
   vendors: ComboItem[];
   usersAppAttrs: UserAppAttrs;
+  lastUserSync?: Date;
 };
 
 /**
@@ -51,6 +53,7 @@ export function UserManagementTable({
   pos,
   physicians,
   usersAppAttrs,
+  lastUserSync,
 }: props) {
   if (users.length === 0) {
     return (
@@ -81,6 +84,7 @@ export function UserManagementTable({
             practices={practices}
             facilities={facilities}
           />
+          <SyncUsersActionButton lastSync={lastUserSync} />
         </RestrictByUserAppAttrsClient>
       }
       meta={{
