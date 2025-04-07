@@ -14,5 +14,5 @@ export function formatDate({ date, options }: props) {
             : new Date(`${date}T00:00:00`).toLocaleDateString("en-US"),
         );
 
-  return new Date(dateObject).toLocaleDateString("en-US", options);
+  return dateObject.toLocaleDateString("en-US", options);
 }
