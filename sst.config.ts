@@ -1,7 +1,5 @@
 /// <reference path="./.sst/platform/config.d.ts" />
 
-import { Auth } from "./infra/auth.js";
-
 export default $config({
   app(input) {
     const validStages = ["production", "staging", "dev"];
@@ -45,6 +43,9 @@ export default $config({
     const enableVBPay = process.env.VBPAY_ENABLED || false;
     const enableVBLink = process.env.VBLINK_ENABLED || false;
     const enableVBComply = process.env.VBCOMPLY_ENABLED || false;
+
+    const authImport = await import("./infra/auth");
+    const Auth = authImport.Auth;
 
     // If no infrastructure is enabled, throw an error
     if (!enableVBPay && !enableVBLink && !enableVBComply) {
