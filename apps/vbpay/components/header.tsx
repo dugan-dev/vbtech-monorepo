@@ -16,19 +16,21 @@ import { Separator } from "@workspace/ui/components/separator";
 import { SidebarTrigger } from "@workspace/ui/components/sidebar";
 
 import { BreadcrumbItemType } from "@/types/breadcrumb-item";
-import { PayerSelectionData } from "@/types/payer-selection-data";
+import { UserSelectionData } from "@/types/user-selection-data";
 import { SignOutButton } from "@/components/signout-button";
+
+import { UserSelectionCombo } from "./user-selection-combo";
 
 type props = {
   breadcrumbs?: BreadcrumbItemType[];
   overrideTitle?: string;
-  payerSelectionData?: PayerSelectionData;
+  userSelectionData?: UserSelectionData;
 };
 
 export function Header({
   breadcrumbs,
   overrideTitle,
-  payerSelectionData,
+  userSelectionData,
 }: props) {
   const pathname = usePathname();
   const params = useParams();
@@ -73,7 +75,13 @@ export function Header({
             </Breadcrumb>
           </div>
         </div>
-        {payerSelectionData && "Payer combobox here..."}
+        {userSelectionData && (
+          <UserSelectionCombo
+            slug={userSelectionData.slug}
+            comboItems={userSelectionData.comboItems}
+            defaultLock={userSelectionData.defaultLock}
+          />
+        )}
         <SignOutButton />
       </div>
     </header>
