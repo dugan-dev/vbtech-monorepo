@@ -52,6 +52,8 @@ const PayerPyConfigFormDefaultValues: PayerPyConfigFormInput = {
   },
   physAssignment: {
     isRequired: false,
+    physAssignSource: "",
+    physAssignMethod: "",
   },
 };
 

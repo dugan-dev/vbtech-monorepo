@@ -85,9 +85,9 @@ export function PayerPyConfigBasicInfoStep1({ isSubmitting }: props) {
           name="basicInfo.eligSource"
           label="Eligibility Source"
           isRequired
-          comboItems={AcoEligSources.map((model) => ({
-            label: AcoEligSourceLabels[model],
-            value: model,
+          comboItems={AcoEligSources.map((source) => ({
+            label: AcoEligSourceLabels[source],
+            value: source,
           }))}
           isDisabled={isSubmitting}
         />
