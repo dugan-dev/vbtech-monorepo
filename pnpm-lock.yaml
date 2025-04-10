@@ -109,8 +109,8 @@ importers:
   apps/vbpay:
     dependencies:
       '@aws-amplify/adapter-nextjs':
-        specifier: 1.5.8
-        version: 1.5.8(aws-amplify@6.14.1)(next@15.2.4(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.0.0-beta-e993439-20250405)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
+        specifier: 1.6.0
+        version: 1.6.0(aws-amplify@6.14.1)(next@15.2.4(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.0.0-beta-e993439-20250405)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
       '@aws-sdk/client-cognito-identity-provider':
         specifier: 3.782.0
         version: 3.782.0
@@ -504,8 +504,8 @@ packages:
     resolution: {integrity: sha512-90X8pU2szlvw0AJo9EZMbYc2eQKkmO7mAdC4tD4r5co2Mm56MT37MIG8EyB7p4WRheuzGxuLDxJ63mF6+Zajiw==}
     hasBin: true
 
-  '@aws-amplify/adapter-nextjs@1.5.8':
-    resolution: {integrity: sha512-r/u4D4aLjgPxMlCdXlIFlJsQdDh+XIwSt9pBRR39T6YOe4rZQZ1afTBgYE0fvASoiljRiPEA5jToRMrAHKXTFA==}
+  '@aws-amplify/adapter-nextjs@1.6.0':
+    resolution: {integrity: sha512-c5Ue5NnZb3ZItr3A/fGgy/prHu3g9Z1SrEOegmYbjNxIr3SY3tn7xJlnd0xNYBSVX4YT2n6FkZr7SbF0oo3PZg==}
     peerDependencies:
       aws-amplify: ^6.13.1
       next: '>=13.5.0 <16.0.0'
@@ -5697,7 +5697,7 @@ snapshots:
 
   '@antfu/ni@0.21.8': {}
 
-  '@aws-amplify/adapter-nextjs@1.5.8(aws-amplify@6.14.1)(next@15.2.4(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.0.0-beta-e993439-20250405)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))':
+  '@aws-amplify/adapter-nextjs@1.6.0(aws-amplify@6.14.1)(next@15.2.4(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.0.0-beta-e993439-20250405)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))':
     dependencies:
       aws-amplify: 6.14.1
       aws-jwt-verify: 4.0.1
