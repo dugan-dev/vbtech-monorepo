@@ -129,6 +129,43 @@ export type payer_hist = {
   websiteUrl: string | null;
   isActive: number;
 };
+export type payer_perf_year_config = {
+  id: Generated<number>;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  payerPubId: string;
+  perfYear: number;
+  program: string | null;
+  type: string | null;
+  riskOption: string | null;
+  paymentModel: string | null;
+  eligSrc: string;
+  assignToPhysicians: Generated<number>;
+  physAssignSrc: string | null;
+  physAssignMethod: string | null;
+};
+export type payer_perf_year_config_hist = {
+  id: Generated<number>;
+  histAddedAt: Timestamp;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  payerPubId: string;
+  perfYear: number;
+  program: string | null;
+  type: string | null;
+  riskOption: string | null;
+  paymentModel: string | null;
+  eligSrc: string;
+  assignToPhysicians: Generated<number>;
+  physAssignSrc: string | null;
+  physAssignMethod: string | null;
+};
 export type user = {
   id: Generated<number>;
   userId: string;
@@ -238,6 +275,8 @@ export type DB = {
   networkPhysicianHist: network_physician_hist;
   payer: payer;
   payerHist: payer_hist;
+  payerPerfYearConfig: payer_perf_year_config;
+  payerPerfYearConfigHist: payer_perf_year_config_hist;
   user: user;
   userHist: user_hist;
   userSyncTimestamp: user_sync_timestamp;
