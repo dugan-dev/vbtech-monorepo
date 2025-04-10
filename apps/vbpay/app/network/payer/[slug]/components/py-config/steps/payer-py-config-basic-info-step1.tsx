@@ -20,6 +20,15 @@ type props = {
   isSubmitting: boolean;
 };
 
+/**
+ * Renders a form section with dropdowns for entering basic payer configuration details.
+ *
+ * This component uses the form context provided by react-hook-form to bind six required dropdown fields:
+ * Performance Year, Program, Type, Risk Option, Payment Model, and Eligibility Source. The fields are disabled
+ * when the form is in the submitting state.
+ *
+ * @param isSubmitting - Indicates if the form is currently being submitted, which disables the input fields.
+ */
 export function PayerPyConfigBasicInfoStep1({ isSubmitting }: props) {
   const { control } = useFormContext<PayerPyConfigFormData>();
   return (

@@ -19,6 +19,21 @@ type props = {
   onAction?: () => void;
 };
 
+/**
+ * Renders an error dialog with customizable error details and an optional retry action.
+ *
+ * The dialog displays a title, error description, and action buttons. When an action callback is provided,
+ * a secondary button is shown that invokes the callback and closes the dialog; otherwise, only a close button is displayed.
+ *
+ * @param open - Whether the dialog is visible.
+ * @param onOpenChange - Callback to update the dialog's open state.
+ * @param title - The error dialog's title. Defaults to "An error occurred".
+ * @param description - The detailed error message.
+ * @param actionLabel - The label for the action button if an action is provided. Defaults to "Retry".
+ * @param onAction - Optional callback executed when the action button is clicked.
+ *
+ * @returns The AlertDialog component configured with error information and action buttons.
+ */
 export function ErrorDialog({
   open,
   onOpenChange,

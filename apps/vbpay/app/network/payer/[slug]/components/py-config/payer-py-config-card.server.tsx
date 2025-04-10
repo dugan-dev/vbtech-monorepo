@@ -16,6 +16,22 @@ type props = {
   perfYearUrl?: string;
 };
 
+/**
+ * Renders a payer configuration card view.
+ *
+ * This asynchronous function concurrently retrieves payer configuration data, payer details,
+ * and user data, then determines and renders the appropriate view based on the payer type
+ * and the availability of configuration data. It computes the performance year from the provided
+ * URL or defaults to the current year. If the payer type is not "aco", an unsupported payer type
+ * view is returned. If the payer configuration does not exist, a no configuration view is rendered.
+ * Otherwise, it formats the configuration data and renders a card component displaying the details.
+ *
+ * @param userId - The identifier of the user.
+ * @param payerPubId - The public identifier of the payer.
+ * @param perfYearUrl - Optional performance year; defaults to the current year if not provided.
+ *
+ * @returns A React component representing the payer configuration card view.
+ */
 export async function PayerPyConfigCardServer({
   userId,
   payerPubId,

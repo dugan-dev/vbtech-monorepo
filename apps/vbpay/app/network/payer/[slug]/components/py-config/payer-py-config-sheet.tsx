@@ -25,6 +25,18 @@ type props = {
   payerPubId?: string; // required for create/insert
 };
 
+/**
+ * Renders a sheet interface for adding or editing payer configuration data.
+ *
+ * The component determines its mode (create or update) based on the presence of
+ * both "data" and "pubId". A button toggles the sheet visibility and adapts its
+ * appearance accordingly. When the form submission is in progress, the button is
+ * disabled. Upon a successful submission, the sheet automatically closes.
+ *
+ * @param data - Optional configuration data to prepopulate the form in update mode.
+ * @param pubId - Optional identifier for the configuration to be edited.
+ * @param payerPubId - Optional identifier used when creating a new configuration.
+ */
 export function PayerPyConfigSheet({ data, pubId, payerPubId }: props) {
   const [open, onOpenChange] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
