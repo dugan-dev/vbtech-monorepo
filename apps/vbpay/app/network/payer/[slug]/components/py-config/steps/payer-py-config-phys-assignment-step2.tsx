@@ -20,6 +20,15 @@ type props = {
   isSubmitting: boolean;
 };
 
+/**
+ * Renders the physician assignment configuration step within the payer form.
+ *
+ * This component uses the react-hook-form context to present a toggle for enabling
+ * physician assignment. When activated, it displays combo boxes for selecting the
+ * assignment source and method. All controls are disabled when form submission is in progress.
+ *
+ * @param isSubmitting - Indicates whether the form submission is in progress.
+ */
 export function PayerPyConfigPhysAssignmentStep2({ isSubmitting }: props) {
   "use no memo"; // react compiler was memoizing watch so it was not updating
   const { control, watch } = useFormContext<PayerPyConfigFormData>();

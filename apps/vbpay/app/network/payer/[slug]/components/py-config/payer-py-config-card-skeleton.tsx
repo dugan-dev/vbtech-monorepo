@@ -7,6 +7,16 @@ import {
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
+/**
+ * Renders a skeleton loading card for payment configuration.
+ *
+ * This component displays a placeholder card with a header, scrollable content area, and footer. The header
+ * contains skeleton elements simulating a title and an avatar, while the content area includes multiple rows
+ * of skeletons representing text lines. The full-width skeleton in the footer completes the layout, offering a
+ * visual cue during data loading.
+ *
+ * @returns A JSX element representing the skeleton loading card.
+ */
 export function PayerPyConfigCardSkeleton() {
   return (
     <Card className="relative">

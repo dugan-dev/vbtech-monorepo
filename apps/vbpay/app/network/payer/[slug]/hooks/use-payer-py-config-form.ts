@@ -25,6 +25,33 @@ type props = {
   pubId?: string;
 };
 
+/**
+ * Manages a multi-step form for configuring payer settings.
+ *
+ * This custom hook encapsulates the logic for a multi-step form, including state management for the current step,
+ * validation of form inputs per step using react-hook-form with Zod, and conditional form submission behavior.
+ * Depending on whether existing configuration data is provided, it either updates or inserts a payer configuration.
+ * On successful submission, it displays a success toast and triggers the provided callback; on error, it opens an error dialog.
+ *
+ * @param onSuccess - Callback invoked after a successful submission.
+ * @param setIsSubmitting - Optional function to update the submitting state.
+ * @param payerPubId - Identifier for the payer used when inserting a new configuration.
+ * @param data - Existing configuration data; its presence indicates update mode.
+ * @param pubId - Publication identifier used in update mode.
+ * @returns An object containing:
+ *  - form: The form instance from react-hook-form.
+ *  - onSubmit: Function to handle form submission.
+ *  - isPending: Boolean indicating if an update or insert action is in progress.
+ *  - isErrorDialogOpen: Boolean indicating whether the error dialog is currently open.
+ *  - errorMsg: Error message to be displayed in the error dialog.
+ *  - errorTitle: Title for the error dialog.
+ *  - closeErrorDialog: Function to close the error dialog.
+ *  - isStepValid: Function to check if the inputs for the current step are valid.
+ *  - prevStep: Function to navigate to the previous step.
+ *  - nextStep: Function to navigate to the next step.
+ *  - currentStep: The current step number.
+ *  - steps: Array of form steps.
+ */
 export function useSteppedPayerPyConfigForm({
   onSuccess,
   setIsSubmitting,

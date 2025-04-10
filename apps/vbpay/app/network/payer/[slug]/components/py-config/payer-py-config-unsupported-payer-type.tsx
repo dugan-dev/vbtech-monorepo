@@ -11,6 +11,13 @@ type props = {
   perfYear: string;
 };
 
+/**
+ * Renders a card indicating that payer PY configuration is not supported for the specified type of payer.
+ *
+ * The component displays the provided performance year in the header along with an alert icon and a warning message.
+ *
+ * @param perfYear - The performance year to display in the card header.
+ */
 export function PayerPyConfigUnsupportedPayerType({ perfYear }: props) {
   return (
     <Card className="w-full max-w-md">

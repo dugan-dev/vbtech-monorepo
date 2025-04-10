@@ -32,6 +32,14 @@ type props = {
   usersAppAttrs: UserAppAttrs;
 };
 
+/**
+ * Renders a card displaying payer configuration details for a performance year.
+ *
+ * The card header shows the performance year and conditionally renders a configuration sheet control for
+ * authorized users based on provided user attributes. The scrollable content displays key configuration
+ * details extracted from the data, including the program, type, payment model, and whether physician assignment
+ * is enabled.
+ */
 export function PayerPyConfigCardClient({
   perfYear,
   data,
