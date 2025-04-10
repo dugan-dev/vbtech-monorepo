@@ -29,7 +29,7 @@ export function ErrorDialog({
 }: props) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="sm:max-w-[425px]">
+      <AlertDialogContent className="max-w-[80dvw] max-h-[80dvh] overflow-auto">
         <AlertDialogHeader>
           <AlertDialogTitle
             className="flex items-center gap-2"
