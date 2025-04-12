@@ -1,7 +1,8 @@
 import "server-only";
 
 import { env } from "process";
-import { unstable_cache as cache, revalidateTag } from "next/cache";
+import { cache } from "react";
+import { revalidateTag, unstable_cache as timedCache } from "next/cache";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { formatMarketingAndRefName } from "@/utils/format-marketing-name-and-ref-name";
 import {
@@ -25,11 +26,11 @@ type props = {
 export const USERS_DATA_CACHE_TAG = "users-data";
 const REVALIDATE_SECONDS = 600; // 10 minutes
 
-export function getUsersData({ userId }: props) {
+// Create the inner function that uses unstable_cache for time-based caching
+const getUserDataFromCache = (userId: string) => {
   const cacheKey = `${USERS_DATA_CACHE_TAG}-${userId}`;
 
-  // The cache function returns a function that needs to be executed
-  const cachedFn = cache(
+  return timedCache(
     async () => {
       const command = new AdminGetUserCommand({
         UserPoolId: process.env.AWS_COGNITO_USER_POOL_ID,
@@ -64,12 +65,25 @@ export function getUsersData({ userId }: props) {
     },
     [cacheKey],
     { revalidate: REVALIDATE_SECONDS, tags: [cacheKey] },
-  );
+  )();
+};
 
-  // Return the cached function which will be executed when called
-  return cachedFn();
-}
+// Wrap the function with React's cache for request deduplication
+export const getUsersData = cache(async ({ userId }: props) => {
+  return getUserDataFromCache(userId);
+});
 
+/**
+ * Updates the user's selection slug attribute in AWS Cognito.
+ *
+ * Retrieves the current user attributes, merges them with the new payer public ID as the slug, and sends an update command to Cognito.
+ * On a successful update, the function revalidates the related cache tag. If the update fails, it logs the error and rethrows the exception.
+ *
+ * @param userId - The identifier of the user to update.
+ * @param payerPubId - The new selection slug value to assign.
+ *
+ * @throws {Error} When the update operation fails in AWS Cognito.
+ */
 export async function updateUserSelectionSlug(
   userId: string,
   payerPubId: string,
@@ -102,8 +116,12 @@ export async function updateUserSelectionSlug(
   }
 }
 
-export async function getUserSelectionData() {
+// Wrap with React's cache for request deduplication
+export const getUserSelectionData = cache(async () => {
   const user = await authenticatedUser();
+
+  // This Promise.all will benefit from React's cache
+  // for request deduplication
   const [payers, usersData] = await Promise.all([
     getAllPayers(),
     getUsersData({ userId: user?.userId || "" }),
@@ -125,4 +143,4 @@ export async function getUserSelectionData() {
   };
 
   return userSelectionData;
-}
+});

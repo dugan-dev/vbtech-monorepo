@@ -1,4 +1,5 @@
-import { unstable_cache as cache } from "next/cache";
+import { cache } from "react";
+import { unstable_cache as timedCache } from "next/cache";
 import { env } from "@/env/server";
 
 import { db } from "@workspace/db/database";
@@ -32,13 +33,22 @@ type VBPayGlobalSettings = NonNullable<
   Awaited<ReturnType<typeof getVBPayGlobalSettingsQry>>
 >;
 
-function getVBPayGlobalSettings() {
+/**
+ * Retrieves VBPay global settings with environment-specific caching.
+ *
+ * In non-production environments, this function directly queries the database for the settings.
+ * In production, it caches the result using a timed cache that revalidates every 10 minutes,
+ * keyed and tagged with the designated global settings cache key.
+ *
+ * @returns The retrieved VBPay global settings.
+ */
+function getVBPayGlobalSettingsWithTimedCache() {
   if (env.NODE_ENV !== "production") {
     const globalSettings = getVBPayGlobalSettingsQry();
     return globalSettings;
   }
 
-  return cache(
+  return timedCache(
     () => {
       const globalSettings = getVBPayGlobalSettingsQry();
       return globalSettings;
@@ -50,6 +60,10 @@ function getVBPayGlobalSettings() {
     },
   )();
 }
+
+const getVBPayGlobalSettings = cache(async () => {
+  return getVBPayGlobalSettingsWithTimedCache();
+});
 
 export {
   getVBPayGlobalSettings,

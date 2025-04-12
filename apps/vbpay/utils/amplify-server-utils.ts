@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { cookies } from "next/headers";
 import { createServerRunner } from "@aws-amplify/adapter-nextjs";
 import { getCurrentUser } from "aws-amplify/auth/server";
@@ -10,7 +11,8 @@ export const { runWithAmplifyServerContext } = createServerRunner({
   },
 });
 
-export async function authenticatedUser() {
+// Wrap with React's cache for request deduplication
+export const authenticatedUser = cache(async () => {
   return await runWithAmplifyServerContext({
     nextServerContext: { cookies },
     operation: async (contextSpec) => {
@@ -22,4 +24,4 @@ export async function authenticatedUser() {
       }
     },
   });
-}
+});
