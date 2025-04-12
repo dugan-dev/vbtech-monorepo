@@ -15,7 +15,11 @@ export async function EntityInfoCardServer({ userId, entityPubId }: props) {
     getUsersData({ userId }),
   ]);
 
-  const formData = formatEditEntityFormData(payer!);
+  if (!payer) {
+    throw new Error(`Entity with ID ${entityPubId} not found`);
+  }
+  
+  const formData = formatEditEntityFormData(payer);
 
   return (
     <div className="w-1/4">
