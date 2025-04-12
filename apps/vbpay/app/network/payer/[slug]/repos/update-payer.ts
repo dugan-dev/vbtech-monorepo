@@ -78,7 +78,6 @@ export function updatePayer({ input, pubId, userId }: props) {
         taxId: input.taxId,
         parentOrgName: input.parentOrgName,
         websiteUrl: input.websiteUrl,
-        isActive: 1,
       })
       .execute();
   });
