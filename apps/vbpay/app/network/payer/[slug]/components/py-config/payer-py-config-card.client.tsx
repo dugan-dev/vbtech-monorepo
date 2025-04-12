@@ -55,7 +55,6 @@ export function PayerPyConfigCardClient({
           <RestrictByUserAppAttrsClient
             usersAppAttrs={usersAppAttrs}
             allowedUserTypes={ALLOWED_USER_TYPES}
-            adminOnly
           >
             <div className="relative ml-auto">
               <PayerPyConfigSheet
