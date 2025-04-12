@@ -15,6 +15,17 @@ import {
 
 import { Icons } from "@/components/icons";
 
+/**
+ * Renders a card displaying error information and actions to recover from an error state.
+ *
+ * This component logs the provided error to the console and presents a styled card containing an alert icon,
+ * an error title, and a message. If the error includes an optional digest identifier, it is displayed as the error ID.
+ * The footer offers two user actions: a "Try again" button that calls the provided reset function, and a "Go Back"
+ * button that navigates to the previous page.
+ *
+ * @param error - The error instance with a message and an optional digest for identification.
+ * @param reset - A function that resets the error state, allowing the user to retry the failed operation.
+ */
 export default function Error({
   error,
   reset,
