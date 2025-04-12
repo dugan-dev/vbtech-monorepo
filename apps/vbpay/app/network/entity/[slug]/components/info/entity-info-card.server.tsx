@@ -1,7 +1,7 @@
 import { getNetworkEntity } from "@/repos/network-entity-repository";
 import { getUsersData } from "@/repos/user-repository";
 
-import { formatEditEntityFormData } from "../../utils/format-edit-enity-form-data";
+import { formatEditEntityFormData } from "../../utils/format-edit-entity-form-data";
 import { EntityInfoCardClient } from "./entity-info-card.client";
 
 type props = {
