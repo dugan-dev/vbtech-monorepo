@@ -1,4 +1,5 @@
-import { unstable_cache as cache } from "next/cache";
+import { cache } from "react";
+import { unstable_cache as timedCache } from "next/cache";
 import { env } from "@/env/server";
 
 import { db } from "@workspace/db/database";
@@ -32,13 +33,13 @@ type VBPayGlobalSettings = NonNullable<
   Awaited<ReturnType<typeof getVBPayGlobalSettingsQry>>
 >;
 
-function getVBPayGlobalSettings() {
+function getVBPayGlobalSettingsWithTimedCache() {
   if (env.NODE_ENV !== "production") {
     const globalSettings = getVBPayGlobalSettingsQry();
     return globalSettings;
   }
 
-  return cache(
+  return timedCache(
     () => {
       const globalSettings = getVBPayGlobalSettingsQry();
       return globalSettings;
@@ -50,6 +51,10 @@ function getVBPayGlobalSettings() {
     },
   )();
 }
+
+const getVBPayGlobalSettings = cache(async () => {
+  return getVBPayGlobalSettingsWithTimedCache();
+});
 
 export {
   getVBPayGlobalSettings,

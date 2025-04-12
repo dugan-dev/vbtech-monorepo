@@ -1,6 +1,7 @@
 import "server-only";
 
-import { unstable_cache as cache } from "next/cache";
+import { cache } from "react";
+import { unstable_cache as timedCache } from "next/cache";
 import { env } from "@/env/server";
 
 import { db } from "@workspace/db/database";
@@ -28,16 +29,15 @@ function getVBPayLicenseQry() {
 
 type VBPayLicense = NonNullable<Awaited<ReturnType<typeof getVBPayLicenseQry>>>;
 
-function getVBPayLicense() {
+// Create a function that uses Next.js unstable_cache for time-based caching
+const getVBPayLicenseWithTimeCache = () => {
   if (env.NODE_ENV !== "production") {
-    const license = getVBPayLicenseQry();
-    return license;
+    return getVBPayLicenseQry();
   }
 
-  return cache(
+  return timedCache(
     () => {
-      const license = getVBPayLicenseQry();
-      return license;
+      return getVBPayLicenseQry();
     },
     [VBPAY_LICENSE_CACHE_KEY],
     {
@@ -45,6 +45,11 @@ function getVBPayLicense() {
       tags: [VBPAY_LICENSE_CACHE_KEY],
     },
   )();
-}
+};
 
-export { getVBPayLicense, VBPAY_LICENSE_CACHE_KEY, type VBPayLicense };
+// Wrap with React's cache for request deduplication
+export const getVBPayLicense = cache(async () => {
+  return getVBPayLicenseWithTimeCache();
+});
+
+export { VBPAY_LICENSE_CACHE_KEY, type VBPayLicense };

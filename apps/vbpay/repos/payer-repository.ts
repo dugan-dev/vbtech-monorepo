@@ -1,18 +1,21 @@
 import "server-only";
 
+import { cache } from "react";
+
 import { db } from "@workspace/db/database";
 
-async function isPayerPubIdValid({ pubId }: { pubId: string }) {
+// Add cache for request deduplication
+export const isPayerPubIdValid = cache(async ({ pubId }: { pubId: string }) => {
   const payer = await db
     .selectFrom("payer")
     .where("pubId", "=", pubId)
     .select(["pubId"])
     .executeTakeFirst();
-
   return !!payer;
-}
+});
 
-function getPayerByPubId({ pubId }: { pubId: string }) {
+// Add cache for request deduplication
+export const getPayerByPubId = cache(async ({ pubId }: { pubId: string }) => {
   return db
     .selectFrom("payer")
     .select([
@@ -31,9 +34,9 @@ function getPayerByPubId({ pubId }: { pubId: string }) {
     ])
     .where("pubId", "=", pubId)
     .executeTakeFirst();
-}
+});
 
-function getAllPayers() {
+export function getAllPayers() {
   return db
     .selectFrom("payer")
     .select([
@@ -52,5 +55,3 @@ function getAllPayers() {
     ])
     .execute();
 }
-
-export { isPayerPubIdValid, getPayerByPubId, getAllPayers };
