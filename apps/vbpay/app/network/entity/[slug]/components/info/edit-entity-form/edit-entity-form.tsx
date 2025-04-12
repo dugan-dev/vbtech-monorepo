@@ -21,6 +21,16 @@ type props = {
   formData: EditEntityFormData;
 };
 
+/**
+ * Renders a form for editing network entity information.
+ *
+ * This component leverages a custom hook to manage form state, submission logic, and error handling.
+ * It displays input fields for entity type, marketing name, legal name, acronym/nickname, organizational NPI, and tax ID,
+ * and conditionally renders an error dialog if an error occurs during submission.
+ *
+ * @param onSuccess - Callback invoked upon successful form submission.
+ * @param formData - Initial data used to populate the form fields.
+ */
 export function EditEntityForm({ onSuccess, formData }: props) {
   const {
     form,

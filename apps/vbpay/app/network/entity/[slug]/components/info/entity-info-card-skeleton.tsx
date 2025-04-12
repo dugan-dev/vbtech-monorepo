@@ -7,6 +7,17 @@ import {
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
+/**
+ * Renders a skeleton loading placeholder for an entity information card.
+ *
+ * This component simulates the layout of an entity information card with placeholder
+ * elements. It features a header with title and avatar skeletons, a scrollable section
+ * containing multiple rows of loading placeholders, and a footer skeleton. Use it to
+ * display a visual loading state while the actual content is being fetched.
+ *
+ * @example
+ * <EntityInfoCardSkeleton />
+ */
 export function EntityInfoCardSkeleton() {
   return (
     <Card className="relative">

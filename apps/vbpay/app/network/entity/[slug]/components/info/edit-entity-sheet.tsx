@@ -25,6 +25,13 @@ type props = {
   formData: EditEntityFormData;
 };
 
+/**
+ * Renders a sheet interface for editing network entity information.
+ *
+ * The component displays a button with a pencil icon wrapped in a tooltip labeled "Edit Entity Info." Clicking the button opens a full-screen sheet containing an edit form. The form is pre-populated using the provided data, and upon a successful submission, the sheet is closed.
+ *
+ * @param formData - The data used to initialize and configure the edit entity form.
+ */
 export function EditEntitySheet({ formData }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
 

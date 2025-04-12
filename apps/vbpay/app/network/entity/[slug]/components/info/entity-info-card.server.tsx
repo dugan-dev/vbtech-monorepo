@@ -9,17 +9,23 @@ type props = {
   entityPubId: string;
 };
 
+/**
+ * Renders the server-side entity information card.
+ *
+ * Concurrently retrieves the network entity and user data using the provided identifiers,
+ * formats the entity data for editing, and returns a JSX element that wraps the
+ * EntityInfoCardClient component within a styled container.
+ *
+ * @param userId - The unique identifier for the user.
+ * @param entityPubId - The public identifier for the entity.
+ */
 export async function EntityInfoCardServer({ userId, entityPubId }: props) {
   const [payer, user] = await Promise.all([
     getNetworkEntity(entityPubId),
     getUsersData({ userId }),
   ]);
 
-  if (!payer) {
-    throw new Error(`Entity with ID ${entityPubId} not found`);
-  }
-  
-  const formData = formatEditEntityFormData(payer);
+  const formData = formatEditEntityFormData(payer!);
 
   return (
     <div className="w-1/4">

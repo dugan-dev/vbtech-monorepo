@@ -19,6 +19,18 @@ type props = {
   formData: EditEntityFormData;
 };
 
+/**
+ * Manages an editable network entity form.
+ *
+ * This hook initializes a form with Zod validation and default values, retrieves the entity identifier from the URL,
+ * and configures actions to update the entity. On a successful update, it displays a toast notification, calls an optional
+ * success callback, and resets the form. If an error occurs, it opens an error dialog with an appropriate message.
+ *
+ * @param onSuccess - Optional callback invoked after a successful update.
+ * @param formData - Initial form data used to populate the form.
+ *
+ * @returns An object containing the form methods, a submission handler, the pending state of the update action, and error dialog controls.
+ */
 export function useEditEntityForm({ onSuccess, formData }: props) {
   const form = useForm<EditEntityFormInput>({
     resolver: zodResolver(EditEntityFormSchema),

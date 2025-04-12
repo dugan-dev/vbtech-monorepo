@@ -21,6 +21,15 @@ import { Icons } from "@/components/icons";
 
 import { useAddNetworkEntityContext } from "../../contexts/add-network-entity-context";
 
+/**
+ * Renders a form for adding network entity details.
+ *
+ * This component uses a context hook to manage form state and submission. It displays a card layout
+ * containing input fields for entity type, marketing name, legal name, acronym/nickname, organizational NPI,
+ * and a tax ID (with auto-formatting). The form's inputs are disabled during submission to prevent further changes.
+ *
+ * @returns A JSX element representing the network entity form.
+ */
 export function AddNetworkEntityForm() {
   const {
     addNetworkEntityForm: form,

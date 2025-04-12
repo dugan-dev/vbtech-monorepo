@@ -21,6 +21,18 @@ const ALLOWED_USER_TYPES: UserType[] = [
   "vendor",
 ];
 
+/**
+ * Renders the network entity page for authenticated and authorized users.
+ *
+ * This asynchronous component concurrently obtains the authenticated user and the entity slug.
+ * If the user is not authenticated, it returns an unauthorized response.
+ * Otherwise, it wraps the entity information display within an access restriction component,
+ * and uses a suspense fallback while loading the entity details.
+ *
+ * @param params - A promise that resolves to an object containing a slug used to identify the entity.
+ *
+ * @returns The page component displaying the entity information or an unauthorized response.
+ */
 export default async function Page({
   params,
 }: {

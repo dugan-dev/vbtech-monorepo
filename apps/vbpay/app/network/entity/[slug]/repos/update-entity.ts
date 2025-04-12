@@ -10,6 +10,20 @@ type props = {
   userId: string;
 };
 
+/**
+ * Updates an existing network entity while logging its previous state.
+ *
+ * This function initiates a database transaction that first records the current state of the entity
+ * in the history table ("networkEntityHist") and then updates the entity in the main table ("networkEntity")
+ * with new values provided in the input. The operations are executed atomically, ensuring consistency
+ * by rolling back the transaction if any step fails.
+ *
+ * @param input - The new details for the entity.
+ * @param pubId - The public identifier of the entity to update.
+ * @param userId - The identifier of the user performing the update.
+ *
+ * @returns A promise that resolves when the update operation is complete.
+ */
 export function updateEntity({ input, pubId, userId }: props) {
   return db.transaction().execute(async (trx) => {
     const now = new Date();
