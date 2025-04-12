@@ -44,9 +44,13 @@ export async function PayerPyConfigCardServer({
     getUsersData({ userId }),
   ]);
 
+  if (!payer) {
+    throw new Error(`Payer with pubId ${payerPubId} not found.`);
+  }
+
   let formData: PayerPyConfigFormData | undefined = undefined;
 
-  if ((payer?.payerType as PayerType) !== "aco") {
+  if ((payer.payerType as PayerType) !== "aco") {
     return <PayerPyConfigUnsupportedPayerType perfYear={perfYear} />;
   }
 
