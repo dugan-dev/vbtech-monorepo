@@ -33,9 +33,17 @@ export async function PayerInfoCardServer({ userId, payerPubId }: props) {
     getVBPayGlobalSettings(),
   ]);
 
-  const formData = formatEditPayerFormData(payer!);
+  if (!payer) {
+    throw new Error(`Payer with pubId ${payerPubId} not found.`);
+  }
 
-  const payerTypes: ComboItem[] = settings!.allowedPayerTypes
+  if (!settings) {
+    throw new Error("Failed to load global settings.");
+  }
+
+  const formData = formatEditPayerFormData(payer);
+
+  const payerTypes: ComboItem[] = settings.allowedPayerTypes
     .split(",")
     .map((type) => ({
       value: type,
