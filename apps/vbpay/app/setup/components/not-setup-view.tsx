@@ -13,9 +13,13 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 
+import { UserType } from "@/types/user-type";
 import { Icons } from "@/components/icons";
+import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { SetupSheet } from "./setup-sheet";
+
+const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
 
 type props = {
   userId: string;
@@ -54,11 +58,15 @@ export async function NotSetupView({ userId }: props) {
           </AlertDescription>
         </Alert>
       </CardContent>
-      {canConfigure && (
+      <RestrictByUserAppAttrsClient
+        usersAppAttrs={userData.usersAppAttrs}
+        allowedUserTypes={ALLOWED_USER_TYPES}
+        adminOnly
+      >
         <CardFooter className="flex justify-center">
           <SetupSheet />
         </CardFooter>
-      )}
+      </RestrictByUserAppAttrsClient>
     </Card>
   );
 }
