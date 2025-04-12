@@ -7,6 +7,7 @@ import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
+import { PayerInfoCardServer } from "./components/info/payer-info-card.server";
 import { PayerPyConfigCardSkeleton } from "./components/py-config/payer-py-config-card-skeleton";
 import { PayerPyConfigCardServer } from "./components/py-config/payer-py-config-card.server";
 
@@ -46,13 +47,18 @@ export default async function Page({
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <Suspense fallback={<PayerPyConfigCardSkeleton />}>
-        <PayerPyConfigCardServer
-          userId={user.userId}
-          perfYearUrl={perfYear ? (perfYear as string) : undefined}
-          payerPubId={slug}
-        />
-      </Suspense>
+      <div className="flex gap-4">
+        <Suspense fallback={<PayerPyConfigCardSkeleton />}>
+          <PayerInfoCardServer userId={user.userId} payerPubId={slug} />
+        </Suspense>
+        <Suspense fallback={<PayerPyConfigCardSkeleton />}>
+          <PayerPyConfigCardServer
+            userId={user.userId}
+            perfYearUrl={perfYear ? (perfYear as string) : undefined}
+            payerPubId={slug}
+          />
+        </Suspense>
+      </div>
     </RestrictByUserAppAttrsServer>
   );
 }
