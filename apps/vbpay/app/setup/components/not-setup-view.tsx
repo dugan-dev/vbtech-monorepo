@@ -13,14 +13,27 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 
+import { UserType } from "@/types/user-type";
 import { Icons } from "@/components/icons";
+import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { SetupSheet } from "./setup-sheet";
+
+const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
 
 type props = {
   userId: string;
 };
 
+/**
+ * Renders the view indicating that the VBPay license is not configured.
+ *
+ * This asynchronous function fetches user data using the provided user ID to determine whether the user is an admin of type "bpo". Based on these attributes, it displays an alert with instructions to either configure the license via a setup sheet or contact an administrator. The setup interface is conditionally wrapped to restrict access according to allowed user types.
+ *
+ * @param userId - The identifier for the user whose license configuration status is being checked.
+ *
+ * @returns A JSX element representing the license configuration prompt.
+ */
 export async function NotSetupView({ userId }: props) {
   const userData = await getUsersData({ userId });
 
@@ -54,11 +67,15 @@ export async function NotSetupView({ userId }: props) {
           </AlertDescription>
         </Alert>
       </CardContent>
-      {canConfigure && (
+      <RestrictByUserAppAttrsClient
+        usersAppAttrs={userData.usersAppAttrs}
+        allowedUserTypes={ALLOWED_USER_TYPES}
+        adminOnly
+      >
         <CardFooter className="flex justify-center">
           <SetupSheet />
         </CardFooter>
-      )}
+      </RestrictByUserAppAttrsClient>
     </Card>
   );
 }

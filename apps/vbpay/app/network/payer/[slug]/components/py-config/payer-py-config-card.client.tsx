@@ -16,6 +16,7 @@ import {
 import { AcoProgramLabels, AcoProgramType } from "@/types/aco-program";
 import { AcoTypeLabels, AcoTypeType } from "@/types/aco-type";
 import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
@@ -23,6 +24,8 @@ import { PayerPyConfigFormData } from "./payer-py-config-form-schema";
 import { PayerPyConfigSheet } from "./payer-py-config-sheet";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+
+const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
 
 type props = {
   perfYear: string;
@@ -55,6 +58,7 @@ export function PayerPyConfigCardClient({
           <RestrictByUserAppAttrsClient
             usersAppAttrs={usersAppAttrs}
             allowedUserTypes={ALLOWED_USER_TYPES}
+            requiredUserRoles={REQUIRED_USER_ROLES}
           >
             <div className="relative ml-auto">
               <PayerPyConfigSheet

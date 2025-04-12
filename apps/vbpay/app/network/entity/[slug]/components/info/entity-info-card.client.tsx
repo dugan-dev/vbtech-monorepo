@@ -13,6 +13,7 @@ import {
   NetworkEntityTypeLabels,
 } from "@/types/network-entity-type";
 import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
@@ -21,11 +22,24 @@ import { EditEntitySheet } from "./edit-entity-sheet";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
+const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
+
 type props = {
   data: EditEntityFormData;
   usersAppAttrs: UserAppAttrs;
 };
 
+/**
+ * Renders a card displaying network entity details along with an edit option for users with proper access.
+ *
+ * The card header shows the network entity type and conditionally includes an edit interface,
+ * which is only available to users with the required attributes and roles.
+ * The card content displays the entity's name (including a reference name when available), organization NPI,
+ * and entity type.
+ *
+ * @param data - Contains the network entity's details such as marketing name, optional reference name, organization NPI, and type.
+ * @param usersAppAttrs - User-specific attributes used to determine access permissions for editing.
+ */
 export function EntityInfoCardClient({ data, usersAppAttrs }: props) {
   return (
     <Card>
@@ -38,6 +52,7 @@ export function EntityInfoCardClient({ data, usersAppAttrs }: props) {
           <RestrictByUserAppAttrsClient
             usersAppAttrs={usersAppAttrs}
             allowedUserTypes={ALLOWED_USER_TYPES}
+            requiredUserRoles={REQUIRED_USER_ROLES}
           >
             <div className="relative ml-auto">
               <EditEntitySheet formData={data} />

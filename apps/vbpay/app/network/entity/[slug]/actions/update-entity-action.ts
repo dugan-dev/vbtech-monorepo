@@ -5,6 +5,7 @@ import "server-only";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
+import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 import { authedActionClient } from "@/lib/safe-action";
 
@@ -19,6 +20,8 @@ const updateEntityActionSchema = z.object({
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
+const REQUIRED_USER_ROLE: UserRole = "edit";
+
 export const updateEntityAction = authedActionClient
   .metadata({
     actionName: "updateEntityAction",
@@ -27,11 +30,22 @@ export const updateEntityAction = authedActionClient
   .schema(updateEntityActionSchema)
   .action(
     async ({ parsedInput: { formData, pubId, revalidationPath }, ctx }) => {
+      const { userId, usersAppAttrs } = ctx;
+
+      const payerPermissions = usersAppAttrs.ids?.find((id) => id.id === pubId);
+
+      if (
+        !payerPermissions ||
+        !payerPermissions.userRoles.includes(REQUIRED_USER_ROLE)
+      ) {
+        throw new Error("User does not have permission to edit this entity.");
+      }
+
       // update entity
       await updateEntity({
         input: formData,
         pubId,
-        userId: ctx.userId,
+        userId: userId,
       });
 
       revalidatePath(revalidationPath);

@@ -12,6 +12,7 @@ import { ComboItem } from "@workspace/ui/types/combo-item";
 import { PayerType, PayerTypeLabels } from "@/types/payer-type";
 import { PerfMonthLabels, PerformanceMonth } from "@/types/perf-month";
 import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
@@ -19,6 +20,8 @@ import { EditPayerFormData } from "./edit-payer-form/edit-payer-form-schema";
 import { EditPayerSheet } from "./edit-payer-sheet";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+
+const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
 
 type props = {
   data: EditPayerFormData;
@@ -29,11 +32,11 @@ type props = {
 /**
  * Renders a card displaying payer details.
  *
- * This component presents the payer's information—including name, type, CMS ID, and initial performance month—in a card layout. An edit option is conditionally available via an embedded edit sheet when the user's attributes permit it. Placeholder values are used when certain data fields are absent.
+ * This component displays detailed information about a payer, including its marketing name (with an optional reference name), payer type (mapped to a human-readable label), CMS ID, and the initial performance month. The card header conditionally includes an edit interface that is visible only when the user's attributes and roles meet the required access permissions.
  *
- * @param data - Contains the payer's details to be displayed.
- * @param payerTypes - Provides the list of payer types for mapping type values to labels.
- * @param usersAppAttrs - Defines user attributes that determine access to the edit functionality.
+ * @param data - Contains the payer's details such as names, type, CMS ID, and performance month data.
+ * @param payerTypes - Maps payer type values to their corresponding display labels.
+ * @param usersAppAttrs - User attributes used to determine access to the edit functionality.
  */
 export function PayerInfoCardClient({
   data,
@@ -48,6 +51,7 @@ export function PayerInfoCardClient({
           <RestrictByUserAppAttrsClient
             usersAppAttrs={usersAppAttrs}
             allowedUserTypes={ALLOWED_USER_TYPES}
+            requiredUserRoles={REQUIRED_USER_ROLES}
           >
             <div className="relative ml-auto">
               <EditPayerSheet formData={data} payerTypes={payerTypes} />

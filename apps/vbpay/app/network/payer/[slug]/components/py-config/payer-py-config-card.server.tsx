@@ -19,18 +19,22 @@ type props = {
 /**
  * Renders a payer configuration card view.
  *
- * This asynchronous function concurrently retrieves payer configuration data, payer details,
- * and user data, then determines and renders the appropriate view based on the payer type
- * and the availability of configuration data. It computes the performance year from the provided
- * URL or defaults to the current year. If the payer type is not "aco", an unsupported payer type
- * view is returned. If the payer configuration does not exist, a no configuration view is rendered.
- * Otherwise, it formats the configuration data and renders a card component displaying the details.
+ * This asynchronous function concurrently retrieves the payer configuration, payer details, and user data,
+ * determines the appropriate view based on the payer type and configuration availability, and renders the
+ * corresponding React component. It calculates the performance year from the provided URL or defaults to the
+ * current year.
  *
- * @param userId - The identifier of the user.
- * @param payerPubId - The public identifier of the payer.
- * @param perfYearUrl - Optional performance year; defaults to the current year if not provided.
+ * If the payer object is not found, the function throws an error. If the payer type is not "aco", an unsupported
+ * payer type view is rendered. If a payer configuration is not available, a view prompting for configuration is returned.
+ * Otherwise, the configuration data is formatted and used to render a detailed card view.
  *
- * @returns A React component representing the payer configuration card view.
+ * @param userId - The user identifier.
+ * @param payerPubId - The payer's public identifier.
+ * @param perfYearUrl - An optional performance year URL; the current year is used when not provided.
+ *
+ * @returns A React element representing the payer configuration view.
+ *
+ * @throws {Error} If the payer with the specified public identifier does not exist.
  */
 export async function PayerPyConfigCardServer({
   userId,
@@ -44,9 +48,13 @@ export async function PayerPyConfigCardServer({
     getUsersData({ userId }),
   ]);
 
+  if (!payer) {
+    throw new Error(`Payer with pubId ${payerPubId} not found.`);
+  }
+
   let formData: PayerPyConfigFormData | undefined = undefined;
 
-  if ((payer?.payerType as PayerType) !== "aco") {
+  if ((payer.payerType as PayerType) !== "aco") {
     return <PayerPyConfigUnsupportedPayerType perfYear={perfYear} />;
   }
 

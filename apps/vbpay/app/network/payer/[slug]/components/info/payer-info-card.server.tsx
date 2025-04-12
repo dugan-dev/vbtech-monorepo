@@ -15,16 +15,19 @@ type props = {
 };
 
 /**
- * Retrieves payer, user, and global settings concurrently to render a payer information card.
+ * Asynchronously renders a payer information card.
  *
- * This server-side component fetches payer details using the specified public payer ID, user data using
- * the given user ID, and global settings that include the allowed payer types. It formats the payer data
- * for editing and converts the allowed payer types into a selectable list of options. The resulting data
- * is passed to the client-side PayerInfoCardClient component wrapped in a container div.
+ * Fetches payer details using the provided public payer ID, user data using the specified user ID, and global settings concurrently.
+ * If either the payer or the global settings cannot be retrieved, an error is thrown.
+ * The function formats the payer information for editing and converts allowed payer types into a selectable list
+ * before passing the data to the client-side payer information card component.
  *
  * @param userId - Identifier for the user.
  * @param payerPubId - Public identifier for the payer.
- * @returns JSX element rendering the payer information card.
+ * @returns A JSX element that renders the payer information card.
+ *
+ * @throws {Error} If the payer with the specified public identifier is not found.
+ * @throws {Error} If global settings cannot be loaded.
  */
 export async function PayerInfoCardServer({ userId, payerPubId }: props) {
   const [payer, user, settings] = await Promise.all([
@@ -33,9 +36,17 @@ export async function PayerInfoCardServer({ userId, payerPubId }: props) {
     getVBPayGlobalSettings(),
   ]);
 
-  const formData = formatEditPayerFormData(payer!);
+  if (!payer) {
+    throw new Error(`Payer with pubId ${payerPubId} not found.`);
+  }
 
-  const payerTypes: ComboItem[] = settings!.allowedPayerTypes
+  if (!settings) {
+    throw new Error("Failed to load global settings.");
+  }
+
+  const formData = formatEditPayerFormData(payer);
+
+  const payerTypes: ComboItem[] = settings.allowedPayerTypes
     .split(",")
     .map((type) => ({
       value: type,
