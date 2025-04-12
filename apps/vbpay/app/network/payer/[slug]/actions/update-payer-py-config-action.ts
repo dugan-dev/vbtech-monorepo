@@ -32,13 +32,11 @@ export const updatePayerPyConfigAction = authedActionClient
     async ({ parsedInput: { formData, pubId, revalidationPath }, ctx }) => {
       const { userId, usersAppAttrs } = ctx;
 
-      const payerPermisssions = usersAppAttrs.ids?.find(
-        (id) => id.id === pubId,
-      );
+      const payerPermissions = usersAppAttrs.ids?.find((id) => id.id === pubId);
 
       if (
-        !payerPermisssions ||
-        !payerPermisssions.userRoles.includes(REQUIRED_USER_ROLE)
+        !payerPermissions ||
+        !payerPermissions.userRoles.includes(REQUIRED_USER_ROLE)
       ) {
         throw new Error(
           "User does not have permission to add a physician for this payer.",

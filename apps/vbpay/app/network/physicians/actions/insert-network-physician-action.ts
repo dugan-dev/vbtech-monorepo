@@ -37,13 +37,13 @@ export const insertNetworkPhysicianAction = authedActionClient
       const pubId = newPubId();
       const { userId, usersAppAttrs } = ctx;
 
-      const payerPermisssions = usersAppAttrs.ids?.find(
+      const payerPermissions = usersAppAttrs.ids?.find(
         (id) => id.id === payerPubId,
       );
 
       if (
-        !payerPermisssions ||
-        !payerPermisssions.userRoles.includes(REQUIRED_USER_ROLE)
+        !payerPermissions ||
+        !payerPermissions.userRoles.includes(REQUIRED_USER_ROLE)
       ) {
         throw new Error(
           "User does not have permission to add a physician for this payer.",
