@@ -80,6 +80,7 @@ export function ManageNetworkPhysiciansTable({
       itemsAboveTable={
         <RestrictByUserAppAttrsClient
           usersAppAttrs={usersAppAttrs}
+          allowedUserTypes={ALLOWED_USER_TYPES}
           requiredUserRoles={REQUIRED_USER_ROLES}
         >
           <AddNetworkPhysicianProvider
