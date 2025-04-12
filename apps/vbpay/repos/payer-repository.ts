@@ -36,6 +36,15 @@ export const getPayerByPubId = cache(async ({ pubId }: { pubId: string }) => {
     .executeTakeFirst();
 });
 
+/**
+ * Retrieves all payer records from the database.
+ *
+ * This function selects all entries from the "payer" table, returning detailed
+ * information for each payer, including identifiers, performance dates, names,
+ * and status flags.
+ *
+ * @returns A promise that resolves to an array of payer objects.
+ */
 export function getAllPayers() {
   return db
     .selectFrom("payer")

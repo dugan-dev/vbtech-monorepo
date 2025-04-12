@@ -26,6 +26,15 @@ type props = {
   usersAppAttrs: UserAppAttrs;
 };
 
+/**
+ * Renders a card displaying payer details.
+ *
+ * This component presents the payer's information—including name, type, CMS ID, and initial performance month—in a card layout. An edit option is conditionally available via an embedded edit sheet when the user's attributes permit it. Placeholder values are used when certain data fields are absent.
+ *
+ * @param data - Contains the payer's details to be displayed.
+ * @param payerTypes - Provides the list of payer types for mapping type values to labels.
+ * @param usersAppAttrs - Defines user attributes that determine access to the edit functionality.
+ */
 export function PayerInfoCardClient({
   data,
   payerTypes,

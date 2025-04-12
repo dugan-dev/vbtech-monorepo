@@ -7,6 +7,13 @@ import {
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
+/**
+ * Renders a skeleton loading state for a payer information card.
+ *
+ * This component displays a placeholder UI that mimics the structure of a payer information card while data is being loaded.
+ * It features a header with placeholder elements for a title and avatar, a scrollable content area with multiple rows of text skeletons,
+ * and a footer skeleton element.
+ */
 export function PayerInfoCardSkeleton() {
   return (
     <Card className="relative">

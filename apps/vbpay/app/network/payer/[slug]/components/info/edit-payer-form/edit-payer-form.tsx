@@ -28,6 +28,19 @@ type props = {
   payerTypes: ComboItem[];
 };
 
+/**
+ * Renders a form for editing payer information.
+ *
+ * This component displays a scrollable form divided into sections—Basic Info, Performance Period,
+ * Identification, and Organization—to capture comprehensive payer data. It uses a custom hook to
+ * manage form state, submission logic, and error handling, and initializes the form with provided data.
+ *
+ * @param onSuccess - Callback function to execute after a successful form submission.
+ * @param formData - Initial data used to populate the form fields.
+ * @param payerTypes - Array of selectable payer types available for the form.
+ *
+ * @returns A JSX element representing the edit payer form.
+ */
 export function EditPayerForm({ onSuccess, formData, payerTypes }: props) {
   const {
     form,
