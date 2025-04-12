@@ -14,6 +14,16 @@ import {
 
 import { Icons } from "@/components/icons";
 
+/**
+ * Renders a global error page.
+ *
+ * Displays an error message along with an optional error identifier and provides two user actions:
+ * one to retry via the provided reset callback and another to navigate back using the Next.js router.
+ * The component wraps its content in <html> and <body> tags as required for global error pages.
+ *
+ * @param error - The error object containing the error message and an optional digest for additional error context.
+ * @param reset - Callback function to reset the error state, typically used to retry the failed operation.
+ */
 export default function GlobalError({
   error,
   reset,
