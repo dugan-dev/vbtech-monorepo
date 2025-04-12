@@ -34,7 +34,7 @@ export function AddNetworkEntityForm() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Icons.stethoscope className="h-5 w-5" />
+                <Icons.building2 className="h-5 w-5" />
                 Entity Info
               </CardTitle>
               <CardDescription>

@@ -9,6 +9,7 @@ import {
   FileUpload,
   Home,
   NetworkEntities,
+  NetworkEntity,
   NetworkPayer,
   NetworkPayers,
   NetworkPhysician,
@@ -39,6 +40,10 @@ export function getPageTitle(pathname: string, slug?: string) {
       return "Manage Network Physicians";
     case NetworkPayer({ slug: slug ?? "" }):
       return "Network Payer";
+    case NetworkEntity({ slug: slug ?? "" }):
+      return "Network Entity";
+    case NetworkPhysician({ slug: slug ?? "" }):
+      return "Network Physician";
     case PaymentsClaims({}):
       return "Claims";
     case PaymentsCapitation({}):
@@ -76,6 +81,6 @@ export function getPageTitle(pathname: string, slug?: string) {
     case ShareFiles({}):
       return "Share Files";
     default:
-      return "Home";
+      throw new Error(`Get page title: Unknown pathname: ${pathname}`);
   }
 }
