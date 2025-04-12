@@ -10,12 +10,16 @@ type props = {
 };
 
 export async function EntityInfoCardServer({ userId, entityPubId }: props) {
-  const [payer, user] = await Promise.all([
+  const [entity, user] = await Promise.all([
     getNetworkEntity(entityPubId),
     getUsersData({ userId }),
   ]);
 
-  const formData = formatEditEntityFormData(payer!);
+  if (!entity) {
+    throw new Error(`No entity found for pubId: ${entityPubId}`);
+  }
+
+  const formData = formatEditEntityFormData(entity!);
 
   return (
     <div className="w-1/4">
