@@ -13,6 +13,7 @@ import {
   NetworkEntityTypeLabels,
 } from "@/types/network-entity-type";
 import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
@@ -20,6 +21,8 @@ import { EditEntityFormData } from "./edit-entity-form/edit-entity-form-schema";
 import { EditEntitySheet } from "./edit-entity-sheet";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+
+const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
 
 type props = {
   data: EditEntityFormData;
@@ -38,6 +41,7 @@ export function EntityInfoCardClient({ data, usersAppAttrs }: props) {
           <RestrictByUserAppAttrsClient
             usersAppAttrs={usersAppAttrs}
             allowedUserTypes={ALLOWED_USER_TYPES}
+            requiredUserRoles={REQUIRED_USER_ROLES}
           >
             <div className="relative ml-auto">
               <EditEntitySheet formData={data} />
