@@ -17,6 +17,18 @@ type props = {
   userId: string;
 };
 
+/**
+ * Renders the UI for managing payers associated with a specific user.
+ *
+ * This asynchronous component concurrently fetches user attributes and global settings. It then retrieves the payers
+ * based on the user's payer IDs and maps the allowed payer types (retrieved from global settings) into a UI-friendly
+ * format for display within a table. If no payer IDs or allowed payer types are found, it returns an error view with a
+ * corresponding message.
+ *
+ * @param userId - The unique identifier of the user whose payers are to be managed.
+ *
+ * @returns A React element that renders either an error view or the payers management table.
+ */
 export async function ManagePayers({ userId }: props) {
   const [{ usersAppAttrs }, globalSettings] = await Promise.all([
     getUsersData({

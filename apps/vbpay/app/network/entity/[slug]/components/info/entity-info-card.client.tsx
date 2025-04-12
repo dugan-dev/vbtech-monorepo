@@ -29,6 +29,17 @@ type props = {
   usersAppAttrs: UserAppAttrs;
 };
 
+/**
+ * Renders a card displaying network entity details along with an edit option for users with proper access.
+ *
+ * The card header shows the network entity type and conditionally includes an edit interface,
+ * which is only available to users with the required attributes and roles.
+ * The card content displays the entity's name (including a reference name when available), organization NPI,
+ * and entity type.
+ *
+ * @param data - Contains the network entity's details such as marketing name, optional reference name, organization NPI, and type.
+ * @param usersAppAttrs - User-specific attributes used to determine access permissions for editing.
+ */
 export function EntityInfoCardClient({ data, usersAppAttrs }: props) {
   return (
     <Card>
