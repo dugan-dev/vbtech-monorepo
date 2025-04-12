@@ -33,6 +33,15 @@ type VBPayGlobalSettings = NonNullable<
   Awaited<ReturnType<typeof getVBPayGlobalSettingsQry>>
 >;
 
+/**
+ * Retrieves VBPay global settings with environment-specific caching.
+ *
+ * In non-production environments, this function directly queries the database for the settings.
+ * In production, it caches the result using a timed cache that revalidates every 10 minutes,
+ * keyed and tagged with the designated global settings cache key.
+ *
+ * @returns The retrieved VBPay global settings.
+ */
 function getVBPayGlobalSettingsWithTimedCache() {
   if (env.NODE_ENV !== "production") {
     const globalSettings = getVBPayGlobalSettingsQry();

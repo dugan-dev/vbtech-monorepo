@@ -10,6 +10,18 @@ type props = {
   userId: string;
 };
 
+/**
+ * Updates a payer's record and logs its current state into a history table within an atomic transaction.
+ *
+ * The function first logs the existing payer data from the main table to the `payerHist` table with a timestamp,
+ * then applies the updated details to the payer record. This ensures data changes are auditable and executed atomically.
+ *
+ * @param input - An object containing updated payer details.
+ * @param pubId - The public identifier of the payer to update.
+ * @param userId - The identifier of the user performing the update.
+ *
+ * @returns A promise that resolves when the transaction is complete.
+ */
 export function updatePayer({ input, pubId, userId }: props) {
   return db.transaction().execute(async (trx) => {
     const now = new Date();

@@ -16,14 +16,17 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 /**
  * Renders the payer configuration page for authenticated users.
  *
- * This asynchronous server component concurrently retrieves search parameters, route parameters, and the authenticated user.
- * If the user is not authenticated, it returns an unauthorized response. For valid users, it restricts access based on allowed user types
- * and displays the payer configuration card with a loading skeleton fallback while the configuration data loads.
+ * This asynchronous server component concurrently resolves query parameters, route parameters, and the authenticated user.
+ * If the user is not authenticated, it responds with an unauthorized result.
  *
- * @param searchParams - A promise that resolves to an object containing query parameters (including the performance year).
- * @param params - A promise that resolves to an object containing route parameters (including the payer's slug).
+ * For authenticated users, the component restricts access based on allowed user types and displays a two-column layout:
+ * one column shows payer details via a payer information card, and the other presents configuration settings (for a specified performance year)
+ * via a payer configuration card. Each card is wrapped in a Suspense component that shows a loading skeleton until its data loads.
  *
- * @returns A JSX element representing the rendered page or an unauthorized response.
+ * @param searchParams - A promise that resolves to an object containing query parameters, such as the performance year.
+ * @param params - A promise that resolves to an object containing route parameters, including the payer's slug.
+ *
+ * @returns A JSX element rendering the payer configuration page or an unauthorized response.
  */
 export default async function Page({
   searchParams,

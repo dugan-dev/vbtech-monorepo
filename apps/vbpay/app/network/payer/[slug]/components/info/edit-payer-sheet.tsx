@@ -27,6 +27,15 @@ type props = {
   formData: EditPayerFormData;
 };
 
+/**
+ * Renders a sheet for editing payer information.
+ *
+ * This component displays a button with a pencil icon, wrapped in a tooltip labeled "Edit Payer Info." Clicking the button opens a full-screen modal sheet,
+ * which contains a header with "Edit Payer" and a form pre-populated with the provided payer data. When the form submission succeeds, the sheet is closed.
+ *
+ * @param payerTypes - Array of payer type options to populate the form.
+ * @param formData - Initial payer data for the editing form.
+ */
 export function EditPayerSheet({ payerTypes, formData }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
 
