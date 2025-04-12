@@ -6,6 +6,7 @@ import { ComboItem } from "@workspace/ui/types/combo-item";
 import { NetworkPhysician } from "@/types/network-physician";
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserRole } from "@/types/user-role";
+import { UserType } from "@/types/user-type";
 import { EmptyView } from "@/components/empty-view";
 import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
@@ -23,6 +24,7 @@ type props = {
   vendors: ComboItem[];
 };
 
+const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 const REQUIRED_USER_ROLES: UserRole[] = ["add"];
 
 export function ManageNetworkPhysiciansTable({
@@ -46,6 +48,7 @@ export function ManageNetworkPhysiciansTable({
       >
         <RestrictByUserAppAttrsClient
           usersAppAttrs={usersAppAttrs}
+          allowedUserTypes={ALLOWED_USER_TYPES}
           requiredUserRoles={REQUIRED_USER_ROLES}
         >
           <AddNetworkPhysicianProvider
