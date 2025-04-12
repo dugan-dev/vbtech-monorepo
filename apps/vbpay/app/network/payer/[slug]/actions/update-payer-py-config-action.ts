@@ -5,6 +5,8 @@ import "server-only";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
+import { UserRole } from "@/types/user-role";
+import { UserType } from "@/types/user-type";
 import { authedActionClient } from "@/lib/safe-action";
 
 import { PayerPyConfigFormSchema } from "../components/py-config/payer-py-config-form-schema";
@@ -16,16 +18,35 @@ const actionSchema = z.object({
   revalidationPath: z.string().optional(),
 });
 
+const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+
+const REQUIRED_USER_ROLE: UserRole = "edit";
+
 export const updatePayerPyConfigAction = authedActionClient
   .metadata({
     actionName: "updatePayerPyConfigAction",
-    allowedTypes: ["bpo", "payer", "payers"],
+    allowedTypes: ALLOWED_USER_TYPES,
   })
   .schema(actionSchema)
   .action(
     async ({ parsedInput: { formData, pubId, revalidationPath }, ctx }) => {
+      const { userId, usersAppAttrs } = ctx;
+
+      const payerPermisssions = usersAppAttrs.ids?.find(
+        (id) => id.id === pubId,
+      );
+
+      if (
+        !payerPermisssions ||
+        !payerPermisssions.userRoles.includes(REQUIRED_USER_ROLE)
+      ) {
+        throw new Error(
+          "User does not have permission to add a physician for this payer.",
+        );
+      }
+
       // update py config
-      await updatePayerPyConfig(formData, ctx.userId, pubId);
+      await updatePayerPyConfig(formData, userId, pubId);
 
       // revalidate page
       if (revalidationPath) {

@@ -12,6 +12,7 @@ import { ComboItem } from "@workspace/ui/types/combo-item";
 import { PayerType, PayerTypeLabels } from "@/types/payer-type";
 import { PerfMonthLabels, PerformanceMonth } from "@/types/perf-month";
 import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
@@ -19,6 +20,8 @@ import { EditPayerFormData } from "./edit-payer-form/edit-payer-form-schema";
 import { EditPayerSheet } from "./edit-payer-sheet";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+
+const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
 
 type props = {
   data: EditPayerFormData;
@@ -48,6 +51,7 @@ export function PayerInfoCardClient({
           <RestrictByUserAppAttrsClient
             usersAppAttrs={usersAppAttrs}
             allowedUserTypes={ALLOWED_USER_TYPES}
+            requiredUserRoles={REQUIRED_USER_ROLES}
           >
             <div className="relative ml-auto">
               <EditPayerSheet formData={data} payerTypes={payerTypes} />
