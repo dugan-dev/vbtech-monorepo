@@ -1,11 +1,13 @@
 import "server-only";
 
 import { Suspense } from "react";
+import { getVBPayGlobalSettings } from "@/repos/global-settings-repository";
 import { getUsersData } from "@/repos/user-repository";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
+import { ComboItem } from "@workspace/ui/types/combo-item";
 
-import { PayerTypeLabels, PayerTypes } from "@/types/payer-type";
+import { PayerType, PayerTypeLabels } from "@/types/payer-type";
 import { MissingInvalidView } from "@/components/missing-invalid-view";
 
 import { getPayersForTable } from "../repos/get-payers-for-table";
@@ -16,9 +18,12 @@ type props = {
 };
 
 export async function ManagePayers({ userId }: props) {
-  const { usersAppAttrs } = await getUsersData({
-    userId,
-  });
+  const [{ usersAppAttrs }, globalSettings] = await Promise.all([
+    getUsersData({
+      userId,
+    }),
+    getVBPayGlobalSettings(),
+  ]);
 
   if (!usersAppAttrs.ids || usersAppAttrs.ids.length === 0) {
     return (
@@ -33,9 +38,8 @@ export async function ManagePayers({ userId }: props) {
     usersPayerPubIds: usersAppAttrs.ids.map((id) => id.id),
   });
 
-  /*
   const allowPayerTypes: PayerType[] | undefined =
-    globalSettings?.payerTypes.split(",") as PayerType[] | undefined;
+    globalSettings?.allowedPayerTypes.split(",") as PayerType[];
 
   if (!allowPayerTypes || allowPayerTypes.length === 0) {
     return (
@@ -45,12 +49,11 @@ export async function ManagePayers({ userId }: props) {
       />
     );
   }
-  
+
   const payerTypes: ComboItem[] = allowPayerTypes.map((type) => ({
     label: PayerTypeLabels[type],
     value: type,
   }));
-  */
 
   return (
     <div className="mb-4 flex flex-1 flex-col gap-4">
@@ -58,11 +61,7 @@ export async function ManagePayers({ userId }: props) {
         <ManagePayersTable
           payers={payers}
           usersAppAttrs={usersAppAttrs}
-          // TODO: replace with allowed payerTypes from globalSettings
-          payerTypes={PayerTypes.map((type) => ({
-            label: PayerTypeLabels[type],
-            value: type,
-          }))}
+          payerTypes={payerTypes}
         />
       </Suspense>
     </div>
