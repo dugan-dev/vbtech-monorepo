@@ -7,6 +7,7 @@ import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
+import { PayerInfoCardSkeleton } from "./components/info/payer-info-card-skeleton";
 import { PayerInfoCardServer } from "./components/info/payer-info-card.server";
 import { PayerPyConfigCardSkeleton } from "./components/py-config/payer-py-config-card-skeleton";
 import { PayerPyConfigCardServer } from "./components/py-config/payer-py-config-card.server";
@@ -48,7 +49,7 @@ export default async function Page({
       userId={user.userId}
     >
       <div className="flex gap-4">
-        <Suspense fallback={<PayerPyConfigCardSkeleton />}>
+        <Suspense fallback={<PayerInfoCardSkeleton />}>
           <PayerInfoCardServer userId={user.userId} payerPubId={slug} />
         </Suspense>
         <Suspense fallback={<PayerPyConfigCardSkeleton />}>

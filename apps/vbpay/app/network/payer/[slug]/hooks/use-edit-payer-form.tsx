@@ -60,11 +60,7 @@ export function useEditPayerForm({ onSuccess, formData }: props) {
   function onSubmit(formData: EditPayerFormOutput) {
     execute({
       pubId: pubId as string,
-      formData: {
-        ...formData,
-        initPerfMo: formData.initPerfMo,
-        initPerfYr: formData.initPerfYr,
-      },
+      formData,
       revalidationPath,
     });
   }
