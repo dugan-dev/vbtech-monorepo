@@ -1,6 +1,12 @@
 import "server-only";
 
-import { CamelCasePlugin, Kysely, MysqlDialect } from "kysely";
+import {
+  CamelCasePlugin,
+  HandleEmptyInListsPlugin,
+  Kysely,
+  MysqlDialect,
+  replaceWithNoncontingentExpression,
+} from "kysely";
 import { createPool } from "mysql2";
 
 import { DB } from "@workspace/db/types";
@@ -27,7 +33,12 @@ const dialect = new MysqlDialect({
 
 await using db = new Kysely<DB>({
   dialect,
-  plugins: [new CamelCasePlugin()],
+  plugins: [
+    new CamelCasePlugin(),
+    new HandleEmptyInListsPlugin({
+      strategy: replaceWithNoncontingentExpression,
+    }),
+  ],
 });
 
 export { db };
