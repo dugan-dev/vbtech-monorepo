@@ -8,6 +8,15 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 
 const REQUIRED_USER_ROLES: UserRole[] = ["read-files"];
 
+/**
+ * Renders the "Share Files" page.
+ *
+ * Concurrently verifies user authentication and rate limits for accessing the file-sharing route.
+ * If the user is not authenticated or rate limited, it returns an unauthorized response.
+ * Otherwise, it renders content restricted to users with the required roles.
+ *
+ * @returns The page component for authorized users or an unauthorized response.
+ */
 export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([

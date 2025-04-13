@@ -19,6 +19,16 @@ type props = {
   retryIn: number;
 };
 
+/**
+ * Renders a rate limit notification card with a countdown timer.
+ *
+ * This component displays a card that informs the user that they have exceeded the rate limit for requests.
+ * It initializes a countdown based on the provided `retryIn` value and, if available, adjusts the progress
+ * indicator using a "retryAfter" URL query parameter. When the countdown reaches zero, the component enables
+ * a button that, when clicked, navigates back to the previous page.
+ *
+ * @param retryIn - The initial countdown duration in seconds before the user can proceed.
+ */
 export function RateLimitCard({ retryIn }: props) {
   const searchParams = useSearchParams();
   const retryAfterUrl = searchParams.get("retryAfter");

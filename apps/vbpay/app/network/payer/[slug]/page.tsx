@@ -17,19 +17,19 @@ import { PayerPyConfigCardServer } from "./components/py-config/payer-py-config-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the payer configuration page for authenticated users.
+ * Renders the payer configuration page for authenticated users and enforces rate limiting.
  *
  * This asynchronous server component concurrently resolves query parameters, route parameters, and the authenticated user.
- * If the user is not authenticated, it responds with an unauthorized result.
+ * Before verifying authentication, it ensures the request complies with rate limiting by checking the route's limit based on the payer's slug.
+ * If no authenticated user is found, it returns an unauthorized response.
+ * For authenticated users, it restricts access based on allowed user types and displays a two-column layout:
+ * one column shows payer information while the other presents configuration settings for a specified performance year.
+ * Each section is wrapped in a Suspense component that renders a loading skeleton until its data loads.
  *
- * For authenticated users, the component restricts access based on allowed user types and displays a two-column layout:
- * one column shows payer details via a payer information card, and the other presents configuration settings (for a specified performance year)
- * via a payer configuration card. Each card is wrapped in a Suspense component that shows a loading skeleton until its data loads.
+ * @param searchParams - A promise resolving to an object containing query parameters, such as the performance year.
+ * @param params - A promise resolving to an object containing route parameters, including the payer's slug.
  *
- * @param searchParams - A promise that resolves to an object containing query parameters, such as the performance year.
- * @param params - A promise that resolves to an object containing route parameters, including the payer's slug.
- *
- * @returns A JSX element rendering the payer configuration page or an unauthorized response.
+ * @returns A JSX element representing the payer configuration page or an unauthorized response.
  */
 export default async function Page({
   searchParams,

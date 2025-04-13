@@ -27,6 +27,19 @@ import {
   ShareNotificationDetail,
 } from "@/routes";
 
+/**
+ * Returns the page title corresponding to the provided route pathname.
+ *
+ * This function maps specific route identifiers to their respective page titles. For routes that
+ * require additional context, such as network entities or beneficiary pages, an optional slug can be provided;
+ * if not given, it defaults to an empty string. If the pathname does not match any of the defined cases, an
+ * error is thrown.
+ *
+ * @param pathname - The identifier of the current route.
+ * @param slug - Optional additional data used for generating titles in certain route cases.
+ * @returns The title of the page as a string.
+ * @throws {Error} If the pathname does not correspond to any known route.
+ */
 export function getPageTitle(pathname: string, slug?: string) {
   switch (pathname) {
     case Setup({}):

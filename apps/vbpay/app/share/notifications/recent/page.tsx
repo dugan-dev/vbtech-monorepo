@@ -8,6 +8,17 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 
 const REQUIRED_USER_ROLES: UserRole[] = ["read-notifications"];
 
+/**
+ * Renders the page displaying recent notifications for authenticated users.
+ *
+ * This asynchronous function concurrently checks for user authentication and applies a rate limiting check.
+ * If the user is not authenticated, it returns an unauthorized response; otherwise, it renders the notifications
+ * page within a component that enforces the required user roles.
+ *
+ * @example
+ * // In a Next.js page:
+ * export default async function Page() { ... }
+ */
 export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([
