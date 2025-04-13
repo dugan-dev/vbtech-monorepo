@@ -13,9 +13,9 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
 /**
  * Renders the "Completed Work by Queue" page for authenticated and authorized users.
  *
- * This asynchronous component concurrently checks user authentication and rate limiting. 
+ * This asynchronous component concurrently checks user authentication and rate limiting.
  * If the user is not authenticated, it returns an unauthorized response. Otherwise, it renders
- * the page content wrapped in a component that restricts access to the allowed user types and enforces 
+ * the page content wrapped in a component that restricts access to the allowed user types and enforces
  * administrative privileges.
  *
  * @returns The server-side rendered page for authorized users or an unauthorized response.
