@@ -3,12 +3,16 @@ import { getVBPayLicense } from "@/repos/license-repository";
 import "server-only";
 
 import { redirect } from "next/navigation";
-import { Home, SignIn } from "@/routes";
+import { Home, Setup, SignIn } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
+import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { NotSetupView } from "./components/not-setup-view";
 
 export default async function Page() {
+  // Check rate limiter
+  await checkPageRateLimit({ pathname: Setup({}) });
+
   // check if user is signed in and if the app is licensed.
   const [license, user] = await Promise.all([
     getVBPayLicense(),

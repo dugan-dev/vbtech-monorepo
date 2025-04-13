@@ -3,7 +3,9 @@ import { ManageNetworkEntities } from "./components/manage-network-entities";
 import "server-only";
 
 import { unauthorized } from "next/navigation";
+import { NetworkEntities } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
+import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -19,6 +21,9 @@ export default async function Page({
     searchParams,
     authenticatedUser(),
   ]);
+
+  // check page rate limit
+  await checkPageRateLimit({ pathname: NetworkEntities({}) });
 
   if (!user) {
     return unauthorized();

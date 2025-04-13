@@ -3,7 +3,9 @@ import { ManageNetworkPhysicians } from "./components/manage-network-physicians"
 import "server-only";
 
 import { unauthorized } from "next/navigation";
+import { NetworkPhysicians } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
+import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -15,6 +17,9 @@ export default async function Page({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  // check page rate limit
+  await checkPageRateLimit({ pathname: NetworkPhysicians({}) });
+
   const [{ pId }, user] = await Promise.all([
     searchParams,
     authenticatedUser(),

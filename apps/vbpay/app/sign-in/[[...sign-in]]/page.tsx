@@ -1,11 +1,15 @@
 import { redirect } from "next/navigation";
-import { Home } from "@/routes";
+import { Home, SignIn as SignInRoute } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
+import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { SignInCard } from "./components/sign-in-card";
 
 export default async function SignIn() {
-  const user = await authenticatedUser();
+  const [user] = await Promise.all([
+    authenticatedUser(),
+    checkPageRateLimit({ pathname: SignInRoute({}) }),
+  ]);
 
   if (user) {
     return redirect(Home({}));
