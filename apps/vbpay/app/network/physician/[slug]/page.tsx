@@ -11,14 +11,16 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer", "physician"];
 
 /**
- * Renders the Network Physician page with authentication and rate limiting checks.
+ * Renders the Network Physician page as a server-side component.
  *
- * This asynchronous function awaits a promise that resolves to an object containing a slug,
- * which is then used to concurrently validate the user's authentication status and enforce rate limiting.
- * If the user is not authenticated, it returns an unauthorized response; otherwise, it renders the page
- * within a restricted component that enforces access control based on allowed user types.
+ * This asynchronous function extracts the page slug from the provided promise, then concurrently verifies
+ * the user's authentication and checks the page's rate limit by generating a pathname via {@link NetworkPhysician}.
+ * If the user is not authenticated, it returns an unauthorized response; otherwise, it renders the page within
+ * a restricted-access component that limits viewability based on allowed user types.
  *
- * @param params - A promise resolving to an object with a slug used for routing and rate limit verification.
+ * @param params - A promise that resolves to an object containing the page's slug.
+ *
+ * @returns A React element representing the page content if the user is authenticated, or an unauthorized response otherwise.
  */
 export default async function Page({
   params,

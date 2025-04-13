@@ -17,19 +17,19 @@ import { PayerPyConfigCardServer } from "./components/py-config/payer-py-config-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the payer configuration page for authenticated users and enforces rate limiting.
+ * Renders the payer configuration page for authenticated users.
  *
  * This asynchronous server component concurrently resolves query parameters, route parameters, and the authenticated user.
- * Before verifying authentication, it ensures the request complies with rate limiting by checking the route's limit based on the payer's slug.
- * If no authenticated user is found, it returns an unauthorized response.
- * For authenticated users, it restricts access based on allowed user types and displays a two-column layout:
- * one column shows payer information while the other presents configuration settings for a specified performance year.
- * Each section is wrapped in a Suspense component that renders a loading skeleton until its data loads.
+ * It then enforces a page rate limit based on the payer network route (derived from the provided slug) before proceeding.
+ * If the user is not authenticated, the component returns an unauthorized response.
+ * For authenticated users, access is restricted based on allowed user types and a two-column layout is rendered:
+ * one column displays payer details via an information card, and the other shows configuration settings (optionally based on a performance year)
+ * via a configuration card. Each card is wrapped in a Suspense component with a skeleton fallback while data loads.
  *
- * @param searchParams - A promise resolving to an object containing query parameters, such as the performance year.
- * @param params - A promise resolving to an object containing route parameters, including the payer's slug.
+ * @param searchParams - Promise resolving to an object containing query parameters (e.g., performance year).
+ * @param params - Promise resolving to an object containing route parameters, including the payer's slug.
  *
- * @returns A JSX element representing the payer configuration page or an unauthorized response.
+ * @returns A JSX element rendering the payer configuration page or an unauthorized response.
  */
 export default async function Page({
   searchParams,

@@ -11,12 +11,13 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the Claims Payments page with access control.
+ * Renders the server-side Claims Payments page with enforced rate limiting and user access restrictions.
  *
- * This asynchronous function concurrently checks for user authentication and enforces a
- * rate limiting policy based on the current pathname. If a valid user is authenticated,
- * it returns a restricted component that displays the Claims Payments page; otherwise,
- * it returns an unauthorized response.
+ * This asynchronous function concurrently checks if the current user is authenticated while validating
+ * the page's rate limit. If no authenticated user is found, it returns an unauthorized response. Otherwise,
+ * it renders a component that restricts access based on allowed user types and displays the "Claims Payments" header.
+ *
+ * @returns A restricted page component when authentication and rate limiting checks succeed, or an unauthorized response if the user is not authenticated.
  */
 export default async function Page() {
   // Check rate limiter

@@ -13,15 +13,15 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the network entities management page with authentication and rate limiting.
+ * Renders the server-side page for managing network entities with access restrictions.
  *
- * This server-side component concurrently retrieves URL search parameters and the authenticated user. It
- * enforces rate limits based on the current pathname before checking authentication. If no authenticated user
- * is found, it returns an unauthorized response; otherwise, it renders the ManageNetworkEntities view wrapped
- * in a restriction component that validates user attributes.
+ * This component retrieves URL search parameters and the authenticated user concurrently.
+ * It enforces a rate limit based on the network entities route before verifying authentication.
+ * If the user is not authenticated, an unauthorized response is returned.
+ * Otherwise, it renders a restricted view that wraps the network management interface within a user attribute restriction.
  *
- * @param searchParams - A promise that resolves to an object of URL query parameters, including the payer ID.
- * @returns A React element representing either an unauthorized response or the restricted management view.
+ * @param searchParams - A promise resolving to an object containing URL search parameters.
+ * @returns A JSX element representing the restricted network management page, or an unauthorized response.
  */
 export default async function Page({
   searchParams,

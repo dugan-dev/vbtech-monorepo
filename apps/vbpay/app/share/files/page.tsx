@@ -9,13 +9,15 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const REQUIRED_USER_ROLES: UserRole[] = ["read-files"];
 
 /**
- * Renders the "Share Files" page.
+ * Renders the file-sharing page with access control.
  *
- * Concurrently verifies user authentication and rate limits for accessing the file-sharing route.
- * If the user is not authenticated or rate limited, it returns an unauthorized response.
- * Otherwise, it renders content restricted to users with the required roles.
+ * This asynchronous page component concurrently checks the user's authentication status and
+ * enforces rate limiting based on the current pathname. If the user is not authenticated,
+ * it returns an unauthorized response. Otherwise, it renders a component that restricts access
+ * to users with the required role, displaying the "Share Files" interface.
  *
- * @returns The page component for authorized users or an unauthorized response.
+ * @returns The Next.js page component for sharing files if the user is authenticated and within
+ *          rate limits; an unauthorized response otherwise.
  */
 export default async function Page() {
   // Check rate limiter

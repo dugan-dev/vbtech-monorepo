@@ -1,17 +1,13 @@
 /**
- * Converts a duration in milliseconds to a human-readable wait time message.
+ * Returns a formatted wait time message given a remaining duration in milliseconds.
  *
- * The function rounds up the given milliseconds to determine the total seconds,
- * then computes the number of full minutes and the remaining seconds. It returns
- * a formatted message with proper pluralization—displaying both minutes and seconds
- * when applicable, or just seconds if there are no minutes.
+ * This function converts the provided duration from milliseconds to seconds, calculates the number of minutes 
+ * and remaining seconds, and constructs a human-readable message describing the wait time. If the wait time includes 
+ * one or more minutes, the message displays both minutes and seconds with proper pluralization; otherwise, it shows 
+ * only seconds.
  *
- * @param remainingMillis - The remaining wait time in milliseconds.
- * @returns A string message describing the wait time, formatted in minutes and seconds.
- *
- * @example
- * // For 65000 milliseconds, the function returns "1 minute and 5 seconds".
- * console.log(getRateLimitWaitTimeMessage(65000));
+ * @param remainingMillis - The duration to wait in milliseconds.
+ * @returns A string that describes the wait time in minutes and seconds.
  */
 export function getRateLimitWaitTimeMessage(remainingMillis: number) {
   const secondsTotal = Math.ceil(remainingMillis / 1000);
