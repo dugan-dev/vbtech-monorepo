@@ -6,12 +6,11 @@ import * as ProgressPrimitive from "@radix-ui/react-progress";
 import { cn } from "@workspace/ui/lib/utils";
 
 /**
- * Renders a progress bar component using Radix UI's primitives.
+ * Renders a progress bar using Radix UI progress primitives.
  *
- * This component displays a horizontal progress bar where the filled portion is determined by the
- * `value` prop. A `value` of 0 results in an empty bar, while a `value` of 100 fills the bar completely.
- * Additional properties are forwarded to the underlying progress bar container, and custom styling
- * can be applied via the `className` prop.
+ * The filled portion of the bar is adjusted based on the `value` prop: a value of 0 results in an empty bar, while 100 fills it completely. The component applies a CSS transform on the indicator to achieve this effect, and forwards additional props to the underlying container.
+ *
+ * @param value - Numeric progress value (0 to 100) that sets the fill level of the progress bar.
  */
 function Progress({
   className,

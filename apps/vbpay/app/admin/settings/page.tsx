@@ -14,13 +14,14 @@ import { SettingsCardSkeleton } from "./components/settings/settings-card-skelet
 import { SettingsCardServer } from "./components/settings/settings-card.server";
 
 /**
- * Asynchronously renders the admin settings page with restricted access.
+ * Renders the administrative settings page.
  *
- * This function concurrently verifies user authentication and performs a rate limit check. If the user is not authenticated,
- * it returns an unauthorized response. Otherwise, it wraps the page content in a component that restricts access to admin users,
- * and displays the settings and license sections using Suspense components to show loading fallbacks.
+ * This asynchronous component concurrently checks for user authentication and applies a rate limit before proceeding.
+ * If the user is not authenticated, it returns an unauthorized response. Otherwise, it renders a restricted layout
+ * that only allows access to administrators. The settings and license cards are loaded within Suspense components,
+ * each displaying a skeleton fallback while the actual content is being fetched.
  *
- * @returns A JSX element representing the page content for an authenticated admin user, or an unauthorized response.
+ * @returns The settings page content for an authenticated admin user or an unauthorized response.
  */
 export default async function Page() {
   // Check rate limiter

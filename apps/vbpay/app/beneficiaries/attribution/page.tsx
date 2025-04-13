@@ -11,13 +11,13 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the Beneficiary Attribution page for authenticated users.
+ * Renders the Beneficiary Attribution page with user access restrictions.
  *
- * This server-side function concurrently performs a user authentication check and a rate limit check.
- * If no authenticated user is found, it returns an unauthorized response. Otherwise, it renders the page
- * content wrapped in a component that restricts access based on allowed user types.
+ * This asynchronous server component concurrently checks the rate limit and user authentication status.
+ * If the user is not authenticated, it returns an unauthorized response. Otherwise, it wraps the page content
+ * within a component that enforces access only for allowed user types.
  *
- * @returns A React component for the Beneficiary Attribution page, or an unauthorized response.
+ * @returns A JSX element containing the page content or an unauthorized response based on user authentication.
  */
 export default async function Page() {
   // Check rate limiter

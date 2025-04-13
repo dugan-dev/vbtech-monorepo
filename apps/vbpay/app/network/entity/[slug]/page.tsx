@@ -24,16 +24,16 @@ const ALLOWED_USER_TYPES: UserType[] = [
 ];
 
 /**
- * Renders a page with authentication, rate limiting, and conditional UI rendering.
+ * Renders a network entity page with authentication and rate limiting.
  *
- * This asynchronous function concurrently retrieves the authenticated user and the route parameter
- * containing the network entity's slug. It enforces a rate limit by checking access using the slug-derived
- * pathname before verifying user authentication. If the user is not authenticated, an unauthorized response
- * is returned. Otherwise, the page is rendered with restricted access based on allowed user types and lazy-loaded
- * entity details.
+ * This asynchronous function concurrently retrieves the authenticated user and the network entity slug.
+ * It applies a rate limit check based on the network entity's path. If no user is authenticated,
+ * it returns an unauthorized response; otherwise, it renders the entity information within a layout
+ * that restricts access to allowed user types.
  *
- * @param params - A promise resolving to an object containing the "slug" that identifies the network entity.
- * @returns A React element representing the page or an unauthorized response.
+ * @param params - A promise that resolves to an object containing the network entity slug.
+ *
+ * @returns A React element representing the network entity page, or an unauthorized response if authentication fails.
  */
 export default async function Page({
   params,

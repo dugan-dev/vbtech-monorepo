@@ -11,13 +11,13 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the Capitation Payments page for authenticated users.
+ * Renders the Capitation Payments page with access restrictions.
  *
- * Concurrently checks user authentication and applies rate limiting by validating the page's pathname.
- * If an authenticated user is found, the page is rendered within a component that restricts access to specific user types.
- * Otherwise, an unauthorized response is returned.
+ * Concurrently checks for user authentication and applies a rate limit check. If the user is not authenticated,
+ * the function returns an unauthorized response. Otherwise, it renders the page content wrapped in a component that
+ * restricts access based on allowed user attributes.
  *
- * @returns A React element for authorized users, or an unauthorized response.
+ * @returns The Capitation Payments page component or an unauthorized response.
  */
 export default async function Page() {
   // Check rate limiter

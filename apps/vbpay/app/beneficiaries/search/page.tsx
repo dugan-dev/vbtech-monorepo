@@ -11,13 +11,14 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the Beneficiary Search page.
+ * Renders the Beneficiary Search page for authenticated users.
  *
- * This asynchronous function concurrently checks for an authenticated user and verifies that the request is within 
- * the allowed rate limits. If no authenticated user is found, it returns an unauthorized response. Otherwise, it 
- * renders a restricted page component that displays the Beneficiary Search interface for users with allowed attributes.
+ * This server component concurrently checks user authentication and page rate limiting.
+ * If no authenticated user is found, it immediately returns an unauthorized response.
+ * Otherwise, it renders the "Beneficiary Search" page wrapped in a component that restricts access
+ * based on specific allowed user types.
  *
- * @returns A JSX element representing the Beneficiary Search page or an unauthorized response.
+ * @returns A JSX element representing either the restricted Beneficiary Search page for authenticated users or an unauthorized response.
  */
 export default async function Page() {
   // Check rate limiter
