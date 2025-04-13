@@ -4,6 +4,8 @@ export function getClientIp(headerList: Awaited<ReturnType<typeof headers>>) {
   return (
     headerList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     headerList.get("x-real-ip") ||
+    headerList.get("cf-connecting-ip") || // Cloudflare
+    headerList.get("true-client-ip") || // Akamai and Cloudflare
     "unknown"
   );
 }
