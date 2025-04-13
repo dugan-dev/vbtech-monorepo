@@ -22,6 +22,7 @@ import * as PaymentsPerformanceRoute from "@/app/payments/performance/page.info"
 import * as QueuesCompletedRoute from "@/app/queues/completed/page.info";
 import * as QueuesManageRoute from "@/app/queues/manage/page.info";
 import * as QueuesWorkRoute from "@/app/queues/work/page.info";
+import * as RateLimitRoute from "@/app/rate-limit/page.info";
 import * as SetupRoute from "@/app/setup/page.info";
 import * as ShareFilesRoute from "@/app/share/files/page.info";
 import * as ShareNotificationDetailRoute from "@/app/share/notifications/[slug]/page.info";
@@ -120,6 +121,10 @@ export const QueuesManage = makeRoute("/queues/manage", {
 export const QueuesWork = makeRoute("/queues/work", {
   ...defaultInfo,
   ...QueuesWorkRoute.Route,
+});
+export const RateLimit = makeRoute("/rate-limit", {
+  ...defaultInfo,
+  ...RateLimitRoute.Route,
 });
 export const Setup = makeRoute("/setup", {
   ...defaultInfo,

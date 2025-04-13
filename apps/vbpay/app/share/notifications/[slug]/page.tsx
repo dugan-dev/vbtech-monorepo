@@ -1,13 +1,36 @@
 import { unauthorized } from "next/navigation";
+import { ShareNotificationDetail } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
+import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { UserRole } from "@/types/user-role";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 const REQUIRED_USER_ROLES: UserRole[] = ["read-notifications"];
 
-export default async function Page() {
-  const user = await authenticatedUser();
+/**
+ * Renders the Notification Detail page with access control.
+ *
+ * This server-side component extracts the notification slug from the resolved parameters and concurrently checks for
+ * rate limiting and user authentication. If the user is not authenticated, it returns an unauthorized response. Otherwise,
+ * it renders the notification details within a component that restricts access based on required user roles.
+ *
+ * @param params - A promise that resolves to an object containing the notification slug.
+ *
+ * @returns A component displaying the notification detail content or an unauthorized response.
+ */
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
+  // Check rate limiter
+  const [user] = await Promise.all([
+    authenticatedUser(),
+    checkPageRateLimit({ pathname: ShareNotificationDetail({ slug }) }),
+  ]);
 
   if (!user) {
     return unauthorized();

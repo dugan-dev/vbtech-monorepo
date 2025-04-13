@@ -1,12 +1,17 @@
 import "server-only";
 
-import { forbidden, unauthorized } from "next/navigation";
+import { headers } from "next/headers";
 import { getUsersData } from "@/repos/user-repository";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
+import { getClientIp } from "@/utils/get-client-ip";
+import { getRateLimitWaitTimeMessage } from "@/utils/get-rate-limit-wait-time-message";
 import { createSafeActionClient } from "next-safe-action";
+import { RateLimiterRes } from "rate-limiter-flexible";
 import z from "zod";
 
 import { UserTypeEnum } from "@/types/user-type";
+
+import { authedLimiter, unauthedLimiter } from "./rate-limiter-flexible";
 
 const unauthedActionClient = createSafeActionClient({
   defineMetadataSchema() {
@@ -27,6 +32,26 @@ const unauthedActionClient = createSafeActionClient({
 
     return e.message;
   },
+}).use(async ({ next, metadata }) => {
+  const headerList = await headers();
+  const ip = getClientIp(headerList);
+
+  // throw error if rate limit exceeded
+  await unauthedLimiter.consume(ip).catch((error: RateLimiterRes) => {
+    const msBeforeNext = error.msBeforeNext;
+    const waitTimeMessage = getRateLimitWaitTimeMessage(msBeforeNext);
+
+    console.error(
+      `Action error: ${metadata?.actionName}`,
+      `Rate limit exceeded. Try again in ${waitTimeMessage}.`,
+    );
+
+    throw new Error(
+      `Action rate limit exceeded. Please try again in ${waitTimeMessage}. Action: ${metadata?.actionName}`,
+    );
+  });
+
+  return await next();
 });
 
 const authedActionClient = createSafeActionClient({
@@ -64,8 +89,22 @@ const authedActionClient = createSafeActionClient({
       `Action error: ${metadata?.actionName}`,
       "User not authenticated.",
     );
-    unauthorized();
+    throw new Error(`User not authenticated. Action: ${metadata?.actionName}`);
   }
+
+  // throw error if rate limit exceeded
+  await authedLimiter.consume(user.userId).catch((error: RateLimiterRes) => {
+    const msBeforeNext = error.msBeforeNext;
+    const waitTimeMessage = getRateLimitWaitTimeMessage(msBeforeNext);
+    console.error(
+      `Action error: ${metadata?.actionName}`,
+      `Rate limit exceeded. Try again in ${waitTimeMessage}.`,
+    );
+
+    throw new Error(
+      `Action rate limit exceeded. Please try again in ${waitTimeMessage}. Action: ${metadata?.actionName}`,
+    );
+  });
 
   // throw error if user not allowed
   if (allowedTypes && !allowedTypes.includes(usersAppAttrs.type)) {
@@ -73,7 +112,9 @@ const authedActionClient = createSafeActionClient({
       `Action error: ${metadata?.actionName}`,
       "User not authorized. User type not allowed.",
     );
-    forbidden();
+    throw new Error(
+      `User not authorized. User type not allowed. Action: ${metadata?.actionName}`,
+    );
   }
 
   // throw error if user not admin
@@ -82,7 +123,9 @@ const authedActionClient = createSafeActionClient({
       `Action error: ${metadata?.actionName}`,
       "User not authorized. User not admin.",
     );
-    forbidden();
+    throw new Error(
+      `User not authorized. User not admin. Action: ${metadata?.actionName}`,
+    );
   }
 
   return await next({
