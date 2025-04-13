@@ -11,15 +11,15 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the Beneficiary page for authenticated users with rate limits enforced.
+ * Renders a beneficiary page by concurrently validating user authentication and rate limiting.
  *
- * This server component awaits a promise resolving to a parameters object containing the page slug, then concurrently
- * performs user authentication and a rate limit check based on the generated pathname. If the user is not authenticated,
- * it returns an unauthorized response. Otherwise, it renders the Beneficiary page wrapped in a component that restricts
- * access according to allowed user types.
+ * Awaits a promise to extract the beneficiary slug and checks if the current user is authenticated.
+ * If authenticated, the function renders the beneficiary page with access restrictions;
+ * otherwise, it returns an unauthorized response.
  *
- * @param params A promise that resolves to an object with a slug property used to generate the page pathname.
- * @returns A React element representing the Beneficiary page or an unauthorized response.
+ * @param params - A promise that resolves to an object containing the beneficiary slug.
+ *
+ * @returns A React element representing the beneficiary page or an unauthorized response.
  */
 export default async function Page({
   params,

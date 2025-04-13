@@ -11,13 +11,11 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the Beneficiary Alignment page on the server with concurrent user authentication and rate limiting.
+ * Renders the Beneficiary Alignment page with access control based on user authentication and rate limiting.
  *
- * This asynchronous component verifies the user's authentication and applies a rate limit check based on the current pathname.
- * If the user is not authenticated, it returns an unauthorized response; otherwise, it renders the Beneficiary Alignment page
- * with access restricted by allowed user types.
- *
- * @returns A JSX element representing the restricted Beneficiary Alignment page, or an unauthorized response when the user is not authenticated.
+ * This asynchronous server-side component concurrently performs user authentication and a rate limiting check. 
+ * If the user is not authenticated, it returns an unauthorized response. When the user is valid, it renders the 
+ * Beneficiary Alignment view within a restricted access wrapper that permits only specific user types.
  */
 export default async function Page() {
   // Check rate limiter

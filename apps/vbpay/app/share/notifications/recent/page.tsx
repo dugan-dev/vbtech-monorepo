@@ -9,13 +9,13 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const REQUIRED_USER_ROLES: UserRole[] = ["read-notifications"];
 
 /**
- * Renders the Recent Notifications page.
+ * Renders the recent notifications page.
  *
- * This asynchronous function concurrently verifies user authentication and enforces rate limiting for the page.
+ * This function concurrently checks for user authentication and applies a rate limit based on the current page's pathname.
  * If no authenticated user is found, it returns an unauthorized response.
- * Otherwise, it returns a React element that wraps the notifications content within a component enforcing the required user roles.
+ * Otherwise, it renders the notifications page within a component that enforces access based on the user's roles.
  *
- * @returns A React element displaying recent notifications for an authenticated user, or an unauthorized response.
+ * @returns The notifications page component if authentication succeeds; otherwise, an unauthorized response.
  */
 export default async function Page() {
   // Check rate limiter

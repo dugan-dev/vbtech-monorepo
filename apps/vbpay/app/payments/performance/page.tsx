@@ -11,11 +11,12 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the Value Based Payments page.
+ * Renders the payments performance page by concurrently verifying user authentication and rate limits.
  *
- * This asynchronous function concurrently checks for user authentication and enforces a rate limit based on the current page's pathname. If the user is not authenticated, it returns an unauthorized response. Otherwise, it renders the page wrapped in a component that restricts access to allowed user types.
- *
- * @returns A React element representing the protected Value Based Payments page or an unauthorized response.
+ * This function checks for an authenticated user and applies a rate limiting constraint simultaneously.
+ * If no authenticated user is found, it returns an unauthenticated response.
+ * Otherwise, it renders the payments performance content within a component that restricts access to allowed user types,
+ * displaying the "Value Based Payments" heading.
  */
 export default async function Page() {
   // Check rate limiter

@@ -28,19 +28,18 @@ import {
 } from "@/routes";
 
 /**
- * Returns the title associated with the specified route.
+ * Returns a user-friendly page title based on the provided route pathname and optional slug.
  *
- * This function maps a given pathname to its display title for use in the user interface.
- * For dynamic routes that include a slug, the provided slug is used (defaulting to an empty string if not specified),
- * ensuring the correct title is returned.
+ * The function matches the given pathname against predefined route patterns and returns the
+ * appropriate title for display. For routes that include dynamic segments, the optional slug
+ * is used (defaulting to an empty string if not provided). Notably, for the RateLimit route,
+ * an empty string is returned.
  *
- * @param pathname - A string indicating the current route.
- * @param slug - An optional string used for resolving dynamic route segments.
- * @returns A string representing the title for the corresponding route.
+ * @param pathname - The route pathname used to determine the corresponding page title.
+ * @param slug - An optional dynamic segment for routes requiring additional context.
+ * @returns The title corresponding to the provided pathname.
  *
  * @throws {Error} If the pathname does not match any recognized route.
- *
- * @remark The 'RateLimit' route explicitly returns an empty string to indicate that no title should be displayed.
  */
 export function getPageTitle(pathname: string, slug?: string) {
   switch (pathname) {

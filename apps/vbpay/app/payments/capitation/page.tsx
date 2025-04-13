@@ -13,11 +13,9 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 /**
  * Renders the Capitation Payments page with access restrictions.
  *
- * Concurrently checks for user authentication and applies a rate limit check. If the user is not authenticated,
- * the function returns an unauthorized response. Otherwise, it renders the page content wrapped in a component that
- * restricts access based on allowed user attributes.
+ * This asynchronous component concurrently verifies the user's authentication status and checks the page's rate limit. If the user is not authenticated, it returns an unauthorized response. Otherwise, it renders the Capitation Payments content within a restricted layout that limits access to specific user types.
  *
- * @returns The Capitation Payments page component or an unauthorized response.
+ * @returns A React element representing the Capitation Payments page if authenticated, or an unauthorized response.
  */
 export default async function Page() {
   // Check rate limiter

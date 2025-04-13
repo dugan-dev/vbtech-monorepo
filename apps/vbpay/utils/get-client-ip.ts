@@ -1,17 +1,18 @@
 import { headers } from "next/headers";
 
 /**
- * Retrieves the client's IP address from the provided HTTP headers.
+ * Retrieves the client's IP address from a collection of HTTP headers.
  *
- * This function checks the headers in a prioritized order:
- * 1. It first attempts to extract the IP from the "x-forwarded-for" header,
- *    splitting its value by commas and returning the first trimmed element.
- * 2. If not found, it checks the "x-real-ip" header.
- * 3. It then looks for the "cf-connecting-ip" header (commonly set by Cloudflare),
- *    followed by the "true-client-ip" header (used by Akamai and Cloudflare).
+ * The function checks the headers in the following order:
+ * 1. `x-forwarded-for` — If present, extracts the first IP (addresses may be comma-separated).
+ * 2. `x-real-ip` — Used as an alternative if the first header is missing.
+ * 3. `cf-connecting-ip` — Provided by Cloudflare.
+ * 4. `true-client-ip` — Used by Akamai and Cloudflare.
  *
- * @param headerList - An object containing HTTP headers from which to extract the client IP.
- * @returns The client's IP address if available; otherwise, returns "unknown".
+ * If none of these headers provide an IP address, the function returns `"unknown"`.
+ *
+ * @param headerList - The HTTP headers from a Next.js request.
+ * @returns The client's IP address if available; otherwise, `"unknown"`.
  */
 export function getClientIp(headerList: Awaited<ReturnType<typeof headers>>) {
   return (

@@ -1,13 +1,12 @@
 /**
- * Returns a formatted wait time message given a remaining duration in milliseconds.
+ * Generates a formatted message describing the remaining wait time.
  *
- * This function converts the provided duration from milliseconds to seconds, calculates the number of minutes 
- * and remaining seconds, and constructs a human-readable message describing the wait time. If the wait time includes 
- * one or more minutes, the message displays both minutes and seconds with proper pluralization; otherwise, it shows 
- * only seconds.
+ * This function converts the input milliseconds to whole seconds, then determines
+ * the number of minutes and remaining seconds. It returns a human-readable string
+ * that formats the wait time using proper pluralization (e.g., "1 minute" vs. "2 minutes").
  *
- * @param remainingMillis - The duration to wait in milliseconds.
- * @returns A string that describes the wait time in minutes and seconds.
+ * @param remainingMillis - The remaining wait time in milliseconds.
+ * @returns A string representing the wait time, formatted as either "X minute(s) and Y second(s)" or "Y second(s)".
  */
 export function getRateLimitWaitTimeMessage(remainingMillis: number) {
   const secondsTotal = Math.ceil(remainingMillis / 1000);

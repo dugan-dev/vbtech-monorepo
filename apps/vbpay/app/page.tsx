@@ -7,13 +7,14 @@ import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 import { StandardLayout } from "@/components/standard-layout";
 
 /**
- * Renders the home page component based on user authentication and license status.
+ * Renders the home page based on user authentication and license validation.
  *
- * This asynchronous function first enforces a rate limit for the home page by checking the current pathname
- * derived from the Home route. It then concurrently retrieves the authenticated user and VBPay license.
- * If no authenticated user is found, it returns an unauthorized response. If a user is authenticated but no
- * VBPay license is present, it redirects to the setup page. When both checks pass, it renders the home page
- * within a standard layout.
+ * This asynchronous function first applies a rate limit check using the home route's pathname.
+ * It concurrently retrieves the authenticated user and the VBPay license. If no authenticated user 
+ * is found, it returns an unauthorized response; if the user is authenticated but the license is missing,
+ * it redirects to the setup page. Otherwise, it renders the home page content within a standard layout.
+ *
+ * @returns A JSX element with the home page layout, or a response indicating unauthorized access or a redirect.
  */
 export default async function Page() {
   await checkPageRateLimit({ pathname: Home({}) });

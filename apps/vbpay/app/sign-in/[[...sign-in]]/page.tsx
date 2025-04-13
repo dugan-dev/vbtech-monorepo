@@ -1,21 +1,21 @@
 import { redirect } from "next/navigation";
-import { Home, SignIn as SignInRoute } from "@/routes";
+import { Home, SignIn } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { SignInCard } from "./components/sign-in-card";
 
 /**
- * Renders the sign-in page or redirects to the home page if the user is authenticated.
+ * Renders the sign-in page or redirects authenticated users to the home page.
  *
- * This function concurrently checks for user authentication and applies rate-limiting restrictions
- * on accessing the sign-in page. If a user is already authenticated, it redirects them to the home page;
- * otherwise, it renders the sign-in interface.
+ * This asynchronous function concurrently checks for an authenticated user and verifies the
+ * page rate limit for the sign-in route. If a user is authenticated, it redirects to the home page.
+ * Otherwise, it returns a main layout that centers the sign-in interface.
  */
-export default async function SignIn() {
+export default async function Page() {
   const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: SignInRoute({}) }),
+    checkPageRateLimit({ pathname: SignIn({}) }),
   ]);
 
   if (user) {

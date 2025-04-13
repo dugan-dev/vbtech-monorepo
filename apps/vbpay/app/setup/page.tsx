@@ -10,12 +10,15 @@ import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 import { NotSetupView } from "./components/not-setup-view";
 
 /**
- * Handles the page request by enforcing rate limits and determining the appropriate response based on user authentication and license status.
+ * Renders the page based on rate limiting, user authentication, and licensing status.
  *
- * The function starts by checking if the page access complies with rate limiting rules. It then concurrently retrieves the application license and the authenticated user.
- * If no user is authenticated, it redirects to the sign-in page.
- * If a valid license is present, it redirects to the home page.
- * Otherwise, it renders the NotSetupView component, passing the authenticated user's ID.
+ * This asynchronous server-side component first enforces a rate limit using the setup route. It then concurrently
+ * checks for an authenticated user and if the application is licensed. Depending on these evaluations:
+ * - Unauthenticated users are redirected to the sign-in page.
+ * - Licensed users are redirected to the home page.
+ * - Authenticated users without a license see the NotSetupView component rendered with their user ID.
+ *
+ * @returns A redirection response or the rendered NotSetupView component.
  */
 export default async function Page() {
   // Check rate limiter

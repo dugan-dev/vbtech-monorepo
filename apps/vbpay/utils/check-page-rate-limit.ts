@@ -13,17 +13,12 @@ type props = {
 };
 
 /**
- * Enforces rate limiting on page access based on user authentication.
+ * Enforces rate limiting on a page request.
  *
- * This function determines the appropriate rate limit key from either the authenticated user's ID or the client's IP address.
- * It then attempts to consume a rate limit token associated with that key.
+ * The function determines the rate limit key by checking for an authenticated user—using the user's ID if present—or falling back to the client's IP address extracted from the request headers. It then attempts to consume a rate limit token. If successful, the request proceeds (returning undefined). If the rate limit is exceeded, it calculates the wait time (in seconds) before a new token is available and redirects the client to a rate limit page with the original pathname and retry delay appended as query parameters.
  *
- * If a token is available, the function returns undefined, allowing access. If the rate limit is exceeded, it computes the
- * retry delay (in seconds) from the error and returns a redirect response to a rate limit notification page with the original
- * pathname and retry delay appended as query parameters.
- *
- * @param pathname The URL path being accessed, used for inclusion in a redirect URL if the rate limit is exceeded.
- * @returns Undefined if access is permitted; otherwise, a redirect response to the rate limit page.
+ * @param pathname The URL path of the page being accessed.
+ * @returns Undefined if within rate limits; otherwise, a redirect response indicating the required wait time.
  */
 export async function checkPageRateLimit({ pathname }: props) {
   let rlKey = "";

@@ -13,12 +13,11 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 /**
  * Renders the Beneficiary Search page for authenticated users.
  *
- * This server component concurrently checks user authentication and page rate limiting.
- * If no authenticated user is found, it immediately returns an unauthorized response.
- * Otherwise, it renders the "Beneficiary Search" page wrapped in a component that restricts access
- * based on specific allowed user types.
+ * This asynchronous server-side component concurrently validates user authentication and enforces rate limiting
+ * using the beneficiary search pathname. If no authenticated user is found, it returns an unauthorized response.
+ * Otherwise, it renders the page wrapped in a component that restricts access based on allowed user types.
  *
- * @returns A JSX element representing either the restricted Beneficiary Search page for authenticated users or an unauthorized response.
+ * @returns A JSX element for the beneficiary search interface when the user is authenticated, or an unauthorized response.
  */
 export default async function Page() {
   // Check rate limiter

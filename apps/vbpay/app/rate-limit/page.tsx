@@ -9,16 +9,12 @@ import { pageApiLimiter } from "@/lib/rate-limiter-flexible";
 import { RateLimitCard } from "./components/rate-limit-card";
 
 /**
- * Authenticates the user, applies rate limiting, and either redirects or displays a wait time.
+ * Processes a page request by authenticating the user and enforcing rate limiting.
  *
- * This asynchronous component concurrently retrieves the authenticated user and search parameters.
- * It attempts to consume a rate limit token based on the user's ID. If the user exceeds the rate
- * limit, it calculates the required wait time and renders a RateLimitCard component with this value.
- * Otherwise, it redirects the user to the specified URL (or to the root path if no URL is provided).
+ * The function concurrently retrieves the authenticated user and query parameters. It then attempts to consume a rate limit token for the user (using the user's ID if available). If the rate limit has not been exceeded, it redirects the user to the provided URL (or to "/" if none is specified). If the rate limit is exceeded, it returns a component that displays the time remaining until a new request is allowed.
  *
- * @param searchParams - A promise that resolves to an object mapping query parameter keys to their values.
- *
- * @returns A React element displaying the rate limit wait time if the request is rate limited.
+ * @param searchParams - A promise that resolves to an object containing URL query parameters.
+ * @returns A React component that displays the wait time if the request is rate limited.
  */
 export default async function Page({
   searchParams,

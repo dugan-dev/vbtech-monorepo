@@ -8,11 +8,11 @@ import { authenticatedUser } from "./amplify-server-utils";
 import { getClientIp } from "./get-client-ip";
 
 /**
- * Enforces API rate limiting for an incoming request.
+ * Enforces API rate limiting based on user authentication or client IP.
  *
- * This function determines the rate limiting key by checking for an authenticated user. If a user is authenticated, their unique identifier is used; otherwise, the client's IP address is retrieved from the request headers. It then attempts to consume a rate limit token. If successful, the function returns undefined, allowing the request to proceed. If the rate limit is exceeded, it returns a JSON response with a 429 status code and a "Retry-After" header indicating the number of seconds the client must wait before retrying.
+ * This asynchronous function determines a unique key for rate limiting by checking if a user is authenticated—using the user's ID if available—or by retrieving the client's IP address from the request headers when not authenticated. It then attempts to consume a token from the rate limiter. If the token consumption fails due to exceeding the permitted limit, the function responds with a JSON error message, a 429 status code, and a "Retry-After" header indicating the wait time (in seconds) until the next allowed request.
  *
- * @returns A promise that resolves to undefined if the request is within limits, or a JSON response with error details when the rate limit is exceeded.
+ * @returns A JSON response with error details and a 429 status code when the rate limit is exceeded; otherwise, undefined.
  */
 export async function checkApiRateLimit() {
   let rlKey = "";

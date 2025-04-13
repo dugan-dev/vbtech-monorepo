@@ -9,15 +9,14 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const REQUIRED_USER_ROLES: UserRole[] = ["read-notifications"];
 
 /**
- * Renders the Notification Detail page with access control.
+ * Renders the notification detail page for authenticated users.
  *
- * This server-side component extracts the notification slug from the resolved parameters and concurrently checks for
- * rate limiting and user authentication. If the user is not authenticated, it returns an unauthorized response. Otherwise,
- * it renders the notification details within a component that restricts access based on required user roles.
+ * This asynchronous server-side function awaits a promise to extract the notification slug,
+ * concurrently verifies user authentication and applies a rate limit check based on the notification's detail route,
+ * and then conditionally renders the page content. If no user is authenticated, it returns an unauthorized response.
  *
- * @param params - A promise that resolves to an object containing the notification slug.
- *
- * @returns A component displaying the notification detail content or an unauthorized response.
+ * @param params - An object containing a promise that resolves to an object with a `slug` property.
+ * @returns A restricted component displaying the notification detail if authenticated, or an unauthorized response.
  */
 export default async function Page({
   params,

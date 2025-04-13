@@ -11,13 +11,13 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
 
 /**
- * Renders the Manage Queues page for authenticated and authorized users.
+ * Renders the Manage Queues page after concurrently verifying user authentication and rate limit.
  *
- * This asynchronous function concurrently verifies user authentication and applies a rate limit check. If the authenticated user
- * is not found, it returns an unauthorized response. Otherwise, it renders a restricted component that only permits access for
- * allowed user types and displays the "Manage Queues" header.
+ * This asynchronous function performs a concurrent check using both the user authentication and page rate limit utilities.
+ * If no authenticated user is found, it returns an unauthorized response. Otherwise, it renders a page component that
+ * restricts access to allowed user types with an administrative access requirement.
  *
- * @returns A React element representing the Manage Queues page or an unauthorized response if access is denied.
+ * @returns The rendered Manage Queues page component if the user is authenticated and authorized; otherwise, an unauthorized response.
  */
 export default async function Page() {
   // Check rate limiter

@@ -19,17 +19,18 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 /**
  * Renders the payer configuration page for authenticated users.
  *
- * This asynchronous server component concurrently resolves query parameters, route parameters, and the authenticated user.
- * It then enforces a page rate limit based on the payer network route (derived from the provided slug) before proceeding.
- * If the user is not authenticated, the component returns an unauthorized response.
- * For authenticated users, access is restricted based on allowed user types and a two-column layout is rendered:
- * one column displays payer details via an information card, and the other shows configuration settings (optionally based on a performance year)
- * via a configuration card. Each card is wrapped in a Suspense component with a skeleton fallback while data loads.
+ * This asynchronous server component concurrently resolves query parameters, route parameters, and the authenticated user. It enforces a rate limit check based on the payer's slug before verifying authentication. Unauthenticated users receive an unauthorized response.
  *
- * @param searchParams - Promise resolving to an object containing query parameters (e.g., performance year).
- * @param params - Promise resolving to an object containing route parameters, including the payer's slug.
+ * Authenticated users with valid application attributes are presented with a two-column layout:
+ * - The first column displays payer details via an information card wrapped in a Suspense component that shows a loading skeleton.
+ * - The second column shows configuration settings (optionally tied to a performance year) via a configuration card, also wrapped in Suspense with a fallback skeleton.
+ *
+ * @param searchParams - A promise resolving to an object of query parameters, such as the performance year.
+ * @param params - A promise resolving to an object of route parameters, including the payer's slug.
  *
  * @returns A JSX element rendering the payer configuration page or an unauthorized response.
+ *
+ * @throws {Error} If the page rate limit is exceeded.
  */
 export default async function Page({
   searchParams,
