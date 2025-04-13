@@ -22,7 +22,11 @@ type props = {
 export function RateLimitCard({ retryIn }: props) {
   const searchParams = useSearchParams();
   const retryAfterUrl = searchParams.get("retryAfter");
-  const retryAfter = retryAfterUrl ? parseInt(retryAfterUrl) : undefined;
+  const retryAfter = retryAfterUrl
+    ? isNaN(parseInt(retryAfterUrl))
+      ? undefined
+      : parseInt(retryAfterUrl)
+    : undefined;
   const router = useRouter();
   const [secondsRemaining, setSecondsRemaining] = useState<number>(retryIn);
   const [isCountdownComplete, setIsCountdownComplete] = useState(retryIn <= 0);
