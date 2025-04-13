@@ -10,6 +10,15 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
+/**
+ * Renders the Beneficiary Alignment page.
+ *
+ * Concurrently checks the page rate limit and authenticates the user. If the user is not authenticated,
+ * it returns an unauthorized response. Otherwise, it renders the page content within a component that
+ * restricts access based on allowed user attributes.
+ *
+ * @returns The rendered page for authenticated users or an unauthorized response if authentication fails.
+ */
 export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([

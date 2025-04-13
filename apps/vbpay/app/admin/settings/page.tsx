@@ -13,6 +13,15 @@ import { LicenseCardServer } from "./components/license/license-card.server";
 import { SettingsCardSkeleton } from "./components/settings/settings-card-skeleton";
 import { SettingsCardServer } from "./components/settings/settings-card.server";
 
+/**
+ * Asynchronously renders the admin settings page with restricted access.
+ *
+ * This function concurrently verifies user authentication and performs a rate limit check. If the user is not authenticated,
+ * it returns an unauthorized response. Otherwise, it wraps the page content in a component that restricts access to admin users,
+ * and displays the settings and license sections using Suspense components to show loading fallbacks.
+ *
+ * @returns A JSX element representing the page content for an authenticated admin user, or an unauthorized response.
+ */
 export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([

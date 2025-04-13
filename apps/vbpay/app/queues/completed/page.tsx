@@ -10,6 +10,16 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
 
+/**
+ * Renders the "Completed Work by Queue" page with user authentication and rate limiting.
+ *
+ * This server component concurrently checks the page rate limit and authenticates the user.
+ * If the user is not authenticated, it returns an unauthorized response. Otherwise, it renders
+ * the page content wrapped in a component that restricts access based on allowed user types and
+ * admin-only privileges.
+ *
+ * @returns A React element for authorized users or an unauthorized response if authentication fails.
+ */
 export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([

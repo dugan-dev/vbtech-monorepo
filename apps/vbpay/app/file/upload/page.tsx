@@ -10,6 +10,13 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
+/**
+ * Renders the file upload page.
+ *
+ * This asynchronous server component concurrently checks the user's authentication status and enforces a rate limit based on the file upload route. If the user is not authenticated, it returns an unauthorized response. Otherwise, it displays the file upload interface within a component that restricts access to specific allowed user types.
+ *
+ * @returns The restricted file upload page as a React component or an unauthorized response.
+ */
 export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([
