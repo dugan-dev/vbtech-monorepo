@@ -20,6 +20,7 @@ import {
   QueuesCompleted,
   QueuesManage,
   QueuesWork,
+  RateLimit,
   RecentShareNotifications,
   Setup,
   ShareFiles,
@@ -76,6 +77,8 @@ export function getPageTitle(pathname: string, slug?: string) {
       return "Work Queues";
     case ShareNotificationDetail({ slug: slug ?? "" }):
       return "Share Notification Detail";
+    case RateLimit({}):
+      return "";
     case RecentShareNotifications({}):
       return "Recent Notifications";
     case ShareFiles({}):
