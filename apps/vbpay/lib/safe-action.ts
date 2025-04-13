@@ -3,6 +3,7 @@ import "server-only";
 import { headers } from "next/headers";
 import { getUsersData } from "@/repos/user-repository";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
+import { getClientIp } from "@/utils/get-client-ip";
 import { getRateLimitWaitTimeMessage } from "@/utils/get-rate-limit-wait-time-message";
 import { createSafeActionClient } from "next-safe-action";
 import { RateLimiterRes } from "rate-limiter-flexible";
@@ -33,10 +34,7 @@ const unauthedActionClient = createSafeActionClient({
   },
 }).use(async ({ next, metadata }) => {
   const headerList = await headers();
-  const ip =
-    headerList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    headerList.get("x-real-ip") ||
-    "unknown";
+  const ip = getClientIp(headerList);
 
   // throw error if rate limit exceeded
   await unauthedLimiter.consume(ip).catch((error: RateLimiterRes) => {

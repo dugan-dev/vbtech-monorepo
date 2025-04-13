@@ -5,6 +5,7 @@ import { RateLimiterRes } from "rate-limiter-flexible";
 import { pageApiLimiter } from "@/lib/rate-limiter-flexible";
 
 import { authenticatedUser } from "./amplify-server-utils";
+import { getClientIp } from "./get-client-ip";
 
 export async function checkApiRateLimit() {
   let rlKey = "";
@@ -14,11 +15,7 @@ export async function checkApiRateLimit() {
     rlKey = user.userId;
   } else {
     const headersList = await headers();
-    const ip =
-      headersList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      headersList.get("x-real-ip") ||
-      "unknown";
-    rlKey = ip;
+    rlKey = getClientIp(headersList);
   }
 
   try {

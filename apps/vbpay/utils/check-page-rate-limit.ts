@@ -6,6 +6,7 @@ import { RateLimiterRes } from "rate-limiter-flexible";
 import { pageApiLimiter } from "@/lib/rate-limiter-flexible";
 
 import { authenticatedUser } from "./amplify-server-utils";
+import { getClientIp } from "./get-client-ip";
 
 type props = {
   pathname: string;
@@ -20,11 +21,7 @@ export async function checkPageRateLimit({ pathname }: props) {
   if (user) {
     rlKey = user.userId;
   } else {
-    const ip =
-      headersList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      headersList.get("x-real-ip") ||
-      "unknown";
-    rlKey = ip;
+    rlKey = getClientIp(headersList);
   }
 
   try {
