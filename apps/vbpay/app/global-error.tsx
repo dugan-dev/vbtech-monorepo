@@ -14,7 +14,6 @@ import {
 
 import { Icons } from "@/components/icons";
 
-
 /**
  * Renders a global error page.
  *
