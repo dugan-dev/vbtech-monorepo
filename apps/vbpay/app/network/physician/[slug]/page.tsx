@@ -1,5 +1,6 @@
 import "server-only";
 
+import { Suspense } from "react";
 import { unauthorized } from "next/navigation";
 import { NetworkPhysician } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
@@ -7,6 +8,9 @@ import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
+
+import { PhysicianInfoCardSkeleton } from "./components/info/physician-info-card-skeleton";
+import { PhysicianInfoCardServer } from "./components/info/physician-info-card.server";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer", "physician"];
 
@@ -43,7 +47,9 @@ export default async function Page({
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <h1>Network Physician</h1>
+      <Suspense fallback={<PhysicianInfoCardSkeleton />}>
+        <PhysicianInfoCardServer userId={user.userId} pubId={slug as string} />
+      </Suspense>
     </RestrictByUserAppAttrsServer>
   );
 }
