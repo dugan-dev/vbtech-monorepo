@@ -23,9 +23,10 @@ import { EditEntityFormData } from "./edit-entity-form/edit-entity-form-schema";
 
 type props = {
   formData: EditEntityFormData;
+  payerPubId: string;
 };
 
-export function EditEntitySheet({ formData }: props) {
+export function EditEntitySheet({ formData, payerPubId }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const handleSuccess = () => {
@@ -53,7 +54,11 @@ export function EditEntitySheet({ formData }: props) {
                 Edit Network Entity
               </SheetTitle>
             </SheetHeader>
-            <EditEntityForm onSuccess={handleSuccess} formData={formData} />
+            <EditEntityForm
+              onSuccess={handleSuccess}
+              formData={formData}
+              payerPubId={payerPubId}
+            />
           </div>
         </div>
       </SheetContent>

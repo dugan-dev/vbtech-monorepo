@@ -14,6 +14,7 @@ import { updateEntity } from "../repos/update-entity";
 
 const updateEntityActionSchema = z.object({
   revalidationPath: z.string(),
+  payerPubId: z.string(),
   pubId: z.string(),
   formData: EditEntityFormSchema,
 });
@@ -29,10 +30,15 @@ export const updateEntityAction = authedActionClient
   })
   .schema(updateEntityActionSchema)
   .action(
-    async ({ parsedInput: { formData, pubId, revalidationPath }, ctx }) => {
+    async ({
+      parsedInput: { formData, pubId, payerPubId, revalidationPath },
+      ctx,
+    }) => {
       const { userId, usersAppAttrs } = ctx;
 
-      const payerPermissions = usersAppAttrs.ids?.find((id) => id.id === pubId);
+      const payerPermissions = usersAppAttrs.ids?.find(
+        (id) => id.id === payerPubId,
+      );
 
       if (
         !payerPermissions ||

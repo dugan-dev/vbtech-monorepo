@@ -17,9 +17,10 @@ import {
 type props = {
   onSuccess: () => void;
   formData: EditEntityFormData;
+  payerPubId: string;
 };
 
-export function useEditEntityForm({ onSuccess, formData }: props) {
+export function useEditEntityForm({ onSuccess, formData, payerPubId }: props) {
   const form = useForm<EditEntityFormInput>({
     resolver: zodResolver(EditEntityFormSchema),
     defaultValues: formData,
@@ -62,6 +63,7 @@ export function useEditEntityForm({ onSuccess, formData }: props) {
       pubId: pubId as string,
       formData,
       revalidationPath,
+      payerPubId,
     });
   }
 

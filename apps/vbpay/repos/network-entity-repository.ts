@@ -9,6 +9,7 @@ export function getAllNetworkEntities() {
     .selectFrom("networkEntity")
     .select([
       "pubId",
+      "payerPubId",
       "netEntType",
       "marketingName",
       "legalName",
@@ -26,6 +27,7 @@ export const getNetworkEntity = cache(async (pubId: string) => {
     .selectFrom("networkEntity")
     .select([
       "pubId",
+      "payerPubId",
       "netEntType",
       "marketingName",
       "legalName",

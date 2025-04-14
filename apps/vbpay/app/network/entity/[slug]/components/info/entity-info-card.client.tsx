@@ -27,6 +27,7 @@ const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
 type props = {
   data: EditEntityFormData;
   usersAppAttrs: UserAppAttrs;
+  payerPubId: string;
 };
 
 /**
@@ -40,7 +41,11 @@ type props = {
  * @param data - Contains the network entity's details such as marketing name, optional reference name, organization NPI, and type.
  * @param usersAppAttrs - User-specific attributes used to determine access permissions for editing.
  */
-export function EntityInfoCardClient({ data, usersAppAttrs }: props) {
+export function EntityInfoCardClient({
+  data,
+  usersAppAttrs,
+  payerPubId,
+}: props) {
   return (
     <Card>
       <CardHeader>
@@ -55,7 +60,7 @@ export function EntityInfoCardClient({ data, usersAppAttrs }: props) {
             requiredUserRoles={REQUIRED_USER_ROLES}
           >
             <div className="relative ml-auto">
-              <EditEntitySheet formData={data} />
+              <EditEntitySheet formData={data} payerPubId={payerPubId} />
             </div>
           </RestrictByUserAppAttrsClient>
         </div>
