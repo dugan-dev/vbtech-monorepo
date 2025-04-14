@@ -26,6 +26,7 @@ export async function EntityInfoCardServer({ userId, entityPubId }: props) {
       <EntityInfoCardClient
         data={formData}
         usersAppAttrs={user.usersAppAttrs}
+        payerPubId={entity.payerPubId}
       />
     </div>
   );

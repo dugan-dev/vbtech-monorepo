@@ -13,6 +13,7 @@ export async function getNetworkPhysiciansForTable({
     .selectFrom("networkPhysician")
     .select([
       "pubId",
+      "payerPubId",
       "taxId",
       "npi",
       "orgNpi",

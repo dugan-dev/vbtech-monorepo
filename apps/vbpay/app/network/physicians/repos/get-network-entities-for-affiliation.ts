@@ -13,6 +13,7 @@ export function getNetworkEntitiesForAffiliation({
     .selectFrom("networkEntity")
     .select([
       "pubId",
+      "payerPubId",
       "netEntType",
       "marketingName",
       "legalName",

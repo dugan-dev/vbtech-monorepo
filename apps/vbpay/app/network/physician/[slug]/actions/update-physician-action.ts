@@ -9,26 +9,26 @@ import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 import { authedActionClient } from "@/lib/safe-action";
 
-import { EditEntityFormSchema } from "../components/info/edit-entity-form/edit-entity-form-schema";
-import { updateEntity } from "../repos/update-entity";
+import { EditPhysicianFormSchema } from "../components/info/edit-physician-form/edit-physician-form-schema";
+import { updatePhysician } from "../repos/update-physician";
 
-const updateEntityActionSchema = z.object({
+const updatePhyscianActionSchema = z.object({
   revalidationPath: z.string(),
   payerPubId: z.string(),
   pubId: z.string(),
-  formData: EditEntityFormSchema,
+  formData: EditPhysicianFormSchema,
 });
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 const REQUIRED_USER_ROLE: UserRole = "edit";
 
-export const updateEntityAction = authedActionClient
+export const updatePhysicianAction = authedActionClient
   .metadata({
-    actionName: "updateEntityAction",
+    actionName: "updatePhysicianAction",
     allowedTypes: ALLOWED_USER_TYPES,
   })
-  .schema(updateEntityActionSchema)
+  .schema(updatePhyscianActionSchema)
   .action(
     async ({
       parsedInput: { formData, pubId, payerPubId, revalidationPath },
@@ -44,11 +44,13 @@ export const updateEntityAction = authedActionClient
         !payerPermissions ||
         !payerPermissions.userRoles.includes(REQUIRED_USER_ROLE)
       ) {
-        throw new Error("User does not have permission to edit this entity.");
+        throw new Error(
+          "User does not have permission to edit this physician.",
+        );
       }
 
-      // update entity
-      await updateEntity({
+      // update physician
+      await updatePhysician({
         input: formData,
         pubId,
         userId: userId,

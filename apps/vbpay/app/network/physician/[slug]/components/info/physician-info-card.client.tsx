@@ -9,25 +9,29 @@ import {
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 
 import {
-  NetworkEntityType,
-  NetworkEntityTypeLabels,
-} from "@/types/network-entity-type";
+  NetworkPhysicianClassLabels,
+  NetworkPhysicianClassType,
+} from "@/types/network-physician-class";
+import {
+  NetworkPhysicianType,
+  NetworkPhysicianTypeLabels,
+} from "@/types/network-physician-type";
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
-import { EditEntityFormData } from "./edit-entity-form/edit-entity-form-schema";
-import { EditEntitySheet } from "./edit-entity-sheet";
+import { EditPhysicianFormData } from "./edit-physician-form/edit-physician-form-schema";
+import { EditPhysicianSheet } from "./edit-physician-sheet";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
 
 type props = {
-  data: EditEntityFormData;
-  usersAppAttrs: UserAppAttrs;
+  data: EditPhysicianFormData;
   payerPubId: string;
+  usersAppAttrs: UserAppAttrs;
 };
 
 /**
@@ -41,7 +45,7 @@ type props = {
  * @param data - Contains the network entity's details such as marketing name, optional reference name, organization NPI, and type.
  * @param usersAppAttrs - User-specific attributes used to determine access permissions for editing.
  */
-export function EntityInfoCardClient({
+export function PhysicianInfoCardClient({
   data,
   usersAppAttrs,
   payerPubId,
@@ -50,17 +54,14 @@ export function EntityInfoCardClient({
     <Card>
       <CardHeader>
         <div className="flex items-center gap-4">
-          <CardTitle>
-            {NetworkEntityTypeLabels[data.netEntType as NetworkEntityType]}{" "}
-            Information
-          </CardTitle>
+          <CardTitle>Physician Information</CardTitle>
           <RestrictByUserAppAttrsClient
             usersAppAttrs={usersAppAttrs}
             allowedUserTypes={ALLOWED_USER_TYPES}
             requiredUserRoles={REQUIRED_USER_ROLES}
           >
             <div className="relative ml-auto">
-              <EditEntitySheet formData={data} payerPubId={payerPubId} />
+              <EditPhysicianSheet formData={data} payerPubId={payerPubId} />
             </div>
           </RestrictByUserAppAttrsClient>
         </div>
@@ -71,22 +72,30 @@ export function EntityInfoCardClient({
             <div className="flex justify-between">
               <span className="text-muted-foreground">Name:</span>
               <span className="font-medium text-end">
-                {data.referenceName
-                  ? `${data.marketingName} (${data.referenceName})`
-                  : data.marketingName}
+                {`${data.firstName} ${data.lastName}`}
               </span>
             </div>
 
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Org NPI:</span>
-              <span className="font-medium text-end">
-                {data.orgNpi ? data.orgNpi : "—"}
-              </span>
+              <span className="text-muted-foreground">Individual NPI:</span>
+              <span className="font-medium text-end">{data.npi}</span>
             </div>
+
             <div className="flex justify-between">
               <span className="text-muted-foreground">Type:</span>
               <span className="font-medium text-end">
-                {NetworkEntityTypeLabels[data.netEntType as NetworkEntityType]}
+                {NetworkPhysicianTypeLabels[data.type as NetworkPhysicianType]}
+              </span>
+            </div>
+
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Class:</span>
+              <span className="font-medium text-end">
+                {
+                  NetworkPhysicianClassLabels[
+                    data.class as NetworkPhysicianClassType
+                  ]
+                }
               </span>
             </div>
           </div>

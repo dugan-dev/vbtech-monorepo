@@ -19,9 +19,10 @@ import { EditEntityFormData } from "./edit-entity-form-schema";
 type props = {
   onSuccess: () => void;
   formData: EditEntityFormData;
+  payerPubId: string;
 };
 
-export function EditEntityForm({ onSuccess, formData }: props) {
+export function EditEntityForm({ onSuccess, formData, payerPubId }: props) {
   const {
     form,
     onSubmit,
@@ -33,6 +34,7 @@ export function EditEntityForm({ onSuccess, formData }: props) {
   } = useEditEntityForm({
     onSuccess,
     formData,
+    payerPubId,
   });
 
   return (

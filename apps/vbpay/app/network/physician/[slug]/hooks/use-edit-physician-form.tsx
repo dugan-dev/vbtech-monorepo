@@ -6,23 +6,27 @@ import { toast } from "sonner";
 
 import { useErrorDialog } from "@/hooks/use-error-dialog";
 
-import { updateEntityAction } from "../actions/update-entity-action";
+import { updatePhysicianAction } from "../actions/update-physician-action";
 import {
-  EditEntityFormData,
-  EditEntityFormInput,
-  EditEntityFormOutput,
-  EditEntityFormSchema,
-} from "../components/info/edit-entity-form/edit-entity-form-schema";
+  EditPhysicianFormData,
+  EditPhysicianFormInput,
+  EditPhysicianFormOutput,
+  EditPhysicianFormSchema,
+} from "../components/info/edit-physician-form/edit-physician-form-schema";
 
 type props = {
   onSuccess: () => void;
-  formData: EditEntityFormData;
+  formData: EditPhysicianFormData;
   payerPubId: string;
 };
 
-export function useEditEntityForm({ onSuccess, formData, payerPubId }: props) {
-  const form = useForm<EditEntityFormInput>({
-    resolver: zodResolver(EditEntityFormSchema),
+export function useEditPhysicianForm({
+  onSuccess,
+  formData,
+  payerPubId,
+}: props) {
+  const form = useForm<EditPhysicianFormInput>({
+    resolver: zodResolver(EditPhysicianFormSchema),
     defaultValues: formData,
   });
 
@@ -38,10 +42,10 @@ export function useEditEntityForm({ onSuccess, formData, payerPubId }: props) {
 
   const revalidationPath = usePathname();
 
-  const { execute, isPending } = useAction(updateEntityAction, {
+  const { execute, isPending } = useAction(updatePhysicianAction, {
     onSuccess: () => {
       toast("Success", {
-        description: "The network entity has been updated successfully.",
+        description: "The network physician has been updated successfully.",
       });
       onSuccess?.();
       form.reset();
@@ -58,7 +62,7 @@ export function useEditEntityForm({ onSuccess, formData, payerPubId }: props) {
     },
   });
 
-  function onSubmit(formData: EditEntityFormOutput) {
+  function onSubmit(formData: EditPhysicianFormOutput) {
     execute({
       pubId: pubId as string,
       formData,
