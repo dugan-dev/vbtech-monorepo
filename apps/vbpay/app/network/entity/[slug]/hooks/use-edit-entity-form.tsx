@@ -20,6 +20,15 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Provides state and handlers for an entity editing form, including validation, submission, and error dialog management.
+ *
+ * @param onSuccess - Callback invoked after a successful update.
+ * @param formData - Initial values for the form fields.
+ * @param payerPubId - Identifier for the payer associated with the entity.
+ *
+ * @returns An object containing the form instance, submission handler, pending state, and error dialog controls.
+ */
 export function useEditEntityForm({ onSuccess, formData, payerPubId }: props) {
   const form = useForm<EditEntityFormInput>({
     resolver: zodResolver(EditEntityFormSchema),

@@ -15,16 +15,13 @@ import { PhysicianInfoCardServer } from "./components/info/physician-info-card.s
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer", "physician"];
 
 /**
- * Renders the Network Physician page as a server-side component.
+ * Server-side React component for the Network Physician page with authentication, access control, and rate limiting.
  *
- * This asynchronous function extracts the page slug from the provided promise, then concurrently verifies
- * the user's authentication and checks the page's rate limit by generating a pathname via {@link NetworkPhysician}.
- * If the user is not authenticated, it returns an unauthorized response; otherwise, it renders the page within
- * a restricted-access component that limits viewability based on allowed user types.
+ * Awaits the provided `params` promise to extract the page slug, verifies user authentication, and enforces rate limits. If the user is authenticated, renders the physician info card within a restricted-access wrapper and a suspense boundary for loading states; otherwise, returns an unauthorized response.
  *
- * @param params - A promise that resolves to an object containing the page's slug.
+ * @param params - Promise resolving to an object containing the page's slug.
  *
- * @returns A React element representing the page content if the user is authenticated, or an unauthorized response otherwise.
+ * @returns The rendered page content for authorized users, or an unauthorized response for unauthenticated access.
  */
 export default async function Page({
   params,

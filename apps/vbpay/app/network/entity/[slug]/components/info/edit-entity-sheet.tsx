@@ -26,6 +26,14 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Displays a sheet UI for editing a network entity's information.
+ *
+ * Renders a button that opens a full-screen sheet containing an edit form pre-populated with the provided entity data. The sheet closes automatically when the form is successfully submitted.
+ *
+ * @param formData - The initial data to populate the edit form.
+ * @param payerPubId - The identifier associated with the entity being edited.
+ */
 export function EditEntitySheet({ formData, payerPubId }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
 

@@ -7,6 +7,11 @@ import {
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
+/**
+ * Renders a skeleton placeholder card for physician information while content is loading.
+ *
+ * Displays a structured layout with header, content rows, and footer using skeleton elements to mimic the appearance of the actual physician info card.
+ */
 export function PhysicianInfoCardSkeleton() {
   return (
     <Card className="relative">

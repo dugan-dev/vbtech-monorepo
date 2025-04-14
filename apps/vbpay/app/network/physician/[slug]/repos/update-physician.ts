@@ -10,6 +10,16 @@ type props = {
   userId: string;
 };
 
+/**
+ * Updates a physician's record and logs the previous state to a history table within a single transaction.
+ *
+ * Before updating, the current physician data is archived in the `networkPhysicianHist` table with a timestamp. The main `networkPhysician` record is then updated with new values and audit information.
+ *
+ * @param input - The updated physician data.
+ * @param pubId - The public identifier of the physician to update.
+ * @param userId - The identifier of the user performing the update.
+ * @returns The result of the update operation.
+ */
 export function updatePhysician({ input, pubId, userId }: props) {
   return db.transaction().execute(async (trx) => {
     const now = new Date();

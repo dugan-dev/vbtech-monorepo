@@ -42,6 +42,15 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Renders a form for editing physician details with validation and conditional fields.
+ *
+ * The form includes fields for personal and professional information, such as name, NPI, type, class, sole proprietor status, tax ID, taxonomy code, specialty, and credential. Fields and validation requirements adjust dynamically based on user selections. Displays an error dialog if submission fails and disables inputs while saving.
+ *
+ * @param onSuccess - Callback invoked after successful form submission.
+ * @param formData - Initial values to populate the form.
+ * @param payerPubId - Identifier for the payer context.
+ */
 export function EditPhysicianForm({ onSuccess, formData, payerPubId }: props) {
   "use no memo";
   const {

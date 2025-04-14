@@ -22,6 +22,15 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Renders a form for editing entity details, including entity type, names, NPI, and tax ID.
+ *
+ * Displays an error dialog on submission failure and disables inputs while the form is submitting.
+ *
+ * @param onSuccess - Callback invoked after a successful form submission.
+ * @param formData - Initial values for the form fields.
+ * @param payerPubId - Public identifier associated with the payer for the entity.
+ */
 export function EditEntityForm({ onSuccess, formData, payerPubId }: props) {
   const {
     form,

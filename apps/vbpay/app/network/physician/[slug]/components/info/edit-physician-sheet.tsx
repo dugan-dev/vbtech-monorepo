@@ -26,6 +26,14 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Displays a sheet UI for editing physician information, triggered by a button with a pencil icon.
+ *
+ * Opens a full-screen sheet containing an editable form pre-populated with the provided physician data. The sheet closes automatically upon successful form submission.
+ *
+ * @param formData - The initial data to populate the physician edit form.
+ * @param payerPubId - The public identifier associated with the payer.
+ */
 export function EditPhysicianSheet({ formData, payerPubId }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
 

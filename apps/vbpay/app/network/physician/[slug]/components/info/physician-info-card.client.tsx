@@ -35,15 +35,13 @@ type props = {
 };
 
 /**
- * Renders a card displaying network entity details along with an edit option for users with proper access.
+ * Displays detailed physician information in a card with optional editing for authorized users.
  *
- * The card header shows the network entity type and conditionally includes an edit interface,
- * which is only available to users with the required attributes and roles.
- * The card content displays the entity's name (including a reference name when available), organization NPI,
- * and entity type.
+ * Shows the physician's full name, individual NPI, type, and class. An edit interface is available in the card header for users with the appropriate access attributes and roles.
  *
- * @param data - Contains the network entity's details such as marketing name, optional reference name, organization NPI, and type.
- * @param usersAppAttrs - User-specific attributes used to determine access permissions for editing.
+ * @param data - Physician details including first name, last name, NPI, type, and class.
+ * @param usersAppAttrs - User attributes used to determine edit access.
+ * @param payerPubId - Identifier for the associated payer.
  */
 export function PhysicianInfoCardClient({
   data,

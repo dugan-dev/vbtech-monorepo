@@ -20,6 +20,16 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * React hook for managing the state and submission logic of the edit physician form.
+ *
+ * Initializes form state with validation, handles asynchronous submission to update physician data, and manages success and error feedback, including displaying toast notifications and error dialogs.
+ *
+ * @param onSuccess - Optional callback invoked after a successful update.
+ * @param formData - Initial values for the form fields.
+ * @param payerPubId - Public identifier for the payer associated with the physician.
+ * @returns An object containing the form instance, submit handler, loading state, and error dialog controls.
+ */
 export function useEditPhysicianForm({
   onSuccess,
   formData,
