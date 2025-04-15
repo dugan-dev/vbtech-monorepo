@@ -51,6 +51,7 @@ export function SteppedUserForm({
     nextStep,
     prevStep,
     currentStep,
+    setCurrentStep,
   } = useSteppedUserForm({
     onSuccess,
     user,
@@ -75,6 +76,7 @@ export function SteppedUserForm({
         <SteppedFormHeader
           currentStep={currentStep}
           steps={UserFormStepValues}
+          setCurrentStep={setCurrentStep}
         />
       </SheetHeader>
 

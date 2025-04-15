@@ -207,5 +207,6 @@ export function useSteppedUserForm({
     prevStep,
     nextStep,
     currentStep,
+    setCurrentStep,
   };
 }
