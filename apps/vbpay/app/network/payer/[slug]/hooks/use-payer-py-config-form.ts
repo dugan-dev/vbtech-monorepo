@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { useUserContext } from "@/contexts/user-context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { UserRole } from "@/types/user-role";
+import { UserType } from "@/types/user-type";
 import { useErrorDialog } from "@/hooks/use-error-dialog";
 
 import { insertPayerPyConfigAction } from "../actions/insert-payer-py-config-action";
@@ -16,6 +19,10 @@ import {
   PayerPyConfigFormSchema,
 } from "../components/py-config/payer-py-config-form-schema";
 import { PayerPyConfigFormSteps } from "../components/py-config/payer-py-config-form-steps";
+
+// User types and role required to Edit
+const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+const REQUIRED_USER_ROLE: UserRole = "edit";
 
 type props = {
   onSuccess: () => void;
@@ -59,6 +66,27 @@ export function useSteppedPayerPyConfigForm({
   data,
   pubId,
 }: props) {
+  // get user context for permission checks
+  const usersAppAttrs = useUserContext();
+
+  // get users payer specific permissions
+  const payerPermissions = usersAppAttrs.ids?.find(
+    (id) => id.id === payerPubId,
+  );
+
+  // assume user cannot edit
+  let userCanEdit = false;
+
+  // check if user can edit and update userCanEdit if they can
+  if (
+    payerPermissions &&
+    ALLOWED_USER_TYPES.includes(usersAppAttrs.type) &&
+    payerPermissions.userRoles.includes(REQUIRED_USER_ROLE)
+  ) {
+    userCanEdit = true;
+  }
+
+  // set up form state
   const steps = PayerPyConfigFormSteps;
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -76,8 +104,10 @@ export function useSteppedPayerPyConfigForm({
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
+  // Set revalidation path
   const revalidationPath = usePathname();
 
+  // Set up react hook form
   const form = useForm<PayerPyConfigFormInput>({
     resolver: zodResolver(PayerPyConfigFormSchema),
     defaultValues: data,
@@ -108,6 +138,7 @@ export function useSteppedPayerPyConfigForm({
     return true;
   };
 
+  // Set up error dialog
   const {
     openErrorDialog,
     isErrorDialogOpen,
@@ -116,6 +147,7 @@ export function useSteppedPayerPyConfigForm({
     closeErrorDialog,
   } = useErrorDialog({});
 
+  // Set up update action
   const {
     execute: executeUpdatePayerPyConfig,
     isPending: isUpdatePayerPyConfigPending,
@@ -140,6 +172,7 @@ export function useSteppedPayerPyConfigForm({
     },
   });
 
+  // Set up insert action
   const {
     execute: executeInsertPayerPyConfig,
     isPending: isInsertPayerPyConfigPending,
@@ -165,6 +198,14 @@ export function useSteppedPayerPyConfigForm({
   });
 
   function onSubmit(formData: PayerPyConfigFormOutput) {
+    if (!userCanEdit) {
+      openErrorDialog(
+        "Error",
+        "You do not have permission to edit this payer.",
+      );
+      return;
+    }
+
     setIsSubmitting?.(true);
 
     if (data && pubId) {
@@ -195,5 +236,7 @@ export function useSteppedPayerPyConfigForm({
     nextStep,
     currentStep,
     steps,
+    userCanEdit,
+    setCurrentStep,
   };
 }

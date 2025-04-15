@@ -1,5 +1,6 @@
 "use client";
 
+import { EditButton } from "@workspace/ui/components/edit-button";
 import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
 
@@ -18,6 +19,8 @@ type props = {
   data?: PayerPyConfigFormData;
   payerPubId?: string;
   pubId?: string;
+  isEditing: boolean;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 /**
@@ -41,6 +44,8 @@ export function SteppedPayerPyConfigForm({
   data,
   payerPubId,
   pubId,
+  isEditing,
+  setIsEditing,
 }: props) {
   const {
     form,
@@ -55,6 +60,8 @@ export function SteppedPayerPyConfigForm({
     prevStep,
     currentStep,
     steps,
+    userCanEdit,
+    setCurrentStep,
   } = useSteppedPayerPyConfigForm({
     onSuccess,
     setIsSubmitting,
@@ -77,10 +84,15 @@ export function SteppedPayerPyConfigForm({
       <SheetHeader className="px-6 py-4 border-b flex flex-col bg-muted/30">
         <SheetTitle className="w-full text-center text-3xl bg-muted/30">
           {pubId && data
-            ? `Edit ${data.basicInfo.perfYear} Performance Year Configuration`
+            ? `${isEditing ? "Edit" : "View"} ${data.basicInfo.perfYear} Performance Year Configuration`
             : "Add Performance Year Configuration"}
         </SheetTitle>
-        <SteppedFormHeader currentStep={currentStep} steps={steps} />
+        <SteppedFormHeader
+          currentStep={currentStep}
+          steps={steps}
+          setCurrentStep={pubId && data ? setCurrentStep : undefined}
+          isEditing={isEditing}
+        />
       </SheetHeader>
 
       {/* Form content */}
@@ -88,25 +100,38 @@ export function SteppedPayerPyConfigForm({
         <div className="container max-w-screen-lg mx-auto px-6 py-8">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {/* Step 1: Basic Information */}
-              <div className={currentStep === 1 ? "block" : "hidden"}>
-                <PayerPyConfigBasicInfoStep1 isSubmitting={isPending} />
-              </div>
+              <fieldset
+                disabled={isPending || !isEditing}
+                className="space-y-4 mb-8"
+              >
+                {/* Step 1: Basic Information */}
+                <div className={currentStep === 1 ? "block" : "hidden"}>
+                  <PayerPyConfigBasicInfoStep1 isSubmitting={isPending} />
+                </div>
 
-              {/* Step 2: Physician Assignment */}
-              <div className={currentStep === 2 ? "block" : "hidden"}>
-                <PayerPyConfigPhysAssignmentStep2 isSubmitting={isPending} />
-              </div>
+                {/* Step 2: Physician Assignment */}
+                <div className={currentStep === 2 ? "block" : "hidden"}>
+                  <PayerPyConfigPhysAssignmentStep2 isSubmitting={isPending} />
+                </div>
+              </fieldset>
 
-              {/* Navigation buttons */}
-              <SteppedFormNavigationButtons
-                steps={steps}
-                currentStep={currentStep}
-                prevStep={prevStep}
-                nextStep={nextStep}
-                isStepValid={isStepValid}
-                isSubmitting={isPending}
-              />
+              {data && pubId && !isEditing ? (
+                <div className="flex pt-4 border-t justify-end">
+                  <EditButton
+                    setIsEditing={setIsEditing}
+                    userCanEdit={userCanEdit}
+                  />
+                </div>
+              ) : (
+                <SteppedFormNavigationButtons
+                  steps={steps}
+                  currentStep={currentStep}
+                  prevStep={prevStep}
+                  nextStep={nextStep}
+                  isStepValid={isStepValid}
+                  isSubmitting={isPending}
+                />
+              )}
             </form>
           </Form>
         </div>

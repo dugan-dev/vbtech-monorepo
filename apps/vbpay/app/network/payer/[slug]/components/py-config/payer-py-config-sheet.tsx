@@ -40,6 +40,7 @@ type props = {
 export function PayerPyConfigSheet({ data, pubId, payerPubId }: props) {
   const [open, onOpenChange] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleSuccess = () => {
     onOpenChange(false);
@@ -58,13 +59,13 @@ export function PayerPyConfigSheet({ data, pubId, payerPubId }: props) {
               disabled={isSubmitting}
               className={!isUpdate ? "w-full" : undefined}
             >
-              {isUpdate && <Icons.pencil className="h-4 w-4" />}
+              {isUpdate && <Icons.eye className="h-4 w-4" />}
               {!isUpdate && <span>Add PY Configuration</span>}
             </Button>
           </SheetTrigger>
         </TooltipTrigger>
         <TooltipContent>
-          {data && pubId ? "Edit" : "Add"} Payer Py Config
+          {data && pubId ? "View" : "Add"} Payer Py Config
         </TooltipContent>
       </Tooltip>
       <SheetContent side="top" className="h-screen w-screen border-none">
@@ -76,6 +77,8 @@ export function PayerPyConfigSheet({ data, pubId, payerPubId }: props) {
               data={data}
               payerPubId={payerPubId}
               pubId={pubId}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
             />
           </div>
         </div>

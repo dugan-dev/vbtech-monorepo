@@ -1,3 +1,4 @@
+import { UserProvider } from "@/contexts/user-context";
 import { getPayerByPubId } from "@/repos/payer-repository";
 import { getUsersData } from "@/repos/user-repository";
 
@@ -72,13 +73,14 @@ export async function PayerPyConfigCardServer({
 
   return (
     <div className="w-1/3">
-      <PayerPyConfigCardClient
-        perfYear={perfYear}
-        data={formData}
-        payerPubId={payerPubId}
-        pubId={payerPyConfig?.pubId}
-        usersAppAttrs={user.usersAppAttrs}
-      />
+      <UserProvider usersAppAttrs={user.usersAppAttrs}>
+        <PayerPyConfigCardClient
+          perfYear={perfYear}
+          data={formData}
+          payerPubId={payerPubId}
+          pubId={payerPyConfig?.pubId}
+        />
+      </UserProvider>
     </div>
   );
 }

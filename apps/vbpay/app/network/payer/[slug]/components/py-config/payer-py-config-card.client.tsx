@@ -15,24 +15,15 @@ import {
 } from "@/types/aco-payment-model";
 import { AcoProgramLabels, AcoProgramType } from "@/types/aco-program";
 import { AcoTypeLabels, AcoTypeType } from "@/types/aco-type";
-import { UserAppAttrs } from "@/types/user-app-attrs";
-import { UserRole } from "@/types/user-role";
-import { UserType } from "@/types/user-type";
-import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { PayerPyConfigFormData } from "./payer-py-config-form-schema";
 import { PayerPyConfigSheet } from "./payer-py-config-sheet";
-
-const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
-
-const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
 
 type props = {
   perfYear: string;
   data: PayerPyConfigFormData;
   payerPubId: string;
   pubId: string;
-  usersAppAttrs: UserAppAttrs;
 };
 
 /**
@@ -48,26 +39,19 @@ export function PayerPyConfigCardClient({
   data,
   payerPubId,
   pubId,
-  usersAppAttrs,
 }: props) {
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center gap-4">
           <CardTitle>Performance Year {perfYear}</CardTitle>
-          <RestrictByUserAppAttrsClient
-            usersAppAttrs={usersAppAttrs}
-            allowedUserTypes={ALLOWED_USER_TYPES}
-            requiredUserRoles={REQUIRED_USER_ROLES}
-          >
-            <div className="relative ml-auto">
-              <PayerPyConfigSheet
-                data={data}
-                pubId={pubId}
-                payerPubId={payerPubId}
-              />
-            </div>
-          </RestrictByUserAppAttrsClient>
+          <div className="relative ml-auto">
+            <PayerPyConfigSheet
+              data={data}
+              pubId={pubId}
+              payerPubId={payerPubId}
+            />
+          </div>
         </div>
       </CardHeader>
       <ScrollArea className="overflow-y-auto pr-4">
