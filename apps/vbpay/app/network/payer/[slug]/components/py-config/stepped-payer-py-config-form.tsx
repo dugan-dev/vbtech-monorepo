@@ -24,19 +24,19 @@ type props = {
 };
 
 /**
- * Renders a multi-step form for configuring payer performance year settings.
+ * Displays a multi-step form for adding, viewing, or editing payer performance year configuration.
  *
- * This component leverages a custom hook to manage form state, handle submission, validate
- * each step, and display an error dialog if issues occur. It conditionally renders two steps—
- * one for entering basic configuration information and another for physician assignment.
- * The form operates in add mode or edit mode based on the presence of configuration data.
+ * The form supports both add and edit modes, determined by the presence of configuration data and identifiers. It includes steps for entering basic configuration information and assigning physicians. The form can be toggled between view and edit modes, with fields disabled when not editing. An error dialog is shown if submission or validation fails.
  *
- * @param onSuccess - Callback invoked upon successful form submission.
- * @param setIsSubmitting - Function to update the submission state during the form lifecycle.
- * @param data - Optional configuration data used to pre-populate the form in edit mode.
+ * @param onSuccess - Callback triggered after successful form submission.
+ * @param setIsSubmitting - Updates the submission state during the form lifecycle.
+ * @param data - Optional configuration data for pre-populating the form in edit mode.
  * @param payerPubId - Identifier for the payer’s publication.
- * @param pubId - Publication identifier that determines if the form is in add or edit mode.
- * @returns A JSX element representing the multi-step form.
+ * @param pubId - Publication identifier used to determine add or edit mode.
+ * @param isEditing - Indicates whether the form is currently in editing mode.
+ * @param setIsEditing - Setter to toggle editing mode.
+ *
+ * @returns The rendered multi-step configuration form.
  */
 export function SteppedPayerPyConfigForm({
   onSuccess,

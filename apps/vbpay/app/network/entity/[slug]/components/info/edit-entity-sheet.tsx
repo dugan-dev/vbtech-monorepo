@@ -26,6 +26,14 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Displays a slide-over sheet for viewing and editing a network entity's information.
+ *
+ * The sheet opens in view mode by default and allows toggling to edit mode. On successful form submission, the sheet closes. Closing the sheet always resets it to view mode.
+ *
+ * @param formData - The initial data to populate the entity form.
+ * @param payerPubId - The public identifier associated with the entity.
+ */
 export function EditEntitySheet({ formData, payerPubId }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);

@@ -32,17 +32,17 @@ type props = {
 };
 
 /**
- * Renders a form for editing payer information.
+ * Displays a multi-section form for viewing and editing payer information.
  *
- * This component displays a scrollable form divided into sections—Basic Info, Performance Period,
- * Identification, and Organization—to capture comprehensive payer data. It uses a custom hook to
- * manage form state, submission logic, and error handling, and initializes the form with provided data.
+ * The form is organized into sections for basic info, performance period, identification, and organization details. Editing mode can be toggled, and the form is initialized with provided data. Submission and error handling are managed via a custom hook.
  *
- * @param onSuccess - Callback function to execute after a successful form submission.
- * @param formData - Initial data used to populate the form fields.
- * @param payerTypes - Array of selectable payer types available for the form.
+ * @param onSuccess - Invoked after successful form submission.
+ * @param formData - Initial values for the form fields.
+ * @param payerTypes - List of payer type options for selection.
  *
- * @returns A JSX element representing the edit payer form.
+ * @returns The payer information edit form as a React element.
+ *
+ * @remark The form disables input fields and submission controls when not in editing mode or while a submission is pending.
  */
 export function EditPayerForm({
   onSuccess,

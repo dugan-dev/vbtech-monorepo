@@ -25,6 +25,14 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Displays a card with detailed physician information and an option to edit the data.
+ *
+ * Renders the physician's name, NPI, type, and class in a structured card layout, with an embedded edit form accessible from the card header.
+ *
+ * @param data - Physician details to display.
+ * @param payerPubId - Public identifier for the payer, used by the edit form.
+ */
 export function PhysicianInfoCardClient({ data, payerPubId }: props) {
   return (
     <Card>

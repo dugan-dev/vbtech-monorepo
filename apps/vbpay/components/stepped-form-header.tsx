@@ -8,6 +8,16 @@ type props = {
   steps: SteppedFormStep[];
 };
 
+/**
+ * Renders a horizontal step indicator for a multi-step form, displaying each step as an interactive button with visual cues for current, completed, and upcoming steps.
+ *
+ * @param currentStep - The ID of the currently active step.
+ * @param setCurrentStep - Optional setter function to update the current step when a step button is clicked.
+ * @param isEditing - Optional flag indicating if the form is in editing mode, which enables navigation to completed steps.
+ * @param steps - Array of step objects, each containing an ID, title, and icon.
+ *
+ * @returns A React element displaying the step navigation header.
+ */
 export function SteppedFormHeader({
   currentStep,
   setCurrentStep,

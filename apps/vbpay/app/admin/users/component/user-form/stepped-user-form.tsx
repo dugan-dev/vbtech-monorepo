@@ -27,6 +27,21 @@ type props = {
   setIsSubmitting?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+/**
+ * Renders a multi-step user form for creating or editing a user, with step navigation, validation, and error handling.
+ *
+ * Displays a stepped header, conditionally renders form sections for basic information, user type, and user IDs, and manages navigation between steps. Shows an error dialog if an error occurs during form submission or validation.
+ *
+ * @param user - The user to edit, or undefined to create a new user.
+ * @param physicians - List of physician options for user assignment.
+ * @param payers - List of payer options for user assignment.
+ * @param practices - List of practice options for user assignment.
+ * @param pos - List of place of service options for user assignment.
+ * @param facilities - List of facility options for user assignment.
+ * @param vendors - List of vendor options for user assignment.
+ * @param onSuccess - Optional callback invoked after successful form submission.
+ * @param setIsSubmitting - Optional setter to control external submission state.
+ */
 export function SteppedUserForm({
   user,
   physicians,

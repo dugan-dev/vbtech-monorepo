@@ -45,6 +45,17 @@ type props = {
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+/**
+ * Renders a form for viewing and editing physician details, supporting controlled editing mode and conditional field requirements.
+ *
+ * The form displays physician information with fields that adapt based on the selected physician type and sole proprietor status. Editing can be toggled on or off, and the form disables inputs when not in editing mode or during submission. On successful submission, the provided {@link onSuccess} callback is invoked. Errors during submission are displayed in a dialog.
+ *
+ * @param onSuccess - Callback invoked after a successful form submission.
+ * @param formData - Initial data to populate the form fields.
+ * @param payerPubId - Identifier associated with the payer.
+ * @param isEditing - Controls whether the form is in editing mode.
+ * @param setIsEditing - Function to toggle the editing state.
+ */
 export function EditPhysicianForm({
   onSuccess,
   formData,

@@ -27,24 +27,13 @@ type props = {
 };
 
 /**
- * Custom hook for managing the form used to edit payer information.
+ * Provides form state and submission logic for editing payer information, including user permission checks and error handling.
  *
- * This hook initializes a form with default values and Zod-based validation, extracts the payer's
- * public ID from the URL parameters, and sets up an action to update the payer information. On a
- * successful update, it displays a success toast, triggers an optional callback, and resets the form.
- * If an error occurs, it opens an error dialog with an appropriate message based on the error type.
+ * Initializes a form with validation and default values, determines if the current user has permission to edit the payer, and manages the update action. Displays success or error dialogs based on the outcome of the update.
  *
- * @param onSuccess - Optional callback invoked upon a successful update.
- * @param formData - Initial data used to populate the form.
- *
- * @returns An object containing:
- *   - form: The form instance managed by react-hook-form.
- *   - onSubmit: The submission handler that triggers the update action.
- *   - isPending: Boolean indicating whether the update action is in progress.
- *   - isErrorDialogOpen: Boolean indicating whether the error dialog is open.
- *   - errorMsg: Error message to display in the dialog.
- *   - errorTitle: Title for the error dialog.
- *   - closeErrorDialog: Function to close the error dialog.
+ * @param onSuccess - Optional callback invoked after a successful update.
+ * @param formData - Initial values to populate the form.
+ * @returns An object with form state, submission handler, pending status, error dialog controls, and a flag indicating if the user can edit.
  */
 export function useEditPayerForm({ onSuccess, formData }: props) {
   // get the slug from the url which is the pubId of the payer
@@ -109,7 +98,11 @@ export function useEditPayerForm({ onSuccess, formData }: props) {
     },
   });
 
-  // handle form submission
+  /**
+   * Handles submission of the edit payer form, enforcing user permission checks before proceeding.
+   *
+   * If the user lacks edit permissions, opens an error dialog and aborts submission. Otherwise, executes the update action with the provided form data.
+   */
   function onSubmit(formData: EditPayerFormOutput) {
     if (!userCanEdit) {
       openErrorDialog(

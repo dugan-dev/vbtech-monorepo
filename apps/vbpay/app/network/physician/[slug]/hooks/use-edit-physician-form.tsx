@@ -26,6 +26,16 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Provides form state and submission logic for editing a physician's data within a payer context, including user permission checks and error handling.
+ *
+ * @param onSuccess - Callback invoked after a successful update.
+ * @param formData - Initial values for the edit form.
+ * @param payerPubId - Public ID of the payer for permission validation.
+ * @returns An object containing the form instance, submission handler, pending state, error dialog controls, and a flag indicating if the user can edit.
+ *
+ * @remark If the user lacks edit permissions, form submission is blocked and an error dialog is shown.
+ */
 export function useEditPhysicianForm({
   onSuccess,
   formData,

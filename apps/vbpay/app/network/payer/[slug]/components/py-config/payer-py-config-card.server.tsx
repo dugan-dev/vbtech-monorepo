@@ -18,24 +18,17 @@ type props = {
 };
 
 /**
- * Renders a payer configuration card view.
+ * Displays a payer configuration card view based on user and payer data for a given performance year.
  *
- * This asynchronous function concurrently retrieves the payer configuration, payer details, and user data,
- * determines the appropriate view based on the payer type and configuration availability, and renders the
- * corresponding React component. It calculates the performance year from the provided URL or defaults to the
- * current year.
+ * Fetches payer configuration, payer details, and user data concurrently, then renders the appropriate view depending on payer type and configuration availability. If the payer does not exist, an error is thrown.
  *
- * If the payer object is not found, the function throws an error. If the payer type is not "aco", an unsupported
- * payer type view is rendered. If a payer configuration is not available, a view prompting for configuration is returned.
- * Otherwise, the configuration data is formatted and used to render a detailed card view.
+ * @param userId - The unique identifier for the user.
+ * @param payerPubId - The public identifier for the payer.
+ * @param perfYearUrl - Optional performance year; defaults to the current year if not provided.
  *
- * @param userId - The user identifier.
- * @param payerPubId - The payer's public identifier.
- * @param perfYearUrl - An optional performance year URL; the current year is used when not provided.
+ * @returns A React element representing the payer configuration card or a relevant status view.
  *
- * @returns A React element representing the payer configuration view.
- *
- * @throws {Error} If the payer with the specified public identifier does not exist.
+ * @throws {Error} If no payer exists with the specified {@link payerPubId}.
  */
 export async function PayerPyConfigCardServer({
   userId,

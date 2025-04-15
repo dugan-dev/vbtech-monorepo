@@ -27,6 +27,17 @@ type props = {
   setIsSubmitting?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+/**
+ * Provides state and logic for a multi-step user form with validation, error handling, and submission for creating or editing users.
+ *
+ * @param onSuccess - Optional callback invoked after a successful user creation or update.
+ * @param user - Optional existing user data to prefill the form and enable edit mode.
+ * @param setIsSubmitting - Optional setter to control external submission state.
+ *
+ * @returns An object containing the form instance, submission handler, step navigation and validation functions, error dialog controls, current step state, and a setter for the current step.
+ *
+ * @remark The initial step is set to 3 if editing an existing user, otherwise 1. The returned `setCurrentStep` function allows direct control of the current step from outside the hook.
+ */
 export function useSteppedUserForm({
   onSuccess,
   user,

@@ -10,6 +10,15 @@ type props = {
   entityPubId: string;
 };
 
+/**
+ * Server component that fetches entity and user data, then renders an entity info card within a user context.
+ *
+ * @param userId - The ID of the user whose data is to be fetched.
+ * @param entityPubId - The public ID of the entity to display.
+ * @returns A React element displaying the entity information card within the appropriate user context.
+ *
+ * @throws {Error} If no entity is found for the given {@link entityPubId}.
+ */
 export async function EntityInfoCardServer({ userId, entityPubId }: props) {
   const [entity, user] = await Promise.all([
     getNetworkEntity(entityPubId),

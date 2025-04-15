@@ -16,18 +16,15 @@ type props = {
 };
 
 /**
- * Asynchronously renders a payer information card.
+ * Server component that renders a payer information card with user context.
  *
- * Fetches payer details using the provided public payer ID, user data using the specified user ID, and global settings concurrently.
- * If either the payer or the global settings cannot be retrieved, an error is thrown.
- * The function formats the payer information for editing and converts allowed payer types into a selectable list
- * before passing the data to the client-side payer information card component.
+ * Fetches payer details, user data, and global settings concurrently. Throws an error if the payer or global settings cannot be retrieved. Formats payer data for editing and prepares a selectable list of allowed payer types before rendering the client-side payer information card within a user context provider.
  *
- * @param userId - Identifier for the user.
- * @param payerPubId - Public identifier for the payer.
- * @returns A JSX element that renders the payer information card.
+ * @param userId - The unique identifier of the user whose context is provided.
+ * @param payerPubId - The public identifier of the payer whose information is displayed.
+ * @returns A JSX element rendering the payer information card within a user context.
  *
- * @throws {Error} If the payer with the specified public identifier is not found.
+ * @throws {Error} If the payer with the specified {@link payerPubId} is not found.
  * @throws {Error} If global settings cannot be loaded.
  */
 export async function PayerInfoCardServer({ userId, payerPubId }: props) {
