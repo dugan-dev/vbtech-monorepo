@@ -34,10 +34,16 @@ export function EditEntitySheet({ formData, payerPubId }: props) {
     setSheetOpen(false);
   };
 
-  // Set isEditing to false when the sheet close
+  // Reset editing state when sheet is closed
+  const handleOpenChange = (open: boolean) => {
+    setSheetOpen(open);
+    if (!open) {
+      setIsEditing(false);
+    }
+  };
 
   return (
-    <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+    <Sheet open={sheetOpen} onOpenChange={handleOpenChange}>
       <Tooltip>
         <TooltipTrigger asChild>
           <SheetTrigger asChild>

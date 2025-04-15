@@ -46,10 +46,18 @@ export function PayerPyConfigSheet({ data, pubId, payerPubId }: props) {
     onOpenChange(false);
   };
 
+  // Reset editing state when sheet is closed
+  const handleOpenChange = (open: boolean) => {
+    onOpenChange(open);
+    if (!open) {
+      setIsEditing(false);
+    }
+  };
+
   const isUpdate = data && pubId ? true : false;
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet open={open} onOpenChange={handleOpenChange}>
       <Tooltip>
         <TooltipTrigger asChild>
           <SheetTrigger asChild>
