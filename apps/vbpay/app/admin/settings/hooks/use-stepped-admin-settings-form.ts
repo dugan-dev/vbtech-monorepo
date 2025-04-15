@@ -28,6 +28,18 @@ type props = {
   from: "license" | "settings";
 };
 
+/**
+ * Manages a multi-step admin settings or license form, handling step navigation, validation, submission, and error dialogs.
+ *
+ * Provides form state, step control, validation logic, and submission handlers for either license or global settings configuration, depending on the specified form type.
+ *
+ * @param onSuccess - Optional callback invoked after successful form submission.
+ * @param setIsSubmitting - Optional setter to update the submitting state externally.
+ * @param data - Initial form data to populate the form fields.
+ * @param from - Determines the form type; either "license" or "settings".
+ *
+ * @returns An object containing the form instance, submission handler, pending state, error dialog controls, step validation and navigation functions, current step state and setter, and the steps array.
+ */
 export function useSteppedAdminSettingsForm({
   onSuccess,
   setIsSubmitting,

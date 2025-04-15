@@ -27,6 +27,17 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Renders a form for viewing and editing network entity details, supporting toggling between view and edit modes.
+ *
+ * The form displays fields for entity type, marketing name, legal name, acronym/nickname, organizational NPI, and tax ID. Editing is gated by the `isEditing` prop, and form submission invokes the provided `onSuccess` callback on success. An error dialog is shown if submission fails. The edit button is conditionally enabled based on user permissions.
+ *
+ * @param isEditing - Whether the form is currently in edit mode.
+ * @param setIsEditing - Function to toggle the edit mode state.
+ * @param onSuccess - Callback invoked after successful form submission.
+ * @param formData - Initial values for the form fields.
+ * @param payerPubId - Identifier for the payer entity associated with the form.
+ */
 export function EditEntityForm({
   isEditing,
   setIsEditing,

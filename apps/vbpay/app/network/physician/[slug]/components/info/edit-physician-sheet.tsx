@@ -26,6 +26,14 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Displays a sheet for viewing and editing physician information, allowing users to toggle between view and edit modes.
+ *
+ * The sheet opens from the top of the screen and presents physician details using the provided {@link formData}. Users can switch to editing mode within the sheet, and any successful update will close the sheet. Editing mode is reset whenever the sheet is closed.
+ *
+ * @param formData - The physician data to display and edit.
+ * @param payerPubId - The payer public identifier associated with the physician.
+ */
 export function EditPhysicianSheet({ formData, payerPubId }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
