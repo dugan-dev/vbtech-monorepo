@@ -28,22 +28,31 @@ type props = {
 
 export function EditPhysicianSheet({ formData, payerPubId }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleSuccess = () => {
     setSheetOpen(false);
   };
 
+  // Reset editing state when sheet is closed
+  const handleOpenChange = (open: boolean) => {
+    setSheetOpen(open);
+    if (!open) {
+      setIsEditing(false);
+    }
+  };
+
   return (
-    <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+    <Sheet open={sheetOpen} onOpenChange={handleOpenChange}>
       <Tooltip>
         <TooltipTrigger asChild>
           <SheetTrigger asChild>
             <Button variant="outline" onClick={() => setSheetOpen(true)}>
-              <Icons.pencil className="h-4 w-4" />
+              <Icons.eye className="h-4 w-4" />
             </Button>
           </SheetTrigger>
         </TooltipTrigger>
-        <TooltipContent>Edit Physician Info</TooltipContent>
+        <TooltipContent>View Physician Info</TooltipContent>
       </Tooltip>
 
       <SheetContent side="top" className="h-screen w-screen border-none">
@@ -51,13 +60,15 @@ export function EditPhysicianSheet({ formData, payerPubId }: props) {
           <div className="flex-1 overflow-auto">
             <SheetHeader className="px-6 py-4 border-b flex flex-col bg-muted/30">
               <SheetTitle className="w-full text-center text-3xl bg-muted/30">
-                Edit Physician
+                {isEditing ? "Edit Physician" : "View Physician"}
               </SheetTitle>
             </SheetHeader>
             <EditPhysicianForm
               onSuccess={handleSuccess}
               formData={formData}
               payerPubId={payerPubId}
+              setIsEditing={setIsEditing}
+              isEditing={isEditing}
             />
           </div>
         </div>

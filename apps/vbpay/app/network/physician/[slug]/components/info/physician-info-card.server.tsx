@@ -1,3 +1,4 @@
+import { UserProvider } from "@/contexts/user-context";
 import { getNetworkPhysician } from "@/repos/network-physician-repository";
 import { getUsersData } from "@/repos/user-repository";
 
@@ -23,11 +24,12 @@ export async function PhysicianInfoCardServer({ userId, pubId }: props) {
 
   return (
     <div className="w-1/4">
-      <PhysicianInfoCardClient
-        data={formData}
-        usersAppAttrs={user.usersAppAttrs}
-        payerPubId={physician.payerPubId}
-      />
+      <UserProvider usersAppAttrs={user.usersAppAttrs}>
+        <PhysicianInfoCardClient
+          data={formData}
+          payerPubId={physician.payerPubId}
+        />
+      </UserProvider>
     </div>
   );
 }
