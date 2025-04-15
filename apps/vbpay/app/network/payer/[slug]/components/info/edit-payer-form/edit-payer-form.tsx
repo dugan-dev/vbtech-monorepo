@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
+import { EditButton } from "@workspace/ui/components/edit-button";
 import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
@@ -26,6 +27,8 @@ type props = {
   onSuccess: () => void;
   formData: EditPayerFormData;
   payerTypes: ComboItem[];
+  isEditing: boolean;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 /**
@@ -41,7 +44,13 @@ type props = {
  *
  * @returns A JSX element representing the edit payer form.
  */
-export function EditPayerForm({ onSuccess, formData, payerTypes }: props) {
+export function EditPayerForm({
+  onSuccess,
+  formData,
+  payerTypes,
+  isEditing,
+  setIsEditing,
+}: props) {
   const {
     form,
     onSubmit,
@@ -50,6 +59,7 @@ export function EditPayerForm({ onSuccess, formData, payerTypes }: props) {
     errorMsg,
     errorTitle,
     closeErrorDialog,
+    userCanEdit,
   } = useEditPayerForm({
     onSuccess,
     formData,
@@ -67,7 +77,10 @@ export function EditPayerForm({ onSuccess, formData, payerTypes }: props) {
           />
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <ScrollArea className="max-h-[90vh] overflow-y-auto pr-4">
-              <fieldset disabled={isPending} className="space-y-4 mb-8">
+              <fieldset
+                disabled={isPending || !isEditing}
+                className="space-y-4 mb-8"
+              >
                 <div className="grid grid-cols-2 gap-4">
                   <Card>
                     <CardHeader>
@@ -191,7 +204,14 @@ export function EditPayerForm({ onSuccess, formData, payerTypes }: props) {
                 </div>
               </fieldset>
               <div className="flex pt-4 border-t justify-end">
-                <FormSubmitButton isSaving={isPending} />
+                {isEditing ? (
+                  <FormSubmitButton isSaving={isPending} />
+                ) : (
+                  <EditButton
+                    setIsEditing={setIsEditing}
+                    userCanEdit={userCanEdit}
+                  />
+                )}
               </div>
             </ScrollArea>
           </form>

@@ -11,22 +11,13 @@ import { ComboItem } from "@workspace/ui/types/combo-item";
 
 import { PayerType, PayerTypeLabels } from "@/types/payer-type";
 import { PerfMonthLabels, PerformanceMonth } from "@/types/perf-month";
-import { UserAppAttrs } from "@/types/user-app-attrs";
-import { UserRole } from "@/types/user-role";
-import { UserType } from "@/types/user-type";
-import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { EditPayerFormData } from "./edit-payer-form/edit-payer-form-schema";
 import { EditPayerSheet } from "./edit-payer-sheet";
 
-const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
-
-const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
-
 type props = {
   data: EditPayerFormData;
   payerTypes: ComboItem[];
-  usersAppAttrs: UserAppAttrs;
 };
 
 /**
@@ -36,27 +27,16 @@ type props = {
  *
  * @param data - Contains the payer's details such as names, type, CMS ID, and performance month data.
  * @param payerTypes - Maps payer type values to their corresponding display labels.
- * @param usersAppAttrs - User attributes used to determine access to the edit functionality.
  */
-export function PayerInfoCardClient({
-  data,
-  payerTypes,
-  usersAppAttrs,
-}: props) {
+export function PayerInfoCardClient({ data, payerTypes }: props) {
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center gap-4">
           <CardTitle>Payer Information</CardTitle>
-          <RestrictByUserAppAttrsClient
-            usersAppAttrs={usersAppAttrs}
-            allowedUserTypes={ALLOWED_USER_TYPES}
-            requiredUserRoles={REQUIRED_USER_ROLES}
-          >
-            <div className="relative ml-auto">
-              <EditPayerSheet formData={data} payerTypes={payerTypes} />
-            </div>
-          </RestrictByUserAppAttrsClient>
+          <div className="relative ml-auto">
+            <EditPayerSheet formData={data} payerTypes={payerTypes} />
+          </div>
         </div>
       </CardHeader>
       <ScrollArea className="overflow-y-auto pr-4">

@@ -1,3 +1,4 @@
+import { UserProvider } from "@/contexts/user-context";
 import { getVBPayGlobalSettings } from "@/repos/global-settings-repository";
 import { getPayerByPubId } from "@/repos/payer-repository";
 import { getUsersData } from "@/repos/user-repository";
@@ -55,11 +56,9 @@ export async function PayerInfoCardServer({ userId, payerPubId }: props) {
 
   return (
     <div className="w-1/4">
-      <PayerInfoCardClient
-        data={formData}
-        usersAppAttrs={user.usersAppAttrs}
-        payerTypes={payerTypes}
-      />
+      <UserProvider usersAppAttrs={user.usersAppAttrs}>
+        <PayerInfoCardClient data={formData} payerTypes={payerTypes} />
+      </UserProvider>
     </div>
   );
 }
