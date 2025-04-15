@@ -202,6 +202,7 @@ export function useSteppedAdminSettingsForm({
     prevStep,
     nextStep,
     currentStep,
+    setCurrentStep,
     steps,
   };
 }

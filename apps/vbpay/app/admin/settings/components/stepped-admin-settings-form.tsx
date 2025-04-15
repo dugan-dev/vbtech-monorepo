@@ -42,6 +42,7 @@ export function SteppedAdminSettingsForm({
     nextStep,
     prevStep,
     currentStep,
+    setCurrentStep,
     steps,
   } = useSteppedAdminSettingsForm({
     onSuccess,
@@ -70,6 +71,7 @@ export function SteppedAdminSettingsForm({
           steps={
             from === "license" ? AdminLicenseFormSteps : AdminSettingsFormSteps
           }
+          setCurrentStep={setCurrentStep}
         />
       </SheetHeader>
 
