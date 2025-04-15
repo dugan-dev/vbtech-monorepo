@@ -1,3 +1,4 @@
+import { UserProvider } from "@/contexts/user-context";
 import { getNetworkEntity } from "@/repos/network-entity-repository";
 import { getUsersData } from "@/repos/user-repository";
 
@@ -23,11 +24,9 @@ export async function EntityInfoCardServer({ userId, entityPubId }: props) {
 
   return (
     <div className="w-1/4">
-      <EntityInfoCardClient
-        data={formData}
-        usersAppAttrs={user.usersAppAttrs}
-        payerPubId={entity.payerPubId}
-      />
+      <UserProvider usersAppAttrs={user.usersAppAttrs}>
+        <EntityInfoCardClient data={formData} payerPubId={entity.payerPubId} />
+      </UserProvider>
     </div>
   );
 }
