@@ -27,6 +27,18 @@ type props = {
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 const REQUIRED_USER_ROLE: UserRole = "edit";
 
+/**
+ * React hook for managing the edit form of a network entity with integrated permission checks, form validation, and error handling.
+ *
+ * Provides form state, submission logic, error dialog controls, and a flag indicating whether the current user has permission to edit the entity.
+ *
+ * @param onSuccess - Optional callback invoked after a successful entity update.
+ * @param formData - Initial values for the edit form.
+ * @param payerPubId - Public ID of the payer used for permission validation.
+ * @returns An object containing the form instance, submit handler, pending state, error dialog controls, and the user's edit permission status.
+ *
+ * @remark If the user lacks edit permissions, form submission is blocked and an error dialog is shown.
+ */
 export function useEditEntityForm({ onSuccess, formData, payerPubId }: props) {
   // get user context for permission checks
   const usersAppAttrs = useUserContext();

@@ -8,6 +8,14 @@ type props = {
   userCanEdit: boolean;
 };
 
+/**
+ * Renders an edit button that enables editing mode when clicked.
+ *
+ * The button is disabled if the user does not have permission to edit.
+ *
+ * @param setIsEditing - Function to toggle editing mode.
+ * @param userCanEdit - Indicates whether the user has permission to edit.
+ */
 export function EditButton({ setIsEditing, userCanEdit }: props) {
   return (
     <Button onClick={() => setIsEditing(true)} disabled={!userCanEdit}>

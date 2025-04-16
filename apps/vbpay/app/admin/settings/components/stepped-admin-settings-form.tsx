@@ -24,6 +24,14 @@ type props = {
   from: "license" | "settings";
 };
 
+/**
+ * Renders a multi-step form for updating either license information or global settings in the admin panel.
+ *
+ * The form displays different steps and content based on the {@link from} prop, supporting both license and settings workflows. It manages step navigation, form submission, and error dialogs, and invokes {@link onSuccess} upon successful completion.
+ *
+ * @param data - Initial form data to populate the form fields.
+ * @param from - Determines the form type; either "license" for license update steps or "settings" for global settings steps.
+ */
 export function SteppedAdminSettingsForm({
   onSuccess,
   setIsSubmitting,

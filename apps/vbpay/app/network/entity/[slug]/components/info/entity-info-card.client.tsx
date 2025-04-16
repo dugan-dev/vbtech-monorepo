@@ -22,15 +22,12 @@ type props = {
 };
 
 /**
- * Renders a card displaying network entity details along with an edit option for users with proper access.
+ * Displays a card with network entity details and an always-available edit option.
  *
- * The card header shows the network entity type and conditionally includes an edit interface,
- * which is only available to users with the required attributes and roles.
- * The card content displays the entity's name (including a reference name when available), organization NPI,
- * and entity type.
+ * Shows the entity's marketing name (with reference name if present), organization NPI, and type. The edit interface is always rendered in the card header.
  *
- * @param data - Contains the network entity's details such as marketing name, optional reference name, organization NPI, and type.
- * @param payerPubId - The public ID of the payer associated with the network entity.
+ * @param data - Network entity details including marketing name, optional reference name, organization NPI, and type.
+ * @param payerPubId - Public ID of the payer associated with the network entity.
  */
 export function EntityInfoCardClient({ data, payerPubId }: props) {
   return (

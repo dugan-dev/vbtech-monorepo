@@ -27,12 +27,14 @@ type props = {
 };
 
 /**
- * Renders a card displaying payer configuration details for a performance year.
+ * Displays a card with payer configuration details for a specified performance year.
  *
- * The card header shows the performance year and conditionally renders a configuration sheet control for
- * authorized users based on provided user attributes. The scrollable content displays key configuration
- * details extracted from the data, including the program, type, payment model, and whether physician assignment
- * is enabled.
+ * The card shows the performance year, provides access to a configuration sheet, and lists key configuration details such as program, type, payment model, and physician assignment status.
+ *
+ * @param perfYear - The performance year to display.
+ * @param data - The payer configuration data to render.
+ * @param payerPubId - The public identifier for the payer.
+ * @param pubId - The public identifier for the entity.
  */
 export function PayerPyConfigCardClient({
   perfYear,
