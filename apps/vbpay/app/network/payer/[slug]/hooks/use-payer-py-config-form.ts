@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { useUserContext } from "@/contexts/user-context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { UserRole } from "@/types/user-role";
+import { UserType } from "@/types/user-type";
 import { useErrorDialog } from "@/hooks/use-error-dialog";
 
 import { insertPayerPyConfigAction } from "../actions/insert-payer-py-config-action";
@@ -17,6 +20,10 @@ import {
 } from "../components/py-config/payer-py-config-form-schema";
 import { PayerPyConfigFormSteps } from "../components/py-config/payer-py-config-form-steps";
 
+// User types and role required to Edit
+const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+const REQUIRED_USER_ROLE: UserRole = "edit";
+
 type props = {
   onSuccess: () => void;
   setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,31 +33,18 @@ type props = {
 };
 
 /**
- * Manages a multi-step form for configuring payer settings.
+ * Provides state management, validation, permission checks, and submission logic for a multi-step payer configuration form.
  *
- * This custom hook encapsulates the logic for a multi-step form, including state management for the current step,
- * validation of form inputs per step using react-hook-form with Zod, and conditional form submission behavior.
- * Depending on whether existing configuration data is provided, it either updates or inserts a payer configuration.
- * On successful submission, it displays a success toast and triggers the provided callback; on error, it opens an error dialog.
+ * This custom React hook manages the flow of a multi-step form for payer settings, including step navigation, per-step validation, and conditional submission for insert or update modes. It enforces user permission checks before allowing submission and handles error dialogs and success notifications.
  *
- * @param onSuccess - Callback invoked after a successful submission.
- * @param setIsSubmitting - Optional function to update the submitting state.
- * @param payerPubId - Identifier for the payer used when inserting a new configuration.
- * @param data - Existing configuration data; its presence indicates update mode.
+ * @param onSuccess - Callback invoked after successful form submission.
+ * @param setIsSubmitting - Optional setter to control submitting state externally.
+ * @param payerPubId - Payer identifier used when inserting a new configuration.
+ * @param data - Existing configuration data; if present, the form operates in update mode.
  * @param pubId - Publication identifier used in update mode.
- * @returns An object containing:
- *  - form: The form instance from react-hook-form.
- *  - onSubmit: Function to handle form submission.
- *  - isPending: Boolean indicating if an update or insert action is in progress.
- *  - isErrorDialogOpen: Boolean indicating whether the error dialog is currently open.
- *  - errorMsg: Error message to be displayed in the error dialog.
- *  - errorTitle: Title for the error dialog.
- *  - closeErrorDialog: Function to close the error dialog.
- *  - isStepValid: Function to check if the inputs for the current step are valid.
- *  - prevStep: Function to navigate to the previous step.
- *  - nextStep: Function to navigate to the next step.
- *  - currentStep: The current step number.
- *  - steps: Array of form steps.
+ * @returns An object with form state, submission handler, step navigation, error dialog controls, permission status, and step validation utilities.
+ *
+ * @remark Submission is blocked and an error dialog is shown if the current user lacks edit permissions for the payer.
  */
 export function useSteppedPayerPyConfigForm({
   onSuccess,
@@ -59,6 +53,27 @@ export function useSteppedPayerPyConfigForm({
   data,
   pubId,
 }: props) {
+  // get user context for permission checks
+  const usersAppAttrs = useUserContext();
+
+  // get users payer specific permissions
+  const payerPermissions = usersAppAttrs.ids?.find(
+    (id) => id.id === payerPubId,
+  );
+
+  // assume user cannot edit
+  let userCanEdit = false;
+
+  // check if user can edit and update userCanEdit if they can
+  if (
+    payerPermissions &&
+    ALLOWED_USER_TYPES.includes(usersAppAttrs.type) &&
+    payerPermissions.userRoles.includes(REQUIRED_USER_ROLE)
+  ) {
+    userCanEdit = true;
+  }
+
+  // set up form state
   const steps = PayerPyConfigFormSteps;
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -76,8 +91,10 @@ export function useSteppedPayerPyConfigForm({
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
+  // Set revalidation path
   const revalidationPath = usePathname();
 
+  // Set up react hook form
   const form = useForm<PayerPyConfigFormInput>({
     resolver: zodResolver(PayerPyConfigFormSchema),
     defaultValues: data,
@@ -108,6 +125,7 @@ export function useSteppedPayerPyConfigForm({
     return true;
   };
 
+  // Set up error dialog
   const {
     openErrorDialog,
     isErrorDialogOpen,
@@ -116,6 +134,7 @@ export function useSteppedPayerPyConfigForm({
     closeErrorDialog,
   } = useErrorDialog({});
 
+  // Set up update action
   const {
     execute: executeUpdatePayerPyConfig,
     isPending: isUpdatePayerPyConfigPending,
@@ -140,6 +159,7 @@ export function useSteppedPayerPyConfigForm({
     },
   });
 
+  // Set up insert action
   const {
     execute: executeInsertPayerPyConfig,
     isPending: isInsertPayerPyConfigPending,
@@ -164,7 +184,22 @@ export function useSteppedPayerPyConfigForm({
     },
   });
 
+  /**
+   * Handles form submission for payer configuration, performing insert or update based on mode.
+   *
+   * If the user lacks edit permissions, displays an error dialog and aborts submission.
+   *
+   * @param formData - The form data to submit.
+   */
   function onSubmit(formData: PayerPyConfigFormOutput) {
+    if (!userCanEdit) {
+      openErrorDialog(
+        "Error",
+        "You do not have permission to edit this payer.",
+      );
+      return;
+    }
+
     setIsSubmitting?.(true);
 
     if (data && pubId) {
@@ -195,5 +230,7 @@ export function useSteppedPayerPyConfigForm({
     nextStep,
     currentStep,
     steps,
+    userCanEdit,
+    setCurrentStep,
   };
 }

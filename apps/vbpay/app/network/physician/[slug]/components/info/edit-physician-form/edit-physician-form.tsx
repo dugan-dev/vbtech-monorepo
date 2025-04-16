@@ -1,5 +1,6 @@
 "use client";
 
+import { EditButton } from "@workspace/ui/components/edit-button";
 import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
@@ -40,9 +41,28 @@ type props = {
   onSuccess: () => void;
   formData: EditPhysicianFormData;
   payerPubId: string;
+  isEditing: boolean;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function EditPhysicianForm({ onSuccess, formData, payerPubId }: props) {
+/**
+ * Renders a controlled form for viewing and editing physician details, supporting toggling between read-only and edit modes.
+ *
+ * The form displays physician information with conditional fields and validation based on the selected physician type and sole proprietor status. Editing can be enabled or disabled externally, and submission errors are shown in a dialog.
+ *
+ * @param onSuccess - Callback invoked after a successful form submission.
+ * @param formData - Initial data to populate the form fields.
+ * @param payerPubId - Identifier associated with the payer.
+ * @param isEditing - Whether the form is currently in editing mode.
+ * @param setIsEditing - Function to toggle the editing state.
+ */
+export function EditPhysicianForm({
+  onSuccess,
+  formData,
+  payerPubId,
+  isEditing,
+  setIsEditing,
+}: props) {
   "use no memo";
   const {
     form,
@@ -52,6 +72,7 @@ export function EditPhysicianForm({ onSuccess, formData, payerPubId }: props) {
     errorMsg,
     errorTitle,
     closeErrorDialog,
+    userCanEdit,
   } = useEditPhysicianForm({
     onSuccess,
     formData,
@@ -78,7 +99,10 @@ export function EditPhysicianForm({ onSuccess, formData, payerPubId }: props) {
             className="space-y-4"
           >
             <ScrollArea className="max-h-[90vh] overflow-y-auto pr-4">
-              <fieldset disabled={isPending} className="space-y-4 mb-8">
+              <fieldset
+                disabled={isPending || !isEditing}
+                className="space-y-4 mb-8"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-4">
                   <FormInput
                     control={form.control}
@@ -187,7 +211,14 @@ export function EditPhysicianForm({ onSuccess, formData, payerPubId }: props) {
                 </div>
               </fieldset>
               <div className="flex pt-4 border-t justify-end">
-                <FormSubmitButton isSaving={isPending} />
+                {isEditing ? (
+                  <FormSubmitButton isSaving={isPending} />
+                ) : (
+                  <EditButton
+                    userCanEdit={userCanEdit}
+                    setIsEditing={setIsEditing}
+                  />
+                )}
               </div>
             </ScrollArea>
           </form>

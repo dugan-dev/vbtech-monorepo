@@ -1,5 +1,8 @@
 "use client";
 
+import { Dispatch, SetStateAction } from "react";
+
+import { EditButton } from "@workspace/ui/components/edit-button";
 import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
@@ -17,12 +20,31 @@ import { useEditEntityForm } from "../../../hooks/use-edit-entity-form";
 import { EditEntityFormData } from "./edit-entity-form-schema";
 
 type props = {
+  isEditing: boolean;
+  setIsEditing: Dispatch<SetStateAction<boolean>>;
   onSuccess: () => void;
   formData: EditEntityFormData;
   payerPubId: string;
 };
 
-export function EditEntityForm({ onSuccess, formData, payerPubId }: props) {
+/**
+ * Renders a form for viewing and editing network entity details, supporting toggling between view and edit modes.
+ *
+ * The form displays fields for entity type, marketing name, legal name, acronym/nickname, organizational NPI, and tax ID. Editing is gated by the `isEditing` prop, and form submission invokes the provided `onSuccess` callback on success. An error dialog is shown if submission fails. The edit button is conditionally enabled based on user permissions.
+ *
+ * @param isEditing - Whether the form is currently in edit mode.
+ * @param setIsEditing - Function to toggle the edit mode state.
+ * @param onSuccess - Callback invoked after successful form submission.
+ * @param formData - Initial values for the form fields.
+ * @param payerPubId - Identifier for the payer entity associated with the form.
+ */
+export function EditEntityForm({
+  isEditing,
+  setIsEditing,
+  onSuccess,
+  formData,
+  payerPubId,
+}: props) {
   const {
     form,
     onSubmit,
@@ -31,6 +53,7 @@ export function EditEntityForm({ onSuccess, formData, payerPubId }: props) {
     errorMsg,
     errorTitle,
     closeErrorDialog,
+    userCanEdit,
   } = useEditEntityForm({
     onSuccess,
     formData,
@@ -49,7 +72,10 @@ export function EditEntityForm({ onSuccess, formData, payerPubId }: props) {
           />
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <ScrollArea className="max-h-[90vh] overflow-y-auto pr-4">
-              <fieldset disabled={isPending} className="space-y-4 mb-8">
+              <fieldset
+                disabled={isPending || !isEditing}
+                className="space-y-4 mb-8"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <FormCombo
                     control={form.control}
@@ -96,7 +122,14 @@ export function EditEntityForm({ onSuccess, formData, payerPubId }: props) {
                 </div>
               </fieldset>
               <div className="flex pt-4 border-t justify-end">
-                <FormSubmitButton isSaving={isPending} />
+                {isEditing ? (
+                  <FormSubmitButton isSaving={isPending} />
+                ) : (
+                  <EditButton
+                    setIsEditing={setIsEditing}
+                    userCanEdit={userCanEdit}
+                  />
+                )}
               </div>
             </ScrollArea>
           </form>

@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
+import { EditButton } from "@workspace/ui/components/edit-button";
 import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
@@ -26,22 +27,30 @@ type props = {
   onSuccess: () => void;
   formData: EditPayerFormData;
   payerTypes: ComboItem[];
+  isEditing: boolean;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 /**
- * Renders a form for editing payer information.
+ * Displays a multi-section form for editing payer information, supporting both view and edit modes.
  *
- * This component displays a scrollable form divided into sections—Basic Info, Performance Period,
- * Identification, and Organization—to capture comprehensive payer data. It uses a custom hook to
- * manage form state, submission logic, and error handling, and initializes the form with provided data.
+ * The form is organized into sections for basic info, performance period, identification, and organization details. It initializes with provided data, manages state and validation via a custom hook, and handles submission and error dialogs. Editing can be toggled on or off, with fields disabled when not in edit mode.
  *
- * @param onSuccess - Callback function to execute after a successful form submission.
- * @param formData - Initial data used to populate the form fields.
- * @param payerTypes - Array of selectable payer types available for the form.
+ * @param onSuccess - Invoked after successful form submission.
+ * @param formData - Initial values for the form fields.
+ * @param payerTypes - List of payer type options for selection.
+ * @param isEditing - Controls whether the form is in edit mode.
+ * @param setIsEditing - Function to toggle the edit mode state.
  *
- * @returns A JSX element representing the edit payer form.
+ * @returns The payer edit form as a React element.
  */
-export function EditPayerForm({ onSuccess, formData, payerTypes }: props) {
+export function EditPayerForm({
+  onSuccess,
+  formData,
+  payerTypes,
+  isEditing,
+  setIsEditing,
+}: props) {
   const {
     form,
     onSubmit,
@@ -50,6 +59,7 @@ export function EditPayerForm({ onSuccess, formData, payerTypes }: props) {
     errorMsg,
     errorTitle,
     closeErrorDialog,
+    userCanEdit,
   } = useEditPayerForm({
     onSuccess,
     formData,
@@ -67,7 +77,10 @@ export function EditPayerForm({ onSuccess, formData, payerTypes }: props) {
           />
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <ScrollArea className="max-h-[90vh] overflow-y-auto pr-4">
-              <fieldset disabled={isPending} className="space-y-4 mb-8">
+              <fieldset
+                disabled={isPending || !isEditing}
+                className="space-y-4 mb-8"
+              >
                 <div className="grid grid-cols-2 gap-4">
                   <Card>
                     <CardHeader>
@@ -191,7 +204,14 @@ export function EditPayerForm({ onSuccess, formData, payerTypes }: props) {
                 </div>
               </fieldset>
               <div className="flex pt-4 border-t justify-end">
-                <FormSubmitButton isSaving={isPending} />
+                {isEditing ? (
+                  <FormSubmitButton isSaving={isPending} />
+                ) : (
+                  <EditButton
+                    setIsEditing={setIsEditing}
+                    userCanEdit={userCanEdit}
+                  />
+                )}
               </div>
             </ScrollArea>
           </form>

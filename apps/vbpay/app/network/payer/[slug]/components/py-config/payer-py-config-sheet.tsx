@@ -26,29 +26,35 @@ type props = {
 };
 
 /**
- * Renders a sheet interface for adding or editing payer configuration data.
+ * Displays a sheet for adding or viewing payer configuration data, with a form that adapts to create or update mode based on provided props.
  *
- * The component determines its mode (create or update) based on the presence of
- * both "data" and "pubId". A button toggles the sheet visibility and adapts its
- * appearance accordingly. When the form submission is in progress, the button is
- * disabled. Upon a successful submission, the sheet automatically closes.
+ * The sheet is triggered by a button whose appearance and tooltip reflect the current mode. When editing, the form is prepopulated with existing data. The sheet closes automatically after a successful submission, and editing state is reset when the sheet is closed.
  *
- * @param data - Optional configuration data to prepopulate the form in update mode.
- * @param pubId - Optional identifier for the configuration to be edited.
- * @param payerPubId - Optional identifier used when creating a new configuration.
+ * @param data - Configuration data used to prepopulate the form in update mode.
+ * @param pubId - Identifier for the configuration being viewed or edited.
+ * @param payerPubId - Identifier used when creating a new configuration.
  */
 export function PayerPyConfigSheet({ data, pubId, payerPubId }: props) {
   const [open, onOpenChange] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleSuccess = () => {
     onOpenChange(false);
   };
 
+  // Reset editing state when sheet is closed
+  const handleOpenChange = (open: boolean) => {
+    onOpenChange(open);
+    if (!open) {
+      setIsEditing(false);
+    }
+  };
+
   const isUpdate = data && pubId ? true : false;
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet open={open} onOpenChange={handleOpenChange}>
       <Tooltip>
         <TooltipTrigger asChild>
           <SheetTrigger asChild>
@@ -58,13 +64,13 @@ export function PayerPyConfigSheet({ data, pubId, payerPubId }: props) {
               disabled={isSubmitting}
               className={!isUpdate ? "w-full" : undefined}
             >
-              {isUpdate && <Icons.pencil className="h-4 w-4" />}
+              {isUpdate && <Icons.eye className="h-4 w-4" />}
               {!isUpdate && <span>Add PY Configuration</span>}
             </Button>
           </SheetTrigger>
         </TooltipTrigger>
         <TooltipContent>
-          {data && pubId ? "Edit" : "Add"} Payer Py Config
+          {data && pubId ? "View" : "Add"} Payer Py Config
         </TooltipContent>
       </Tooltip>
       <SheetContent side="top" className="h-screen w-screen border-none">
@@ -76,6 +82,8 @@ export function PayerPyConfigSheet({ data, pubId, payerPubId }: props) {
               data={data}
               payerPubId={payerPubId}
               pubId={pubId}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
             />
           </div>
         </div>

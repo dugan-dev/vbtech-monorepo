@@ -1,9 +1,12 @@
 import { useParams, usePathname } from "next/navigation";
+import { useUserContext } from "@/contexts/user-context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { UserRole } from "@/types/user-role";
+import { UserType } from "@/types/user-type";
 import { useErrorDialog } from "@/hooks/use-error-dialog";
 
 import { updatePayerAction } from "../actions/update-payer-action";
@@ -14,39 +17,58 @@ import {
   EditPayerFormSchema,
 } from "../components/info/edit-payer-form/edit-payer-form-schema";
 
+// User types and role required to Edit
+const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+const REQUIRED_USER_ROLE: UserRole = "edit";
+
 type props = {
   onSuccess: () => void;
   formData: EditPayerFormData;
 };
 
 /**
- * Custom hook for managing the form used to edit payer information.
+ * Provides form state and submission logic for editing payer information, including user permission checks and error handling.
  *
- * This hook initializes a form with default values and Zod-based validation, extracts the payer's
- * public ID from the URL parameters, and sets up an action to update the payer information. On a
- * successful update, it displays a success toast, triggers an optional callback, and resets the form.
- * If an error occurs, it opens an error dialog with an appropriate message based on the error type.
+ * Initializes a form with validation and default values, determines if the current user has permission to edit the payer, and manages the update action. Displays success or error feedback as appropriate.
  *
- * @param onSuccess - Optional callback invoked upon a successful update.
- * @param formData - Initial data used to populate the form.
+ * @param onSuccess - Optional callback invoked after a successful payer update.
+ * @param formData - Initial values to populate the edit form.
  *
- * @returns An object containing:
- *   - form: The form instance managed by react-hook-form.
- *   - onSubmit: The submission handler that triggers the update action.
- *   - isPending: Boolean indicating whether the update action is in progress.
- *   - isErrorDialogOpen: Boolean indicating whether the error dialog is open.
- *   - errorMsg: Error message to display in the dialog.
- *   - errorTitle: Title for the error dialog.
- *   - closeErrorDialog: Function to close the error dialog.
+ * @returns An object with the form instance, submission handler, pending state, error dialog controls, and a flag indicating if the user can edit.
+ *
+ * @remark If the user lacks edit permission, form submission is blocked and an error dialog is shown.
  */
 export function useEditPayerForm({ onSuccess, formData }: props) {
+  // get the slug from the url which is the pubId of the payer
+  const { slug: pubId } = useParams();
+
+  // get user context for permission checks
+  const usersAppAttrs = useUserContext();
+
+  // get users payer specific permissions
+  const payerPermissions = usersAppAttrs.ids?.find(
+    (id) => id.id === (pubId as string),
+  );
+
+  // assume user cannot edit
+  let userCanEdit = false;
+
+  // check if user can edit and update userCanEdit if they can
+  if (
+    payerPermissions &&
+    ALLOWED_USER_TYPES.includes(usersAppAttrs.type) &&
+    payerPermissions.userRoles.includes(REQUIRED_USER_ROLE)
+  ) {
+    userCanEdit = true;
+  }
+
+  // set up react hook form
   const form = useForm<EditPayerFormInput>({
     resolver: zodResolver(EditPayerFormSchema),
     defaultValues: formData,
   });
 
-  const { slug: pubId } = useParams();
-
+  // set up error dialog
   const {
     openErrorDialog,
     isErrorDialogOpen,
@@ -55,8 +77,10 @@ export function useEditPayerForm({ onSuccess, formData }: props) {
     closeErrorDialog,
   } = useErrorDialog({});
 
+  // get the path to revalidate after a successful update
   const revalidationPath = usePathname();
 
+  // set up action
   const { execute, isPending } = useAction(updatePayerAction, {
     onSuccess: () => {
       toast("Success", {
@@ -77,7 +101,22 @@ export function useEditPayerForm({ onSuccess, formData }: props) {
     },
   });
 
+  /**
+   * Handles submission of the edit payer form, executing the update action if the user has edit permissions.
+   *
+   * @param formData - The data submitted from the edit payer form.
+   *
+   * @remark
+   * If the user lacks permission to edit the payer, an error dialog is displayed and the update action is not executed.
+   */
   function onSubmit(formData: EditPayerFormOutput) {
+    if (!userCanEdit) {
+      openErrorDialog(
+        "Error",
+        "You do not have permission to edit this payer.",
+      );
+      return;
+    }
     execute({
       pubId: pubId as string,
       formData,
@@ -93,5 +132,6 @@ export function useEditPayerForm({ onSuccess, formData }: props) {
     errorMsg,
     errorTitle,
     closeErrorDialog,
+    userCanEdit,
   };
 }

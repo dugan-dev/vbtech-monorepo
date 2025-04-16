@@ -16,43 +16,30 @@ import {
   NetworkPhysicianType,
   NetworkPhysicianTypeLabels,
 } from "@/types/network-physician-type";
-import { UserAppAttrs } from "@/types/user-app-attrs";
-import { UserRole } from "@/types/user-role";
-import { UserType } from "@/types/user-type";
-import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { EditPhysicianFormData } from "./edit-physician-form/edit-physician-form-schema";
 import { EditPhysicianSheet } from "./edit-physician-sheet";
 
-const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
-
-const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
-
 type props = {
   data: EditPhysicianFormData;
   payerPubId: string;
-  usersAppAttrs: UserAppAttrs;
 };
 
-export function PhysicianInfoCardClient({
-  data,
-  usersAppAttrs,
-  payerPubId,
-}: props) {
+/**
+ * Displays a card with detailed physician information, including name, NPI, type, and class, with an option to edit the details.
+ *
+ * @param data - Physician details to display.
+ * @param payerPubId - Identifier for the payer associated with the physician.
+ */
+export function PhysicianInfoCardClient({ data, payerPubId }: props) {
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center gap-4">
           <CardTitle>Physician Information</CardTitle>
-          <RestrictByUserAppAttrsClient
-            usersAppAttrs={usersAppAttrs}
-            allowedUserTypes={ALLOWED_USER_TYPES}
-            requiredUserRoles={REQUIRED_USER_ROLES}
-          >
-            <div className="relative ml-auto">
-              <EditPhysicianSheet formData={data} payerPubId={payerPubId} />
-            </div>
-          </RestrictByUserAppAttrsClient>
+          <div className="relative ml-auto">
+            <EditPhysicianSheet formData={data} payerPubId={payerPubId} />
+          </div>
         </div>
       </CardHeader>
       <ScrollArea className="overflow-y-auto pr-4">

@@ -11,52 +11,32 @@ import { ComboItem } from "@workspace/ui/types/combo-item";
 
 import { PayerType, PayerTypeLabels } from "@/types/payer-type";
 import { PerfMonthLabels, PerformanceMonth } from "@/types/perf-month";
-import { UserAppAttrs } from "@/types/user-app-attrs";
-import { UserRole } from "@/types/user-role";
-import { UserType } from "@/types/user-type";
-import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { EditPayerFormData } from "./edit-payer-form/edit-payer-form-schema";
 import { EditPayerSheet } from "./edit-payer-sheet";
 
-const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
-
-const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
-
 type props = {
   data: EditPayerFormData;
   payerTypes: ComboItem[];
-  usersAppAttrs: UserAppAttrs;
 };
 
 /**
- * Renders a card displaying payer details.
+ * Displays a card with detailed payer information and an edit interface.
  *
- * This component displays detailed information about a payer, including its marketing name (with an optional reference name), payer type (mapped to a human-readable label), CMS ID, and the initial performance month. The card header conditionally includes an edit interface that is visible only when the user's attributes and roles meet the required access permissions.
+ * Shows the payer's marketing name (optionally with reference name), payer type label, CMS ID, and initial performance month and year. Includes an edit option for modifying payer details.
  *
- * @param data - Contains the payer's details such as names, type, CMS ID, and performance month data.
- * @param payerTypes - Maps payer type values to their corresponding display labels.
- * @param usersAppAttrs - User attributes used to determine access to the edit functionality.
+ * @param data - The payer's details, including names, type, CMS ID, and performance month/year.
+ * @param payerTypes - List of payer type options for mapping type values to display labels.
  */
-export function PayerInfoCardClient({
-  data,
-  payerTypes,
-  usersAppAttrs,
-}: props) {
+export function PayerInfoCardClient({ data, payerTypes }: props) {
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center gap-4">
           <CardTitle>Payer Information</CardTitle>
-          <RestrictByUserAppAttrsClient
-            usersAppAttrs={usersAppAttrs}
-            allowedUserTypes={ALLOWED_USER_TYPES}
-            requiredUserRoles={REQUIRED_USER_ROLES}
-          >
-            <div className="relative ml-auto">
-              <EditPayerSheet formData={data} payerTypes={payerTypes} />
-            </div>
-          </RestrictByUserAppAttrsClient>
+          <div className="relative ml-auto">
+            <EditPayerSheet formData={data} payerTypes={payerTypes} />
+          </div>
         </div>
       </CardHeader>
       <ScrollArea className="overflow-y-auto pr-4">

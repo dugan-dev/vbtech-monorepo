@@ -3,26 +3,47 @@ import { Icons } from "@/components/icons";
 
 type props = {
   currentStep: number;
+  setCurrentStep?: React.Dispatch<React.SetStateAction<number>>;
+  isEditing?: boolean;
   steps: SteppedFormStep[];
 };
 
-export function SteppedFormHeader({ currentStep, steps }: props) {
+/**
+ * Renders a horizontal stepped form header with interactive step navigation and visual progress indicators.
+ *
+ * Each step displays an icon and title, with styling that reflects its status as current, completed, or upcoming. Steps can be clicked to navigate if editing is enabled and a setter is provided. Completed steps show a check icon when editing.
+ *
+ * @param currentStep - The ID of the currently active step.
+ * @param setCurrentStep - Optional setter function to update the current step when a step is clicked.
+ * @param isEditing - Optional flag indicating if the form is in editing mode, enabling navigation to completed steps.
+ * @param steps - Array of step objects, each containing an ID, title, and icon.
+ */
+export function SteppedFormHeader({
+  currentStep,
+  setCurrentStep,
+  isEditing,
+  steps,
+}: props) {
   return (
     <div className="bg-muted/30">
       <div className="container max-w-screen-lg mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {steps.map((step, i) => (
-            <div key={step.id} className="flex flex-1 items-center">
+            <button
+              key={step.id}
+              className="flex flex-1 items-center hover:cursor-pointer hover:opacity-80"
+              onClick={() => setCurrentStep?.(step.id)}
+            >
               <div
-                className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
+                className={`flex items-center justify-center w-10 h-10 rounded-full border-2 hover:border-primary ${
                   currentStep === step.id
-                    ? "bg-primary border-primary text-primary-foreground"
-                    : currentStep > step.id
-                      ? "bg-primary/20 border-primary/50 text-primary"
-                      : "bg-muted border-muted-foreground/30 text-muted-foreground"
+                    ? "bg-primary border-primary text-primary-foreground hover:bg-primary/80"
+                    : "bg-muted border-muted-foreground/30 text-muted-foreground hover:bg-primary hover:text-primary-foreground"
                 }`}
               >
-                {currentStep > step.id ? (
+                {currentStep > step.id &&
+                setCurrentStep !== undefined &&
+                isEditing ? (
                   <Icons.check className="h-5 w-5" />
                 ) : (
                   <step.icon className="h-5 w-5" />
@@ -52,7 +73,7 @@ export function SteppedFormHeader({ currentStep, steps }: props) {
                   />
                 )}
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>

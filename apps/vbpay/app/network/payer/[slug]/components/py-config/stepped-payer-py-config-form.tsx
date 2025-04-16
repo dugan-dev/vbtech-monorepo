@@ -1,5 +1,6 @@
 "use client";
 
+import { EditButton } from "@workspace/ui/components/edit-button";
 import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
 
@@ -18,22 +19,23 @@ type props = {
   data?: PayerPyConfigFormData;
   payerPubId?: string;
   pubId?: string;
+  isEditing: boolean;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 /**
- * Renders a multi-step form for configuring payer performance year settings.
+ * Displays a multi-step form for adding, viewing, or editing payer performance year configuration.
  *
- * This component leverages a custom hook to manage form state, handle submission, validate
- * each step, and display an error dialog if issues occur. It conditionally renders two steps—
- * one for entering basic configuration information and another for physician assignment.
- * The form operates in add mode or edit mode based on the presence of configuration data.
+ * The form supports two steps: entering basic configuration details and assigning physicians. It operates in add, view, or edit mode depending on the presence of configuration data and the editing state. The form disables input fields and navigation when not in editing mode or while submitting. An error dialog is shown if submission or validation fails.
  *
- * @param onSuccess - Callback invoked upon successful form submission.
- * @param setIsSubmitting - Function to update the submission state during the form lifecycle.
- * @param data - Optional configuration data used to pre-populate the form in edit mode.
+ * @param onSuccess - Invoked after successful form submission.
+ * @param setIsSubmitting - Updates the form's submission state.
+ * @param data - Optional configuration data for pre-populating the form in edit or view mode.
  * @param payerPubId - Identifier for the payer’s publication.
- * @param pubId - Publication identifier that determines if the form is in add or edit mode.
- * @returns A JSX element representing the multi-step form.
+ * @param pubId - Publication identifier; determines if the form is in add or edit/view mode.
+ * @param isEditing - Indicates whether the form is currently in editing mode.
+ * @param setIsEditing - Function to toggle editing mode.
+ * @returns The rendered multi-step configuration form.
  */
 export function SteppedPayerPyConfigForm({
   onSuccess,
@@ -41,6 +43,8 @@ export function SteppedPayerPyConfigForm({
   data,
   payerPubId,
   pubId,
+  isEditing,
+  setIsEditing,
 }: props) {
   const {
     form,
@@ -55,6 +59,8 @@ export function SteppedPayerPyConfigForm({
     prevStep,
     currentStep,
     steps,
+    userCanEdit,
+    setCurrentStep,
   } = useSteppedPayerPyConfigForm({
     onSuccess,
     setIsSubmitting,
@@ -77,10 +83,15 @@ export function SteppedPayerPyConfigForm({
       <SheetHeader className="px-6 py-4 border-b flex flex-col bg-muted/30">
         <SheetTitle className="w-full text-center text-3xl bg-muted/30">
           {pubId && data
-            ? `Edit ${data.basicInfo.perfYear} Performance Year Configuration`
+            ? `${isEditing ? "Edit" : "View"} ${data.basicInfo.perfYear} Performance Year Configuration`
             : "Add Performance Year Configuration"}
         </SheetTitle>
-        <SteppedFormHeader currentStep={currentStep} steps={steps} />
+        <SteppedFormHeader
+          currentStep={currentStep}
+          steps={steps}
+          setCurrentStep={pubId && data ? setCurrentStep : undefined}
+          isEditing={isEditing}
+        />
       </SheetHeader>
 
       {/* Form content */}
@@ -88,25 +99,38 @@ export function SteppedPayerPyConfigForm({
         <div className="container max-w-screen-lg mx-auto px-6 py-8">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {/* Step 1: Basic Information */}
-              <div className={currentStep === 1 ? "block" : "hidden"}>
-                <PayerPyConfigBasicInfoStep1 isSubmitting={isPending} />
-              </div>
+              <fieldset
+                disabled={isPending || !isEditing}
+                className="space-y-4 mb-8"
+              >
+                {/* Step 1: Basic Information */}
+                <div className={currentStep === 1 ? "block" : "hidden"}>
+                  <PayerPyConfigBasicInfoStep1 isSubmitting={isPending} />
+                </div>
 
-              {/* Step 2: Physician Assignment */}
-              <div className={currentStep === 2 ? "block" : "hidden"}>
-                <PayerPyConfigPhysAssignmentStep2 isSubmitting={isPending} />
-              </div>
+                {/* Step 2: Physician Assignment */}
+                <div className={currentStep === 2 ? "block" : "hidden"}>
+                  <PayerPyConfigPhysAssignmentStep2 isSubmitting={isPending} />
+                </div>
+              </fieldset>
 
-              {/* Navigation buttons */}
-              <SteppedFormNavigationButtons
-                steps={steps}
-                currentStep={currentStep}
-                prevStep={prevStep}
-                nextStep={nextStep}
-                isStepValid={isStepValid}
-                isSubmitting={isPending}
-              />
+              {data && pubId && !isEditing ? (
+                <div className="flex pt-4 border-t justify-end">
+                  <EditButton
+                    setIsEditing={setIsEditing}
+                    userCanEdit={userCanEdit}
+                  />
+                </div>
+              ) : (
+                <SteppedFormNavigationButtons
+                  steps={steps}
+                  currentStep={currentStep}
+                  prevStep={prevStep}
+                  nextStep={nextStep}
+                  isStepValid={isStepValid}
+                  isSubmitting={isPending}
+                />
+              )}
             </form>
           </Form>
         </div>

@@ -15,59 +15,45 @@ import {
 } from "@/types/aco-payment-model";
 import { AcoProgramLabels, AcoProgramType } from "@/types/aco-program";
 import { AcoTypeLabels, AcoTypeType } from "@/types/aco-type";
-import { UserAppAttrs } from "@/types/user-app-attrs";
-import { UserRole } from "@/types/user-role";
-import { UserType } from "@/types/user-type";
-import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { PayerPyConfigFormData } from "./payer-py-config-form-schema";
 import { PayerPyConfigSheet } from "./payer-py-config-sheet";
-
-const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
-
-const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
 
 type props = {
   perfYear: string;
   data: PayerPyConfigFormData;
   payerPubId: string;
   pubId: string;
-  usersAppAttrs: UserAppAttrs;
 };
 
 /**
- * Renders a card displaying payer configuration details for a performance year.
+ * Displays a card with payer configuration details for a specified performance year.
  *
- * The card header shows the performance year and conditionally renders a configuration sheet control for
- * authorized users based on provided user attributes. The scrollable content displays key configuration
- * details extracted from the data, including the program, type, payment model, and whether physician assignment
- * is enabled.
+ * The card shows the performance year, provides access to a configuration sheet, and lists key configuration details such as program, type, payment model, and physician assignment status.
+ *
+ * @param perfYear - The performance year to display.
+ * @param data - The payer configuration data to render.
+ * @param payerPubId - The public identifier for the payer.
+ * @param pubId - The public identifier for the entity.
  */
 export function PayerPyConfigCardClient({
   perfYear,
   data,
   payerPubId,
   pubId,
-  usersAppAttrs,
 }: props) {
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center gap-4">
           <CardTitle>Performance Year {perfYear}</CardTitle>
-          <RestrictByUserAppAttrsClient
-            usersAppAttrs={usersAppAttrs}
-            allowedUserTypes={ALLOWED_USER_TYPES}
-            requiredUserRoles={REQUIRED_USER_ROLES}
-          >
-            <div className="relative ml-auto">
-              <PayerPyConfigSheet
-                data={data}
-                pubId={pubId}
-                payerPubId={payerPubId}
-              />
-            </div>
-          </RestrictByUserAppAttrsClient>
+          <div className="relative ml-auto">
+            <PayerPyConfigSheet
+              data={data}
+              pubId={pubId}
+              payerPubId={payerPubId}
+            />
+          </div>
         </div>
       </CardHeader>
       <ScrollArea className="overflow-y-auto pr-4">

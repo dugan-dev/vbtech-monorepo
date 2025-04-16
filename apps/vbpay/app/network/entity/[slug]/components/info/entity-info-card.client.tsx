@@ -12,40 +12,24 @@ import {
   NetworkEntityType,
   NetworkEntityTypeLabels,
 } from "@/types/network-entity-type";
-import { UserAppAttrs } from "@/types/user-app-attrs";
-import { UserRole } from "@/types/user-role";
-import { UserType } from "@/types/user-type";
-import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { EditEntityFormData } from "./edit-entity-form/edit-entity-form-schema";
 import { EditEntitySheet } from "./edit-entity-sheet";
 
-const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
-
-const REQUIRED_USER_ROLES: UserRole[] = ["edit"];
-
 type props = {
   data: EditEntityFormData;
-  usersAppAttrs: UserAppAttrs;
   payerPubId: string;
 };
 
 /**
- * Renders a card displaying network entity details along with an edit option for users with proper access.
+ * Displays a card with network entity details and an always-available edit option.
  *
- * The card header shows the network entity type and conditionally includes an edit interface,
- * which is only available to users with the required attributes and roles.
- * The card content displays the entity's name (including a reference name when available), organization NPI,
- * and entity type.
+ * Shows the entity's marketing name (with reference name if present), organization NPI, and type. The edit interface is always rendered in the card header.
  *
- * @param data - Contains the network entity's details such as marketing name, optional reference name, organization NPI, and type.
- * @param usersAppAttrs - User-specific attributes used to determine access permissions for editing.
+ * @param data - Network entity details including marketing name, optional reference name, organization NPI, and type.
+ * @param payerPubId - Public ID of the payer associated with the network entity.
  */
-export function EntityInfoCardClient({
-  data,
-  usersAppAttrs,
-  payerPubId,
-}: props) {
+export function EntityInfoCardClient({ data, payerPubId }: props) {
   return (
     <Card>
       <CardHeader>
@@ -54,15 +38,9 @@ export function EntityInfoCardClient({
             {NetworkEntityTypeLabels[data.netEntType as NetworkEntityType]}{" "}
             Information
           </CardTitle>
-          <RestrictByUserAppAttrsClient
-            usersAppAttrs={usersAppAttrs}
-            allowedUserTypes={ALLOWED_USER_TYPES}
-            requiredUserRoles={REQUIRED_USER_ROLES}
-          >
-            <div className="relative ml-auto">
-              <EditEntitySheet formData={data} payerPubId={payerPubId} />
-            </div>
-          </RestrictByUserAppAttrsClient>
+          <div className="relative ml-auto">
+            <EditEntitySheet formData={data} payerPubId={payerPubId} />
+          </div>
         </div>
       </CardHeader>
       <ScrollArea className="overflow-y-auto pr-4">
