@@ -36,6 +36,10 @@ export function updatePhysician({ input, pubId, userId }: props) {
         "specialty",
         "credential",
         "isActive",
+        "poNetEntPubId",
+        "faclNetEntPubId",
+        "pracNetEntPubId",
+        "vendorNetEntPubId",
         "histAddedAt",
       ])
       .expression((eb) =>
@@ -59,6 +63,10 @@ export function updatePhysician({ input, pubId, userId }: props) {
             "primaryTaxonomyCode",
             "specialty",
             "credential",
+            "poNetEntPubId",
+            "faclNetEntPubId",
+            "pracNetEntPubId",
+            "vendorNetEntPubId",
             "isActive",
 
             eb.val(now).as("histAddedAt"),
