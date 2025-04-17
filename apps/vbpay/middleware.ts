@@ -5,7 +5,6 @@ import { authenticatedUser } from "./utils/amplify-server-utils";
 
 export async function middleware(request: NextRequest) {
   const user = await authenticatedUser();
-
   const isOnSignInPage = request.nextUrl.pathname.startsWith("/sign-in");
 
   if (isOnSignInPage) {
@@ -30,8 +29,9 @@ export const config = {
      * - api (API routes)
      * - _next/static (static files)
      * - _next/image (image optimization files)
+     * - Any file with an image extension
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!api|_next/static|_next/image|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.gif$|.*\\.webp$|.*\\.svg$|.*\\.ico$|favicon\\.ico|sitemap\\.xml|robots\\.txt).*)",
   ],
 };
