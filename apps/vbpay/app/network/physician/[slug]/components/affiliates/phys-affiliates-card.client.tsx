@@ -43,7 +43,7 @@ export function PhysAffiliatesCardClient({
   const facility = facilities.find((p) => p.value === data.faclNetEntPubId);
   const vendor = vendors.find((p) => p.value === data.vendorNetEntPubId);
   return (
-    <Card className="w-1/4 max-w-1/3 hover:transform hover:scale-105 transition duration-300">
+    <Card className="w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
           <Icons.heartHandshake className="size-6" />
