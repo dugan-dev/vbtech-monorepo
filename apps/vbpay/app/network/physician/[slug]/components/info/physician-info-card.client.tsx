@@ -34,7 +34,7 @@ type props = {
  */
 export function PhysicianInfoCardClient({ data, payerPubId }: props) {
   return (
-    <Card className="w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
+    <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
           <Icons.stethoscope className="size-6" />

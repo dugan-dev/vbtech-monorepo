@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { NetworkEntity, NetworkPayer } from "@/routes";
 
-import { Button } from "@workspace/ui/components/button";
 import {
   Card,
   CardContent,
@@ -42,8 +40,13 @@ export function PhysAffiliatesCardClient({
   const practice = practices.find((p) => p.value === data.pracNetEntPubId);
   const facility = facilities.find((p) => p.value === data.faclNetEntPubId);
   const vendor = vendors.find((p) => p.value === data.vendorNetEntPubId);
+
+  const handlePopOutClick = (url: string) => {
+    window.open(url, "_blank", "width=600px,height=600px,resizable,scrollbars");
+  };
+
   return (
-    <Card className="w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
+    <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
           <Icons.heartHandshake className="size-6" />
@@ -66,18 +69,14 @@ export function PhysAffiliatesCardClient({
             <div className="flex justify-between">
               <span className="text-muted-foreground">Payer:</span>
               <span className="font-medium text-end">
-                <Button
-                  variant="link"
+                <button
+                  className="text-primary underline-offset-4 hover:underline hover:cursor-pointer"
                   onClick={() =>
-                    window.open(
-                      NetworkPayer({ slug: payer!.value }),
-                      "_blank",
-                      "width=80dvw,height=80dvh,resizable,scrollbars",
-                    )
+                    handlePopOutClick(NetworkPayer({ slug: payer!.value }))
                   }
                 >
                   {payer!.label}
-                </Button>
+                </button>
               </span>
             </div>
 
@@ -85,9 +84,14 @@ export function PhysAffiliatesCardClient({
               <span className="text-muted-foreground">Practice:</span>
               <span className="font-medium text-end">
                 {practice ? (
-                  <Link href={NetworkEntity({ slug: practice.value })}>
+                  <button
+                    className="text-primary underline-offset-4 hover:underline hover:cursor-pointer"
+                    onClick={() =>
+                      handlePopOutClick(NetworkEntity({ slug: practice.value }))
+                    }
+                  >
                     {practice.label}
-                  </Link>
+                  </button>
                 ) : (
                   "N/A"
                 )}
@@ -98,9 +102,14 @@ export function PhysAffiliatesCardClient({
               <span className="text-muted-foreground">Provider Org:</span>
               <span className="font-medium text-end">
                 {po ? (
-                  <Link href={NetworkEntity({ slug: po.value })}>
+                  <button
+                    className="text-primary underline-offset-4 hover:underline hover:cursor-pointer"
+                    onClick={() =>
+                      handlePopOutClick(NetworkEntity({ slug: po.value }))
+                    }
+                  >
                     {po.label}
-                  </Link>
+                  </button>
                 ) : (
                   "N/A"
                 )}
@@ -111,9 +120,14 @@ export function PhysAffiliatesCardClient({
               <span className="text-muted-foreground">Facility:</span>
               <span className="font-medium text-end">
                 {facility ? (
-                  <Link href={NetworkEntity({ slug: facility.value })}>
+                  <button
+                    className="text-primary underline-offset-4 hover:underline hover:cursor-pointer"
+                    onClick={() =>
+                      handlePopOutClick(NetworkEntity({ slug: facility.value }))
+                    }
+                  >
                     {facility.label}
-                  </Link>
+                  </button>
                 ) : (
                   "N/A"
                 )}
@@ -124,12 +138,14 @@ export function PhysAffiliatesCardClient({
               <span className="text-muted-foreground">Vendor:</span>
               <span className="font-medium text-end">
                 {vendor ? (
-                  <Link
-                    target="_blank"
-                    href={NetworkEntity({ slug: vendor.value })}
+                  <button
+                    className="text-primary underline-offset-4 hover:underline hover:cursor-pointer"
+                    onClick={() =>
+                      handlePopOutClick(NetworkEntity({ slug: vendor.value }))
+                    }
                   >
                     {vendor.label}
-                  </Link>
+                  </button>
                 ) : (
                   "N/A"
                 )}
