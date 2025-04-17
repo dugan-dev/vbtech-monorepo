@@ -26,7 +26,7 @@ export async function PhysAffiliatesCardServer({ userId, pubId }: props) {
     throw new Error(`No physician found for pubId: ${pubId}`);
   }
 
-  const formData = formatEditPhysAffiliatesFormData(physician!);
+  const formData = formatEditPhysAffiliatesFormData(physician);
 
   const { pos, practices, facilities, vendors } = networkEntitiesToFormCombos({
     entities,
