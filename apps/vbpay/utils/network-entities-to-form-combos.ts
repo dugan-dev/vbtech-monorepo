@@ -10,45 +10,22 @@ type props = {
 };
 
 export function networkEntitiesToFormCombos({ entities }: props) {
-  const pos: ComboItem[] = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "po")
-    .map((entity) => ({
-      value: entity.pubId,
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-    }));
+  const mapEntitiesByType = (type: NetworkEntityType): ComboItem[] => {
+    return entities
+      .filter((entity) => (entity.netEntType as NetworkEntityType) === type)
+      .map((entity) => ({
+        value: entity.pubId,
+        label: formatMarketingAndRefName(
+          entity.marketingName,
+          entity.referenceName,
+        ),
+      }));
+  };
 
-  const practices: ComboItem[] = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "prac")
-    .map((entity) => ({
-      value: entity.pubId,
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-    }));
-
-  const facilities: ComboItem[] = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "facl")
-    .map((entity) => ({
-      value: entity.pubId,
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-    }));
-
-  const vendors: ComboItem[] = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "vendor")
-    .map((entity) => ({
-      value: entity.pubId,
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-    }));
+  const pos = mapEntitiesByType("po");
+  const practices = mapEntitiesByType("prac");
+  const facilities = mapEntitiesByType("facl");
+  const vendors = mapEntitiesByType("vendor");
 
   return {
     pos,
