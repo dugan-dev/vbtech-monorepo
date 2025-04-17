@@ -64,15 +64,13 @@ export async function PayerPyConfigCardServer({
   }
 
   return (
-    <div className="w-1/3">
-      <UserProvider usersAppAttrs={user.usersAppAttrs}>
-        <PayerPyConfigCardClient
-          perfYear={perfYear}
-          data={formData}
-          payerPubId={payerPubId}
-          pubId={payerPyConfig?.pubId}
-        />
-      </UserProvider>
-    </div>
+    <UserProvider usersAppAttrs={user.usersAppAttrs}>
+      <PayerPyConfigCardClient
+        perfYear={perfYear}
+        data={formData}
+        payerPubId={payerPubId}
+        pubId={payerPyConfig?.pubId}
+      />
+    </UserProvider>
   );
 }

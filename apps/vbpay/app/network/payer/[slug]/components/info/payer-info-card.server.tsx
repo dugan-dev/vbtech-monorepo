@@ -52,10 +52,8 @@ export async function PayerInfoCardServer({ userId, payerPubId }: props) {
     }));
 
   return (
-    <div className="w-1/4">
-      <UserProvider usersAppAttrs={user.usersAppAttrs}>
-        <PayerInfoCardClient data={formData} payerTypes={payerTypes} />
-      </UserProvider>
-    </div>
+    <UserProvider usersAppAttrs={user.usersAppAttrs}>
+      <PayerInfoCardClient data={formData} payerTypes={payerTypes} />
+    </UserProvider>
   );
 }

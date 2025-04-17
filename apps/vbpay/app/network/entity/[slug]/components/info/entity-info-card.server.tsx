@@ -34,10 +34,8 @@ export async function EntityInfoCardServer({ userId, entityPubId }: props) {
   const formData = formatEditEntityFormData(entity!);
 
   return (
-    <div className="w-1/4">
-      <UserProvider usersAppAttrs={user.usersAppAttrs}>
-        <EntityInfoCardClient data={formData} payerPubId={entity.payerPubId} />
-      </UserProvider>
-    </div>
+    <UserProvider usersAppAttrs={user.usersAppAttrs}>
+      <EntityInfoCardClient data={formData} payerPubId={entity.payerPubId} />
+    </UserProvider>
   );
 }

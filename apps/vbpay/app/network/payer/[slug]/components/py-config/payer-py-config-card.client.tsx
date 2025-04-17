@@ -15,6 +15,7 @@ import {
 } from "@/types/aco-payment-model";
 import { AcoProgramLabels, AcoProgramType } from "@/types/aco-program";
 import { AcoTypeLabels, AcoTypeType } from "@/types/aco-type";
+import { Icons } from "@/components/icons";
 
 import { PayerPyConfigFormData } from "./payer-py-config-form-schema";
 import { PayerPyConfigSheet } from "./payer-py-config-sheet";
@@ -43,10 +44,11 @@ export function PayerPyConfigCardClient({
   pubId,
 }: props) {
   return (
-    <Card>
+    <Card className="w-1/4 max-w-1/3 hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
-        <div className="flex items-center gap-4">
-          <CardTitle>Performance Year {perfYear}</CardTitle>
+        <div className="flex items-center gap-2">
+          <Icons.calendarCog className="size-6" />
+          <CardTitle className="text-2xl">{`PY ${perfYear}`}</CardTitle>
           <div className="relative ml-auto">
             <PayerPyConfigSheet
               data={data}
@@ -87,7 +89,7 @@ export function PayerPyConfigCardClient({
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">
-                Enable Physician Assignment:
+                Physician Assignment:
               </span>
               <span className="font-medium text-end">
                 {stringToTitleCase(data.physAssignment.isRequired.toString())}

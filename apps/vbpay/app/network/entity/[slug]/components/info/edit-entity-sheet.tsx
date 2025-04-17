@@ -16,6 +16,10 @@ import {
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
 
+import {
+  NetworkEntityType,
+  NetworkEntityTypeLabels,
+} from "@/types/network-entity-type";
 import { Icons } from "@/components/icons";
 
 import { EditEntityForm } from "./edit-entity-form/edit-entity-form";
@@ -60,7 +64,7 @@ export function EditEntitySheet({ formData, payerPubId }: props) {
             </Button>
           </SheetTrigger>
         </TooltipTrigger>
-        <TooltipContent>View Entity Info</TooltipContent>
+        <TooltipContent>{`View ${NetworkEntityTypeLabels[formData.netEntType as NetworkEntityType]} Info`}</TooltipContent>
       </Tooltip>
 
       <SheetContent side="top" className="h-screen w-screen border-none">
