@@ -45,7 +45,7 @@ export const getPayerByPubId = cache(async ({ pubId }: { pubId: string }) => {
  *
  * @returns A promise that resolves to an array of payer objects.
  */
-export function getAllPayers() {
+export const getAllPayers = cache(async () => {
   return db
     .selectFrom("payer")
     .select([
@@ -63,4 +63,4 @@ export function getAllPayers() {
       "isActive",
     ])
     .execute();
-}
+});
