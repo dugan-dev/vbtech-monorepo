@@ -11,9 +11,9 @@ type props = {
   rows?: number;
 };
 
-export function PhysicianInfoCardSkeleton({ rows = 4 }: props) {
+export function PhysAffiliatesCardSkeleton({ rows = 3 }: props) {
   return (
-    <Card className="relative">
+    <Card className="w-1/4">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <Skeleton className="h-5 w-32" />

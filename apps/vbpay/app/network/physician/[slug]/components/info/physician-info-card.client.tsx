@@ -16,6 +16,7 @@ import {
   NetworkPhysicianType,
   NetworkPhysicianTypeLabels,
 } from "@/types/network-physician-type";
+import { Icons } from "@/components/icons";
 
 import { EditPhysicianFormData } from "./edit-physician-form/edit-physician-form-schema";
 import { EditPhysicianSheet } from "./edit-physician-sheet";
@@ -33,10 +34,11 @@ type props = {
  */
 export function PhysicianInfoCardClient({ data, payerPubId }: props) {
   return (
-    <Card>
+    <Card className="w-1/4 max-w-1/3 hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
-        <div className="flex items-center gap-4">
-          <CardTitle>Physician Information</CardTitle>
+        <div className="flex items-center gap-2">
+          <Icons.stethoscope className="size-6" />
+          <CardTitle className="text-2xl">{`${data.firstName} ${data.lastName}`}</CardTitle>
           <div className="relative ml-auto">
             <EditPhysicianSheet formData={data} payerPubId={payerPubId} />
           </div>
@@ -46,22 +48,8 @@ export function PhysicianInfoCardClient({ data, payerPubId }: props) {
         <CardContent>
           <div className="space-y-1 text-sm">
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Name:</span>
-              <span className="font-medium text-end">
-                {`${data.firstName} ${data.lastName}`}
-              </span>
-            </div>
-
-            <div className="flex justify-between">
               <span className="text-muted-foreground">Individual NPI:</span>
               <span className="font-medium text-end">{data.npi}</span>
-            </div>
-
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Type:</span>
-              <span className="font-medium text-end">
-                {NetworkPhysicianTypeLabels[data.type as NetworkPhysicianType]}
-              </span>
             </div>
 
             <div className="flex justify-between">
@@ -72,6 +60,20 @@ export function PhysicianInfoCardClient({ data, payerPubId }: props) {
                     data.class as NetworkPhysicianClassType
                   ]
                 }
+              </span>
+            </div>
+
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Type:</span>
+              <span className="font-medium text-end">
+                {NetworkPhysicianTypeLabels[data.type as NetworkPhysicianType]}
+              </span>
+            </div>
+
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Credential:</span>
+              <span className="font-medium text-end">
+                {data.credential || "—"}
               </span>
             </div>
           </div>
