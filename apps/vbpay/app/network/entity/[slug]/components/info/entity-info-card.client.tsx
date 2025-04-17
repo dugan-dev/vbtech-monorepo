@@ -7,11 +7,13 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import { formatTaxId } from "@workspace/ui/lib/formatTaxId";
 
 import {
   NetworkEntityType,
   NetworkEntityTypeLabels,
 } from "@/types/network-entity-type";
+import { NetworkEntityIcon } from "@/components/network-entity-icon";
 
 import { EditEntityFormData } from "./edit-entity-form/edit-entity-form-schema";
 import { EditEntitySheet } from "./edit-entity-sheet";
@@ -31,12 +33,16 @@ type props = {
  */
 export function EntityInfoCardClient({ data, payerPubId }: props) {
   return (
-    <Card>
+    <Card className="min-w-[450px] w-1/3 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
-        <div className="flex items-center gap-4">
-          <CardTitle>
-            {NetworkEntityTypeLabels[data.netEntType as NetworkEntityType]}{" "}
-            Information
+        <div className="flex items-center gap-2">
+          <NetworkEntityIcon
+            netEntType={data.netEntType as NetworkEntityType}
+          />
+          <CardTitle className="text-2xl">
+            {data.referenceName
+              ? `${data.marketingName} (${data.referenceName})`
+              : data.marketingName}
           </CardTitle>
           <div className="relative ml-auto">
             <EditEntitySheet formData={data} payerPubId={payerPubId} />
@@ -47,11 +53,9 @@ export function EntityInfoCardClient({ data, payerPubId }: props) {
         <CardContent>
           <div className="space-y-1 text-sm">
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Name:</span>
+              <span className="text-muted-foreground">Type:</span>
               <span className="font-medium text-end">
-                {data.referenceName
-                  ? `${data.marketingName} (${data.referenceName})`
-                  : data.marketingName}
+                {NetworkEntityTypeLabels[data.netEntType as NetworkEntityType]}
               </span>
             </div>
 
@@ -61,10 +65,11 @@ export function EntityInfoCardClient({ data, payerPubId }: props) {
                 {data.orgNpi ? data.orgNpi : "—"}
               </span>
             </div>
+
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Type:</span>
+              <span className="text-muted-foreground">Tax ID:</span>
               <span className="font-medium text-end">
-                {NetworkEntityTypeLabels[data.netEntType as NetworkEntityType]}
+                {data.taxId ? formatTaxId(data.taxId) : "—"}
               </span>
             </div>
           </div>

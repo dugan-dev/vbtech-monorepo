@@ -19,8 +19,8 @@ type props = {
   physicians: NetworkPhysician[];
   usersAppAttrs: UserAppAttrs;
   pos: ComboItem[];
-  pratices: ComboItem[];
-  facilitites: ComboItem[];
+  practices: ComboItem[];
+  facilities: ComboItem[];
   vendors: ComboItem[];
 };
 
@@ -37,16 +37,16 @@ const REQUIRED_USER_ROLES: UserRole[] = ["add"];
  * @param physicians - Array of network physician records to display.
  * @param usersAppAttrs - User attributes that determine access and influence displayed messages.
  * @param pos - List of combo items for positions used in the add physician form.
- * @param pratices - List of combo items for practices used in the add physician form.
- * @param facilitites - List of combo items for facilities used in the add physician form.
+ * @param practices - List of combo items for practices used in the add physician form.
+ * @param facilities - List of combo items for facilities used in the add physician form.
  * @param vendors - List of combo items for vendors used in the add physician form.
  */
 export function ManageNetworkPhysiciansTable({
   physicians,
   usersAppAttrs,
   pos,
-  pratices,
-  facilitites,
+  practices,
+  facilities,
   vendors,
 }: props) {
   if (physicians.length === 0) {
@@ -67,8 +67,8 @@ export function ManageNetworkPhysiciansTable({
         >
           <AddNetworkPhysicianProvider
             pos={pos}
-            pratices={pratices}
-            facilitites={facilitites}
+            practices={practices}
+            facilities={facilities}
             vendors={vendors}
           >
             <AddNetworkPhysicianSheet />
@@ -99,8 +99,8 @@ export function ManageNetworkPhysiciansTable({
         >
           <AddNetworkPhysicianProvider
             pos={pos}
-            pratices={pratices}
-            facilitites={facilitites}
+            practices={practices}
+            facilities={facilities}
             vendors={vendors}
           >
             <AddNetworkPhysicianSheet />

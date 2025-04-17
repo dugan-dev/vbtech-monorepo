@@ -9,6 +9,8 @@ import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
+import { PhysAffiliatesCardServer } from "./components/affiliates/phys-affiliates-card.server";
+import { PhysAffiliatesCardSkeleton } from "./components/affiliates/phys-affiliates-skeleton";
 import { PhysicianInfoCardSkeleton } from "./components/info/physician-info-card-skeleton";
 import { PhysicianInfoCardServer } from "./components/info/physician-info-card.server";
 
@@ -35,9 +37,20 @@ export default async function Page({
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <Suspense fallback={<PhysicianInfoCardSkeleton />}>
-        <PhysicianInfoCardServer userId={user.userId} pubId={slug as string} />
-      </Suspense>
+      <div className="flex flex-col space-y-4">
+        <Suspense fallback={<PhysicianInfoCardSkeleton />}>
+          <PhysicianInfoCardServer
+            userId={user.userId}
+            pubId={slug as string}
+          />
+        </Suspense>
+        <Suspense fallback={<PhysAffiliatesCardSkeleton />}>
+          <PhysAffiliatesCardServer
+            userId={user.userId}
+            pubId={slug as string}
+          />
+        </Suspense>
+      </div>
     </RestrictByUserAppAttrsServer>
   );
 }

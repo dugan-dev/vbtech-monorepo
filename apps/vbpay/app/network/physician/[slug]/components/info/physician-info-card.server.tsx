@@ -34,13 +34,11 @@ export async function PhysicianInfoCardServer({ userId, pubId }: props) {
   const formData = formatEditPhysicianFormData(physician!);
 
   return (
-    <div className="w-1/4">
-      <UserProvider usersAppAttrs={user.usersAppAttrs}>
-        <PhysicianInfoCardClient
-          data={formData}
-          payerPubId={physician.payerPubId}
-        />
-      </UserProvider>
-    </div>
+    <UserProvider usersAppAttrs={user.usersAppAttrs}>
+      <PhysicianInfoCardClient
+        data={formData}
+        payerPubId={physician.payerPubId}
+      />
+    </UserProvider>
   );
 }

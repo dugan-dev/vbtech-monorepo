@@ -17,9 +17,14 @@ import { Skeleton } from "@workspace/ui/components/skeleton";
  *
  * @returns A JSX element representing the skeleton loading card.
  */
-export function PayerPyConfigCardSkeleton() {
+
+type props = {
+  rows?: number;
+};
+
+export function PayerPyConfigCardSkeleton({ rows = 4 }: props) {
   return (
-    <Card className="relative">
+    <Card className="w-1/4">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <Skeleton className="h-5 w-32" />
@@ -29,18 +34,12 @@ export function PayerPyConfigCardSkeleton() {
       <ScrollArea className="overflow-y-auto pr-4">
         <CardContent className="pb-2">
           <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <Skeleton className="h-4 w-20" />
-              <Skeleton className="h-4 w-24" />
-            </div>
-            <div className="flex justify-between items-center">
-              <Skeleton className="h-4 w-16" />
-              <Skeleton className="h-4 w-28" />
-            </div>
-            <div className="flex justify-between items-center">
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-4 w-32" />
-            </div>
+            {Array.from({ length: rows }, (_, index) => (
+              <div key={index} className="flex justify-between items-center">
+                <Skeleton className="h-4 w-20" />
+                <Skeleton className="h-4 w-24" />
+              </div>
+            ))}
           </div>
         </CardContent>
         <CardFooter>

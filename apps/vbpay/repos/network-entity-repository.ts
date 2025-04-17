@@ -4,7 +4,7 @@ import { db } from "@workspace/db/database";
 
 import "server-only";
 
-export function getAllNetworkEntities() {
+export const getAllNetworkEntities = cache(async () => {
   return db
     .selectFrom("networkEntity")
     .select([
@@ -20,7 +20,7 @@ export function getAllNetworkEntities() {
     ])
     .orderBy("marketingName", "asc")
     .execute();
-}
+});
 
 export const getNetworkEntity = cache(async (pubId: string) => {
   return db

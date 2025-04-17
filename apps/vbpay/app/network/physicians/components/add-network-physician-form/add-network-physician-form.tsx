@@ -1,7 +1,5 @@
 "use client";
 
-import { AlertCircle, Building2, Users } from "lucide-react";
-
 import { Alert, AlertDescription } from "@workspace/ui/components/alert";
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -52,8 +50,8 @@ export function AddNetworkPhysicianForm() {
     nextStep,
     prevStep,
     pos,
-    pratices,
-    facilitites,
+    practices,
+    facilities,
     vendors,
   } = useAddNetworkPhysicianContext();
   const watchSoleProprietor = form.watch("physInfo.soleProprietor") as
@@ -193,7 +191,7 @@ export function AddNetworkPhysicianForm() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Users className="h-5 w-5" />
+                      <Icons.users className="h-5 w-5" />
                       Organization Affiliations
                     </CardTitle>
                     <CardDescription>
@@ -213,7 +211,7 @@ export function AddNetworkPhysicianForm() {
                         control={form.control}
                         name="affInfo.pracNetEntPubId"
                         label="Affiliate Practice"
-                        comboItems={pratices}
+                        comboItems={practices}
                       />
                     </div>
                   </CardContent>
@@ -222,7 +220,7 @@ export function AddNetworkPhysicianForm() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Building2 className="h-5 w-5" />
+                      <Icons.building2 className="h-5 w-5" />
                       Facility & Vendor Relations
                     </CardTitle>
                     <CardDescription>
@@ -235,7 +233,7 @@ export function AddNetworkPhysicianForm() {
                         control={form.control}
                         name="affInfo.faclNetEntPubId"
                         label="Affiliate Facility"
-                        comboItems={facilitites}
+                        comboItems={facilities}
                       />
                       <FormCombo
                         control={form.control}
@@ -250,7 +248,7 @@ export function AddNetworkPhysicianForm() {
 
               <Alert className="bg-card flex flex-col gap-6">
                 <div className="flex items-center gap-2">
-                  <AlertCircle className="h-4 w-4" />
+                  <Icons.alertCircle className="h-4 w-4" />
                   <AlertDescription>
                     If this physician has no affiliations, check the box below.
                   </AlertDescription>

@@ -2,15 +2,15 @@ import "server-only";
 
 import { db } from "@workspace/db/database";
 
-import { EditPhysicianFormOutput } from "../components/info/edit-physician-form/edit-physician-form-schema";
+import { EditPhysAffiliatesFormOutput } from "../components/affiliates/edit-affiliates-form/edit-phys-affiliates-schema";
 
 type props = {
-  input: EditPhysicianFormOutput;
+  input: EditPhysAffiliatesFormOutput;
   pubId: string;
   userId: string;
 };
 
-export function updatePhysician({ input, pubId, userId }: props) {
+export function updatePhysAffiliates({ input, pubId, userId }: props) {
   return db.transaction().execute(async (trx) => {
     const now = new Date();
 
@@ -35,11 +35,11 @@ export function updatePhysician({ input, pubId, userId }: props) {
         "primaryTaxonomyCode",
         "specialty",
         "credential",
-        "isActive",
         "poNetEntPubId",
         "faclNetEntPubId",
         "pracNetEntPubId",
         "vendorNetEntPubId",
+        "isActive",
         "histAddedAt",
       ])
       .expression((eb) =>
@@ -81,17 +81,13 @@ export function updatePhysician({ input, pubId, userId }: props) {
         pubId,
         updatedBy: userId,
         updatedAt: now,
-        taxId: input.taxId,
-        npi: input.npi,
-        orgNpi: input.orgNpi,
-        firstName: input.firstName,
-        lastName: input.lastName,
-        type: input.type,
-        class: input.class,
-        soleProprietor: input.soleProprietor === "yes" ? 1 : 0,
-        primaryTaxonomyCode: input.primaryTaxonomyCode,
-        specialty: input.specialty,
-        credential: input.credential,
+        poNetEntPubId: input.noAffiliates === true ? null : input.poNetEntPubId,
+        faclNetEntPubId:
+          input.noAffiliates === true ? null : input.faclNetEntPubId,
+        pracNetEntPubId:
+          input.noAffiliates === true ? null : input.pracNetEntPubId,
+        vendorNetEntPubId:
+          input.noAffiliates === true ? null : input.vendorNetEntPubId,
       })
       .execute();
   });

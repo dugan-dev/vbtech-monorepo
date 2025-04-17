@@ -56,7 +56,7 @@ export default async function Page({
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <div className="flex gap-4">
+      <div className="flex-1 flex flex-col space-y-4">
         <Suspense fallback={<PayerInfoCardSkeleton />}>
           <PayerInfoCardServer userId={user.userId} payerPubId={slug} />
         </Suspense>

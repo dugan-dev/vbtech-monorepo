@@ -15,30 +15,30 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
+import { ComboItem } from "@workspace/ui/types/combo-item";
 
-import {
-  NetworkEntityType,
-  NetworkEntityTypeLabels,
-} from "@/types/network-entity-type";
 import { Icons } from "@/components/icons";
 
-import { EditEntityForm } from "./edit-entity-form/edit-entity-form";
-import { EditEntityFormData } from "./edit-entity-form/edit-entity-form-schema";
+import { EditPhysAffiliatesForm } from "./edit-affiliates-form/edit-phys-affiliates-form";
+import { EditPhysAffiliatesFormData } from "./edit-affiliates-form/edit-phys-affiliates-schema";
 
 type props = {
-  formData: EditEntityFormData;
+  formData: EditPhysAffiliatesFormData;
   payerPubId: string;
+  pos: ComboItem[];
+  practices: ComboItem[];
+  facilities: ComboItem[];
+  vendors: ComboItem[];
 };
 
-/**
- * Displays a slide-over sheet for viewing and editing a network entity's information.
- *
- * Opens a full-screen sheet from the top, allowing users to view entity details by default and switch to editing mode. The sheet resets to view mode each time it is closed.
- *
- * @param formData - The entity data to display and edit.
- * @param payerPubId - The public identifier associated with the entity.
- */
-export function EditEntitySheet({ formData, payerPubId }: props) {
+export function EditPhysAffiliatesSheet({
+  formData,
+  payerPubId,
+  pos,
+  practices,
+  facilities,
+  vendors,
+}: props) {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -64,7 +64,7 @@ export function EditEntitySheet({ formData, payerPubId }: props) {
             </Button>
           </SheetTrigger>
         </TooltipTrigger>
-        <TooltipContent>{`View ${NetworkEntityTypeLabels[formData.netEntType as NetworkEntityType]} Info`}</TooltipContent>
+        <TooltipContent>View Affiliates</TooltipContent>
       </Tooltip>
 
       <SheetContent side="top" className="h-screen w-screen border-none">
@@ -72,15 +72,19 @@ export function EditEntitySheet({ formData, payerPubId }: props) {
           <div className="flex-1 overflow-auto">
             <SheetHeader className="px-6 py-4 border-b flex flex-col bg-muted/30">
               <SheetTitle className="w-full text-center text-3xl bg-muted/30">
-                {isEditing ? "Edit" : "View"} Network Entity
+                {isEditing ? "Edit Physician" : "View Physician"}
               </SheetTitle>
             </SheetHeader>
-            <EditEntityForm
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
+            <EditPhysAffiliatesForm
               onSuccess={handleSuccess}
               formData={formData}
               payerPubId={payerPubId}
+              setIsEditing={setIsEditing}
+              isEditing={isEditing}
+              pos={pos}
+              practices={practices}
+              facilities={facilities}
+              vendors={vendors}
             />
           </div>
         </div>

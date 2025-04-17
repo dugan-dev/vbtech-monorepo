@@ -7,7 +7,11 @@ import {
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
-export function PhysicianInfoCardSkeleton() {
+type props = {
+  rows?: number;
+};
+
+export function PhysicianInfoCardSkeleton({ rows = 4 }: props) {
   return (
     <Card className="relative">
       <CardHeader className="pb-2">
@@ -19,18 +23,12 @@ export function PhysicianInfoCardSkeleton() {
       <ScrollArea className="overflow-y-auto pr-4">
         <CardContent className="pb-2">
           <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <Skeleton className="h-4 w-20" />
-              <Skeleton className="h-4 w-24" />
-            </div>
-            <div className="flex justify-between items-center">
-              <Skeleton className="h-4 w-16" />
-              <Skeleton className="h-4 w-28" />
-            </div>
-            <div className="flex justify-between items-center">
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-4 w-32" />
-            </div>
+            {Array.from({ length: rows }, (_, index) => (
+              <div key={index} className="flex justify-between items-center">
+                <Skeleton className="h-4 w-20" />
+                <Skeleton className="h-4 w-24" />
+              </div>
+            ))}
           </div>
         </CardContent>
         <CardFooter>

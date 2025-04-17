@@ -1,12 +1,10 @@
 import { Suspense } from "react";
 import { getAllPayers } from "@/repos/payer-repository";
 import { getUsersData } from "@/repos/user-repository";
-import { formatMarketingAndRefName } from "@/utils/format-marketing-name-and-ref-name";
+import { networkEntitiesToFormCombos } from "@/utils/network-entities-to-form-combos";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
-import { ComboItem } from "@workspace/ui/types/combo-item";
 
-import { NetworkEntityType } from "@/types/network-entity-type";
 import { MissingInvalidView } from "@/components/missing-invalid-view";
 
 import { getNetworkEntitiesForAffiliation } from "../repos/get-network-entities-for-affiliation";
@@ -59,45 +57,9 @@ export async function ManageNetworkPhysicians({
     }),
   ]);
 
-  const pos: ComboItem[] = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "po")
-    .map((entity) => ({
-      value: entity.pubId,
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-    }));
-
-  const pratices: ComboItem[] = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "prac")
-    .map((entity) => ({
-      value: entity.pubId,
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-    }));
-
-  const facilitites: ComboItem[] = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "facl")
-    .map((entity) => ({
-      value: entity.pubId,
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-    }));
-
-  const vendors: ComboItem[] = entities
-    .filter((entity) => (entity.netEntType as NetworkEntityType) === "vendor")
-    .map((entity) => ({
-      value: entity.pubId,
-      label: formatMarketingAndRefName(
-        entity.marketingName,
-        entity.referenceName,
-      ),
-    }));
+  const { pos, practices, facilities, vendors } = networkEntitiesToFormCombos({
+    entities,
+  });
 
   return (
     <div className="mb-4 flex flex-1 flex-col gap-4">
@@ -106,8 +68,8 @@ export async function ManageNetworkPhysicians({
           physicians={physicians}
           usersAppAttrs={usersAppAttrs}
           pos={pos}
-          pratices={pratices}
-          facilitites={facilitites}
+          practices={practices}
+          facilities={facilities}
           vendors={vendors}
         />
       </Suspense>
