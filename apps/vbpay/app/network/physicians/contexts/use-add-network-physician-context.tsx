@@ -75,8 +75,8 @@ type AddNetworkPhysicianContextType = {
 
   // Reference Data
   pos: ComboItem[];
-  pratices: ComboItem[];
-  facilitites: ComboItem[];
+  practices: ComboItem[];
+  facilities: ComboItem[];
   vendors: ComboItem[];
 
   // NPPES Search
@@ -99,16 +99,16 @@ const AddNetworkPhysicianContext =
 type props = {
   children: React.ReactNode;
   pos: ComboItem[];
-  pratices: ComboItem[];
-  facilitites: ComboItem[];
+  practices: ComboItem[];
+  facilities: ComboItem[];
   vendors: ComboItem[];
 };
 
 export function AddNetworkPhysicianProvider({
   children,
   pos,
-  pratices,
-  facilitites,
+  practices,
+  facilities,
   vendors,
 }: props) {
   "use no memo";
@@ -408,8 +408,8 @@ export function AddNetworkPhysicianProvider({
     closeErrorDialog,
     isAddNetworkPhysicianFormSubmitting: isInsertNetworkPhysicianPending,
     pos,
-    pratices,
-    facilitites,
+    practices,
+    facilities,
     vendors,
     setNppesSearchSelection,
     sheetOpen,
