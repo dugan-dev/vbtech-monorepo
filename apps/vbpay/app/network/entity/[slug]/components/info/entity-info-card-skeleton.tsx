@@ -6,6 +6,11 @@ import {
 } from "@workspace/ui/components/card";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
+/**
+ * Displays a skeleton placeholder card for entity information while content is loading.
+ *
+ * The card includes skeleton elements for an avatar, title, action icon, and three labeled fields: Type, Org NPI, and Tax ID.
+ */
 export function EntityInfoCardSkeleton() {
   return (
     <Card className="min-w-[450px] w-1/3 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">

@@ -16,6 +16,13 @@ type props = {
   userId: string;
 };
 
+/**
+ * Asynchronously fetches and prepares user management data, then renders the user management table UI.
+ *
+ * Retrieves network entities, payers, physicians, users, user-specific attributes, and the last user synchronization timestamp. The data is filtered and formatted for display and passed to the {@link UserManagementTable} component.
+ *
+ * @param userId - The public ID of the user whose data and attributes are to be displayed.
+ */
 export async function UserManagement({ userId }: props) {
   // Get all the data we need
   const [entities, payers, physicians, users, { usersAppAttrs }, lastUserSync] =

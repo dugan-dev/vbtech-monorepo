@@ -13,6 +13,16 @@ type props = {
   userId: string;
 };
 
+/**
+ * Renders the Manage Network Physicians view, displaying a table of network physicians and related entities for a selected payer.
+ *
+ * If the payer ID is missing or invalid, displays an appropriate error view instead of the table.
+ *
+ * @param payerIdUrlParam - Optional payer ID from the URL to select the payer context.
+ * @param userId - The user ID used to fetch user-specific application attributes.
+ *
+ * @returns A React element displaying the network physicians table or an error view if the payer ID is missing or invalid.
+ */
 export async function ManageNetworkPhysicians({
   payerIdUrlParam,
   userId,

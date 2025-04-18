@@ -13,6 +13,15 @@ type props = {
   userId: string;
 };
 
+/**
+ * Displays a table of network entities for a selected payer and user.
+ *
+ * If the payer ID is missing or invalid, renders an error view instead of the table.
+ *
+ * @param payerIdUrlParam - Optional payer ID from the URL.
+ * @param userId - The unique identifier for the user whose network entities are being managed.
+ * @returns A React component displaying the network entities table or an error view if the payer ID is missing or invalid.
+ */
 export async function ManageNetworkEntities({
   payerIdUrlParam,
   userId,
