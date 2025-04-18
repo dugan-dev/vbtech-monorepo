@@ -1,3 +1,4 @@
+
 "use server";
 
 import "server-only";
@@ -21,6 +22,17 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 const REQUIRED_USER_ROLE: UserRole = "edit";
 
+/**
+ * Server action to insert a payer processing account record.
+ * Associates a processing account with a payer in the database.
+ *
+ * This action validates user permissions to ensure the user has the required
+ * "edit" role for the specified payer before performing the insertion.
+ * If a revalidation path is provided, it will trigger page revalidation
+ * to refresh the UI.
+ *
+ * @throws {Error} When the user doesn't have permission to edit the payer
+ */
 export const insertPayerProcessingAccountAction = authedActionClient
   .metadata({
     actionName: "insertPayerProcessingAccountAction",

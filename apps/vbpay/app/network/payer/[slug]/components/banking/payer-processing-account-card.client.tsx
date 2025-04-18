@@ -55,6 +55,18 @@ type props = {
   processingAccounts: PayloadProcessingAccount[];
 };
 
+
+/**
+ * A client component that renders a list of payer processing accounts.
+ *
+ * @param props - Component properties
+ * @param props.payloadClientToken - The payload client token used to open the processing account form
+ * @param props.payerPubId - The public ID of the payer for associating new processing accounts
+ * @param props.processingAccounts - Array of existing processing accounts to display
+ * @returns A React element showing cards with processing account details and actions
+ */
+
+
 export function PayerProcessingAccountCardClient({
   payloadClientToken,
   payerPubId,
