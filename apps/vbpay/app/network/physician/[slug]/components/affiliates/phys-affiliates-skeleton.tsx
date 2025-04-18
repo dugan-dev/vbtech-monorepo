@@ -1,40 +1,53 @@
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
+  CardTitle,
 } from "@workspace/ui/components/card";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
-type props = {
-  rows?: number;
-};
+import { Icons } from "@/components/icons";
 
-export function PhysAffiliatesCardSkeleton({ rows = 3 }: props) {
+export function PhysAffiliatesCardSkeleton() {
   return (
-    <Card className="w-1/4">
-      <CardHeader className="pb-2">
-        <div className="flex items-center justify-between">
-          <Skeleton className="h-5 w-32" />
-          <Skeleton className="h-8 w-8 rounded-full" />
+    <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
+      <CardHeader>
+        <div className="flex items-center gap-2">
+          <Icons.heartHandshake className="size-6" />
+          <CardTitle className="text-2xl">Affiliates</CardTitle>
+          <div className="relative ml-auto">
+            <Skeleton className="h-9 w-10 rounded-md" />
+          </div>
         </div>
       </CardHeader>
-      <ScrollArea className="overflow-y-auto pr-4">
-        <CardContent className="pb-2">
-          <div className="space-y-3">
-            {Array.from({ length: rows }, (_, index) => (
-              <div key={index} className="flex justify-between items-center">
-                <Skeleton className="h-4 w-20" />
-                <Skeleton className="h-4 w-24" />
-              </div>
-            ))}
+      <CardContent>
+        <div className="space-y-1 text-sm">
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Payer:</span>
+            <Skeleton className="h-5 w-24" />
           </div>
-        </CardContent>
-        <CardFooter>
-          <Skeleton className="h-9 w-full" />
-        </CardFooter>
-      </ScrollArea>
+
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Practice:</span>
+            <Skeleton className="h-5 w-40" />
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Provider Org:</span>
+            <Skeleton className="h-5 w-24" />
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Facility:</span>
+            <Skeleton className="h-5 w-24" />
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Vendor:</span>
+            <Skeleton className="h-5 w-24" />
+          </div>
+        </div>
+      </CardContent>
     </Card>
   );
 }
