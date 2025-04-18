@@ -29,6 +29,10 @@ export async function PayerProcessingAccountCardServer({
     throw new Error(`Payer with pubId ${payerPubId} not found.`);
   }
 
+  if (!payloadClientToken) {
+    throw new Error("Failed to load payload client token.");
+  }
+
   return (
     <UserProvider usersAppAttrs={user.usersAppAttrs}>
       <PayerProcessingAccountCardClient
