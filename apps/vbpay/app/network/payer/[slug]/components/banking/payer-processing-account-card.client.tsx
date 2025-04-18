@@ -161,41 +161,47 @@ export function PayerProcessingAccountCardClient({
             </div>
           ) : (
             <div className="space-y-1 text-sm">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-1/3">Name</TableHead>
-                    <TableHead className="w-1/3">Status</TableHead>
-                    <TableHead className="text-end w-1/3">Details</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {processingAccounts.map((processingAccount) => (
-                    <TableRow key={processingAccount.id}>
-                      <TableCell>{processingAccount.name}</TableCell>
-                      <TableCell>
-                        <Badge
-                          className={getProcessingAccountStatusColor(
-                            processingAccount.status as PayloadProcessingAccountStatusType,
-                          )}
-                          variant="outline"
-                        >
-                          {
-                            PayloadProcessingAccountStatusLabels[
-                              processingAccount.status as PayloadProcessingAccountStatusType
-                            ]
-                          }
-                        </Badge>{" "}
-                      </TableCell>
-                      <TableCell className="text-end">
-                        <PayerProcessingAccountDetailsDialog
-                          account={processingAccount}
-                        />
-                      </TableCell>
+              {processingAccounts.length === 0 ? (
+                <p className="text-center py-4 text-muted-foreground">
+                  No Bank Accounts Found
+                </p>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-1/3">Name</TableHead>
+                      <TableHead className="w-1/3">Status</TableHead>
+                      <TableHead className="text-end w-1/3">Details</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {processingAccounts.map((processingAccount) => (
+                      <TableRow key={processingAccount.id}>
+                        <TableCell>{processingAccount.name}</TableCell>
+                        <TableCell>
+                          <Badge
+                            className={getProcessingAccountStatusColor(
+                              processingAccount.status as PayloadProcessingAccountStatusType,
+                            )}
+                            variant="outline"
+                          >
+                            {
+                              PayloadProcessingAccountStatusLabels[
+                                processingAccount.status as PayloadProcessingAccountStatusType
+                              ]
+                            }
+                          </Badge>{" "}
+                        </TableCell>
+                        <TableCell className="text-end">
+                          <PayerProcessingAccountDetailsDialog
+                            account={processingAccount}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
             </div>
           )}
         </CardContent>
