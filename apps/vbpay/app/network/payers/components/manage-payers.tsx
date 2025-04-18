@@ -1,10 +1,8 @@
 import "server-only";
 
-import { Suspense } from "react";
 import { getVBPayGlobalSettings } from "@/repos/global-settings-repository";
 import { getUsersData } from "@/repos/user-repository";
 
-import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 
 import { PayerType, PayerTypeLabels } from "@/types/payer-type";
@@ -69,13 +67,11 @@ export async function ManagePayers({ userId }: props) {
 
   return (
     <div className="mb-4 flex flex-1 flex-col gap-4">
-      <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
-        <ManagePayersTable
-          payers={payers}
-          usersAppAttrs={usersAppAttrs}
-          payerTypes={payerTypes}
-        />
-      </Suspense>
+      <ManagePayersTable
+        payers={payers}
+        usersAppAttrs={usersAppAttrs}
+        payerTypes={payerTypes}
+      />
     </div>
   );
 }

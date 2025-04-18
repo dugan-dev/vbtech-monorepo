@@ -2,10 +2,13 @@ import { ManageNetworkPhysicians } from "./components/manage-network-physicians"
 
 import "server-only";
 
+import { Suspense } from "react";
 import { unauthorized } from "next/navigation";
 import { NetworkPhysicians } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -44,10 +47,12 @@ export default async function Page({
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <ManageNetworkPhysicians
-        payerIdUrlParam={pId as string}
-        userId={user.userId}
-      />
+      <Suspense fallback={<DataTableSkeleton columnCount={9} />}>
+        <ManageNetworkPhysicians
+          payerIdUrlParam={pId as string}
+          userId={user.userId}
+        />
+      </Suspense>
     </RestrictByUserAppAttrsServer>
   );
 }

@@ -1,9 +1,6 @@
-import { Suspense } from "react";
 import { getAllPayers } from "@/repos/payer-repository";
 import { getUsersData } from "@/repos/user-repository";
 import { networkEntitiesToFormCombos } from "@/utils/network-entities-to-form-combos";
-
-import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 
 import { MissingInvalidView } from "@/components/missing-invalid-view";
 
@@ -63,16 +60,14 @@ export async function ManageNetworkPhysicians({
 
   return (
     <div className="mb-4 flex flex-1 flex-col gap-4">
-      <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
-        <ManageNetworkPhysiciansTable
-          physicians={physicians}
-          usersAppAttrs={usersAppAttrs}
-          pos={pos}
-          practices={practices}
-          facilities={facilities}
-          vendors={vendors}
-        />
-      </Suspense>
+      <ManageNetworkPhysiciansTable
+        physicians={physicians}
+        usersAppAttrs={usersAppAttrs}
+        pos={pos}
+        practices={practices}
+        facilities={facilities}
+        vendors={vendors}
+      />
     </div>
   );
 }
