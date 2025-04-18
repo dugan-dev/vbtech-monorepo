@@ -1,49 +1,68 @@
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
+  CardTitle,
 } from "@workspace/ui/components/card";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { Skeleton } from "@workspace/ui/components/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@workspace/ui/components/table";
 
-type props = {
-  rows?: number;
-};
+import { Icons } from "@/components/icons";
 
 /**
- * A skeleton loading component for the payer processing account card.
- * Displays placeholder elements while the actual data is being loaded.
+ * Displays a card with a table-based skeleton UI as a loading placeholder for bank account information.
  *
- * @param props - Component properties
- * @param props.rows - Number of placeholder rows to display (defaults to 3)
- * @returns A React element representing the skeleton loading UI
+ * Renders a fixed three-row table with skeleton elements to simulate the loading state of bank account data, including name, status, and details columns.
  */
-
-export function PayerProcessingAccountCardSkeleton({ rows = 3 }: props) {
+export function PayerProcessingAccountCardSkeleton() {
   return (
-    <Card className="w-1/4">
-      <CardHeader className="pb-2">
-        <div className="flex items-center justify-between">
-          <Skeleton className="h-5 w-32" />
-          <Skeleton className="h-8 w-8 rounded-full" />
+    <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
+      <CardHeader>
+        <div className="flex items-center gap-2">
+          <Icons.landmark className="size-6" />
+          <CardTitle className="text-2xl">Bank Accounts</CardTitle>
+          <div className="relative ml-auto">
+            <Skeleton className="h-9 w-9 rounded-md" />
+          </div>
         </div>
       </CardHeader>
-      <ScrollArea className="overflow-y-auto pr-4">
-        <CardContent className="pb-2">
-          <div className="space-y-3">
-            {Array.from({ length: rows }, (_, index) => (
-              <div key={index} className="flex justify-between items-center">
-                <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-4 w-32" />
-              </div>
-            ))}
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Skeleton className="h-9 w-full" />
-        </CardFooter>
-      </ScrollArea>
+      <CardContent>
+        <div className="space-y-1 text-sm">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-1/3">Name</TableHead>
+                <TableHead className="w-1/3">Status</TableHead>
+                <TableHead className="text-end w-1/3">Details</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Array.from({ length: 3 }).map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Skeleton className="h-5 w-20" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className="h-6 w-16" />
+                  </TableCell>
+                  <TableCell className="text-end">
+                    <div className="flex justify-end">
+                      <Skeleton className="h-8 w-8" />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </CardContent>
     </Card>
   );
 }

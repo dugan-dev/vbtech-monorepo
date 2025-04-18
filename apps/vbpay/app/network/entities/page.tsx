@@ -2,10 +2,13 @@ import { ManageNetworkEntities } from "./components/manage-network-entities";
 
 import "server-only";
 
+import { Suspense } from "react";
 import { unauthorized } from "next/navigation";
 import { NetworkEntities } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -13,15 +16,12 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the server-side page for managing network entities with access restrictions.
+ * Displays the network entity management page with authentication, rate limiting, and user-type restrictions.
  *
- * This component retrieves URL search parameters and the authenticated user concurrently.
- * It enforces a rate limit based on the network entities route before verifying authentication.
- * If the user is not authenticated, an unauthorized response is returned.
- * Otherwise, it renders a restricted view that wraps the network management interface within a user attribute restriction.
+ * Retrieves URL search parameters and the authenticated user concurrently, enforces rate limiting, and restricts access to allowed user types. If the user is not authenticated, returns an unauthorized response; otherwise, renders the management interface with a loading fallback.
  *
- * @param searchParams - A promise resolving to an object containing URL search parameters.
- * @returns A JSX element representing the restricted network management page, or an unauthorized response.
+ * @param searchParams - Promise resolving to the URL search parameters.
+ * @returns The restricted network management page as a JSX element, or an unauthorized response if access is denied.
  */
 export default async function Page({
   searchParams,
@@ -45,10 +45,12 @@ export default async function Page({
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <ManageNetworkEntities
-        payerIdUrlParam={pId as string}
-        userId={user.userId}
-      />
+      <Suspense fallback={<DataTableSkeleton columnCount={7} />}>
+        <ManageNetworkEntities
+          payerIdUrlParam={pId as string}
+          userId={user.userId}
+        />
+      </Suspense>
     </RestrictByUserAppAttrsServer>
   );
 }

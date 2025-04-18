@@ -2,20 +2,19 @@ import { getVBPayLicense } from "@/repos/license-repository";
 
 import "server-only";
 
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { Home, Setup, SignIn } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { NotSetupView } from "./components/not-setup-view";
+import { NotSetupViewSkeleton } from "./components/not-setup-view-skeleton";
 
 /**
- * Handles the page request by enforcing rate limits and determining the appropriate response based on user authentication and license status.
+ * Controls access to the setup page by enforcing rate limits, verifying user authentication, and checking license status.
  *
- * The function starts by checking if the page access complies with rate limiting rules. It then concurrently retrieves the application license and the authenticated user.
- * If no user is authenticated, it redirects to the sign-in page.
- * If a valid license is present, it redirects to the home page.
- * Otherwise, it renders the NotSetupView component, passing the authenticated user's ID.
+ * Redirects unauthenticated users to the sign-in page and users with a valid license to the home page. If the user is authenticated but no license is present, displays the setup view with a loading fallback.
  */
 export default async function Page() {
   // Check rate limiter
@@ -37,5 +36,9 @@ export default async function Page() {
     return redirect(Home({}));
   }
 
-  return <NotSetupView userId={user.userId} />;
+  return (
+    <Suspense fallback={<NotSetupViewSkeleton />}>
+      <NotSetupView userId={user.userId} />
+    </Suspense>
+  );
 }

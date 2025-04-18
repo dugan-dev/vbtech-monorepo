@@ -1,48 +1,41 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@workspace/ui/components/card";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import { Card, CardContent, CardHeader } from "@workspace/ui/components/card";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
+import { Icons } from "@/components/icons";
+
 /**
- * Renders a skeleton loading state for a payer information card.
+ * Renders a skeleton card UI as a loading placeholder for payer information.
  *
- * This component displays a placeholder UI that mimics the structure of a payer information card while data is being loaded.
- * It features a header with placeholder elements for a title and avatar, a scrollable content area with multiple rows of text skeletons,
- * and a footer skeleton element.
+ * Displays a fixed layout with a header containing an icon and skeleton elements, and a content area with labeled rows and skeleton blocks to indicate loading state for payer details.
  */
-
-type props = {
-  rows?: number;
-};
-
-export function PayerInfoCardSkeleton({ rows = 3 }: props) {
+export function PayerInfoCardSkeleton() {
   return (
-    <Card className="w-1/4">
-      <CardHeader className="pb-2">
-        <div className="flex items-center justify-between">
-          <Skeleton className="h-5 w-32" />
-          <Skeleton className="h-8 w-8 rounded-full" />
+    <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
+      <CardHeader>
+        <div className="flex items-center gap-2">
+          <Icons.heartPulse className="size-6 text-muted-foreground/70" />
+          <Skeleton className="h-7 w-40" />
+          <div className="relative ml-auto">
+            <Skeleton className="h-9 w-10 rounded-md" />
+          </div>
         </div>
       </CardHeader>
-      <ScrollArea className="overflow-y-auto pr-4">
-        <CardContent className="pb-2">
-          <div className="space-y-3">
-            {Array.from({ length: rows }, (_, index) => (
-              <div key={index} className="flex justify-between items-center">
-                <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-4 w-32" />
-              </div>
-            ))}
+      <CardContent>
+        <div className="space-y-1 text-sm">
+          <div className="flex justify-between items-center">
+            <span className="text-muted-foreground">Type:</span>
+            <Skeleton className="h-4 w-16" />
           </div>
-        </CardContent>
-        <CardFooter>
-          <Skeleton className="h-9 w-full" />
-        </CardFooter>
-      </ScrollArea>
+          <div className="flex justify-between items-center">
+            <span className="text-muted-foreground">CMS ID:</span>
+            <Skeleton className="h-4 w-16" />
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-muted-foreground">Initial Month/Year:</span>
+            <Skeleton className="h-4 w-24" />
+          </div>
+        </div>
+      </CardContent>
     </Card>
   );
 }

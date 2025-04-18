@@ -1,40 +1,55 @@
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
+  CardTitle,
 } from "@workspace/ui/components/card";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
-type props = {
-  rows?: number;
-};
+import { Icons } from "@/components/icons";
 
-export function PhysicianInfoCardSkeleton({ rows = 4 }: props) {
+/**
+ * Displays a skeleton placeholder card representing physician information while data is loading.
+ *
+ * Renders labeled skeleton fields for "Individual NPI," "Class," "Type," and "Credential" within a styled card layout.
+ */
+export function PhysicianInfoCardSkeleton() {
   return (
-    <Card className="relative">
-      <CardHeader className="pb-2">
-        <div className="flex items-center justify-between">
-          <Skeleton className="h-5 w-32" />
-          <Skeleton className="h-8 w-8 rounded-full" />
+    <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
+      <CardHeader>
+        <div className="flex items-center gap-2">
+          <Icons.stethoscope className="size-6" />
+          <CardTitle className="text-2xl">
+            <Skeleton className="h-7 w-48" />
+          </CardTitle>
+          <div className="relative ml-auto">
+            <Skeleton className="h-9 w-10 rounded-md" />
+          </div>
         </div>
       </CardHeader>
-      <ScrollArea className="overflow-y-auto pr-4">
-        <CardContent className="pb-2">
-          <div className="space-y-3">
-            {Array.from({ length: rows }, (_, index) => (
-              <div key={index} className="flex justify-between items-center">
-                <Skeleton className="h-4 w-20" />
-                <Skeleton className="h-4 w-24" />
-              </div>
-            ))}
+      <CardContent>
+        <div className="space-y-1 text-sm">
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Individual NPI:</span>
+            <Skeleton className="h-5 w-28" />
           </div>
-        </CardContent>
-        <CardFooter>
-          <Skeleton className="h-9 w-full" />
-        </CardFooter>
-      </ScrollArea>
+
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Class:</span>
+            <Skeleton className="h-5 w-24" />
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Type:</span>
+            <Skeleton className="h-5 w-36" />
+          </div>
+
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Credential:</span>
+            <Skeleton className="h-5 w-16" />
+          </div>
+        </div>
+      </CardContent>
     </Card>
   );
 }

@@ -2,10 +2,13 @@ import { UserManagement } from "./component/user-management";
 
 import "server-only";
 
+import { Suspense } from "react";
 import { unauthorized } from "next/navigation";
 import { AdminUsers } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -13,11 +16,9 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
 
 /**
- * Renders the Admin Users management page with authentication and rate limiting.
+ * Displays the Admin Users management page, enforcing authentication, rate limiting, and user type restrictions.
  *
- * This server-side function concurrently checks if the user is authenticated and enforces a page access rate limit.
- * If the user is not authenticated, an unauthorized response is returned. Otherwise, it displays the user management
- * interface, restricting access to allowed user types for administrative purposes.
+ * Only authenticated users with allowed user types can access the user management interface. If the user is not authenticated, an unauthorized response is returned. While loading, a skeleton placeholder is shown.
  */
 export default async function Page() {
   // Check rate limiter
@@ -36,7 +37,9 @@ export default async function Page() {
       userId={user.userId}
       adminOnly
     >
-      <UserManagement userId={user.userId} />
+      <Suspense fallback={<DataTableSkeleton columnCount={7} />}>
+        <UserManagement userId={user.userId} />
+      </Suspense>
     </RestrictByUserAppAttrsServer>
   );
 }

@@ -1,10 +1,8 @@
 import "server-only";
 
-import { Suspense } from "react";
 import { getVBPayGlobalSettings } from "@/repos/global-settings-repository";
 import { getUsersData } from "@/repos/user-repository";
 
-import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 
 import { PayerType, PayerTypeLabels } from "@/types/payer-type";
@@ -18,16 +16,13 @@ type props = {
 };
 
 /**
- * Renders the UI for managing payers associated with a specific user.
+ * Displays a management interface for payers linked to a specific user.
  *
- * This asynchronous component concurrently fetches user attributes and global settings. It then retrieves the payers
- * based on the user's payer IDs and maps the allowed payer types (retrieved from global settings) into a UI-friendly
- * format for display within a table. If no payer IDs or allowed payer types are found, it returns an error view with a
- * corresponding message.
+ * Fetches user attributes and global payer settings, then renders a table for managing the user's payers. If required payer IDs or allowed payer types are missing, shows an error view instead.
  *
- * @param userId - The unique identifier of the user whose payers are to be managed.
+ * @param userId - The unique identifier of the user whose payers are being managed.
  *
- * @returns A React element that renders either an error view or the payers management table.
+ * @returns A React element with either the payers management table or an error view if prerequisites are missing.
  */
 export async function ManagePayers({ userId }: props) {
   const [{ usersAppAttrs }, globalSettings] = await Promise.all([
@@ -69,13 +64,11 @@ export async function ManagePayers({ userId }: props) {
 
   return (
     <div className="mb-4 flex flex-1 flex-col gap-4">
-      <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
-        <ManagePayersTable
-          payers={payers}
-          usersAppAttrs={usersAppAttrs}
-          payerTypes={payerTypes}
-        />
-      </Suspense>
+      <ManagePayersTable
+        payers={payers}
+        usersAppAttrs={usersAppAttrs}
+        payerTypes={payerTypes}
+      />
     </div>
   );
 }

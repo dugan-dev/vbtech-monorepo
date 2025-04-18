@@ -1,9 +1,6 @@
-import { Suspense } from "react";
 import { getAllPayers } from "@/repos/payer-repository";
 import { getUsersData } from "@/repos/user-repository";
 import { networkEntitiesToFormCombos } from "@/utils/network-entities-to-form-combos";
-
-import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 
 import { MissingInvalidView } from "@/components/missing-invalid-view";
 
@@ -16,6 +13,16 @@ type props = {
   userId: string;
 };
 
+/**
+ * Renders the Manage Network Physicians view, displaying a table of network physicians and related entities for a selected payer.
+ *
+ * If the payer ID is missing or invalid, displays an appropriate error view instead of the table.
+ *
+ * @param payerIdUrlParam - Optional payer ID from the URL to select the payer context.
+ * @param userId - The user ID used to fetch user-specific application attributes.
+ *
+ * @returns A React element displaying the network physicians table or an error view if the payer ID is missing or invalid.
+ */
 export async function ManageNetworkPhysicians({
   payerIdUrlParam,
   userId,
@@ -63,16 +70,14 @@ export async function ManageNetworkPhysicians({
 
   return (
     <div className="mb-4 flex flex-1 flex-col gap-4">
-      <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
-        <ManageNetworkPhysiciansTable
-          physicians={physicians}
-          usersAppAttrs={usersAppAttrs}
-          pos={pos}
-          practices={practices}
-          facilities={facilities}
-          vendors={vendors}
-        />
-      </Suspense>
+      <ManageNetworkPhysiciansTable
+        physicians={physicians}
+        usersAppAttrs={usersAppAttrs}
+        pos={pos}
+        practices={practices}
+        facilities={facilities}
+        vendors={vendors}
+      />
     </div>
   );
 }

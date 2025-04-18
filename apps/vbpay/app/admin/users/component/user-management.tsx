@@ -1,14 +1,11 @@
 import "server-only";
 
-import { Suspense } from "react";
 import { getAllNetworkEntities } from "@/repos/network-entity-repository";
 import { getAllNetworkPhysicians } from "@/repos/network-physician-repository";
 import { getAllPayers } from "@/repos/payer-repository";
 import { getUsersData } from "@/repos/user-repository";
 import { formatMarketingAndRefName } from "@/utils/format-marketing-name-and-ref-name";
 import { formatPhysicianNameNpi } from "@/utils/format-physician-name-and-npi";
-
-import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 
 import { getAllUsers } from "../repos/user-management-repository";
 import { getLastUserSync } from "../repos/user-sync-repository";
@@ -19,6 +16,13 @@ type props = {
   userId: string;
 };
 
+/**
+ * Asynchronously fetches and prepares user management data, then renders the user management table UI.
+ *
+ * Retrieves network entities, payers, physicians, users, user-specific attributes, and the last user synchronization timestamp. The data is filtered and formatted for display and passed to the {@link UserManagementTable} component.
+ *
+ * @param userId - The public ID of the user whose data and attributes are to be displayed.
+ */
 export async function UserManagement({ userId }: props) {
   // Get all the data we need
   const [entities, payers, physicians, users, { usersAppAttrs }, lastUserSync] =
@@ -52,19 +56,17 @@ export async function UserManagement({ userId }: props) {
 
   return (
     <div className="mb-4 flex flex-1 flex-col gap-4">
-      <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
-        <UserManagementTable
-          users={users}
-          usersAppAttrs={usersAppAttrs}
-          practices={practices}
-          pos={pos}
-          facilities={facilities}
-          vendors={vendors}
-          payers={payersCombo}
-          physicians={physiciansCombo}
-          lastUserSync={lastUserSync?.lastSyncAt}
-        />
-      </Suspense>
+      <UserManagementTable
+        users={users}
+        usersAppAttrs={usersAppAttrs}
+        practices={practices}
+        pos={pos}
+        facilities={facilities}
+        vendors={vendors}
+        payers={payersCombo}
+        physicians={physiciansCombo}
+        lastUserSync={lastUserSync?.lastSyncAt}
+      />
     </div>
   );
 }
