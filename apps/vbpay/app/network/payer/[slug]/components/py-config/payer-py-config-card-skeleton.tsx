@@ -7,6 +7,13 @@ type props = {
   perfYear: string;
 };
 
+/**
+ * Displays a skeleton card UI representing a payer performance year configuration in a loading state.
+ *
+ * The card shows placeholder content for the performance year and key configuration fields, providing visual feedback while data is loading.
+ *
+ * @param perfYear - The performance year to display, or an empty string to show a skeleton placeholder.
+ */
 export function PayerPyConfigCardSkeleton({ perfYear }: props) {
   return (
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">

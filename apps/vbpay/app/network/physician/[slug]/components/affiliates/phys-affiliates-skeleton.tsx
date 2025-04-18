@@ -8,6 +8,11 @@ import { Skeleton } from "@workspace/ui/components/skeleton";
 
 import { Icons } from "@/components/icons";
 
+/**
+ * Displays a skeleton card placeholder for loading affiliate information in a physician network UI.
+ *
+ * Renders a static card layout with labeled rows and skeleton elements to indicate loading state for affiliate details.
+ */
 export function PhysAffiliatesCardSkeleton() {
   return (
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">

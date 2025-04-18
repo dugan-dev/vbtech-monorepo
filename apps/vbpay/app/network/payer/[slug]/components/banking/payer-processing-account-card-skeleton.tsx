@@ -16,6 +16,11 @@ import {
 
 import { Icons } from "@/components/icons";
 
+/**
+ * Displays a card with a table-based skeleton UI as a loading placeholder for bank account information.
+ *
+ * Renders a fixed three-row table with skeleton elements to simulate the loading state of bank account data, including name, status, and details columns.
+ */
 export function PayerProcessingAccountCardSkeleton() {
   return (
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">

@@ -3,6 +3,11 @@ import { Skeleton } from "@workspace/ui/components/skeleton";
 
 import { Icons } from "@/components/icons";
 
+/**
+ * Renders a skeleton card UI as a loading placeholder for payer information.
+ *
+ * Displays a fixed layout with a header containing an icon and skeleton elements, and a content area with labeled rows and skeleton blocks to indicate loading state for payer details.
+ */
 export function PayerInfoCardSkeleton() {
   return (
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">

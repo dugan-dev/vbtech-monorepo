@@ -16,11 +16,9 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
 
 /**
- * Renders the Admin Users management page with authentication and rate limiting.
+ * Displays the Admin Users management page, enforcing authentication, rate limiting, and user type restrictions.
  *
- * This server-side function concurrently checks if the user is authenticated and enforces a page access rate limit.
- * If the user is not authenticated, an unauthorized response is returned. Otherwise, it displays the user management
- * interface, restricting access to allowed user types for administrative purposes.
+ * Only authenticated users with allowed user types can access the user management interface. If the user is not authenticated, an unauthorized response is returned. While loading, a skeleton placeholder is shown.
  */
 export default async function Page() {
   // Check rate limiter

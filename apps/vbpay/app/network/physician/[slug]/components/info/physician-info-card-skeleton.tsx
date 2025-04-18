@@ -8,6 +8,11 @@ import { Skeleton } from "@workspace/ui/components/skeleton";
 
 import { Icons } from "@/components/icons";
 
+/**
+ * Displays a skeleton placeholder card representing physician information while data is loading.
+ *
+ * Renders labeled skeleton fields for "Individual NPI," "Class," "Type," and "Credential" within a styled card layout.
+ */
 export function PhysicianInfoCardSkeleton() {
   return (
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">

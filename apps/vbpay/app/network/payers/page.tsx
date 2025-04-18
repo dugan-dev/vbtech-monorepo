@@ -16,14 +16,11 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the network payers management page for authenticated users.
+ * Displays the network payers management page for authenticated users with appropriate access rights.
  *
- * This asynchronous function concurrently checks user authentication and the page's
- * rate limit. If the user is not authenticated, it returns an unauthorized response.
- * Otherwise, it renders the page within a component that restricts access based on allowed
- * user attributes and displays the ManagePayers component.
+ * Only users with allowed user types can access the page. If the user is not authenticated, an unauthorized response is returned. The main content is loaded asynchronously with a loading skeleton shown during data fetching.
  *
- * @returns A React element representing the page content or an unauthorized response.
+ * @returns The page content as a React element, or an unauthorized response if access is denied.
  */
 export default async function Page() {
   const [user] = await Promise.all([

@@ -14,6 +14,11 @@ import { Skeleton } from "@workspace/ui/components/skeleton";
 
 import { Icons } from "@/components/icons";
 
+/**
+ * Displays a skeleton placeholder UI for the license setup view, indicating that a license is required but not yet configured.
+ *
+ * This component visually represents a loading state with placeholder elements for the card header, alert message, and action button.
+ */
 export function NotSetupViewSkeleton() {
   return (
     <Card className="w-full max-w-md">

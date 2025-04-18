@@ -19,19 +19,11 @@ import { PayerPyConfigCardServer } from "./components/py-config/payer-py-config-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the payer configuration page for authenticated users.
+ * Displays the payer configuration page for authenticated users with permitted roles.
  *
- * This asynchronous server component concurrently resolves query parameters, route parameters, and the authenticated user.
- * It then enforces a page rate limit based on the payer network route (derived from the provided slug) before proceeding.
- * If the user is not authenticated, the component returns an unauthorized response.
- * For authenticated users, access is restricted based on allowed user types and a two-column layout is rendered:
- * one column displays payer details via an information card, and the other shows configuration settings (optionally based on a performance year)
- * via a configuration card. Each card is wrapped in a Suspense component with a skeleton fallback while data loads.
+ * Resolves query and route parameters along with the authenticated user, enforces rate limiting, and restricts access to allowed user types. Renders payer information, configuration, and processing account cards, each with loading skeletons while data is fetched.
  *
- * @param searchParams - Promise resolving to an object containing query parameters (e.g., performance year).
- * @param params - Promise resolving to an object containing route parameters, including the payer's slug.
- *
- * @returns A JSX element rendering the payer configuration page or an unauthorized response.
+ * @returns The payer configuration page as a JSX element, or an unauthorized response if the user is not authenticated.
  */
 export default async function Page({
   searchParams,
