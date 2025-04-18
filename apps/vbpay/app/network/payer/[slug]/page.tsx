@@ -62,7 +62,9 @@ export default async function Page({
         <Suspense fallback={<PayerInfoCardSkeleton />}>
           <PayerInfoCardServer userId={user.userId} payerPubId={slug} />
         </Suspense>
-        <Suspense fallback={<PayerPyConfigCardSkeleton />}>
+        <Suspense
+          fallback={<PayerPyConfigCardSkeleton perfYear={perfYear as string} />}
+        >
           <PayerPyConfigCardServer
             userId={user.userId}
             perfYearUrl={perfYear ? (perfYear as string) : undefined}

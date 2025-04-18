@@ -1,51 +1,48 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@workspace/ui/components/card";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import { Card, CardContent, CardHeader } from "@workspace/ui/components/card";
 import { Skeleton } from "@workspace/ui/components/skeleton";
 
-/**
- * Renders a skeleton loading card for payment configuration.
- *
- * This component displays a placeholder card with a header, scrollable content area, and footer. The header
- * contains skeleton elements simulating a title and an avatar, while the content area includes multiple rows
- * of skeletons representing text lines. The full-width skeleton in the footer completes the layout, offering a
- * visual cue during data loading.
- *
- * @returns A JSX element representing the skeleton loading card.
- */
+import { Icons } from "@/components/icons";
 
 type props = {
-  rows?: number;
+  perfYear: string;
 };
 
-export function PayerPyConfigCardSkeleton({ rows = 4 }: props) {
+export function PayerPyConfigCardSkeleton({ perfYear }: props) {
   return (
-    <Card className="w-1/4">
-      <CardHeader className="pb-2">
-        <div className="flex items-center justify-between">
-          <Skeleton className="h-5 w-32" />
-          <Skeleton className="h-8 w-8 rounded-full" />
+    <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
+      <CardHeader>
+        <div className="flex items-center gap-2">
+          <Icons.calendarCog className="size-6" />
+          {perfYear ? (
+            <h2 className="text-2xl font-semibold">{`PY ${perfYear}`}</h2>
+          ) : (
+            <Skeleton className="h-8 w-24" />
+          )}
+          <div className="relative ml-auto">
+            <Skeleton className="h-9 w-10 rounded-md" />
+          </div>
         </div>
       </CardHeader>
-      <ScrollArea className="overflow-y-auto pr-4">
-        <CardContent className="pb-2">
-          <div className="space-y-3">
-            {Array.from({ length: rows }, (_, index) => (
-              <div key={index} className="flex justify-between items-center">
-                <Skeleton className="h-4 w-20" />
-                <Skeleton className="h-4 w-24" />
-              </div>
-            ))}
+      <CardContent>
+        <div className="space-y-1 text-sm">
+          <div className="flex justify-between items-center">
+            <span className="text-muted-foreground">Program:</span>
+            <Skeleton className="h-4 w-24" />
           </div>
-        </CardContent>
-        <CardFooter>
-          <Skeleton className="h-9 w-full" />
-        </CardFooter>
-      </ScrollArea>
+          <div className="flex justify-between items-center">
+            <span className="text-muted-foreground">Type:</span>
+            <Skeleton className="h-4 w-20" />
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-muted-foreground">Payment Model:</span>
+            <Skeleton className="h-4 w-32" />
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-muted-foreground">Physician Assignment:</span>
+            <Skeleton className="h-4 w-12" />
+          </div>
+        </div>
+      </CardContent>
     </Card>
   );
 }
