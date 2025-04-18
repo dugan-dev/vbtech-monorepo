@@ -40,6 +40,8 @@ jobs:
       - name: Create env file for vbpay
         run: |
           cat > apps/vbpay/.env << EOL
+          # Payload Configuration
+          PAYLOAD_SECRET_KEY=${{ secrets.PAYLOAD_SECRET_KEY }}
           # Database Configuration
           DB_HOST=${{ vars.DB_HOST }}
           DB_PORT=${{ vars.DB_PORT }}
@@ -122,6 +124,7 @@ jobs:
         run: pnpm turbo build --force
         env:
           # Explicitly set all required environment variables for the build
+          PAYLOAD_SECRET_KEY: ${{ secrets.PAYLOAD_SECRET_KEY }}
           AWS_COGNITO_USER_POOL_ID: ${{ secrets.AWS_COGNITO_USER_POOL_ID }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
