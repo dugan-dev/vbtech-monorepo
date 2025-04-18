@@ -15,7 +15,6 @@ export function handleSignInNextStep(
       break;
     case "DONE":
       window.location.reload();
-      setIsLoading(false);
       break;
     default:
       handleError(
