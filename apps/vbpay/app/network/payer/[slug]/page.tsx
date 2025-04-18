@@ -9,6 +9,8 @@ import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
+import { PayerProcessingAccountCardSkeleton } from "./components/banking/payer-processing-account-card-skeleton";
+import { PayerProcessingAccountCardServer } from "./components/banking/payer-processing-account-card.server";
 import { PayerInfoCardSkeleton } from "./components/info/payer-info-card-skeleton";
 import { PayerInfoCardServer } from "./components/info/payer-info-card.server";
 import { PayerPyConfigCardSkeleton } from "./components/py-config/payer-py-config-card-skeleton";
@@ -64,6 +66,12 @@ export default async function Page({
           <PayerPyConfigCardServer
             userId={user.userId}
             perfYearUrl={perfYear ? (perfYear as string) : undefined}
+            payerPubId={slug}
+          />
+        </Suspense>
+        <Suspense fallback={<PayerProcessingAccountCardSkeleton />}>
+          <PayerProcessingAccountCardServer
+            userId={user.userId}
             payerPubId={slug}
           />
         </Suspense>
