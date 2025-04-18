@@ -1,3 +1,4 @@
+
 import { UserProvider } from "@/contexts/user-context";
 import { getPayerByPubId } from "@/repos/payer-repository";
 import {
@@ -12,6 +13,16 @@ type props = {
   userId: string;
   payerPubId: string;
 };
+
+/**
+ * Server component to fetch payer, user, payload client token, and processing account data,
+ * then render the PayerProcessingAccountCardClient wrapped with UserProvider.
+ *
+ * @param props - Component properties
+ * @param props.userId - The ID of the current user
+ * @param props.payerPubId - The public ID of the payer
+ * @returns A React element displaying the processing account card within the user context
+ */
 
 export async function PayerProcessingAccountCardServer({
   userId,

@@ -1,5 +1,15 @@
+
 import { PayloadProcessingAccountStatusType } from "@/types/payload-processing-account-status";
 
+/**
+ * Returns the appropriate CSS color classes for a processing account status.
+ * Maps different status values to corresponding Tailwind CSS background and text color classes.
+ *
+ * @param status - The processing account status to get colors for.
+ *                 Possible values: "incomplete", "pending", "active",
+ *                 "in_review", "action_needed", "resubmit", "inactive".
+ * @returns A string of CSS class names for styling the status display.
+ */
 export const getProcessingAccountStatusColor = (
   status: PayloadProcessingAccountStatusType,
 ) => {

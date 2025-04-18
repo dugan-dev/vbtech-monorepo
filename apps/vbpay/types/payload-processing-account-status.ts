@@ -1,5 +1,11 @@
+
 import { z } from "zod";
 
+/**
+ * Represents the possible status values for a processing account.
+ * Each status indicates a different stage in the account lifecycle,
+ * from creation through approval to potential deactivation.
+ */
 type PayloadProcessingAccountStatusType =
   | "incomplete"
   | "pending"

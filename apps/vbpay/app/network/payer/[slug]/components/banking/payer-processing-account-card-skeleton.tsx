@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -10,6 +11,15 @@ import { Skeleton } from "@workspace/ui/components/skeleton";
 type props = {
   rows?: number;
 };
+
+/**
+ * A skeleton loading component for the payer processing account card.
+ * Displays placeholder elements while the actual data is being loaded.
+ *
+ * @param props - Component properties
+ * @param props.rows - Number of placeholder rows to display (defaults to 3)
+ * @returns A React element representing the skeleton loading UI
+ */
 
 export function PayerProcessingAccountCardSkeleton({ rows = 3 }: props) {
   return (
