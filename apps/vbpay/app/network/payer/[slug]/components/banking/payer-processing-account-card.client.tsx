@@ -55,7 +55,6 @@ type props = {
   processingAccounts: PayloadProcessingAccount[];
 };
 
-
 /**
  * A client component that renders a list of payer processing accounts.
  *
@@ -65,7 +64,6 @@ type props = {
  * @param props.processingAccounts - Array of existing processing accounts to display
  * @returns A React element showing cards with processing account details and actions
  */
-
 
 export function PayerProcessingAccountCardClient({
   payloadClientToken,

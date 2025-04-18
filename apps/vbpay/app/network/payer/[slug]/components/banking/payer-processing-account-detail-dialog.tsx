@@ -22,7 +22,6 @@ type props = {
   account: PayloadProcessingAccount;
 };
 
-
 /**
  * Dialog component displaying detailed information about a processing account.
  * Shows account information, status badge, billing contact, legal entity, and processing settings.
