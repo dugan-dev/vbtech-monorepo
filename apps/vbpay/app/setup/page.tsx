@@ -2,12 +2,14 @@ import { getVBPayLicense } from "@/repos/license-repository";
 
 import "server-only";
 
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { Home, Setup, SignIn } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { NotSetupView } from "./components/not-setup-view";
+import { NotSetupViewSkeleton } from "./components/not-setup-view-skeleton";
 
 /**
  * Handles the page request by enforcing rate limits and determining the appropriate response based on user authentication and license status.
@@ -37,5 +39,9 @@ export default async function Page() {
     return redirect(Home({}));
   }
 
-  return <NotSetupView userId={user.userId} />;
+  return (
+    <Suspense fallback={<NotSetupViewSkeleton />}>
+      <NotSetupView userId={user.userId} />
+    </Suspense>
+  );
 }
