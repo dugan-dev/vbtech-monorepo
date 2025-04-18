@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Control } from "react-hook-form";
 
 import {
@@ -21,6 +22,25 @@ type props = {
 };
 
 export function FormInputOtp({ control, name, label }: props) {
+  // Reference to the container element
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Focus the first input slot when component mounts
+  useEffect(() => {
+    // Small delay to ensure the DOM is fully rendered
+    const timer = setTimeout(() => {
+      // Find the first input element in the OTP group
+      if (containerRef.current) {
+        const inputElement = containerRef.current.querySelector("input");
+        if (inputElement) {
+          inputElement.focus();
+        }
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <FormField
       control={control}
@@ -31,16 +51,18 @@ export function FormInputOtp({ control, name, label }: props) {
             <div className="flex items-center">{label}</div>
           </FormLabel>
           <FormControl>
-            <InputOTP maxLength={6} {...field}>
-              <InputOTPGroup>
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-                <InputOTPSlot index={4} />
-                <InputOTPSlot index={5} />
-              </InputOTPGroup>
-            </InputOTP>
+            <div ref={containerRef}>
+              <InputOTP maxLength={6} {...field}>
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
+            </div>
           </FormControl>
           <FormMessage />
         </FormItem>
