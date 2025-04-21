@@ -7,6 +7,8 @@ import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
+import { PhysEntityPaymentMethodCardSkeleton } from "@/components/phys-entity-payment-method-card/phys-entity-payment-method-card-skeleton";
+import { PhysEntityPaymentMethodCardServer } from "@/components/phys-entity-payment-method-card/phys-entity-payment-method-card.server";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 import { EntityInfoCardSkeleton } from "./components/info/entity-info-card-skeleton";
@@ -57,6 +59,12 @@ export default async function Page({
       <div className="flex-1 flex flex-col space-y-4">
         <Suspense fallback={<EntityInfoCardSkeleton />}>
           <EntityInfoCardServer
+            userId={user.userId}
+            entityPubId={slug as string}
+          />
+        </Suspense>
+        <Suspense fallback={<PhysEntityPaymentMethodCardSkeleton />}>
+          <PhysEntityPaymentMethodCardServer
             userId={user.userId}
             entityPubId={slug as string}
           />

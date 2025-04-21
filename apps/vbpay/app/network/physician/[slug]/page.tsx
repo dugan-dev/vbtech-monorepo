@@ -7,6 +7,8 @@ import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
+import { PhysEntityPaymentMethodCardSkeleton } from "@/components/phys-entity-payment-method-card/phys-entity-payment-method-card-skeleton";
+import { PhysEntityPaymentMethodCardServer } from "@/components/phys-entity-payment-method-card/phys-entity-payment-method-card.server";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 import { PhysAffiliatesCardServer } from "./components/affiliates/phys-affiliates-card.server";
@@ -37,19 +39,30 @@ export default async function Page({
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <div className="flex flex-col space-y-4">
-        <Suspense fallback={<PhysicianInfoCardSkeleton />}>
-          <PhysicianInfoCardServer
-            userId={user.userId}
-            pubId={slug as string}
-          />
-        </Suspense>
-        <Suspense fallback={<PhysAffiliatesCardSkeleton />}>
-          <PhysAffiliatesCardServer
-            userId={user.userId}
-            pubId={slug as string}
-          />
-        </Suspense>
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-4">
+          <Suspense fallback={<PhysicianInfoCardSkeleton />}>
+            <PhysicianInfoCardServer
+              userId={user.userId}
+              pubId={slug as string}
+            />
+          </Suspense>
+
+          <Suspense fallback={<PhysAffiliatesCardSkeleton />}>
+            <PhysAffiliatesCardServer
+              userId={user.userId}
+              pubId={slug as string}
+            />
+          </Suspense>
+        </div>
+        <div className="flex flex-col gap-4">
+          <Suspense fallback={<PhysEntityPaymentMethodCardSkeleton />}>
+            <PhysEntityPaymentMethodCardServer
+              userId={user.userId}
+              physPubId={slug as string}
+            />
+          </Suspense>
+        </div>
       </div>
     </RestrictByUserAppAttrsServer>
   );
