@@ -181,6 +181,33 @@ export type payer_processing_account_hist = {
   createdBy: string;
   payerPubId: string;
 };
+export type phys_perf_year_config = {
+  id: Generated<number>;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  physPubId: string;
+  perfYear: number;
+  enableCapPayments: Generated<number>;
+  enableClaimPayments: Generated<number>;
+  enableValuePayments: Generated<number>;
+};
+export type phys_perf_year_config_hist = {
+  id: Generated<number>;
+  histAddedAt: Timestamp;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  physPubId: string;
+  perfYear: number;
+  enableCapPayments: Generated<number>;
+  enableClaimPayments: Generated<number>;
+  enableValuePayments: Generated<number>;
+};
 export type user = {
   id: Generated<number>;
   userId: string;
@@ -294,6 +321,8 @@ export type DB = {
   payerPerfYearConfigHist: payer_perf_year_config_hist;
   payerProcessingAccount: payer_processing_account;
   payerProcessingAccountHist: payer_processing_account_hist;
+  physPerfYearConfig: phys_perf_year_config;
+  physPerfYearConfigHist: phys_perf_year_config_hist;
   user: user;
   userHist: user_hist;
   userSyncTimestamp: user_sync_timestamp;
