@@ -15,25 +15,22 @@ import { PhysAffiliatesCardServer } from "./components/affiliates/phys-affiliate
 import { PhysAffiliatesCardSkeleton } from "./components/affiliates/phys-affiliates-skeleton";
 import { PhysicianInfoCardSkeleton } from "./components/info/physician-info-card-skeleton";
 import { PhysicianInfoCardServer } from "./components/info/physician-info-card.server";
+import { PhysPyConfigCardSkeleton } from "./components/py-config/phys-py-config-card-skeleton";
+import { PhysPyConfigCardServer } from "./components/py-config/phys-py-config-card.server";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer", "physician"];
 
-/**
- * Renders the physician page with access control, displaying physician information, affiliates, and payment methods.
- *
- * Restricts access to authenticated users with allowed user types and enforces rate limiting. Shows loading skeletons while data is being fetched.
- *
- * @param params - A promise resolving to an object containing the physician's public slug.
- * @returns The server-rendered physician page or an unauthorized response if the user is not authenticated.
- */
 export default async function Page({
+  searchParams,
   params,
 }: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
 
-  const [user] = await Promise.all([
+  const [{ perfYear }, user] = await Promise.all([
+    searchParams,
     authenticatedUser(),
     checkPageRateLimit({ pathname: NetworkPhysician({ slug }) }),
   ]);
@@ -64,6 +61,17 @@ export default async function Page({
           </Suspense>
         </div>
         <div className="flex flex-col gap-4">
+          <Suspense
+            fallback={
+              <PhysPyConfigCardSkeleton perfYear={perfYear as string} />
+            }
+          >
+            <PhysPyConfigCardServer
+              userId={user.userId}
+              physPubId={slug as string}
+              perfYearUrl={perfYear ? (perfYear as string) : undefined}
+            />
+          </Suspense>
           <Suspense fallback={<PhysEntityPaymentMethodCardSkeleton />}>
             <PhysEntityPaymentMethodCardServer
               userId={user.userId}
