@@ -17,7 +17,7 @@ export type PayloadProcessingAccount = {
   processing_settings: PayloadProcessingSettings;
 };
 
-export type PayloadBillingContact = {
+type PayloadBillingContact = {
   name: string;
   email: string;
   phone: string;
@@ -29,7 +29,7 @@ export type PayloadBillingContact = {
   street_address2: string | null;
 };
 
-export type PayloadPaymentMethod = {
+type PayloadPaymentMethod = {
   id: string;
   object: "payment_method";
   type: "bank_account" | "card";
@@ -41,21 +41,21 @@ export type PayloadPaymentMethod = {
   modified_at: string;
 };
 
-export type PayloadBankAccount = {
+type PayloadBankAccount = {
   bank_name: string;
   account_type: "checking" | "savings";
   last4: string;
   routing_number: string;
 };
 
-export type PayloadCard = {
+type PayloadCard = {
   brand: string;
   last4: string;
   exp_month: number;
   exp_year: number;
 };
 
-export type PayloadLegalEntity = {
+type PayloadLegalEntity = {
   id: string;
   object: "legal_entity";
   legal_name: string;
@@ -83,7 +83,7 @@ export type PayloadLegalEntity = {
   modified_at: string;
 };
 
-export type PayloadLegalEntityOwner = {
+type PayloadLegalEntityOwner = {
   name: string;
   title: string;
   email: string;
@@ -91,7 +91,7 @@ export type PayloadLegalEntityOwner = {
   ownership_percent: number;
 };
 
-export type PayloadProcessingSettings = {
+type PayloadProcessingSettings = {
   id: string;
   object: "processing_setting";
   account_id: string;

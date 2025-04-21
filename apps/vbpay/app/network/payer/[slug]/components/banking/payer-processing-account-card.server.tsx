@@ -1,10 +1,8 @@
 import { UserProvider } from "@/contexts/user-context";
-import { getPayerByPubId } from "@/repos/payer-repository";
-import {
-  getPayersProcessingAccounts,
-  getPayloadClientId,
-} from "@/repos/payload-processing-account-repository";
+import { getPayersProcessingAccounts } from "@/repos/payload-processing-account-repository";
 import { getUsersData } from "@/repos/user-repository";
+
+import { getPayloadClientId } from "@/lib/payload";
 
 import { PayerProcessingAccountCardClient } from "./payer-processing-account-card.client";
 
@@ -14,30 +12,24 @@ type props = {
 };
 
 /**
- * Server component to fetch payer, user, payload client token, and processing account data,
- * then render the PayerProcessingAccountCardClient wrapped with UserProvider.
+ * React server component that fetches user data, a payload client token, and processing accounts for a payer, then renders the processing account card within a user context.
  *
- * @param props - Component properties
- * @param props.userId - The ID of the current user
- * @param props.payerPubId - The public ID of the payer
- * @returns A React element displaying the processing account card within the user context
+ * @param props.userId - The ID of the current user.
+ * @param props.payerPubId - The public ID of the payer.
+ * @returns A React element displaying the payer's processing account card within the user context.
+ *
+ * @throws {Error} If the payload client token cannot be loaded.
  */
 
 export async function PayerProcessingAccountCardServer({
   userId,
   payerPubId,
 }: props) {
-  const [payer, user, payloadClientToken, processingAccounts] =
-    await Promise.all([
-      getPayerByPubId({ pubId: payerPubId }),
-      getUsersData({ userId }),
-      getPayloadClientId("processing_account_plugin"),
-      getPayersProcessingAccounts(payerPubId),
-    ]);
-
-  if (!payer) {
-    throw new Error(`Payer with pubId ${payerPubId} not found.`);
-  }
+  const [user, payloadClientToken, processingAccounts] = await Promise.all([
+    getUsersData({ userId }),
+    getPayloadClientId("processing_account_plugin"),
+    getPayersProcessingAccounts(payerPubId),
+  ]);
 
   if (!payloadClientToken) {
     throw new Error("Failed to load payload client token.");

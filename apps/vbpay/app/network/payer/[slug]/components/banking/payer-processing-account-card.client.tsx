@@ -56,13 +56,15 @@ type props = {
 };
 
 /**
- * A client component that renders a list of payer processing accounts.
+ * Displays a card listing payer processing (bank) accounts with the ability for authorized users to add new accounts.
  *
- * @param props - Component properties
- * @param props.payloadClientToken - The payload client token used to open the processing account form
- * @param props.payerPubId - The public ID of the payer for associating new processing accounts
- * @param props.processingAccounts - Array of existing processing accounts to display
- * @returns A React element showing cards with processing account details and actions
+ * Shows existing processing accounts in a table, provides a button to add new accounts (if permitted), and handles success or error feedback during account creation.
+ *
+ * @param payloadClientToken - Token used to open the processing account form.
+ * @param payerPubId - Public ID of the payer to associate with new processing accounts.
+ * @param processingAccounts - List of processing accounts to display.
+ *
+ * @returns A React element rendering the processing accounts card with actions and details.
  */
 
 export function PayerProcessingAccountCardClient({
@@ -105,7 +107,6 @@ export function PayerProcessingAccountCardClient({
   const handleNewProcessingAccountClick = () => {
     openProcessingAccountForm({
       clientToken: payloadClientToken,
-      attributes: { payer: payerPubId },
       onAccountCreated: (data: PayloadProcessingAccountCreatedResponse) => {
         handleStoreProcessingAccount(data);
       },
@@ -200,7 +201,7 @@ export function PayerProcessingAccountCardClient({
                                 processingAccount.status as PayloadProcessingAccountStatusType
                               ]
                             }
-                          </Badge>{" "}
+                          </Badge>
                         </TableCell>
                         <TableCell className="text-end">
                           <PayerProcessingAccountDetailsDialog
