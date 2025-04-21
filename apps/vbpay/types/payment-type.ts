@@ -1,15 +1,15 @@
 import { z } from "zod";
 
-type PaymentTypeType = "capitation" | "ffs replacement" | "performance";
+type PaymentTypeType = "capitation" | "ffs replacement" | "value based";
 
-const PaymentTypes = ["capitation", "ffs replacement", "performance"] as const;
+const PaymentTypes = ["capitation", "ffs replacement", "value based"] as const;
 
 const PaymentTypeEnum = z.enum(PaymentTypes);
 
 const PaymentTypeLabels = {
   capitation: "Capitation",
   "ffs replacement": "FFS Replacement",
-  performance: "Performance",
+  "value based": "Value Based",
 };
 
 type PaymentTypeLabel =
