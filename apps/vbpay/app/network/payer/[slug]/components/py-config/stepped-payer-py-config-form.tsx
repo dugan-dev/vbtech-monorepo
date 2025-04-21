@@ -100,7 +100,9 @@ export function SteppedPayerPyConfigForm({
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <fieldset
-                disabled={isPending || !isEditing}
+                disabled={
+                  isPending || (data && pubId && !isEditing ? true : false)
+                }
                 className="space-y-4 mb-8"
               >
                 {/* Step 1: Basic Information */}
