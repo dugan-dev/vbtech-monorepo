@@ -1,0 +1,36 @@
+model phys_perf_year_config {
+        id                    Int      @id @default(autoincrement()) @db.UnsignedInt
+        pub_id                String   @unique @db.VarChar(12)
+        created_at            DateTime @db.DateTime(0)
+        created_by            String   @db.VarChar(50)
+        updated_at            DateTime @db.DateTime(0)
+        updated_by            String   @db.VarChar(50)
+        phys_pub_id           String   @db.VarChar(12)
+        perf_year             Int      @db.Year
+        enable_cap_payments   Boolean  @default(false)
+        enable_claim_payments Boolean  @default(false)
+        enable_value_payments Boolean  @default(false)
+
+        @@index([pub_id], map: "idx_phys_perf_year_config_pub_id")
+        @@index([phys_pub_id], map: "idx_phys_perf_year_config_phys_pub_id")
+        @@index([phys_pub_id, perf_year], map: "idx_phys_perf_year_config_phys_pub_id_perf_yr")
+}
+
+model phys_perf_year_config_hist {
+        id            Int      @id @default(autoincrement()) @db.UnsignedInt
+        hist_added_at DateTime @db.DateTime(0)
+        pub_id        String   @db.VarChar(12)
+        created_at    DateTime @db.DateTime(0)
+        created_by    String   @db.VarChar(50)
+        updated_at    DateTime @db.DateTime(0)
+        updated_by    String   @db.VarChar(50)
+        phys_pub_id   String   @db.VarChar(12)
+        perf_year     Int      @db.Year
+        enable_cap_payments   Boolean  @default(false)
+        enable_claim_payments Boolean  @default(false)
+        enable_value_payments Boolean  @default(false)
+
+        @@index([pub_id], map: "idx_phys_perf_year_config_hist_pub_id")
+        @@index([phys_pub_id], map: "idx_phys_perf_year_config_hist_phys_pub_id")
+        @@index([phys_pub_id, perf_year], map: "idx_phys_perf_year_config_hist_phys_pub_id_perf_yr")
+}
