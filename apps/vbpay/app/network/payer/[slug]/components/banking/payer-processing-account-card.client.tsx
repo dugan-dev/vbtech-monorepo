@@ -105,7 +105,6 @@ export function PayerProcessingAccountCardClient({
   const handleNewProcessingAccountClick = () => {
     openProcessingAccountForm({
       clientToken: payloadClientToken,
-      attributes: { payer: payerPubId },
       onAccountCreated: (data: PayloadProcessingAccountCreatedResponse) => {
         handleStoreProcessingAccount(data);
       },
@@ -200,7 +199,7 @@ export function PayerProcessingAccountCardClient({
                                 processingAccount.status as PayloadProcessingAccountStatusType
                               ]
                             }
-                          </Badge>{" "}
+                          </Badge>
                         </TableCell>
                         <TableCell className="text-end">
                           <PayerProcessingAccountDetailsDialog
