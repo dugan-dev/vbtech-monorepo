@@ -49,17 +49,10 @@ export const getPhysEntityPaymentMethods = cache(
   async (entityPubId: string) => {
     const paymentMethods = await getAllReceiveOnlyPaymentMethods();
 
-    const physEntityPaymentMethods = paymentMethods
-      .map((paymentMethod) => {
-        return {
-          ...paymentMethod,
-          pubId: paymentMethod.attrs
-            ? (paymentMethod.attrs as PayloadPaymentMethodAttrs).pubId
-            : undefined,
-        };
-      })
-      .filter((paymentMethod) => paymentMethod.pubId === entityPubId);
-
+    const physEntityPaymentMethods = paymentMethods.filter(
+      (pm) =>
+        (pm.attrs as PayloadPaymentMethodAttrs | null)?.pubId === entityPubId,
+    );
     if (!physEntityPaymentMethods) {
       return [];
     }
