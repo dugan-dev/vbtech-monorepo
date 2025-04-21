@@ -53,9 +53,6 @@ export const getPhysEntityPaymentMethods = cache(
       (pm) =>
         (pm.attrs as PayloadPaymentMethodAttrs | null)?.pubId === entityPubId,
     );
-    if (!physEntityPaymentMethods) {
-      return [];
-    }
 
     return physEntityPaymentMethods;
   },
