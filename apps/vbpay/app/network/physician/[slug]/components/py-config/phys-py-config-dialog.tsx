@@ -23,7 +23,7 @@ import { PhysPyConfigFormData } from "./phys-py-config-form-schema";
 type props = {
   data?: PhysPyConfigFormData; // required for edit/update
   pubId?: string; // required for edit/update
-  payerPubId?: string; // required for create/insert
+  payerPubId: string; // required for permission checks
 };
 
 export function PhysPyConfigDialog({ data, pubId, payerPubId }: props) {
