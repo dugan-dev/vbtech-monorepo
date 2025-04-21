@@ -100,7 +100,7 @@ export function PhysEntityPaymentMethodCardClient({
   } = useErrorDialog({});
 
   // get user app attrs from context for restrictions
-  const userAppAttrs = useUserContext();
+  const usersAppAttrs = useUserContext();
 
   // get phys/entity pub id
   const { slug } = useParams();
@@ -127,9 +127,6 @@ export function PhysEntityPaymentMethodCardClient({
 
   // get revalidation path
   const revalidationPath = usePathname();
-
-  // get user context for permission checks
-  const usersAppAttrs = useUserContext();
 
   // get users payer specific permissions
   const payerPermissions = usersAppAttrs.ids?.find(
@@ -175,7 +172,7 @@ export function PhysEntityPaymentMethodCardClient({
           <CardTitle className="text-2xl">Bank Accounts</CardTitle>
           <div className="relative ml-auto">
             <RestrictByUserAppAttrsClient
-              usersAppAttrs={userAppAttrs}
+              usersAppAttrs={usersAppAttrs}
               allowedUserTypes={ALLOWED_USER_TYPES}
               requiredUserRoles={[REQUIRED_USER_ROLE]}
             >
@@ -319,7 +316,7 @@ export function PhysEntityPaymentMethodCardClient({
                       </TableCell>
                       <TableCell className="text-end">
                         <RestrictByUserAppAttrsClient
-                          usersAppAttrs={userAppAttrs}
+                          usersAppAttrs={usersAppAttrs}
                           allowedUserTypes={ALLOWED_USER_TYPES}
                           requiredUserRoles={[REQUIRED_USER_ROLE]}
                         >
