@@ -25,7 +25,7 @@ const REQUIRED_USER_ROLE: UserRole = "edit";
 type props = {
   onSuccess: () => void;
   setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
-  payerPubId?: string;
+  payerPubId: string;
   data?: PhysPyConfigFormData;
   pubId?: string;
 };

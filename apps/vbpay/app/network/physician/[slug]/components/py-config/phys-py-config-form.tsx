@@ -19,7 +19,7 @@ type props = {
   onSuccess: () => void;
   setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
   data?: PhysPyConfigFormData;
-  payerPubId?: string;
+  payerPubId: string;
   pubId?: string;
   isEditing: boolean;
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
