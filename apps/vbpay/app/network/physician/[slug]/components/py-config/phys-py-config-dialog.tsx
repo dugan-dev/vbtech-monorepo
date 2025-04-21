@@ -26,6 +26,15 @@ type props = {
   payerPubId: string; // required for permission checks
 };
 
+/**
+ * Displays a dialog for viewing or adding a physician PY configuration.
+ *
+ * The dialog adapts its content and controls based on whether existing configuration data and a public identifier are provided, allowing users to either view/edit an existing configuration or add a new one.
+ *
+ * @param data - Existing configuration data for view/edit mode.
+ * @param pubId - Public identifier for the configuration, required for view/edit mode.
+ * @param payerPubId - Identifier used for permission checks and form submission.
+ */
 export function PhysPyConfigDialog({ data, pubId, payerPubId }: props) {
   const [open, onOpenChange] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

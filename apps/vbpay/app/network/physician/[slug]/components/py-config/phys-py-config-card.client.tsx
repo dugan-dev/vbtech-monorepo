@@ -23,6 +23,16 @@ type props = {
   pubId: string;
 };
 
+/**
+ * Displays a configuration card for a performance year, showing the enabled or disabled status of physician payment types based on license and configuration data.
+ *
+ * Renders a card UI with payment type statuses for capitation, claim, and value-based payments, conditionally displayed according to the license context and the provided configuration.
+ *
+ * @param perfYear - The label for the performance year.
+ * @param data - Configuration data indicating which payment types are enabled.
+ * @param payerPubId - Identifier for the payer.
+ * @param pubId - Identifier for the publication or entity.
+ */
 export function PhysPyConfigCardClient({
   perfYear,
   data,
