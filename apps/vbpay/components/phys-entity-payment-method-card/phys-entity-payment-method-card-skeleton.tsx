@@ -16,6 +16,11 @@ import {
 
 import { Icons } from "@/components/icons";
 
+/**
+ * Renders a skeleton card placeholder for the "Bank Accounts" payment method section.
+ *
+ * Displays a loading UI with a card layout, including a header and a table with skeleton rows to simulate the loading state of bank account data.
+ */
 export function PhysEntityPaymentMethodCardSkeleton() {
   return (
     <Card className="min-w-[450px] w-1/3 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">

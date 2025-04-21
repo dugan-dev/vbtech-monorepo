@@ -18,6 +18,14 @@ import { PhysicianInfoCardServer } from "./components/info/physician-info-card.s
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer", "physician"];
 
+/**
+ * Renders the physician page with access control, displaying physician information, affiliates, and payment methods.
+ *
+ * Restricts access to authenticated users with allowed user types and enforces rate limiting. Shows loading skeletons while data is being fetched.
+ *
+ * @param params - A promise resolving to an object containing the physician's public slug.
+ * @returns The server-rendered physician page or an unauthorized response if the user is not authenticated.
+ */
 export default async function Page({
   params,
 }: {

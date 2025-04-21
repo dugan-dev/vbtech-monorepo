@@ -14,7 +14,12 @@ export const pl = payload.Session(env.PAYLOAD_SECRET_KEY);
  * @param plIntent - The type of payload intent for which to create a client token
  * @returns A promise resolving to the generated client token ID string
  */
-// Get the payload client id for a given intent
+/**
+ * Creates a payload client token for the specified intent type and returns its ID.
+ *
+ * @param plIntent - The intent type for which to generate the client token.
+ * @returns The ID of the created client token.
+ */
 export async function getPayloadClientId(plIntent: PayloadIntentType) {
   const clientToken = await pl.ClientToken.create({
     intent: {

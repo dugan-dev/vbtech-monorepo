@@ -8,6 +8,11 @@ const InputDefaultClassname = cn(
   "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
 );
 
+/****
+ * Renders a styled input element with consistent appearance and accessibility features.
+ *
+ * Applies a default set of CSS classes for layout, color, focus, and invalid states, while allowing additional customization via the {@link className} prop. All standard input attributes are supported.
+ */
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <input

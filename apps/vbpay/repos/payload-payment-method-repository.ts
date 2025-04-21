@@ -6,6 +6,13 @@ import { PayloadPaymentMethod } from "@/types/payload-payment-method";
 import { PayloadPaymentMethodAttrs } from "@/types/payload-payment-method-attrs";
 import { pl } from "@/lib/payload";
 
+/**
+ * Retrieves all payment methods with a transfer type of "receive-only".
+ *
+ * @returns An array of payment methods configured for receive-only transfers.
+ *
+ * @throws {Error} If fetching payment methods fails.
+ */
 export async function getAllReceiveOnlyPaymentMethods() {
   try {
     const paymentMethods = await pl
@@ -22,6 +29,13 @@ export async function getAllReceiveOnlyPaymentMethods() {
   }
 }
 
+/**
+ * Deletes a payment method by its unique identifier.
+ *
+ * @param id - The unique identifier of the payment method to delete.
+ *
+ * @throws {Error} If the deletion fails.
+ */
 export async function deletePaymentMethod(id: string) {
   try {
     await pl.delete(pl.PaymentMethod({ id }));

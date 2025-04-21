@@ -14,6 +14,19 @@ type props = {
   physPubId?: string;
 };
 
+/**
+ * Server component that loads user, entity or physician, and payment method data to render a payment method card.
+ *
+ * Fetches user attributes, network entity or physician details (if IDs are provided), a payload client token, and associated payment methods in parallel. Throws an error if required data fails to load. Renders the payment method card client component within a user context.
+ *
+ * @param userId - The user ID whose data is loaded for context.
+ * @param entityPubId - Optional public ID of the network entity whose payment methods are managed.
+ * @param physPubId - Optional public ID of the network physician whose payment methods are managed.
+ *
+ * @throws {Error} If the payload client token cannot be loaded.
+ * @throws {Error} If {@link entityPubId} is provided but the network entity cannot be loaded.
+ * @throws {Error} If {@link physPubId} is provided but the network physician cannot be loaded.
+ */
 export async function PhysEntityPaymentMethodCardServer({
   userId,
   entityPubId,
