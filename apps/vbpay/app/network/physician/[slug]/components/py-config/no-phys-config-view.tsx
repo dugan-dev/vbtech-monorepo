@@ -22,6 +22,15 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Renders a card indicating that no configuration exists for the specified performance year, with an option to configure if the user has appropriate access.
+ *
+ * Displays the performance year and a message about the absence of configuration. If the user belongs to an allowed type, a configuration dialog is made available.
+ *
+ * @param userId - The unique identifier of the user whose attributes are checked for access.
+ * @param payerPubId - The public identifier of the payer, passed to the configuration dialog.
+ * @param perfYear - The performance year for which configuration status is shown.
+ */
 export async function NoPhysConfigView({
   userId,
   payerPubId,
