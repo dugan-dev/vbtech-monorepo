@@ -1,10 +1,8 @@
 import { UserProvider } from "@/contexts/user-context";
-import { getPayerByPubId } from "@/repos/payer-repository";
-import {
-  getPayersProcessingAccounts,
-  getPayloadClientId,
-} from "@/repos/payload-processing-account-repository";
+import { getPayersProcessingAccounts } from "@/repos/payload-processing-account-repository";
 import { getUsersData } from "@/repos/user-repository";
+
+import { getPayloadClientId } from "@/lib/payload";
 
 import { PayerProcessingAccountCardClient } from "./payer-processing-account-card.client";
 
@@ -27,17 +25,11 @@ export async function PayerProcessingAccountCardServer({
   userId,
   payerPubId,
 }: props) {
-  const [payer, user, payloadClientToken, processingAccounts] =
-    await Promise.all([
-      getPayerByPubId({ pubId: payerPubId }),
-      getUsersData({ userId }),
-      getPayloadClientId("processing_account_plugin"),
-      getPayersProcessingAccounts(payerPubId),
-    ]);
-
-  if (!payer) {
-    throw new Error(`Payer with pubId ${payerPubId} not found.`);
-  }
+  const [user, payloadClientToken, processingAccounts] = await Promise.all([
+    getUsersData({ userId }),
+    getPayloadClientId("processing_account_plugin"),
+    getPayersProcessingAccounts(payerPubId),
+  ]);
 
   if (!payloadClientToken) {
     throw new Error("Failed to load payload client token.");
