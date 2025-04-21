@@ -21,12 +21,25 @@ export const pl = payload.Session(env.PAYLOAD_SECRET_KEY);
  * @returns The ID of the created client token.
  */
 export async function getPayloadClientId(plIntent: PayloadIntentType) {
-  const clientToken = await pl.ClientToken.create({
-    intent: {
-      type: plIntent,
-    },
-    attrs: "",
-  });
+  try {
+    const clientToken = await pl.ClientToken.create({
+      intent: {
+        type: plIntent,
+      },
+    });
 
-  return clientToken.id as string;
+    if (!clientToken || !clientToken.id) {
+      throw new Error("Payload client token ID not found");
+    }
+
+    return clientToken.id as string;
+  } catch (error) {
+    console.error(
+      `Failed to created client token for intent: ${plIntent}`,
+      error,
+    );
+    throw new Error(
+      `Failed to create Payload client token: ${error instanceof Error ? error.message : error}`,
+    );
+  }
 }
