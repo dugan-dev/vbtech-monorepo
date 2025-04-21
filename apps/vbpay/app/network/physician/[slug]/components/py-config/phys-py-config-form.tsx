@@ -25,6 +25,19 @@ type props = {
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+/**
+ * Renders a form for configuring physician payment settings, including performance year and available payment types.
+ *
+ * The form adapts its fields and controls based on user permissions, editing state, and available payment types from the license context. It displays an error dialog when submission errors occur and disables inputs appropriately during submission or when not in editing mode.
+ *
+ * @param onSuccess - Callback invoked after successful form submission.
+ * @param setIsSubmitting - State setter to indicate submission status.
+ * @param data - Optional initial form data for editing existing configuration.
+ * @param payerPubId - Optional payer public ID.
+ * @param pubId - Optional physician public ID.
+ * @param isEditing - Indicates if the form is in editing mode.
+ * @param setIsEditing - State setter to toggle editing mode.
+ */
 export function PhysPyConfigForm({
   onSuccess,
   setIsSubmitting,

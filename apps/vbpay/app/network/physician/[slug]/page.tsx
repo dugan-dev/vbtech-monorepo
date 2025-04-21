@@ -20,6 +20,16 @@ import { PhysPyConfigCardServer } from "./components/py-config/phys-py-config-ca
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer", "physician"];
 
+/**
+ * Renders the physician dashboard page, enforcing authentication, authorization, and rate limiting, and displaying physician-related data cards with loading states.
+ *
+ * @param searchParams - Promise resolving to query parameters, including an optional performance year.
+ * @param params - Promise resolving to route parameters, including the physician's public identifier.
+ *
+ * @returns The physician dashboard UI if the user is authenticated and authorized; otherwise, triggers an unauthorized response.
+ *
+ * @remark Only users with allowed user types can access this page. The UI displays physician information, affiliates, performance year configuration (optionally filtered by the `perfYear` query parameter), and payment method details, each with loading placeholders.
+ */
 export default async function Page({
   searchParams,
   params,

@@ -7,6 +7,13 @@ type props = {
   perfYear: string;
 };
 
+/**
+ * Renders a card skeleton UI for loading physician performance year configuration data.
+ *
+ * Displays placeholder content for the performance year and payment categories while data is loading. If {@link perfYear} is provided, it is shown in the header; otherwise, a skeleton placeholder is displayed.
+ *
+ * @param perfYear - The performance year to display in the card header, if available.
+ */
 export function PhysPyConfigCardSkeleton({ perfYear }: props) {
   return (
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">

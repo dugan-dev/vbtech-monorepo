@@ -22,6 +22,15 @@ type props = {
   payerPubId: string;
 };
 
+/**
+ * Displays a card indicating that no configuration exists for the specified performance year, with an option to configure if the user has appropriate access.
+ *
+ * @param userId - The ID of the user for whom data is fetched.
+ * @param payerPubId - The public identifier of the payer, used for configuration.
+ * @param perfYear - The performance year being referenced.
+ *
+ * @returns A React element rendering the informational card and, if permitted, a configuration dialog.
+ */
 export async function NoPhysConfigView({
   userId,
   payerPubId,

@@ -30,6 +30,18 @@ type props = {
   pubId?: string;
 };
 
+/**
+ * Provides form state management, permission validation, and submission handling for the Physician PY Config form.
+ *
+ * This hook manages form initialization, user edit permissions, error dialog state, and submission logic for creating or updating Physician PY Config data. It integrates with asynchronous actions for insert and update, handles validation and server errors, and exposes relevant state and handlers for use in form components.
+ *
+ * @param onSuccess - Optional callback invoked after a successful form submission.
+ * @param setIsSubmitting - Optional function to control the submitting state externally.
+ * @param payerPubId - Optional payer public ID used for permission checks and submissions.
+ * @param data - Optional initial form data for editing an existing configuration.
+ * @param pubId - Optional public ID indicating an existing configuration to update.
+ * @returns An object containing the form instance, submission handler, pending state, error dialog controls, and a flag indicating if the user has edit permissions.
+ */
 export function usePhysPyConfigForm({
   onSuccess,
   setIsSubmitting,

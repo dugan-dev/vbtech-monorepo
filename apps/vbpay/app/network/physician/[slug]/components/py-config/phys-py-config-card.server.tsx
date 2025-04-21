@@ -16,6 +16,18 @@ type props = {
   perfYearUrl?: string;
 };
 
+/**
+ * Server component that fetches and displays physician configuration data for a given user and physician.
+ *
+ * Fetches physician configuration, physician details, user data, and license information in parallel. Renders a configuration card if configuration data exists, or a fallback view otherwise.
+ *
+ * @param userId - The user identifier.
+ * @param physPubId - The physician's public identifier.
+ * @param perfYearUrl - Optional performance year; defaults to the current year if not provided.
+ * @returns A React element displaying the physician configuration card or a fallback view.
+ *
+ * @throws {Error} If the physician or license data cannot be found.
+ */
 export async function PhysPyConfigCardServer({
   userId,
   physPubId,
