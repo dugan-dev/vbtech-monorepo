@@ -53,10 +53,10 @@ export async function PhysEntityPaymentMethodCardServer({
     throw new Error("Failed to load network physician.");
   }
 
-  const payerPubId = entityPubId
-    ? entity!.payerPubId
-    : physPubId
-      ? physician!.payerPubId
+  const payerPubId = entityPubId && entity
+    ? entity.payerPubId
+    : (physPubId && physician)
+      ? physician.payerPubId
       : "";
 
   return (
