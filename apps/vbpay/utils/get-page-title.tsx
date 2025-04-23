@@ -8,15 +8,15 @@ import {
   FileStatus,
   FileUpload,
   Home,
+  ManagePaymentBatches,
+  ManagePaymentRates,
   NetworkEntities,
   NetworkEntity,
   NetworkPayer,
   NetworkPayers,
   NetworkPhysician,
   NetworkPhysicians,
-  PaymentsCapitation,
-  PaymentsClaims,
-  PaymentsPerformance,
+  PaymentPlanning,
   QueuesCompleted,
   QueuesManage,
   QueuesWork,
@@ -60,12 +60,6 @@ export function getPageTitle(pathname: string, slug?: string) {
       return "Network Entity";
     case NetworkPhysician({ slug: slug ?? "" }):
       return "Network Physician";
-    case PaymentsClaims({}):
-      return "Claims";
-    case PaymentsCapitation({}):
-      return "Capitation";
-    case PaymentsPerformance({}):
-      return "Performance";
     case FileStatus({}):
       return "File Status";
     case FileUpload({}):
@@ -84,6 +78,12 @@ export function getPageTitle(pathname: string, slug?: string) {
       return "Overview";
     case NetworkPhysician({ slug: slug ?? "" }):
       return "Overview";
+    case ManagePaymentRates({}):
+      return "Manage Payment Rates";
+    case ManagePaymentBatches({}):
+      return "Manage Payment Batches";
+    case PaymentPlanning({}):
+      return "Payment Planning";
     case QueuesCompleted({}):
       return "Completed Work";
     case QueuesManage({}):
