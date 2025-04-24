@@ -8,12 +8,11 @@ type props = {
 };
 
 /**
- * Server component that fetches and displays physician information for a given user and physician ID.
+ * Fetches physician data by public ID and renders a physician information card.
  *
- * Retrieves physician and user data concurrently, formats the physician data, and renders the `PhysicianInfoCardClient` component within a `UserProvider` context.
+ * Retrieves physician details for the given {@link pubId}, formats the data, and renders the `PhysicianInfoCardClient` component.
  *
- * @param userId - The unique identifier of the user.
- * @param pubId - The public identifier of the physician.
+ * @param pubId - The public identifier of the physician to display.
  * @returns A JSX element displaying the physician information card.
  *
  * @throws {Error} If no physician is found for the provided {@link pubId}.

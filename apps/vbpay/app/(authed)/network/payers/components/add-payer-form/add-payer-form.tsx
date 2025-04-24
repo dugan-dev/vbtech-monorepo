@@ -27,6 +27,14 @@ type props = {
   onSuccess?: () => void;
 };
 
+/**
+ * Renders a form for adding a new payer, organized into sections for basic information, performance period, identification, and organization details.
+ *
+ * @param onSuccess - Optional callback invoked after a successful payer addition.
+ *
+ * @remark
+ * The form disables input and shows a saving state during submission. Errors encountered during submission are displayed in a dialog.
+ */
 export function AddPayerForm({ onSuccess }: props) {
   const settings = useSettingsContext();
   const payerTypes = settingsToAllowedPayerTypesCombo(settings);

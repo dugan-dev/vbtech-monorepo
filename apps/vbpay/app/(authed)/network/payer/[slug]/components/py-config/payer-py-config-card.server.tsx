@@ -15,11 +15,10 @@ type props = {
 };
 
 /**
- * Displays the payer configuration card view for a given user and payer.
+ * Renders the payer configuration card view for a specified payer and performance year.
  *
- * Fetches payer configuration, payer details, and user data for the specified performance year, then renders the appropriate React component based on payer type and configuration availability.
+ * Fetches payer details and configuration for the given payer public ID and performance year, then displays the appropriate UI based on payer type and configuration availability.
  *
- * @param userId - Identifier for the user whose context is used.
  * @param payerPubId - Public identifier for the payer.
  * @param perfYearUrl - Optional performance year; defaults to the current year if not provided.
  * @returns A React element representing the payer configuration view.

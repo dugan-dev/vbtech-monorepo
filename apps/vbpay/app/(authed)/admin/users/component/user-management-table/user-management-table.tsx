@@ -23,24 +23,20 @@ type props = {
 };
 
 /**
- * Renders the user management interface.
+ * Displays a user management interface with options to add and sync users.
  *
- * Displays an empty view prompting to add a user when the provided user list is empty,
- * or a data table with current user records and an add user sheet when users are available.
- * The table is configured with preset column visibility and includes related metadata.
+ * Renders an empty state prompt if no users are present, or a data table of users with administrative actions and related metadata when users exist.
  *
- * @param users - Array of user objects; an empty array triggers the empty state view.
- * @param practices - Array of practice options.
- * @param facilities - Array of facility options.
- * @param vendors - Array of vendor options.
- * @param payers - Array of payer options.
- * @param pos - Array of point-of-service options.
- * @param physicians - Array of physician data for user assignments.
- * @param usersAppAttrs - Array of user app attributes.
+ * @param users - List of users to display; an empty array triggers the empty state.
+ * @param practices - Available practice options for user assignment.
+ * @param facilities - Available facility options for user assignment.
+ * @param vendors - Available vendor options for user assignment.
+ * @param payers - Available payer options for user assignment.
+ * @param pos - Available point-of-service options for user assignment.
+ * @param physicians - Available physicians for user assignment.
+ * @param lastUserSync - Timestamp of the last user synchronization, if available.
  *
- * @returns A JSX element representing the user management interface.
- *
- * @remarks Permission checks are enforced through RestrictByUserAppAttrsClient.
+ * @returns The user management interface as a JSX element.
  */
 export function UserManagementTable({
   users,

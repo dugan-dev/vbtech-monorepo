@@ -5,6 +5,13 @@ import { useRouter } from "next/navigation";
 import { SignIn } from "@/routes";
 import { signOut } from "aws-amplify/auth";
 
+/**
+ * React hook that automatically signs out the user after a period of inactivity and redirects to the sign-in page.
+ *
+ * @param minutes - The number of minutes of inactivity before automatic logout. Defaults to 10.
+ *
+ * @remark The inactivity timer resets on user activity such as mouse movement, key presses, clicks, or scrolling.
+ */
 export function useAutoLogout(minutes = 10) {
   const router = useRouter();
   const timeout = minutes * 60 * 1000;

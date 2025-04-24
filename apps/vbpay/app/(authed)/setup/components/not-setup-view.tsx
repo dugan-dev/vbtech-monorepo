@@ -24,13 +24,11 @@ import { SetupSheet } from "./setup-sheet";
 const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
 
 /**
- * Renders the view indicating that the VBPay license is not configured.
+ * Displays a prompt indicating that the VBPay license is not configured, with instructions based on the user's permissions.
  *
- * This asynchronous function fetches user data using the provided user ID to determine whether the user is an admin of type "bpo". Based on these attributes, it displays an alert with instructions to either configure the license via a setup sheet or contact an administrator. The setup interface is conditionally wrapped to restrict access according to allowed user types.
+ * Shows an alert and, if the user is an admin of type "bpo", provides access to the license setup interface.
  *
- * @param userId - The identifier for the user whose license configuration status is being checked.
- *
- * @returns A JSX element representing the license configuration prompt.
+ * @returns A JSX element prompting the user to configure the VBPay license or contact an administrator.
  */
 export function NotSetupView() {
   const userData = useUserContext();

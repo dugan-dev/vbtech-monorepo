@@ -12,17 +12,14 @@ type props = {
 };
 
 /**
- * Server component that fetches and prepares physician configuration data for display.
+ * Fetches physician configuration and details, then renders the appropriate configuration card or fallback view.
  *
- * Retrieves physician configuration, physician details, user data, and license information in parallel. Renders a configuration card if data exists, or a fallback view if not, wrapped in user and license context providers.
+ * Retrieves configuration data and physician information for the given public ID and performance year. If configuration data is unavailable, displays a fallback view; otherwise, renders the configuration card with formatted data.
  *
- * @param userId - The user identifier.
  * @param physPubId - The physician's public identifier.
  * @param perfYearUrl - Optional performance year; defaults to the current year if not provided.
- *
  * @returns A React element displaying the physician configuration card or a fallback view.
- *
- * @throws {Error} If the physician or license data cannot be found.
+ * @throws {Error} If the physician with the specified public ID is not found.
  */
 export async function PhysPyConfigCardServer({
   physPubId,

@@ -15,6 +15,11 @@ import { Icons } from "@/components/icons";
 
 import { AddPayerForm } from "./add-payer-form/add-payer-form";
 
+/**
+ * Displays a sheet UI for adding a new payer, including a trigger button and a form.
+ *
+ * When the "Add Payer" button is clicked, a full-screen sheet appears from the top containing a form to add a new payer. The sheet closes automatically upon successful form submission.
+ */
 export function AddPayerSheet() {
   const [sheetOpen, setSheetOpen] = useState(false);
 

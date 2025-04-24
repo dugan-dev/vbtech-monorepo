@@ -16,6 +16,13 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 });
 
+/**
+ * Root layout component that sets up global fonts, styles, and providers for unauthenticated users.
+ *
+ * Wraps the application content with font settings, global styles, and context providers, and includes a toast notification system.
+ *
+ * @param children - The content to be rendered within the layout.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
