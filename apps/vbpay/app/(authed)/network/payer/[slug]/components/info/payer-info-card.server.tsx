@@ -8,14 +8,14 @@ type props = {
 };
 
 /**
- * Renders a server-side payer information card for the specified payer.
+ * Renders a server-side payer information card for a given public payer ID.
  *
- * Fetches payer details by public ID, formats the data, and returns a client-side component to display the information.
+ * Retrieves payer details using the provided public identifier, formats the data, and returns a client-side component to display the payer's information.
  *
  * @param payerPubId - The public identifier of the payer to display.
- * @returns A JSX element containing the payer information card.
+ * @returns A JSX element displaying the payer information card.
  *
- * @throws {Error} If the payer with the specified {@link payerPubId} does not exist.
+ * @throws {Error} If no payer exists with the specified {@link payerPubId}.
  */
 export async function PayerInfoCardServer({ payerPubId }: props) {
   const payer = await getPayerByPubId({ pubId: payerPubId });

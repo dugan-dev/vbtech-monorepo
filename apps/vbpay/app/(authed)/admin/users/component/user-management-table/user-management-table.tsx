@@ -23,18 +23,18 @@ type props = {
 };
 
 /**
- * Displays a user management interface with options to add and sync users.
+ * Renders a user management interface with options to add and synchronize users.
  *
- * Renders an empty state prompt if no users are present, or a data table of users with administrative actions and related metadata when users exist.
+ * Displays an empty state prompt if no users are present; otherwise, shows a data table of users with administrative controls and related metadata.
  *
- * @param users - List of users to display; an empty array triggers the empty state.
- * @param practices - Available practice options for user assignment.
- * @param facilities - Available facility options for user assignment.
- * @param vendors - Available vendor options for user assignment.
- * @param payers - Available payer options for user assignment.
- * @param pos - Available point-of-service options for user assignment.
- * @param physicians - Available physicians for user assignment.
- * @param lastUserSync - Timestamp of the last user synchronization, if available.
+ * @param users - The list of users to display. If empty, an empty state is shown.
+ * @param practices - Practice options available for user assignment.
+ * @param facilities - Facility options available for user assignment.
+ * @param vendors - Vendor options available for user assignment.
+ * @param payers - Payer options available for user assignment.
+ * @param pos - Point-of-service options available for user assignment.
+ * @param physicians - Physicians available for user assignment.
+ * @param lastUserSync - The timestamp of the last user synchronization, if available.
  *
  * @returns The user management interface as a JSX element.
  */

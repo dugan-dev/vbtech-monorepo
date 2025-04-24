@@ -12,14 +12,14 @@ type props = {
 };
 
 /**
- * Fetches physician configuration and details, then renders the appropriate configuration card or fallback view.
+ * Renders a physician configuration card or a fallback view based on the presence of configuration data.
  *
- * Retrieves configuration data and physician information for the given public ID and performance year. If configuration data is unavailable, displays a fallback view; otherwise, renders the configuration card with formatted data.
+ * Fetches configuration and physician details for the specified public ID and performance year. If configuration data is missing, displays a fallback view; otherwise, renders the configuration card with formatted data.
  *
- * @param physPubId - The physician's public identifier.
- * @param perfYearUrl - Optional performance year; defaults to the current year if not provided.
- * @returns A React element displaying the physician configuration card or a fallback view.
- * @throws {Error} If the physician with the specified public ID is not found.
+ * @param physPubId - The public identifier of the physician.
+ * @param perfYearUrl - Optional performance year; defaults to the current year if omitted.
+ * @returns A React element displaying either the configuration card or a fallback view.
+ * @throws {Error} If no physician is found for the given public ID.
  */
 export async function PhysPyConfigCardServer({
   physPubId,
