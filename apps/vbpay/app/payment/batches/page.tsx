@@ -1,7 +1,7 @@
 import "server-only";
 
 import { unauthorized } from "next/navigation";
-import { PaymentsClaims } from "@/routes";
+import { ManagePaymentBatches } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
@@ -11,19 +11,17 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Renders the server-side Claims Payments page with enforced rate limiting and user access restrictions.
+ * Renders the Manage Batches page, allowing access only to authenticated users with permitted user types.
  *
- * This asynchronous function concurrently checks if the current user is authenticated while validating
- * the page's rate limit. If no authenticated user is found, it returns an unauthorized response. Otherwise,
- * it renders a component that restricts access based on allowed user types and displays the "Claims Payments" header.
+ * Applies rate limiting and restricts page content to users whose type is included in {@link ALLOWED_USER_TYPES}. Unauthorized users receive an immediate unauthorized response.
  *
- * @returns A restricted page component when authentication and rate limiting checks succeed, or an unauthorized response if the user is not authenticated.
+ * @returns The restricted Manage Batches page for eligible users, or an unauthorized response if access is denied.
  */
 export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: PaymentsClaims({}) }),
+    checkPageRateLimit({ pathname: ManagePaymentBatches({}) }),
   ]);
 
   if (!user) {
@@ -35,7 +33,7 @@ export default async function Page() {
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <h1>Claims Payments</h1>
+      <h1>Manage Batches</h1>
     </RestrictByUserAppAttrsServer>
   );
 }
