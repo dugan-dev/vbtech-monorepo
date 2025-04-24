@@ -1,10 +1,20 @@
 import Link from "next/link";
 
-import { Button, ButtonProps } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/button";
 
-interface props extends Pick<ButtonProps, "variant" | "size"> {
+interface props {
   href: string;
   children: React.ReactNode;
+  variant?:
+    | "default"
+    | "destructive"
+    | "link"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | null
+    | undefined;
+  size?: "default" | "sm" | "lg" | "icon" | null | undefined;
 }
 
 export function LinkButton({ href, variant, size, children }: props) {
