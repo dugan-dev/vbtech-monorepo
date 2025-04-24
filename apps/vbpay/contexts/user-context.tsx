@@ -8,11 +8,11 @@ import { UsersData } from "@/types/users-data";
 const UserContext = createContext<UsersData | null>(null);
 
 /**
- * Retrieves the current user application attributes from the context.
+ * Retrieves the current user data from the nearest UserProvider context.
  *
- * @returns The current {@link UserAppAttrs} provided by the nearest {@link UserProvider}.
+ * @returns The current {@link UsersData} provided by the nearest UserProvider.
  *
- * @throws {Error} If called outside of a {@link UserProvider}.
+ * @throws {Error} If called outside of a UserProvider.
  */
 export function useUserContext(): UsersData {
   const context = useContext(UserContext);
@@ -28,12 +28,12 @@ type props = {
 };
 
 /**
- * Provides the user application attributes context to descendant components.
+ * Supplies user data to descendant components via React context.
  *
- * Wraps its children with a {@link UserContext.Provider}, making {@link usersAppAttrs} available to all nested components via the context.
+ * Wraps children with {@link UserContext.Provider}, making {@link usersData} accessible to all nested components.
  *
- * @param usersAppAttrs - The user application attributes to supply to the context.
- * @param children - The React nodes that will have access to the user context.
+ * @param usersData - The user data to provide through context.
+ * @param children - React nodes that will receive the context value.
  */
 export function UserProvider({ usersData, children }: props) {
   return (

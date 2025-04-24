@@ -10,6 +10,18 @@ type props = {
   adminOnly?: boolean;
 };
 
+/**
+ * Conditionally renders children based on the current user's attributes and roles.
+ *
+ * Only renders the children if the user meets all specified restrictions, such as being an admin, having an allowed user type, and possessing all required roles.
+ *
+ * @param children - The React nodes to render if access is granted.
+ * @param allowedUserTypes - Optional list of user types permitted to view the children.
+ * @param requiredUserRoles - Optional list of roles the user must have to view the children.
+ * @param adminOnly - If true, restricts rendering to admin users only.
+ *
+ * @returns The children if all access conditions are met; otherwise, returns null.
+ */
 export default function RestrictByUserAppAttrsClient({
   children,
   allowedUserTypes,

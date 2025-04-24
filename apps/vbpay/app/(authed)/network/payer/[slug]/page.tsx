@@ -19,9 +19,9 @@ import { PayerPyConfigCardServer } from "./components/py-config/payer-py-config-
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
 /**
- * Displays the payer configuration page for authenticated users with permitted roles.
+ * Renders the payer configuration page for authenticated users with permitted roles.
  *
- * Resolves query and route parameters along with the authenticated user, enforces rate limiting, and restricts access to allowed user types. Renders payer information, configuration, and processing account cards, each with loading skeletons while data is fetched.
+ * Awaits query parameters, route parameters, and user authentication, enforces rate limiting, and restricts access to allowed user types. Displays payer information, configuration, and processing account sections, each with loading skeletons while data is being fetched.
  *
  * @returns The payer configuration page as a JSX element, or an unauthorized response if the user is not authenticated.
  */

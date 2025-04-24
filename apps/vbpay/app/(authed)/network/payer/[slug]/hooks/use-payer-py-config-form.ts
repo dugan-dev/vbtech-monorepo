@@ -32,18 +32,18 @@ type props = {
 };
 
 /**
- * Provides state management, validation, permission checks, and submission logic for a multi-step payer configuration form.
+ * Manages state, validation, permission checks, and submission for a multi-step payer configuration form.
  *
- * This custom React hook manages the flow of a multi-step form for payer settings, including step navigation, per-step validation, and conditional submission for insert or update modes. It enforces user permission checks before allowing submission and handles error dialogs and success notifications.
+ * This custom React hook coordinates step navigation, per-step validation, and conditional submission logic for inserting or updating payer configuration. It enforces user edit permissions, displays error dialogs for permission or validation failures, and triggers success notifications on completion.
  *
  * @param onSuccess - Callback invoked after successful form submission.
  * @param setIsSubmitting - Optional setter to control submitting state externally.
- * @param payerPubId - Payer identifier used when inserting a new configuration.
+ * @param payerPubId - Identifier for the payer, required for inserting a new configuration.
  * @param data - Existing configuration data; if present, the form operates in update mode.
  * @param pubId - Publication identifier used in update mode.
- * @returns An object with form state, submission handler, step navigation, error dialog controls, permission status, and step validation utilities.
+ * @returns An object containing form state and methods, submission handler, step navigation utilities, error dialog controls, permission status, and step validation helpers.
  *
- * @remark Submission is blocked and an error dialog is shown if the current user lacks edit permissions for the payer.
+ * @remark If the current user lacks permission to edit the payer, submission is blocked and an error dialog is shown.
  */
 export function useSteppedPayerPyConfigForm({
   onSuccess,

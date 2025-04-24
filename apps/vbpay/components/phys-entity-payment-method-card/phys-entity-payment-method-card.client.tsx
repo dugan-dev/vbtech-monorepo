@@ -76,12 +76,12 @@ type props = {
 };
 
 /**
- * Displays and manages bank account payment methods for a physical entity, allowing authorized users to add or delete accounts.
+ * React component for displaying and managing bank account payment methods for a physical entity.
  *
- * Renders a card UI listing existing bank accounts with options to add new accounts or delete existing ones, based on user permissions. Handles form submissions, permission checks, and error feedback through dialogs and toast notifications.
+ * Provides a card interface listing existing bank accounts and allows authorized users to add or delete accounts. Handles permission checks, form submissions, and error feedback via dialogs and toast notifications.
  *
- * @param payloadClientToken - Token used for authenticating Payload API requests.
- * @param paymentMethods - List of bank account payment methods to display.
+ * @param payloadClientToken - Authentication token for Payload API requests.
+ * @param paymentMethods - Array of bank account payment methods to display.
  * @param payerPubId - Public identifier for the payer entity.
  *
  * @remark Only users with the required type and role can add or delete bank accounts. Unauthorized actions trigger an error dialog.
@@ -134,7 +134,13 @@ export function PhysEntityPaymentMethodCardClient({
     usersAppAttrs: usersData.usersAppAttrs,
   });
 
-  // handle delete payment method
+  /**
+   * Attempts to delete a payment method by its ID if the user has permission.
+   *
+   * Opens an error dialog if the user lacks permission to delete the payment method.
+   *
+   * @param id - The unique identifier of the payment method to delete.
+   */
   function handleDeletePaymentMethod(id: string) {
     if (!userCanEdit) {
       openErrorDialog(
