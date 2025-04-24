@@ -28,12 +28,12 @@ type props = {
 };
 
 /**
- * Renders a form for adding a new payer, organized into sections for basic information, performance period, identification, and organization details.
+ * Displays a multi-section form for adding a new payer, including fields for basic information, performance period, identification, and organization details.
  *
- * @param onSuccess - Optional callback invoked after a successful payer addition.
+ * @param onSuccess - Optional callback invoked after a payer is successfully added.
  *
  * @remark
- * The form disables input and shows a saving state during submission. Errors encountered during submission are displayed in a dialog.
+ * The form is disabled and shows a saving state during submission. Any errors encountered during submission are presented in a dialog.
  */
 export function AddPayerForm({ onSuccess }: props) {
   const settings = useSettingsContext();

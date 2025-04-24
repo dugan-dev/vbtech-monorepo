@@ -17,11 +17,11 @@ const fontMono = Geist_Mono({
 });
 
 /**
- * Root layout component that sets up global fonts, styles, and providers for unauthenticated users.
+ * Provides the global layout for unauthenticated user views, applying fonts, styles, and context providers.
  *
- * Wraps the application content with font settings, global styles, and context providers, and includes a toast notification system.
+ * Wraps application content with configured fonts, global styles, and a toast notification system.
  *
- * @param children - The content to be rendered within the layout.
+ * @param children - React nodes to be rendered within the layout.
  */
 export default function RootLayout({
   children,

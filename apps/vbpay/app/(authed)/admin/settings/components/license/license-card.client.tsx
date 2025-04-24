@@ -28,11 +28,11 @@ type props = {
 };
 
 /**
- * Displays license information in a styled card with restricted access to admin settings.
+ * Renders a card displaying detailed license information, with admin settings access restricted by user type and privileges.
  *
- * Renders license details such as type, number of payers, validity dates, client name, contact, payment types, and additional functionality. Access to the admin settings sheet is restricted to users of allowed types with admin privileges.
+ * Shows license type, number of payers, validity dates, client name, contact person, payment types, and any additional functionality. The admin settings sheet is only accessible to users with the appropriate type and admin rights.
  *
- * @param data - The license and functionality information to display.
+ * @param data - License and functionality details to display in the card.
  */
 export function LicenseCardClient({ data }: props) {
   return (

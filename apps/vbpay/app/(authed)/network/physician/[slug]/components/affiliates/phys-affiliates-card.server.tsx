@@ -12,15 +12,13 @@ type props = {
 };
 
 /**
- * Server component that fetches and prepares physician affiliate data for editing.
+ * Fetches physician, network entity, and payer data for a given physician and renders the affiliate editing card.
  *
- * Retrieves physician, network entity, and payer data based on the provided {@link pubId}, formats them for the affiliate editing form, and renders the client-side affiliate card component.
+ * Retrieves and formats all necessary data for editing a physician's affiliate information, then renders the client-side affiliate card component with preloaded form data and combo options.
  *
- * @param pubId - The public identifier of the physician whose affiliate data is to be displayed and edited.
- *
- * @returns A JSX element rendering the affiliate card client component with preloaded form data and combo options.
- *
- * @throws {Error} If no physician is found for the given {@link pubId}.
+ * @param pubId - The public identifier of the physician whose affiliate data is to be managed.
+ * @returns A JSX element rendering the affiliate card client component with the relevant form data and options.
+ * @throws {Error} If no physician is found for the specified {@link pubId}.
  */
 export async function PhysAffiliatesCardServer({ pubId }: props) {
   const [physician, entities, payers] = await Promise.all([

@@ -12,9 +12,9 @@ type props = {
 };
 
 /**
- * Loads network entity or physician data and associated payment methods to render a payment method card.
+ * Renders a payment method card for a network entity or physician by loading their data and associated payment methods.
  *
- * Fetches the network entity or physician (if their public IDs are provided), a payload client token, and payment methods in parallel. Throws an error if any required data fails to load. Renders the payment method card client component with the loaded data.
+ * Fetches the network entity or physician (if their public IDs are provided), a payload client token, and payment methods concurrently. Throws an error if any required data fails to load.
  *
  * @param entityPubId - Optional public ID of the network entity whose payment methods are managed.
  * @param physPubId - Optional public ID of the network physician whose payment methods are managed.

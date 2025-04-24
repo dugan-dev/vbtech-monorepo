@@ -21,13 +21,13 @@ type props = {
 };
 
 /**
- * Displays a table of network entities or an empty state with contextual messaging and an option to add a new entity, depending on the presence of entities and user role.
+ * Renders a table of network entities or an empty state with contextual messaging and an option to add a new entity, based on the provided entities and user attributes.
  *
- * @param entities - The list of network entities to display.
- * @param usersAppAttrs - Attributes describing the current user's application context, used to determine messaging and access.
+ * @param entities - The network entities to display in the table.
+ * @param usersAppAttrs - Attributes describing the current user's application context, which determine the empty state messaging.
  *
  * @remark
- * The option to add a network entity is only available to users with the required role. The empty state description varies based on the user's application type.
+ * The option to add a network entity is only shown to users with the required role. The empty state description adapts to the user's application type.
  */
 export function ManageNetworkEntitiesTable({ entities, usersAppAttrs }: props) {
   if (entities.length === 0) {

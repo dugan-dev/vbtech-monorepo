@@ -6,9 +6,9 @@ import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 import { StandardLayout } from "@/components/standard-layout";
 
 /**
- * Renders the home page if the user is authenticated and within rate limits.
+ * Serves the home page for authenticated users who have not exceeded rate limits.
  *
- * Enforces a rate limit for the home page and checks for an authenticated user. Returns an unauthorized response if authentication fails; otherwise, displays the home page content.
+ * Enforces rate limiting and authentication before rendering the home page. Returns an unauthorized response if the user is not authenticated.
  */
 export default async function Page() {
   await checkPageRateLimit({ pathname: Home({}) });
