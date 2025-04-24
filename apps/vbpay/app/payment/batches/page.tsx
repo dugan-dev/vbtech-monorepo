@@ -10,6 +10,13 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
+/**
+ * Renders the Manage Batches page, allowing access only to authenticated users with permitted user types.
+ *
+ * Applies rate limiting and restricts page content to users whose type is included in {@link ALLOWED_USER_TYPES}. Unauthorized users receive an immediate unauthorized response.
+ *
+ * @returns The restricted Manage Batches page for eligible users, or an unauthorized response if access is denied.
+ */
 export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([
