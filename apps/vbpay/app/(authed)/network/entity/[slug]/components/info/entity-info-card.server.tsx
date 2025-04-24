@@ -8,14 +8,14 @@ type props = {
 };
 
 /**
- * Server component that fetches entity data and renders an entity info card.
+ * Asynchronously fetches and displays an entity info card for a given public ID.
  *
- * Retrieves a network entity by its public ID, formats the data, and displays it using {@link EntityInfoCardClient}.
+ * Retrieves a network entity using the provided public ID, formats its data, and renders the {@link EntityInfoCardClient} component with the relevant information.
  *
  * @param entityPubId - The public ID of the entity to display.
  * @returns A JSX element containing the entity info card.
  *
- * @throws {Error} If no entity is found for the provided {@link entityPubId}.
+ * @throws {Error} If no entity is found for the specified {@link entityPubId}.
  */
 export async function EntityInfoCardServer({ entityPubId }: props) {
   const entity = await getNetworkEntity(entityPubId);

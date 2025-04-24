@@ -26,7 +26,7 @@ const ALLOWED_USER_TYPES: UserType[] = [
 ];
 
 /**
- * Renders the network entity page for authenticated users, enforcing access control and rate limiting.
+ * Renders a network entity page for authenticated users, enforcing access control and rate limiting.
  *
  * Concurrently retrieves the authenticated user and entity slug, applies rate limiting based on the entity path, and renders entity details and payment method information. Returns an unauthorized response if the user is not authenticated.
  *

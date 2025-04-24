@@ -12,9 +12,9 @@ type props = {
 };
 
 /**
- * Fetches physician, network entity, and payer data for a given physician and renders the affiliate editing card.
+ * Fetches physician, network entity, and payer data for a given physician public ID and renders the affiliate editing card.
  *
- * Retrieves and formats all necessary data for editing a physician's affiliate information, then renders the client-side affiliate card component with preloaded form data and combo options.
+ * Retrieves and formats the necessary data for the affiliate editing form, then renders the client-side affiliate card component with preloaded form data and combo options.
  *
  * @param pubId - The public identifier of the physician whose affiliate data is to be managed.
  * @returns A JSX element rendering the affiliate card client component with the relevant form data and options.

@@ -7,11 +7,11 @@ import { SidebarProvider } from "@workspace/ui/components/sidebar";
 import { AuthProvider } from "@/components/auth-provider";
 
 /**
- * Provides authentication and sidebar context to all nested components.
+ * Provides authentication and sidebar contexts to all nested child components.
  *
- * Wraps {@link children} with both {@link AuthProvider} and {@link SidebarProvider} to ensure access to authentication and sidebar-related context throughout the component tree.
+ * Wraps {@link children} with both {@link AuthProvider} and {@link SidebarProvider} to ensure access to authentication and sidebar-related state throughout the component tree.
  *
- * @param children - React nodes to be rendered within the context providers.
+ * @param children - React nodes to render within the context providers.
  */
 export function AuthedProviders({ children }: PropsWithChildren) {
   return (

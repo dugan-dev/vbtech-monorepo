@@ -26,9 +26,9 @@ type props = {
 };
 
 /**
- * React hook that manages the state and submission logic for editing a physician, including permission checks and error handling.
+ * React hook for managing the edit physician form, including permission checks, form state, submission handling, and error dialogs.
  *
- * Provides form methods, a submission handler, loading and error dialog states, and a flag indicating whether the current user has permission to edit the physician.
+ * Returns form methods, a submission handler, loading and error dialog states, and a flag indicating whether the current user can edit the physician.
  *
  * @param onSuccess - Callback invoked after a successful form submission.
  * @param formData - Initial values for the form fields.
@@ -36,7 +36,7 @@ type props = {
  *
  * @returns An object containing the form instance, submission handler, loading state, error dialog controls, and the `userCanEdit` permission flag.
  *
- * @remark If the user lacks edit permission, form submission is prevented and an error dialog is shown.
+ * @remark If the user lacks permission to edit, form submission is blocked and an error dialog is shown.
  */
 export function useEditPhysicianForm({
   onSuccess,

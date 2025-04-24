@@ -21,12 +21,12 @@ import { PhysPyConfigCardServer } from "./components/py-config/phys-py-config-ca
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer", "physician"];
 
 /**
- * Asynchronous server component that renders the physician network page with authentication and user type access control.
+ * Renders the physician network page as a server component with authentication and access control.
  *
- * Displays physician details, affiliates, performance year configuration, and payment method information for a specified physician. Only authenticated users with permitted user types can access the page; unauthenticated users receive an unauthorized response.
+ * Displays physician details, affiliates, performance year configuration, and payment method information for a specified physician. Access is limited to authenticated users with permitted user types; unauthenticated users receive an unauthorized response.
  *
  * @param searchParams - Promise resolving to query parameters, which may include a performance year.
- * @param params - Promise resolving to route parameters, including the physician's public slug.
+ * @param params - Promise resolving to route parameters containing the physician's public slug.
  *
  * @returns The server-rendered React component for the physician network page, or an unauthorized response if the user is not authenticated.
  */

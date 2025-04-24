@@ -8,11 +8,11 @@ import { getCurrentUser } from "aws-amplify/auth";
 import { useAutoLogout } from "@/hooks/use-auto-logout";
 
 /**
- * Restricts access to child components by verifying user authentication and session validity.
+ * Restricts access to child components to authenticated users by validating the user session.
  *
- * Checks the user session on mount and whenever the page becomes visible, redirecting unauthenticated users to the sign-in page. While authentication is being verified, renders nothing. Also triggers automatic logout after a period of inactivity.
+ * Verifies authentication on mount and when the page becomes visible, redirecting unauthenticated users to the sign-in page. While authentication status is being determined, renders nothing. Also enforces automatic logout after a period of inactivity.
  *
- * @param children - React components that require authenticated access.
+ * @param children - React nodes that require authentication to be rendered.
  */
 export function AuthProvider({ children }: PropsWithChildren) {
   const router = useRouter();

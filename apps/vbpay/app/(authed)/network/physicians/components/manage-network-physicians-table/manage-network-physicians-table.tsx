@@ -28,12 +28,11 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 const REQUIRED_USER_ROLES: UserRole[] = ["add"];
 
 /**
- * Renders a table of network physicians or an empty state with an add physician option, depending on whether physician data is available.
+ * Renders a table of network physicians or an empty state with an add physician option, depending on available data.
  *
- * Displays an empty view with a contextual message and an add physician interface when no physicians are present. If physicians exist, shows a data table with pagination, global search, and configurable column visibility. The add physician interface is only available to users with the required permissions.
+ * Displays an empty view with a contextual message and an add physician interface when no physicians are present. If physicians exist, shows a data table with pagination, global search, and configurable column visibility. The add physician interface is only accessible to users with the required types and roles.
  *
- * @param physicians - The network physicians to display.
- * @param usersAppAttrs - User attributes used to determine the empty state message.
+ * @param physicians - The list of network physicians to display.
  * @param pos - Position options for the add physician form.
  * @param practices - Practice options for the add physician form.
  * @param facilities - Facility options for the add physician form.

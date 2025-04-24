@@ -26,15 +26,15 @@ type props = {
 };
 
 /**
- * Manages form state, validation, permission checks, and submission logic for editing a network physician's affiliations.
+ * Manages form state, validation, and submission for editing a network physician's affiliations.
  *
- * Initializes the form with validation, determines user edit permissions, handles error dialogs, and processes updates to physician affiliations. Returns utilities for form handling, submission, error management, and permission status.
+ * Handles user permission checks, error dialog state, and action execution for updating physician affiliations. Returns form utilities, submission handler, loading and error states, and a flag indicating whether the user can edit.
  *
- * @param onSuccess - Callback invoked after a successful update.
+ * @param onSuccess - Optional callback invoked after a successful update.
  * @param formData - Initial values for the form fields.
  * @param payerPubId - Public ID of the payer whose physician affiliations are being edited.
  *
- * @returns An object containing the form instance, submission handler, loading state, error dialog controls, and a flag indicating if the user has edit permissions.
+ * @returns An object with the form instance, submission handler, loading state, error dialog controls, and a permission flag.
  */
 export function useEditPhysAffiliatesForm({
   onSuccess,

@@ -12,11 +12,11 @@ type props = {
 };
 
 /**
- * Displays a management interface for payers linked to a specific user.
+ * Displays a management interface for payers linked to the specified user.
  *
- * Fetches payer IDs from the user's attributes and, if present, retrieves and displays payer details in a management table. If no payer IDs are found, renders an error view indicating the absence of payer associations.
+ * Fetches payer IDs from the user's attributes and renders a table of payers if any are found. If no payer IDs are associated with the user, shows an error view indicating the absence of payer permissions.
  *
- * @param userId - The unique identifier of the user whose associated payers are managed.
+ * @param userId - The unique identifier of the user whose payers are being managed.
  *
  * @returns A React element with either the payers management table or an error view if no payer IDs are found.
  */

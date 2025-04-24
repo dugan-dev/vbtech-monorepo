@@ -18,9 +18,9 @@ type props = {
 };
 
 /**
- * Renders a table of payers with conditional options to add new payers based on user roles.
+ * Renders a table of payers with conditional empty state and add-payer functionality based on user permissions.
  *
- * Displays an empty state with an add payer action when no payers are present, or a searchable, paginated table when payers exist.
+ * Displays an empty view with an option to add a payer when no payers are present, or a searchable, paginated table when payers exist.
  *
  * @param payers - Array of payer entities to display.
  */

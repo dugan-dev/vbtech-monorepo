@@ -20,12 +20,11 @@ type props = {
 };
 
 /**
- * Renders a card UI indicating that no configuration exists for the given performance year, with an option for authorized users to access the configuration sheet.
+ * Renders a card notifying users that no configuration exists for a given performance year, with an option to add configuration for authorized user types.
  *
- * @param payerPubId - The public identifier of the payer to be passed to the configuration sheet.
- * @param perfYear - The performance year to display in the card header.
- *
- * @returns A JSX element displaying the no-configuration notice and, for allowed user types, a configuration sheet.
+ * @param payerPubId - The public identifier of the payer for which configuration may be added.
+ * @param perfYear - The performance year being referenced.
+ * @returns A JSX element displaying the notification and, for allowed users, a configuration sheet.
  */
 export async function NoPayerConfigView({ payerPubId, perfYear }: props) {
   return (

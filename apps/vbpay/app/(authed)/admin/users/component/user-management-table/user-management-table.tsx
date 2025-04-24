@@ -25,7 +25,7 @@ type props = {
 /**
  * Renders a user management interface with options to add and synchronize users.
  *
- * Displays an empty state prompt if no users are present; otherwise, shows a data table of users with administrative controls and related metadata.
+ * Displays an empty state prompt if no users are present; otherwise, shows a data table of users with administrative actions and related metadata.
  *
  * @param users - The list of users to display. If empty, an empty state is shown.
  * @param practices - Practice options available for user assignment.
