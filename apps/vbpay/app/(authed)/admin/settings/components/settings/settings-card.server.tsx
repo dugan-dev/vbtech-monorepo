@@ -5,9 +5,9 @@ import { formatSettingsFormData } from "../../utils/format-vbpay-license-and-set
 import { SettingsCardClient } from "./settings-card.client";
 
 /**
- * Loads license and global settings data, formats them for the settings form, and renders the settings card client component.
+ * Loads VBPay license and global settings, formats them for the settings form, and renders the settings card client component.
  *
- * @returns A React element displaying the settings card with formatted data.
+ * @returns A React element displaying the settings card with the formatted license and settings data.
  *
  * @throws {Error} If license or settings data cannot be loaded.
  */

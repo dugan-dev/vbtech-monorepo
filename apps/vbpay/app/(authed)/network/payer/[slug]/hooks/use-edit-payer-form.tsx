@@ -34,7 +34,7 @@ type props = {
  * @param formData - Initial values to populate the edit form.
  * @returns An object containing the form instance, submission handler, pending state, error dialog controls, and a flag indicating if the user can edit.
  *
- * @remark If the user does not have permission to edit the payer, form submission is prevented and an error dialog is shown.
+ * @remark If the user does not have permission to edit the payer, form submission is blocked and an error dialog is shown.
  */
 export function useEditPayerForm({ onSuccess, formData }: props) {
   // get the slug from the url which is the pubId of the payer

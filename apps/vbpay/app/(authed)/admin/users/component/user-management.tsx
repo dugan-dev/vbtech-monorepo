@@ -12,9 +12,9 @@ import { filterEntitiesByType } from "../utils/filter-entities-by-type";
 import { UserManagementTable } from "./user-management-table/user-management-table";
 
 /**
- * Renders the user management table UI with fetched and formatted data.
+ * Loads and formats all data required for the user management table UI.
  *
- * Retrieves network entities, payers, physicians, users, and the last user synchronization timestamp, processes them for display, and passes them as props to the {@link UserManagementTable} component.
+ * Fetches network entities, payers, physicians, users, and the last user synchronization timestamp, processes them for display, and renders the {@link UserManagementTable} component with the resulting data.
  */
 export async function UserManagement() {
   // Get all the data we need

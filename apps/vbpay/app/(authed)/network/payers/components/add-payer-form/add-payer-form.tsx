@@ -33,7 +33,7 @@ type props = {
  * @param onSuccess - Optional callback invoked after a payer is successfully added.
  *
  * @remark
- * The form is disabled and shows a saving state during submission. Any errors encountered during submission are presented in a dialog.
+ * The form disables input fields and shows a saving state during submission. Any errors encountered during submission are presented in a dialog.
  */
 export function AddPayerForm({ onSuccess }: props) {
   const settings = useSettingsContext();

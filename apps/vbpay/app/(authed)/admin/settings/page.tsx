@@ -14,11 +14,11 @@ import { SettingsCardSkeleton } from "./components/settings/settings-card-skelet
 import { SettingsCardServer } from "./components/settings/settings-card.server";
 
 /**
- * Renders the admin settings page, allowing access only to authenticated administrators and applying rate limiting.
+ * Renders the admin settings page, allowing access only to authenticated admin users and enforcing rate limiting.
  *
  * Returns an unauthorized response if the user is not authenticated. The page displays settings and license information, each loaded asynchronously with skeleton placeholders during loading.
  *
- * @returns The admin settings page for authenticated admin users, or an unauthorized response for unauthenticated users.
+ * @returns The admin settings page for authenticated administrators, or an unauthorized response for unauthenticated users.
  */
 export default async function Page() {
   // Check rate limiter

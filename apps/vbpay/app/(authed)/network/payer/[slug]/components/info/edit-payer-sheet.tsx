@@ -26,9 +26,9 @@ type props = {
 };
 
 /**
- * Displays a full-screen modal sheet for viewing and editing payer information.
+ * Displays a button that opens a full-screen modal sheet for viewing and editing payer information.
  *
- * Shows a button with an eye icon and tooltip; clicking it opens a sheet with payer details, allowing users to toggle between view and edit modes. The sheet closes automatically after a successful form submission and resets editing mode when closed.
+ * The sheet allows users to toggle between view and edit modes for the payer details. It closes automatically after a successful form submission.
  *
  * @param formData - Initial payer data used to populate the form fields.
  */

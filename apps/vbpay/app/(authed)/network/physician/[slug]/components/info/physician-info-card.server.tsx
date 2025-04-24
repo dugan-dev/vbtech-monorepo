@@ -8,14 +8,14 @@ type props = {
 };
 
 /**
- * Server component that fetches physician data by public ID and renders a physician information card.
+ * Renders a server-side physician information card for the specified public ID.
  *
- * Retrieves physician details for the specified {@link pubId}, formats the data, and renders the `PhysicianInfoCardClient` component with the relevant information.
+ * Fetches physician data using the provided {@link pubId}, formats it, and returns a JSX element displaying the physician's information.
  *
  * @param pubId - The public identifier of the physician to display.
- * @returns A JSX element displaying the physician information card.
+ * @returns A JSX element containing the physician information card.
  *
- * @throws {Error} If no physician is found for the provided {@link pubId}.
+ * @throws {Error} If no physician is found for the given {@link pubId}.
  */
 export async function PhysicianInfoCardServer({ pubId }: props) {
   const physician = await getNetworkPhysician(pubId);

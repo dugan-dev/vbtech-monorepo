@@ -20,7 +20,7 @@ type props = {
 };
 
 /**
- * Renders a card indicating that no configuration exists for the specified performance year, and provides an option to configure if the user has the required access.
+ * Renders a card notifying the user that no configuration exists for the specified performance year, and provides a configuration option if permitted by user type.
  *
  * @param payerPubId - The public identifier of the payer used for configuration.
  * @param perfYear - The performance year being referenced.

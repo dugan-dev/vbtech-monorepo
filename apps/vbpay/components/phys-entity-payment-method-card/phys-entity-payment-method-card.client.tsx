@@ -78,13 +78,13 @@ type props = {
 /**
  * Displays and manages bank account payment methods for a physical entity.
  *
- * Renders a card interface listing existing bank accounts and provides authorized users with options to add or delete accounts. Handles permission checks, form submissions, and error feedback through dialogs and toast notifications.
+ * Renders a card interface listing existing bank accounts and allows authorized users to add or delete accounts. Handles permission checks, form submissions, and provides user feedback through dialogs and toast notifications.
  *
- * @param payloadClientToken - Token used for authenticating API requests to manage payment methods.
- * @param paymentMethods - List of bank account payment methods associated with the entity.
+ * @param payloadClientToken - Token used to authenticate Payload API requests.
+ * @param paymentMethods - List of bank account payment methods to display.
  * @param payerPubId - Public identifier for the payer entity.
  *
- * @remark Only users with the required type and role can add or delete bank accounts. Unauthorized actions will trigger an error dialog.
+ * @remark Only users with the required type and role can add or delete bank accounts. Unauthorized actions trigger an error dialog.
  */
 export function PhysEntityPaymentMethodCardClient({
   payloadClientToken,

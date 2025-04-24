@@ -10,9 +10,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { AuthInitializer } from "./auth-initializer";
 
 /**
- * Wraps child components with authentication adapter, tooltip, and theming contexts for unauthenticated users.
+ * Wraps child components with authentication adapter, tooltip, and theme providers for unauthenticated user flows.
  *
- * @param children - React nodes to receive the composed contexts.
+ * @param children - React nodes to be rendered within the composed providers.
  */
 export function UnauthedProviders({ children }: PropsWithChildren) {
   return (

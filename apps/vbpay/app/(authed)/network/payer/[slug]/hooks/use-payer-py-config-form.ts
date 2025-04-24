@@ -32,9 +32,9 @@ type props = {
 };
 
 /**
- * Provides state management, validation, permission enforcement, and submission logic for a multi-step payer configuration form in React.
+ * Provides state management, validation, permission enforcement, and submission logic for a multi-step payer configuration form.
  *
- * This hook coordinates step navigation, per-step validation, and conditional submission for inserting or updating a payer configuration. It enforces user edit permissions, displays error dialogs for permission or validation failures, and triggers success notifications upon completion.
+ * This custom React hook handles step navigation, per-step validation, and conditional submission for inserting or updating a payer configuration. It enforces user edit permissions, manages error dialogs for permission or validation failures, and triggers success notifications upon completion.
  *
  * @param onSuccess - Callback invoked after successful form submission.
  * @param setIsSubmitting - Optional setter to control submitting state externally.

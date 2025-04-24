@@ -12,9 +12,9 @@ import { NotSetupView } from "./components/not-setup-view";
 import { NotSetupViewSkeleton } from "./components/not-setup-view-skeleton";
 
 /**
- * React server component for the setup page that enforces rate limits, checks user authentication, and verifies license status.
+ * Server component for the setup page that enforces rate limits, checks authentication, and verifies license status.
  *
- * Redirects unauthenticated users to the sign-in page and users with a valid license to the home page. If the user is authenticated but no license is present, renders the setup view within a suspense boundary that displays a loading skeleton while loading.
+ * Redirects unauthenticated users to the sign-in page and users with a valid license to the home page. If the user is authenticated but no license is present, renders the setup view within a suspense boundary using a loading skeleton as fallback.
  */
 export default async function Page() {
   // Check rate limiter

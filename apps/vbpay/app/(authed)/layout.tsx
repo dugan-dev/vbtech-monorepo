@@ -14,12 +14,14 @@ import { AuthedProviders } from "@/components/authed-providers";
 import { MainSidebar } from "@/components/main-sidebar/main-sidebar";
 
 /**
- * Renders the authenticated application layout, supplying user, license, and settings context to its children.
+ * Serves as the authenticated layout for the application, ensuring user authentication and setup prerequisites before rendering content.
  *
- * Redirects to the setup route if license or settings are missing, or returns an unauthorized response if the user is not authenticated.
+ * Wraps its children with user, license, and settings context providers, and displays the main sidebar alongside the content area.
  *
  * @param children - The content to render within the authenticated layout.
- * @returns The authenticated layout wrapped in user, license, and settings providers.
+ * @returns The authenticated layout with all required context providers.
+ *
+ * @remark Redirects to the setup route if license or settings are missing, or returns an unauthorized response if the user is not authenticated.
  */
 export default async function AuthedLayout({
   children,

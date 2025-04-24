@@ -21,7 +21,7 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 /**
  * Renders the payer configuration page for authenticated users with permitted roles.
  *
- * Awaits query and route parameters, verifies user authentication, enforces rate limiting, and restricts access to allowed user types. Displays payer information, configuration, and processing account sections, each with a loading skeleton while data is being fetched.
+ * Awaits query and route parameters as well as user authentication, enforces rate limiting, and restricts access to users with allowed roles. Displays payer information, configuration, and processing account sections, each with a loading skeleton while data is being fetched.
  *
  * @returns The payer configuration page as a JSX element, or an unauthorized response if the user is not authenticated.
  */

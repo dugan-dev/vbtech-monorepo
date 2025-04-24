@@ -11,9 +11,9 @@ type props = {
 };
 
 /**
- * Conditionally renders children if the current user satisfies specified attribute and role restrictions.
+ * Restricts rendering of children to users who meet specified attribute and role requirements.
  *
- * Renders the provided children only when the user meets all of the following, if specified: is an admin (when {@link adminOnly} is true), has a permitted user type, and possesses all required roles.
+ * Renders the provided children only if the current user satisfies all given access conditions, including admin status, allowed user types, and required roles. Returns null if any condition is not met.
  *
  * @param children - React nodes to render when access is granted.
  * @param allowedUserTypes - List of user types permitted to view the children.

@@ -5,13 +5,11 @@ import { formatSettingsFormData } from "../../utils/format-vbpay-license-and-set
 import { LicenseCardClient } from "./license-card.client";
 
 /**
- * Renders the LicenseCardClient component with formatted license and global settings data.
+ * Retrieves license and global settings data, formats them, and renders the LicenseCardClient component.
  *
- * Fetches license and global settings concurrently, formats the combined data, and returns a React element displaying the information.
+ * @returns A React element displaying the formatted license and settings information.
  *
- * @returns A React element containing the formatted license and settings data.
- *
- * @throws {Error} If license or settings data cannot be retrieved.
+ * @throws {Error} If license or settings data is missing.
  */
 export async function LicenseCardServer() {
   const [license, settings] = await Promise.all([

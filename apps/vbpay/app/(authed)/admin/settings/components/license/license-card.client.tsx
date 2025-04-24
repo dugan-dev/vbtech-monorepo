@@ -30,7 +30,7 @@ type props = {
 /**
  * Renders a card displaying detailed license information, with admin settings access restricted by user type and privileges.
  *
- * Shows license type, number of payers, validity dates, client name, contact person, payment types, and any additional functionality. The admin settings sheet is only accessible to users with the appropriate type and admin rights.
+ * Shows license type, number of payers, validity dates, client and contact names, payment types, and any additional functionality. The admin settings sheet is only accessible to users of allowed types with admin rights.
  *
  * @param data - License and functionality details to display in the card.
  */

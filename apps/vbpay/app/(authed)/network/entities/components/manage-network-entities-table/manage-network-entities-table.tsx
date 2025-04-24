@@ -21,10 +21,10 @@ type props = {
 };
 
 /**
- * Renders a table of network entities or an empty state with contextual messaging and an option to add a new entity, based on the provided entities and user attributes.
+ * Renders a table of network entities or an empty state with contextual messaging and an option to add a new entity, based on the presence of entities and user role.
  *
  * @param entities - The network entities to display in the table.
- * @param usersAppAttrs - Attributes describing the current user's application context, which determine the empty state messaging.
+ * @param usersAppAttrs - Attributes describing the current user's application context, used to determine messaging and access.
  *
  * @remark
  * The option to add a network entity is only shown to users with the required role. The empty state description adapts to the user's application type.
