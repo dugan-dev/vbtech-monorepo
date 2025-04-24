@@ -26,11 +26,11 @@ type props = {
 };
 
 /**
- * Renders a full-screen modal sheet for viewing and editing payer information.
+ * Displays a modal sheet for viewing and editing payer information.
  *
- * Displays a button with an eye icon and "View Payer Info" tooltip. When clicked, a sheet opens showing payer details, with the option to switch between view and edit modes. The sheet closes automatically after a successful form submission.
+ * Shows a button with an eye icon and tooltip; clicking it opens a full-screen sheet where users can view or edit payer details. The sheet closes automatically after a successful form submission.
  *
- * @param formData - Initial payer data used to pre-fill the form fields.
+ * @param formData - Initial payer data to populate the form fields.
  */
 export function EditPayerSheet({ formData }: props) {
   const [sheetOpen, setSheetOpen] = useState(false);

@@ -15,13 +15,13 @@ type props = {
 };
 
 /**
- * Renders the payer configuration card view for a specified payer and performance year.
+ * Displays the payer configuration card for a given payer and performance year.
  *
- * Fetches payer details and configuration for the given payer public ID and performance year, then displays the appropriate UI based on payer type and configuration availability.
+ * Fetches payer details and configuration using the provided payer public ID and performance year, then renders the appropriate UI based on payer type and configuration availability.
  *
- * @param payerPubId - Public identifier for the payer.
- * @param perfYearUrl - Optional performance year; defaults to the current year if not provided.
- * @returns A React element representing the payer configuration view.
+ * @param payerPubId - The public ID of the payer to display.
+ * @param perfYearUrl - The performance year to use; defaults to the current year if not specified.
+ * @returns A React element representing the payer configuration card or an appropriate fallback view.
  *
  * @throws {Error} If no payer exists with the specified {@link payerPubId}.
  */

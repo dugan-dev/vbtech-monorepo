@@ -18,11 +18,11 @@ type props = {
 };
 
 /**
- * Displays a table of payers with options to add new payers if permitted.
+ * Renders a table of payers with conditional empty state and add functionality based on user permissions.
  *
- * Renders an empty state with an add payer option when no payers are present, or a searchable, paginated table when payers exist.
+ * Displays an empty view with an option to add a payer if no payers are present, or a searchable, paginated table when payers exist.
  *
- * @param payers - The list of payer entities to display in the table.
+ * @param payers - Array of payer entities to display.
  */
 export function ManagePayersTable({ payers }: props) {
   if (payers.length === 0) {

@@ -14,9 +14,9 @@ import { SettingsCardSkeleton } from "./components/settings/settings-card-skelet
 import { SettingsCardServer } from "./components/settings/settings-card.server";
 
 /**
- * Displays the admin settings page, enforcing authentication, admin access, and rate limiting.
+ * Renders the admin settings page, allowing access only to authenticated admin users and applying rate limiting.
  *
- * If the user is not authenticated, returns an unauthorized response. Only admin users can access the page content, which includes settings and license information loaded asynchronously with skeleton fallbacks.
+ * Returns an unauthorized response if the user is not authenticated. The page content, including settings and license information, is loaded asynchronously with skeleton placeholders during loading.
  *
  * @returns The admin settings page for authenticated administrators, or an unauthorized response for unauthenticated users.
  */

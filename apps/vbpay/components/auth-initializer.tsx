@@ -5,6 +5,11 @@ import { Amplify } from "aws-amplify";
 
 import { authConfig } from "@/lib/auth/config";
 
+/**
+ * Initializes AWS Amplify authentication configuration with server-side rendering support when the component mounts.
+ *
+ * @returns null
+ */
 export function AuthInitializer() {
   useEffect(() => {
     Amplify.configure({ Auth: authConfig }, { ssr: true });

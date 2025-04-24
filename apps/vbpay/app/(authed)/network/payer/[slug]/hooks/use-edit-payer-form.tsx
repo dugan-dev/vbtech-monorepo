@@ -26,15 +26,15 @@ type props = {
 };
 
 /**
- * Manages state, validation, permission checks, and submission logic for the edit payer form.
+ * Provides state management, validation, permission checks, and submission handling for the edit payer form.
  *
- * Initializes the form with validation and default values, determines if the current user can edit the payer, and handles update actions with success and error feedback.
+ * Initializes the form with validation and default values, determines if the current user has permission to edit the payer, and manages update actions with user feedback on success or error.
  *
  * @param onSuccess - Callback invoked after a successful payer update.
  * @param formData - Initial values to populate the edit form.
- * @returns An object containing the form instance, submission handler, pending state, error dialog controls, and a flag indicating if the user can edit.
+ * @returns An object containing the form instance, submission handler, pending state, error dialog controls, and a flag indicating if the user can edit the payer.
  *
- * @remark If the user lacks permission to edit the payer, form submission is blocked and an error dialog is displayed.
+ * @remark If the user does not have permission to edit the payer, form submission is prevented and an error dialog is shown.
  */
 export function useEditPayerForm({ onSuccess, formData }: props) {
   // get the slug from the url which is the pubId of the payer

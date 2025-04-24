@@ -9,7 +9,7 @@ type props = {
 };
 
 /**
- * React server component that fetches a payload client token and processing accounts for a payer, then renders the processing account card.
+ * Fetches the payload client token and processing accounts for a payer, then renders the processing account card as a React server component.
  *
  * @param payerPubId - The public ID of the payer whose processing accounts are displayed.
  * @returns A React element displaying the payer's processing account card.

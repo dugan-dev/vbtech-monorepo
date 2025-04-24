@@ -8,9 +8,9 @@ type props = {
 };
 
 /**
- * Server component that fetches entity data and renders an entity info card.
+ * Fetches a network entity by its public ID and renders an entity info card on the server.
  *
- * Retrieves a network entity by its public ID, formats the data, and displays it using {@link EntityInfoCardClient}.
+ * Retrieves the entity, formats its data, and displays it using {@link EntityInfoCardClient}.
  *
  * @param entityPubId - The public ID of the entity to display.
  * @returns A JSX element containing the entity info card.

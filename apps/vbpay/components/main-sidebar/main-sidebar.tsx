@@ -33,9 +33,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { UserAvatar } from "@/components/user-avatar";
 
 /**
- * Renders the main sidebar navigation for the application, displaying navigation items, theme toggle, and user information.
+ * Displays the main sidebar navigation for the application, including navigation links, theme toggle, and user information.
  *
- * The sidebar adapts its navigation items and interactivity based on the user's license status and roles, and displays user details from context.
+ * Navigation items and interactivity are dynamically adjusted based on the user's license status and roles, with user details sourced from context providers.
  */
 export function MainSidebar() {
   const usersData = useUserContext();

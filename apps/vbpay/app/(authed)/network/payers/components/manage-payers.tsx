@@ -12,13 +12,13 @@ type props = {
 };
 
 /**
- * Renders a management interface for payers associated with a given user.
+ * Displays a management interface for payers linked to the specified user.
  *
- * Fetches user attributes to determine payer IDs linked to the user. If no payer IDs are found, displays an error view. Otherwise, retrieves payer data and displays it in a management table.
+ * Retrieves payer IDs from the user's attributes and, if present, fetches and displays their details in a management table. If no payer IDs are associated with the user, shows an error view indicating the absence of payer permissions.
  *
- * @param userId - The unique identifier of the user whose payers are being managed.
+ * @param userId - The unique identifier of the user whose associated payers are to be managed.
  *
- * @returns A React element containing either the payers management table or an error view if no payer IDs are associated with the user.
+ * @returns A React element with either the payers management table or an error view if the user has no associated payer IDs.
  */
 export async function ManagePayers({ userId }: props) {
   const { usersAppAttrs } = await getUsersData({

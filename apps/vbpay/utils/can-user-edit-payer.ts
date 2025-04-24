@@ -8,12 +8,12 @@ type props = {
 };
 
 /**
- * Determines whether a user has permission to edit a specific payer.
+ * Returns whether the user is permitted to edit the specified payer.
  *
  * @param usersAppAttrs - The user's application attributes, including payer-specific permissions and user type.
  * @param payerPubId - The public identifier of the payer to check permissions for.
  * @param allowedUserTypes - The user types that are permitted to edit payers.
- * @returns `true` if the user can edit the specified payer; otherwise, `false`.
+ * @returns `true` if the user has edit permission for the payer; otherwise, `false`.
  */
 export function canUserEditPayer({
   usersAppAttrs,

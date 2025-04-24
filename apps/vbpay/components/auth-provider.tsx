@@ -10,11 +10,11 @@ import { authConfig } from "@/lib/auth/config";
 import { useAutoLogout } from "@/hooks/use-auto-logout";
 
 /**
- * Provides authentication context and session validation for child components.
+ * Restricts access to child components to authenticated users by validating the user session and handling automatic logout.
  *
- * Ensures that only authenticated users can access its children by verifying the user session on mount and whenever the page becomes visible. Unauthenticated users are redirected to the sign-in page. While authentication is being checked, renders nothing. Also enables automatic logout after a period of inactivity.
+ * Verifies authentication status on mount and when the page becomes visible, redirecting unauthenticated users to the sign-in page. Renders nothing while authentication is being checked, and automatically logs out users after a period of inactivity.
  *
- * @param children - The components that require authentication context.
+ * @param children - React components that require authenticated access.
  */
 export function AuthProvider({ children }: PropsWithChildren) {
   const router = useRouter();

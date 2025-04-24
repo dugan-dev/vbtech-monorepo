@@ -55,15 +55,15 @@ type props = {
 };
 
 /**
- * Renders a card displaying a list of payer processing (bank) accounts with the option for authorized users to add new accounts.
+ * Displays a card listing payer processing (bank) accounts and allows authorized users to add new accounts.
  *
- * Shows existing processing accounts in a table, provides an add button for permitted users, and displays feedback for success or error states during account creation.
+ * Shows existing accounts in a table, provides an add button for users with appropriate permissions, and handles feedback for account creation success or errors.
  *
- * @param payloadClientToken - Token required to open the processing account form.
- * @param payerPubId - Public ID of the payer to associate new processing accounts with.
- * @param processingAccounts - Array of processing accounts to display.
+ * @param payloadClientToken - Token used to open the processing account form.
+ * @param payerPubId - Public ID of the payer to associate with new accounts.
+ * @param processingAccounts - List of processing accounts to display.
  *
- * @returns A React element containing the processing accounts card with actions and details.
+ * @returns A React element rendering the processing accounts card with actions and details.
  */
 
 export function PayerProcessingAccountCardClient({

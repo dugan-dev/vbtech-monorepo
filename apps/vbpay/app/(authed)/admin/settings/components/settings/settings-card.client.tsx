@@ -19,9 +19,7 @@ type props = {
 };
 
 /**
- * Displays the VBPay Global Settings card with configurable settings content.
- *
- * Renders a card containing the global settings title, an admin-only settings sheet, and a scrollable area for the main settings content.
+ * Renders the VBPay Global Settings card with a scrollable settings area and an admin-only settings sheet.
  *
  * @param data - The setup form data used to populate the settings content.
  */
