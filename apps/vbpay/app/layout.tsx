@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Play } from "next/font/google";
 
 import "@workspace/ui/globals.css";
 
@@ -6,14 +6,16 @@ import { Toaster } from "@workspace/ui/components/sonner";
 
 import { UnauthedProviders } from "@/components/unauthed-providers";
 
-const fontSans = Geist({
+const fontSans = Play({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["400", "700"],
 });
 
-const fontMono = Geist_Mono({
+const fontMono = Play({
   subsets: ["latin"],
   variable: "--font-mono",
+  weight: ["400", "700"],
 });
 
 /**
