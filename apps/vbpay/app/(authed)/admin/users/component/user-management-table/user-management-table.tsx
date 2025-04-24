@@ -1,3 +1,5 @@
+"use client";
+
 import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
