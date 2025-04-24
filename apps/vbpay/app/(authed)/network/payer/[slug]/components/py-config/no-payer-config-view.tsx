@@ -20,14 +20,11 @@ type props = {
 };
 
 /**
- * Renders a card view alerting that no configuration exists for a specified performance year.
+ * Displays a card indicating that no configuration exists for the specified performance year.
  *
- * This asynchronous component fetches user data using the provided userId to access user attributes for permission control.
- * It displays a card with a header that shows the performance year, a content section with a calendar icon and notice message,
- * and a footer that conditionally renders a configuration sheet for allowed user types.
+ * Shows the performance year in the header, a calendar icon with a notice message in the content, and conditionally renders a configuration sheet for allowed user types in the footer.
  *
- * @param userId - Identifier for the user whose data is fetched.
- * @param payerPubId - Public identifier for the payer, which is passed to the configuration sheet.
+ * @param payerPubId - Public identifier for the payer, passed to the configuration sheet.
  * @param perfYear - The performance year displayed in the card header.
  *
  * @returns A JSX element representing the card view.

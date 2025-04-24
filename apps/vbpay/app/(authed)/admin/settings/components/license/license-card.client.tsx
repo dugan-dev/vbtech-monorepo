@@ -27,6 +27,13 @@ type props = {
   data: SetupFormData;
 };
 
+/**
+ * Displays license information in a styled card with restricted access to admin settings.
+ *
+ * Renders license details such as type, number of payers, validity dates, client name, contact, payment types, and additional functionality. Access to the admin settings sheet is restricted to users of allowed types with admin privileges.
+ *
+ * @param data - The license and functionality information to display.
+ */
 export function LicenseCardClient({ data }: props) {
   return (
     <Card>

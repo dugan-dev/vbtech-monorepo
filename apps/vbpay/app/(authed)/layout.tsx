@@ -13,6 +13,14 @@ import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { AuthedProviders } from "@/components/authed-providers";
 import { MainSidebar } from "@/components/main-sidebar/main-sidebar";
 
+/**
+ * Renders the authenticated layout for the application, providing user, license, and settings context to its children.
+ *
+ * Redirects to a setup route if license or settings are missing, or returns an unauthorized response if the user is not authenticated.
+ *
+ * @param children - The content to display within the authenticated layout.
+ * @returns The authenticated layout wrapped in necessary context providers.
+ */
 export default async function AuthedLayout({
   children,
 }: Readonly<{

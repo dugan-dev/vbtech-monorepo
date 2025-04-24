@@ -20,12 +20,11 @@ type props = {
 };
 
 /**
- * Displays a card with detailed payer information and an edit interface.
+ * Renders a styled card displaying payer details with an option to edit.
  *
- * Shows the payer's marketing name (optionally with reference name), payer type label, CMS ID, and initial performance month and year. Includes an edit option for modifying payer details.
+ * Shows the payer's marketing name (with optional reference name), payer type, CMS ID, and initial performance month and year. Provides an interface for editing payer information.
  *
  * @param data - The payer's details, including names, type, CMS ID, and performance month/year.
- * @param payerTypes - List of payer type options for mapping type values to display labels.
  */
 export function PayerInfoCardClient({ data }: props) {
   return (

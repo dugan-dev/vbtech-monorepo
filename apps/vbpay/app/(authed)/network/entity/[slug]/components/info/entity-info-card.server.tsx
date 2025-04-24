@@ -8,13 +8,12 @@ type props = {
 };
 
 /**
- * Server component that fetches entity and user data, then renders an entity info card within a user context.
+ * Server component that fetches entity data and renders an entity info card.
  *
- * Retrieves a network entity and user attributes concurrently, formats the entity data, and displays the information using {@link EntityInfoCardClient} wrapped in a {@link UserProvider} context.
+ * Retrieves a network entity by its public ID, formats the data, and displays it using {@link EntityInfoCardClient}.
  *
- * @param userId - The ID of the user whose data is fetched for context.
  * @param entityPubId - The public ID of the entity to display.
- * @returns A JSX element containing the entity info card within a styled container.
+ * @returns A JSX element containing the entity info card.
  *
  * @throws {Error} If no entity is found for the provided {@link entityPubId}.
  */

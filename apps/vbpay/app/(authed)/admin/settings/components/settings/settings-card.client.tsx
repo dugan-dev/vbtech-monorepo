@@ -19,13 +19,11 @@ type props = {
 };
 
 /**
- * Renders the VBPay Global Settings card.
+ * Displays the VBPay Global Settings card with configurable settings content.
  *
- * Displays a card with a header showing the "VBPay Global Settings" title and, for users with the appropriate attributes,
- * an admin settings sheet. The main content is presented within a scrollable area to accommodate varying content lengths.
+ * Renders a card containing the global settings title, an admin-only settings sheet, and a scrollable area for the main settings content.
  *
- * @param data - The setup form data for configuring and displaying settings.
- * @param usersAppAttrs - The user application attributes used to determine access to admin settings.
+ * @param data - The setup form data used to populate the settings content.
  */
 export function SettingsCardClient({ data }: props) {
   return (

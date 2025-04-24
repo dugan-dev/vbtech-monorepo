@@ -20,13 +20,10 @@ type props = {
 };
 
 /**
- * Renders a card indicating that no configuration exists for the specified performance year, with an option to configure if the user has appropriate access.
+ * Displays a card indicating that no configuration exists for the given performance year, with an option to configure if the user has the appropriate access.
  *
- * Displays the performance year and a message about the absence of configuration. If the user belongs to an allowed type, a configuration dialog is made available.
- *
- * @param userId - The unique identifier of the user whose attributes are checked for access.
- * @param payerPubId - The public identifier of the payer, passed to the configuration dialog.
- * @param perfYear - The performance year for which configuration status is shown.
+ * @param payerPubId - The public identifier of the payer, provided to the configuration dialog.
+ * @param perfYear - The performance year for which the configuration status is displayed.
  */
 export function NoPhysConfigView({ payerPubId, perfYear }: props) {
   return (

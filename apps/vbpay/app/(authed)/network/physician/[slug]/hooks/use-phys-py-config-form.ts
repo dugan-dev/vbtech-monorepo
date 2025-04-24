@@ -30,17 +30,17 @@ type props = {
 };
 
 /**
- * Provides form state management, validation, permission checks, and submission logic for the Physician PY Config form.
+ * Manages form state, validation, permission checks, and submission logic for the Physician PY Config form.
  *
- * Handles both creation and updating of Physician PY Config data, including user permission enforcement, error dialog management, and success notifications. Returns form utilities, submission handler, pending state, error dialog controls, and an edit permission flag.
+ * Supports both creating and editing Physician PY Config data, enforcing user permissions, handling error dialogs, and providing success notifications. Returns form utilities, a submission handler, pending state, error dialog controls, and a flag indicating whether the user can edit the configuration.
  *
- * @param onSuccess - Optional callback invoked after a successful form submission.
- * @param setIsSubmitting - Optional setter to control the submitting state externally.
+ * @param onSuccess - Callback invoked after successful form submission.
+ * @param setIsSubmitting - Setter to control external submitting state.
  * @param payerPubId - Public identifier for the payer associated with the configuration.
- * @param data - Optional initial form data for editing an existing configuration.
- * @param pubId - Optional public identifier for the configuration being edited.
+ * @param data - Initial form data for editing an existing configuration.
+ * @param pubId - Public identifier for the configuration being edited.
  *
- * @returns An object containing the form instance, submission handler, pending state, error dialog controls, and a flag indicating if the user can edit.
+ * @returns An object containing the form instance, submission handler, pending state, error dialog controls, and a user edit permission flag.
  */
 export function usePhysPyConfigForm({
   onSuccess,

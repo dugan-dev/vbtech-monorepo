@@ -33,14 +33,13 @@ type props = {
 };
 
 /**
- * Displays a multi-section form for editing payer information, supporting both view and edit modes.
+ * Renders a multi-section form for viewing and editing payer information.
  *
- * The form is organized into sections for basic info, performance period, identification, and organization details. It initializes with provided data, manages state and validation via a custom hook, and handles submission and error dialogs. Editing can be toggled on or off, with fields disabled when not in edit mode.
+ * The form is divided into sections for basic info, performance period, identification, and organization details. It initializes with provided data, manages state and validation through a custom hook, and handles submission and error dialogs. Editing can be toggled, with fields disabled when not in edit mode or during submission.
  *
- * @param onSuccess - Invoked after successful form submission.
+ * @param onSuccess - Callback invoked after successful form submission.
  * @param formData - Initial values for the form fields.
- * @param payerTypes - List of payer type options for selection.
- * @param isEditing - Controls whether the form is in edit mode.
+ * @param isEditing - Whether the form is currently in edit mode.
  * @param setIsEditing - Function to toggle the edit mode state.
  *
  * @returns The payer edit form as a React element.
