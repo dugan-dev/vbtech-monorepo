@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",
-    "kysely": "0.28.1",
+    "kysely": "0.28.2",
     "mysql2": "3.14.0",
     "server-only": "0.0.1"
   },

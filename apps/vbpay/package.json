@@ -23,7 +23,7 @@
     "@workspace/ui": "workspace:*",
     "aws-amplify": "6.14.3",
     "babel-plugin-react-compiler": "19.0.0-beta-ebf51a3-20250411",
-    "kysely": "0.28.1",
+    "kysely": "0.28.2",
     "lucide-react": "0.503.0",
     "nanoid": "5.1.5",
     "next": "15.3.1",
