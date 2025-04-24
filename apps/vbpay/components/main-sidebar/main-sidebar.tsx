@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLicenseContext } from "@/contexts/license-context";
+import { useUserContext } from "@/contexts/user-context";
 import { filterMainSidebarItems } from "@/utils/filter-main-sidebar-items";
 import { useTheme } from "next-themes";
 
@@ -26,26 +28,17 @@ import {
 } from "@workspace/ui/components/sidebar";
 import { useIsMounted } from "@workspace/ui/hooks/use-is-mounted";
 
-import { UserAppAttrs } from "@/types/user-app-attrs";
 import { Icons } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { UserAvatar } from "@/components/user-avatar";
 
-type props = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  hasLicense: boolean;
-  userAppAttrs: UserAppAttrs | null;
-};
+export function MainSidebar() {
+  const usersData = useUserContext();
+  const license = useLicenseContext();
 
-export function MainSidebar({
-  firstName,
-  lastName,
-  email,
-  hasLicense,
-  userAppAttrs,
-}: props) {
+  const hasLicense = !!license;
+
+  const userAppAttrs = usersData?.usersAppAttrs;
   const mounted = useIsMounted();
   const rolesForSlug = userAppAttrs?.ids?.find(
     (id) => id.id === userAppAttrs.slug,
@@ -206,19 +199,23 @@ export function MainSidebar({
       </SidebarContent>
       <SidebarFooter>
         <div className="mb-4 mt-4 flex items-center gap-4 px-4">
-          <UserAvatar firstName={firstName} lastName={lastName} email={email} />
+          <UserAvatar
+            firstName={usersData.firstName}
+            lastName={usersData.lastName}
+            email={usersData.email}
+          />
           <div className="min-w-0 flex-1">
             <p
               className="max-w-[180px] truncate text-sm font-medium"
               data-testid="app-sidebar-user-name"
             >
-              {`${firstName} ${lastName}`}
+              {`${usersData.firstName} ${usersData.lastName}`}
             </p>
             <p
               className="max-w-[180px] truncate text-xs text-muted-foreground"
               data-testid="app-sidebar-user-email"
             >
-              {email}
+              {usersData.email}
             </p>
           </div>
         </div>

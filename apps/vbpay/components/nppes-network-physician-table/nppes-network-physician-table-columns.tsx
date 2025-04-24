@@ -17,7 +17,7 @@ import { ClientFormattedDate } from "@/components/client-formatted-date";
 import {
   AddNetworkPhysicianFormDefaultValues,
   AddNetworkPhysicianFormInput,
-} from "@/app/network/physicians/components/add-network-physician-form/add-network-physician-form-schema";
+} from "@/app/(authed)/network/physicians/components/add-network-physician-form/add-network-physician-form-schema";
 
 export const NppesNetworkPhysicianResultsTableColumns: ColumnDef<NppesApiResponseResult>[] =
   [

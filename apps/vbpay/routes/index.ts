@@ -63,7 +63,7 @@ export const BeneficiariesAlignment = makeRoute(
   }
 );
 export const BeneficiariesAttribution = makeRoute(
-  "/beneficiaries/attribution",
+  "/(authed)/beneficiaries/attribution",
   {
     ...defaultInfo,
     ...BeneficiariesAttributionRoute.Route
@@ -203,14 +203,14 @@ export const ShareFiles = makeRoute(
   }
 );
 export const ShareNotificationDetail = makeRoute(
-  "/share/notifications/[slug]",
+  "/(authed)/share/notifications/[slug]",
   {
     ...defaultInfo,
     ...ShareNotificationDetailRoute.Route
   }
 );
 export const RecentShareNotifications = makeRoute(
-  "/share/notifications/recent",
+  "/(authed)/share/notifications/recent",
   {
     ...defaultInfo,
     ...RecentShareNotificationsRoute.Route

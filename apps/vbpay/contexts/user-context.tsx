@@ -3,8 +3,9 @@
 import { createContext, useContext } from "react";
 
 import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UsersData } from "@/types/users-data";
 
-const UserContext = createContext<UserAppAttrs | null>(null);
+const UserContext = createContext<UsersData | null>(null);
 
 /**
  * Retrieves the current user application attributes from the context.
@@ -13,7 +14,7 @@ const UserContext = createContext<UserAppAttrs | null>(null);
  *
  * @throws {Error} If called outside of a {@link UserProvider}.
  */
-export function useUserContext(): UserAppAttrs {
+export function useUserContext(): UsersData {
   const context = useContext(UserContext);
   if (!context) {
     throw new Error("useUserContext must be used within a UserContextProvider");
@@ -21,8 +22,8 @@ export function useUserContext(): UserAppAttrs {
   return context;
 }
 
-type UserProviderProps = {
-  usersAppAttrs: UserAppAttrs;
+type props = {
+  usersData: UsersData;
   children: React.ReactNode;
 };
 
@@ -34,10 +35,8 @@ type UserProviderProps = {
  * @param usersAppAttrs - The user application attributes to supply to the context.
  * @param children - The React nodes that will have access to the user context.
  */
-export function UserProvider({ usersAppAttrs, children }: UserProviderProps) {
+export function UserProvider({ usersData, children }: props) {
   return (
-    <UserContext.Provider value={usersAppAttrs}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={usersData}>{children}</UserContext.Provider>
   );
 }

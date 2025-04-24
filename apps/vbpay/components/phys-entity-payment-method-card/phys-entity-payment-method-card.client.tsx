@@ -3,6 +3,7 @@
 import { useParams, usePathname } from "next/navigation";
 import { deletePayloadPaymentMethodAction } from "@/actions/delete-payload-payment-method-action";
 import { useUserContext } from "@/contexts/user-context";
+import { canUserEditPayer } from "@/utils/can-user-edit-payer";
 import { useAction } from "next-safe-action/hooks";
 import { PaymentMethodForm } from "payload-react";
 import { toast } from "sonner";
@@ -99,8 +100,7 @@ export function PhysEntityPaymentMethodCardClient({
     closeErrorDialog,
   } = useErrorDialog({});
 
-  // get user app attrs from context for restrictions
-  const usersAppAttrs = useUserContext();
+  const usersData = useUserContext();
 
   // get phys/entity pub id
   const { slug } = useParams();
@@ -128,22 +128,11 @@ export function PhysEntityPaymentMethodCardClient({
   // get revalidation path
   const revalidationPath = usePathname();
 
-  // get users payer specific permissions
-  const payerPermissions = usersAppAttrs.ids?.find(
-    (id) => id.id === payerPubId,
-  );
-
-  // assume user cannot edit
-  let userCanEdit = false;
-
-  // check if user can edit and update userCanEdit if they can
-  if (
-    payerPermissions &&
-    ALLOWED_USER_TYPES.includes(usersAppAttrs.type) &&
-    payerPermissions.userRoles.includes(REQUIRED_USER_ROLE)
-  ) {
-    userCanEdit = true;
-  }
+  const userCanEdit = canUserEditPayer({
+    payerPubId,
+    allowedUserTypes: ALLOWED_USER_TYPES,
+    usersAppAttrs: usersData.usersAppAttrs,
+  });
 
   // handle delete payment method
   function handleDeletePaymentMethod(id: string) {
@@ -172,7 +161,6 @@ export function PhysEntityPaymentMethodCardClient({
           <CardTitle className="text-2xl">Bank Accounts</CardTitle>
           <div className="relative ml-auto">
             <RestrictByUserAppAttrsClient
-              usersAppAttrs={usersAppAttrs}
               allowedUserTypes={ALLOWED_USER_TYPES}
               requiredUserRoles={[REQUIRED_USER_ROLE]}
             >
@@ -316,7 +304,6 @@ export function PhysEntityPaymentMethodCardClient({
                       </TableCell>
                       <TableCell className="text-end">
                         <RestrictByUserAppAttrsClient
-                          usersAppAttrs={usersAppAttrs}
                           allowedUserTypes={ALLOWED_USER_TYPES}
                           requiredUserRoles={[REQUIRED_USER_ROLE]}
                         >
