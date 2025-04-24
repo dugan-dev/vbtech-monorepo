@@ -11,7 +11,7 @@ import { ClientFormattedDate } from "@/components/client-formatted-date";
 import {
   AddNetworkEntityFormDefaultValues,
   AddNetworkEntityFormInput,
-} from "@/app/network/entities/components/add-network-entity-form/add-network-entity-form-schema";
+} from "@/app/(authed)/network/entities/components/add-network-entity-form/add-network-entity-form-schema";
 
 export const NppesNetworkEntityResultsTableColumns: ColumnDef<NppesApiResponseResult>[] =
   [

@@ -3,17 +3,18 @@
 import { createContext, useContext } from "react";
 
 import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UsersData } from "@/types/users-data";
 
-const UserContext = createContext<UserAppAttrs | null>(null);
+const UserContext = createContext<UsersData | null>(null);
 
 /**
- * Retrieves the current user application attributes from the context.
+ * Returns the current user data from the nearest UserProvider context.
  *
- * @returns The current {@link UserAppAttrs} provided by the nearest {@link UserProvider}.
+ * @returns The {@link UsersData} supplied by the closest UserProvider.
  *
- * @throws {Error} If called outside of a {@link UserProvider}.
+ * @throws {Error} If invoked outside of a UserProvider.
  */
-export function useUserContext(): UserAppAttrs {
+export function useUserContext(): UsersData {
   const context = useContext(UserContext);
   if (!context) {
     throw new Error("useUserContext must be used within a UserContextProvider");
@@ -21,23 +22,21 @@ export function useUserContext(): UserAppAttrs {
   return context;
 }
 
-type UserProviderProps = {
-  usersAppAttrs: UserAppAttrs;
+type props = {
+  usersData: UsersData;
   children: React.ReactNode;
 };
 
 /**
- * Provides the user application attributes context to descendant components.
+ * Provides user data to all descendant components using React context.
  *
- * Wraps its children with a {@link UserContext.Provider}, making {@link usersAppAttrs} available to all nested components via the context.
+ * Wraps the given {@link children} with a {@link UserContext.Provider}, making {@link usersData} available throughout the component tree.
  *
- * @param usersAppAttrs - The user application attributes to supply to the context.
- * @param children - The React nodes that will have access to the user context.
+ * @param usersData - The user data to be shared via context.
+ * @param children - Components that will have access to the user data context.
  */
-export function UserProvider({ usersAppAttrs, children }: UserProviderProps) {
+export function UserProvider({ usersData, children }: props) {
   return (
-    <UserContext.Provider value={usersAppAttrs}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={usersData}>{children}</UserContext.Provider>
   );
 }
