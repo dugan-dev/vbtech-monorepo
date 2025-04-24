@@ -1,0 +1,38 @@
+import { getPayersProcessingAccounts } from "@/repos/payload-processing-account-repository";
+
+import { getPayloadClientId } from "@/lib/payload";
+
+import { PayerProcessingAccountCardClient } from "./payer-processing-account-card.client";
+
+type props = {
+  payerPubId: string;
+};
+
+/**
+ * React server component that fetches user data, a payload client token, and processing accounts for a payer, then renders the processing account card within a user context.
+ *
+ * @param props.userId - The ID of the current user.
+ * @param props.payerPubId - The public ID of the payer.
+ * @returns A React element displaying the payer's processing account card within the user context.
+ *
+ * @throws {Error} If the payload client token cannot be loaded.
+ */
+
+export async function PayerProcessingAccountCardServer({ payerPubId }: props) {
+  const [payloadClientToken, processingAccounts] = await Promise.all([
+    getPayloadClientId("processing_account_plugin"),
+    getPayersProcessingAccounts(payerPubId),
+  ]);
+
+  if (!payloadClientToken) {
+    throw new Error("Failed to load payload client token.");
+  }
+
+  return (
+    <PayerProcessingAccountCardClient
+      payloadClientToken={payloadClientToken}
+      payerPubId={payerPubId}
+      processingAccounts={processingAccounts}
+    />
+  );
+}

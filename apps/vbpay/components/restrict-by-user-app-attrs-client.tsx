@@ -1,10 +1,10 @@
-import { UserAppAttrs } from "@/types/user-app-attrs";
+import { useUserContext } from "@/contexts/user-context";
+
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 
 type props = {
   children: React.ReactNode;
-  usersAppAttrs: UserAppAttrs;
   allowedUserTypes?: UserType[];
   requiredUserRoles?: UserRole[];
   adminOnly?: boolean;
@@ -12,11 +12,13 @@ type props = {
 
 export default function RestrictByUserAppAttrsClient({
   children,
-  usersAppAttrs,
   allowedUserTypes,
   requiredUserRoles,
   adminOnly = false,
 }: props) {
+  const userData = useUserContext();
+  const usersAppAttrs = userData.usersAppAttrs;
+
   if (adminOnly && !usersAppAttrs.admin) {
     return null;
   }

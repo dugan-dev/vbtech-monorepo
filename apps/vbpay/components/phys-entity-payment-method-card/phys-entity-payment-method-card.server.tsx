@@ -1,15 +1,12 @@
-import { UserProvider } from "@/contexts/user-context";
 import { getNetworkEntity } from "@/repos/network-entity-repository";
 import { getNetworkPhysician } from "@/repos/network-physician-repository";
 import { getPhysEntityPaymentMethods } from "@/repos/payload-payment-method-repository";
-import { getUsersData } from "@/repos/user-repository";
 
 import { getPayloadClientId } from "@/lib/payload";
 
 import { PhysEntityPaymentMethodCardClient } from "./phys-entity-payment-method-card.client";
 
 type props = {
-  userId: string;
   entityPubId?: string;
   physPubId?: string;
 };
@@ -28,13 +25,11 @@ type props = {
  * @throws {Error} If {@link physPubId} is provided but the network physician cannot be loaded.
  */
 export async function PhysEntityPaymentMethodCardServer({
-  userId,
   entityPubId,
   physPubId,
 }: props) {
-  const [user, entity, physician, payloadClientToken, paymentMethods] =
+  const [entity, physician, payloadClientToken, paymentMethods] =
     await Promise.all([
-      getUsersData({ userId }),
       entityPubId ? getNetworkEntity(entityPubId) : null,
       physPubId ? getNetworkPhysician(physPubId) : null,
       getPayloadClientId("payment_method_form"),
@@ -61,12 +56,10 @@ export async function PhysEntityPaymentMethodCardServer({
         : "";
 
   return (
-    <UserProvider usersAppAttrs={user.usersAppAttrs}>
-      <PhysEntityPaymentMethodCardClient
-        payloadClientToken={payloadClientToken}
-        paymentMethods={paymentMethods}
-        payerPubId={payerPubId}
-      />
-    </UserProvider>
+    <PhysEntityPaymentMethodCardClient
+      payloadClientToken={payloadClientToken}
+      paymentMethods={paymentMethods}
+      payerPubId={payerPubId}
+    />
   );
 }
