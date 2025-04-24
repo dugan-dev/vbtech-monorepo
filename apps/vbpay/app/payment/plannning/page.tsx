@@ -10,6 +10,11 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
+/**
+ * Renders the Payment Planning page for authenticated users with allowed user types, enforcing access control and rate limiting.
+ *
+ * @returns The Payment Planning page content if the user is authenticated and authorized; otherwise, an unauthorized response.
+ */
 export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([

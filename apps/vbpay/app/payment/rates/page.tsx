@@ -10,6 +10,11 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
 
+/**
+ * Renders the Manage Rate Sets page, enforcing authentication, rate limiting, and user type restrictions.
+ *
+ * @returns The restricted page content for authorized users, or an unauthorized response if access is denied.
+ */
 export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([
