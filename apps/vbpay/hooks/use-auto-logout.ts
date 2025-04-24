@@ -41,5 +41,5 @@ export function useAutoLogout(minutes = 10) {
         window.removeEventListener(event, resetTimer),
       );
     };
-  }, [router, timeout]);
+  }, []);
 }
