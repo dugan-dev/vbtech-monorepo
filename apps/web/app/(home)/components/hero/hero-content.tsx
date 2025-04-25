@@ -1,3 +1,5 @@
+import { Contact } from "@/routes";
+
 export const HERO_CONTENT = {
   title: {
     line1: "You Focus on Patient Care,",
@@ -26,7 +28,7 @@ export const HERO_CONTENT = {
     },
     secondary: {
       text: "Get in Touch",
-      href: "/contact",
+      href: Contact({}),
     },
   },
 } as const;
