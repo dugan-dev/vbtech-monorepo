@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Button } from "@workspace/ui/components/button";
 
-interface props {
+type props = {
   href: string;
   children: React.ReactNode;
   variant?:
@@ -15,7 +15,7 @@ interface props {
     | null
     | undefined;
   size?: "default" | "sm" | "lg" | "icon" | null | undefined;
-}
+};
 
 export function LinkButton({ href, variant, size, children }: props) {
   return (

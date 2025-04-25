@@ -1,16 +1,12 @@
 import { LucideIcon } from "lucide-react";
 
-interface SolutionItemProps {
+type props = {
   icon: LucideIcon | null;
   title: string;
   description: string;
-}
+};
 
-export function SolutionItem({
-  icon: Icon,
-  title,
-  description,
-}: SolutionItemProps) {
+export function SolutionItem({ icon: Icon, title, description }: props) {
   return (
     <div className="flex items-start space-x-4">
       {Icon && (
