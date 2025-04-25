@@ -1,3 +1,5 @@
+import { Contact } from "@/routes";
+
 export const CTA_CONTENT = {
   title: "Optimize operations, reduce costs, and stay compliant.",
   description:
@@ -5,6 +7,6 @@ export const CTA_CONTENT = {
   sectionAriaLabel: "Call to action section",
   button: {
     text: "Get in Touch",
-    href: "/contact",
+    href: Contact({}),
   },
 } as const;
