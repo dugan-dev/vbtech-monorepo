@@ -1,16 +1,11 @@
-interface AutoPlayVideoProps {
+type props = {
   src: string;
   width?: number;
   height?: number;
   className?: string;
-}
+};
 
-export function AutoPlayVideo({
-  src,
-  width,
-  height,
-  className,
-}: AutoPlayVideoProps) {
+export function AutoPlayVideo({ src, width, height, className }: props) {
   return (
     <video
       src={src}

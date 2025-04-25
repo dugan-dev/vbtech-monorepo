@@ -1,16 +1,12 @@
 import { LucideIcon } from "lucide-react";
 
-interface BenefitCardProps {
+type props = {
   icon: LucideIcon;
   title: string;
   description: string;
-}
+};
 
-export function BenefitCard({
-  icon: Icon,
-  title,
-  description,
-}: BenefitCardProps) {
+export function BenefitCard({ icon: Icon, title, description }: props) {
   return (
     <div className="flex items-start space-x-4" role="listitem">
       <Icon className="h-8 w-8 text-primary shrink-0 mt-1" aria-hidden="true" />
