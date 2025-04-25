@@ -8,12 +8,12 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 
-interface props {
+type props = {
   icon: LucideIcon;
   title: string;
   description: string;
   href: string;
-}
+};
 
 export function ServiceCard({ icon: Icon, title, description, href }: props) {
   return (
