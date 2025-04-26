@@ -2,6 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import {
+  About,
+  Contact,
+  Home,
+  Privacy,
+  ServicesConsulting,
+  ServicesTpa,
+  SolutionsClaims,
+  SolutionsMailroom,
+  SolutionsPayments,
+  SolutionsVbpay,
+  Terms,
+} from "@/routes";
 import { Linkedin, Mail } from "lucide-react";
 
 export function Footer() {
@@ -11,7 +24,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo & About */}
           <div>
-            <Link href="/">
+            <Link href={Home({})}>
               <Image
                 src="/vbtech-logo-verticle.png"
                 width={200}
@@ -30,27 +43,33 @@ export function Footer() {
             <h3 className="text-lg font-semibold ">Quick Links</h3>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
-                <Link href="/" className="hover:text-white transition">
+                <Link href={Home({})} className="hover:text-white transition">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition">
+                <Link href={About({})} className="hover:text-white transition">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition">
+                <Link
+                  href={Contact({})}
+                  className="hover:text-white transition"
+                >
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-white transition">
+                <Link
+                  href={Privacy({})}
+                  className="hover:text-white transition"
+                >
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-white transition">
+                <Link href={Terms({})} className="hover:text-white transition">
                   Terms of Use
                 </Link>
               </li>
@@ -63,7 +82,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2  text-sm">
               <li>
                 <Link
-                  href="/consulting"
+                  href={ServicesConsulting({})}
                   className="hover:text-white transition"
                 >
                   Consulting Services
@@ -71,7 +90,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/tpa-services"
+                  href={ServicesTpa({})}
                   className="hover:text-white transition"
                 >
                   TPA Services
@@ -79,7 +98,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/bpaas/vbpay"
+                  href={SolutionsVbpay({})}
                   className="hover:text-white transition"
                 >
                   VB Pay
@@ -87,18 +106,26 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/bpaas/backend-payments"
+                  href={SolutionsPayments({})}
                   className="hover:text-white transition"
                 >
-                  Backend Payment Processing
+                  {`Provider Payment & Remittance`}
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/bpaas/sox-compliance"
+                  href={SolutionsClaims({})}
                   className="hover:text-white transition"
                 >
-                  SOX Compliance Tool
+                  Claim Clearinghouse
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={SolutionsMailroom({})}
+                  className="hover:text-white transition"
+                >
+                  Inbound Mailroom
                 </Link>
               </li>
             </ul>

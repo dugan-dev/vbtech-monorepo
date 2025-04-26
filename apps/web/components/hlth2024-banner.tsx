@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { EventsHlth2024 } from "@/routes";
 
 export function HLTH2024Banner() {
   return (
     <div className="w-full bg-[#252c37] py-3">
       <Link
-        href="/events/hlth-2024"
+        href={EventsHlth2024({})}
         className="block text-center text-sm font-medium text-white hover:underline sm:text-base"
       >
         <span aria-hidden="true">🚀 </span>
