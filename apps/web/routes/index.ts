@@ -6,6 +6,14 @@ import * as AboutRoute from "@/app/about/page.info";
 import * as ContactRoute from "@/app/contact/page.info";
 import * as EventsHlth2024Route from "@/app/events/hlth-2024/page.info";
 import * as PrivacyRoute from "@/app/privacy/page.info";
+import * as ServicesConsultingRoute from "@/app/services/consulting/page.info";
+import * as ServicesRoute from "@/app/services/page.info";
+import * as ServicesTpaRoute from "@/app/services/tpa/page.info";
+import * as SolutionsClaimsRoute from "@/app/solutions/claims/page.info";
+import * as SolutionsMailroomRoute from "@/app/solutions/mailroom/page.info";
+import * as SolutionsRoute from "@/app/solutions/page.info";
+import * as SolutionsPaymentsRoute from "@/app/solutions/payments/page.info";
+import * as SolutionsVbpayRoute from "@/app/solutions/vbpay/page.info";
 import * as TermsRoute from "@/app/terms/page.info";
 
 import { makeRoute } from "./makeRoute";
@@ -33,6 +41,38 @@ export const EventsHlth2024 = makeRoute("/events/hlth-2024", {
 export const Privacy = makeRoute("/privacy", {
   ...defaultInfo,
   ...PrivacyRoute.Route,
+});
+export const Services = makeRoute("/services", {
+  ...defaultInfo,
+  ...ServicesRoute.Route,
+});
+export const ServicesConsulting = makeRoute("/services/consulting", {
+  ...defaultInfo,
+  ...ServicesConsultingRoute.Route,
+});
+export const ServicesTpa = makeRoute("/services/tpa", {
+  ...defaultInfo,
+  ...ServicesTpaRoute.Route,
+});
+export const Solutions = makeRoute("/solutions", {
+  ...defaultInfo,
+  ...SolutionsRoute.Route,
+});
+export const SolutionsClaims = makeRoute("/solutions/claims", {
+  ...defaultInfo,
+  ...SolutionsClaimsRoute.Route,
+});
+export const SolutionsMailroom = makeRoute("/solutions/mailroom", {
+  ...defaultInfo,
+  ...SolutionsMailroomRoute.Route,
+});
+export const SolutionsPayments = makeRoute("/solutions/payments", {
+  ...defaultInfo,
+  ...SolutionsPaymentsRoute.Route,
+});
+export const SolutionsVbpay = makeRoute("/solutions/vbpay", {
+  ...defaultInfo,
+  ...SolutionsVbpayRoute.Route,
 });
 export const Terms = makeRoute("/terms", {
   ...defaultInfo,
