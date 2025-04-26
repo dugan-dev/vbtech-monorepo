@@ -7,6 +7,8 @@ import "@workspace/ui/globals.css";
 import { Metadata } from "next";
 import { LinkedInInsightTag } from "nextjs-linkedin-insight-tag";
 
+import { Toaster } from "@workspace/ui/components/sonner";
+
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Providers } from "@/components/providers";
@@ -84,6 +86,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <Toaster />
           <Footer />
           <TailwindIndicator />
           <LinkedInInsightTag />
