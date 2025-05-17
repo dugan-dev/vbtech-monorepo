@@ -13,7 +13,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@t3-oss/env-nextjs": "0.13.0",
+    "@t3-oss/env-nextjs": "0.13.4",
     "@workspace/ui": "workspace:*",
     "babel-plugin-react-compiler": "19.0.0-beta-ebf51a3-20250411",
     "lucide-react": "0.503.0",
