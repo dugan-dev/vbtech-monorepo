@@ -24,7 +24,7 @@
     "prettier": "3.5.3",
     "prettier-plugin-prisma": "5.0.0",
     "prettier-plugin-tailwindcss": "0.6.11",
-    "sst": "3.14.27",
+    "sst": "3.14.28",
     "turbo": "2.5.3",
     "typescript": "5.8.3"
   },
