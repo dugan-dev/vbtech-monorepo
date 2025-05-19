@@ -17,7 +17,7 @@
     "@aws-sdk/client-cognito-identity-provider": "3.812.0",
     "@hookform/resolvers": "5.0.1",
     "@radix-ui/react-icons": "1.3.2",
-    "@t3-oss/env-nextjs": "0.13.0",
+    "@t3-oss/env-nextjs": "0.13.4",
     "@tanstack/table-core": "8.21.3",
     "@workspace/db": "workspace:*",
     "@workspace/ui": "workspace:*",
