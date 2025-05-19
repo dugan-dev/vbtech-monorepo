@@ -13,6 +13,7 @@ type DataTableMeta<_TData> = {
   practices?: ComboItem[];
   physicians?: DataTablePhysician[];
   vendors?: ComboItem[];
+  clients?: ComboItem[];
   viewingFrom?: DataTableViewingContext;
   selectedProcedureCodes?: DataTableProcedureCode[];
   selectedApprovers?: DataTableSelectedApprover[];
