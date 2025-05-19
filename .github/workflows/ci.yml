@@ -63,6 +63,32 @@ jobs:
           
           echo "Created .env file at apps/vbpay/.env"
           ls -la apps/vbpay/.env
+
+      # Create a comprehensive .env file with explicit values
+      - name: Create env file for vbcall
+        run: |
+          cat > apps/vbcall/.env << EOL
+          # Database Configuration
+          DB_HOST=${{ vars.DB_HOST }}
+          DB_PORT=${{ vars.DB_PORT }}
+          DB_USER=${{ vars.DB_USER }}
+          DB_PASSWORD=${{ vars.DB_PASSWORD }}
+          DB_NAME=${{ vars.DB_NAME }}
+          
+          # AWS Configuration
+          AWS_COGNITO_USER_POOL_ID=${{ secrets.AWS_COGNITO_USER_POOL_ID }}
+          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
+          AWS_REGION=${{ vars.AWS_REGION }}
+          
+          # Application Configuration
+          NODE_ENV=production
+          NEXT_PUBLIC_TIMEZONE=${{ vars.NEXT_PUBLIC_TIMEZONE }}
+          EOL
+          
+          echo "Created .env file at apps/vbcall/.env"
+          ls -la apps/vbcall/.env
       
       # Examine AWS environment variable existence (without revealing values)
       - name: Check AWS environment variables
