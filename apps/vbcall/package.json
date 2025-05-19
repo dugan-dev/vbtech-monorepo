@@ -34,7 +34,7 @@
     "payload-react": "1.2.6",
     "qrcode.react": "4.2.0",
     "query-string": "9.1.2",
-    "rate-limiter-flexible": "7.1.0",
+    "rate-limiter-flexible": "7.1.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "7.56.4",
