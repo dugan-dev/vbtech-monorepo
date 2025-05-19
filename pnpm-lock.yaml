@@ -116,7 +116,7 @@ importers:
         version: 3.812.0
       '@hookform/resolvers':
         specifier: 5.0.1
-        version: 5.0.1(react-hook-form@7.56.1(react@19.1.0))
+        version: 5.0.1(react-hook-form@7.56.4(react@19.1.0))
       '@radix-ui/react-icons':
         specifier: 1.3.2
         version: 1.3.2(react@19.1.0)
@@ -181,8 +181,8 @@ importers:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
       react-hook-form:
-        specifier: 7.56.1
-        version: 7.56.1(react@19.1.0)
+        specifier: 7.56.4
+        version: 7.56.4(react@19.1.0)
       server-only:
         specifier: 0.0.1
         version: 0.0.1
@@ -228,7 +228,7 @@ importers:
         version: 3.812.0
       '@hookform/resolvers':
         specifier: 5.0.1
-        version: 5.0.1(react-hook-form@7.56.1(react@19.1.0))
+        version: 5.0.1(react-hook-form@7.56.4(react@19.1.0))
       '@radix-ui/react-icons':
         specifier: 1.3.2
         version: 1.3.2(react@19.1.0)
@@ -293,8 +293,8 @@ importers:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
       react-hook-form:
-        specifier: 7.56.1
-        version: 7.56.1(react@19.1.0)
+        specifier: 7.56.4
+        version: 7.56.4(react@19.1.0)
       server-only:
         specifier: 0.0.1
         version: 0.0.1
@@ -473,7 +473,7 @@ importers:
     dependencies:
       '@hookform/resolvers':
         specifier: 5.0.1
-        version: 5.0.1(react-hook-form@7.56.1(react@19.1.0))
+        version: 5.0.1(react-hook-form@7.56.4(react@19.1.0))
       '@radix-ui/react-alert-dialog':
         specifier: 1.1.11
         version: 1.1.11(@types/react-dom@19.1.5(@types/react@19.1.4))(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -565,8 +565,8 @@ importers:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
       react-hook-form:
-        specifier: 7.56.1
-        version: 7.56.1(react@19.1.0)
+        specifier: 7.56.4
+        version: 7.56.4(react@19.1.0)
       sonner:
         specifier: 2.0.3
         version: 2.0.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -4842,8 +4842,8 @@ packages:
     peerDependencies:
       react: ^19.1.0
 
-  react-hook-form@7.56.1:
-    resolution: {integrity: sha512-qWAVokhSpshhcEuQDSANHx3jiAEFzu2HAaaQIzi/r9FNPm1ioAvuJSD4EuZzWd7Al7nTRKcKPnBKO7sRn+zavQ==}
+  react-hook-form@7.56.4:
+    resolution: {integrity: sha512-Rob7Ftz2vyZ/ZGsQZPaRdIefkgOSrQSPXfqBdvOPwJfoGnjwRJUs7EM7Kc1mcoDv3NOtqBzPGbcMB8CGn9CKgw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -6880,10 +6880,10 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
-  '@hookform/resolvers@5.0.1(react-hook-form@7.56.1(react@19.1.0))':
+  '@hookform/resolvers@5.0.1(react-hook-form@7.56.4(react@19.1.0))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.56.1(react@19.1.0)
+      react-hook-form: 7.56.4(react@19.1.0)
 
   '@humanfs/core@0.19.1': {}
 
@@ -11020,7 +11020,7 @@ snapshots:
       react: 19.1.0
       scheduler: 0.26.0
 
-  react-hook-form@7.56.1(react@19.1.0):
+  react-hook-form@7.56.4(react@19.1.0):
     dependencies:
       react: 19.1.0
 
