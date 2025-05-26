@@ -1,10 +1,10 @@
 packages:
   - apps/*
   - packages/*
-
 onlyBuiltDependencies:
   - '@prisma/client'
   - '@prisma/engines'
+  - '@tailwindcss/oxide'
   - '@vercel/speed-insights'
   - aws-sdk
   - esbuild
