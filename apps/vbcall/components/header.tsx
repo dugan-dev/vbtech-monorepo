@@ -16,14 +16,22 @@ import { Separator } from "@workspace/ui/components/separator";
 import { SidebarTrigger } from "@workspace/ui/components/sidebar";
 
 import { BreadcrumbItemType } from "@/types/breadcrumb-item";
+import { UserSelectionData } from "@/types/user-selection-data";
 import { SignOutButton } from "@/components/signout-button";
+
+import { UserSelectionCombo } from "./user-selection-combo";
 
 type props = {
   breadcrumbs?: BreadcrumbItemType[];
   overrideTitle?: string;
+  userSelectionData?: UserSelectionData;
 };
 
-export function Header({ breadcrumbs, overrideTitle }: props) {
+export function Header({
+  breadcrumbs,
+  overrideTitle,
+  userSelectionData,
+}: props) {
   const pathname = usePathname();
   const params = useParams();
   const title =
@@ -67,6 +75,13 @@ export function Header({ breadcrumbs, overrideTitle }: props) {
             </Breadcrumb>
           </div>
         </div>
+        {userSelectionData && (
+          <UserSelectionCombo
+            slug={userSelectionData.slug}
+            comboItems={userSelectionData.comboItems}
+            defaultLock={userSelectionData.defaultLock}
+          />
+        )}
         <SignOutButton />
       </div>
     </header>
