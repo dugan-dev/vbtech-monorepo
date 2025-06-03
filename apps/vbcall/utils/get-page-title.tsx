@@ -1,5 +1,6 @@
 import {
   AdminClients,
+  AdminHealthPlans,
   AdminUsers,
   Agent,
   CallLog,
@@ -29,6 +30,8 @@ export function getPageTitle(pathname: string, slug?: string) {
       return "User Management";
     case AdminClients({}):
       return "Manage Clients";
+    case AdminHealthPlans({}):
+      return "Manage Health Plans";
     case Agent({}):
       return "Agent";
     case Dashboard({}):

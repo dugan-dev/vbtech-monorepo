@@ -2,6 +2,7 @@
 import { z } from "zod";
 
 import * as AdminClientsRoute from "@/app/(authed)/admin/clients/page.info";
+import * as AdminHealthPlansRoute from "@/app/(authed)/admin/plans/page.info";
 import * as AdminUsersRoute from "@/app/(authed)/admin/users/page.info";
 import * as AgentRoute from "@/app/(authed)/agent/page.info";
 import * as HomeRoute from "@/app/(authed)/page.info";
@@ -23,6 +24,10 @@ export const Home = makeRoute("/(authed)", {
 export const AdminClients = makeRoute("/(authed)/admin/clients", {
   ...defaultInfo,
   ...AdminClientsRoute.Route,
+});
+export const AdminHealthPlans = makeRoute("/(authed)/admin/plans", {
+  ...defaultInfo,
+  ...AdminHealthPlansRoute.Route,
 });
 export const AdminUsers = makeRoute("/(authed)/admin/users", {
   ...defaultInfo,

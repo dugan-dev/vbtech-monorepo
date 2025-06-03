@@ -1,5 +1,6 @@
 import {
   AdminClients,
+  AdminHealthPlans,
   AdminUsers,
   Agent,
   CallLog,
@@ -51,8 +52,14 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
         },
         {
           title: "Clients",
-          icon: Icons.users,
+          icon: Icons.handshake,
           href: AdminClients({}),
+          isAdminOnly: true,
+        },
+        {
+          title: "Health Plans",
+          icon: Icons.heartHandshake,
+          href: AdminHealthPlans({}),
           isAdminOnly: true,
         },
       ],
