@@ -26,9 +26,13 @@ type props = {
 export const USERS_DATA_CACHE_TAG = "users-data";
 const REVALIDATE_SECONDS = 600; // 10 minutes
 
+// Function to generate consistent cache key for a user
+export const getUserCacheKey = (userId: string) =>
+  `${USERS_DATA_CACHE_TAG}-${userId}`;
+
 // Create the inner function that uses unstable_cache for time-based caching
 const getUserDataFromCache = (userId: string) => {
-  const cacheKey = `${USERS_DATA_CACHE_TAG}-${userId}`;
+  const cacheKey = getUserCacheKey(userId);
 
   return timedCache(
     async () => {
@@ -92,8 +96,8 @@ export async function updateUserSelectionSlug(
 
   // Update user attributes with new payerPubId
   const appAttrs: UserAppAttrs = {
-    slug: payerPubId,
     ...usersData.usersAppAttrs,
+    slug: payerPubId,
   };
 
   const command = new AdminUpdateUserAttributesCommand({
@@ -109,7 +113,7 @@ export async function updateUserSelectionSlug(
 
   try {
     await cognitoClient.send(command);
-    revalidateTag(USERS_DATA_CACHE_TAG + "-" + userId);
+    revalidateTag(getUserCacheKey(userId));
   } catch (error) {
     console.error("Error editing user:", error);
     throw error;
