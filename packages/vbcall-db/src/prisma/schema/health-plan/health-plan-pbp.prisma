@@ -1,0 +1,26 @@
+model health_plan_pbp {
+        id         Int      @id @default(autoincrement()) @db.UnsignedInt
+        pub_id     String   @unique @db.VarChar(12)
+        created_at DateTime @db.DateTime(0)
+        created_by String   @db.VarChar(50)
+        updated_at DateTime @db.DateTime(0)
+        updated_by String   @db.VarChar(50)
+        hp_pub_id  String   @db.VarChar(12)
+        pbp_id     String   @db.VarChar(3)
+        pbp_name   String   @db.VarChar(255)
+        is_active  Boolean  @default(true)
+}
+
+model health_plan_pbp_hist {
+        id            Int      @id @default(autoincrement()) @db.UnsignedInt
+        hist_added_at DateTime @db.DateTime(0)
+        pub_id        String   @db.VarChar(12)
+        created_at    DateTime @db.DateTime(0)
+        created_by    String   @db.VarChar(50)
+        updated_at    DateTime @db.DateTime(0)
+        updated_by    String   @db.VarChar(50)
+        hp_pub_id     String   @db.VarChar(12)
+        pbp_id        String   @db.VarChar(3)
+        pbp_name      String   @db.VarChar(10)
+        is_active     Boolean
+}
