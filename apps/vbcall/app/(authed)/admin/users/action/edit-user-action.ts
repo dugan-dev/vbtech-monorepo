@@ -26,7 +26,7 @@ export const editUserAction = authedActionClient
     async ({ parsedInput: { formData, userId, revalidationPath }, ctx }) => {
       // Create user attributes
       const appAttrs: UserAppAttrs = {
-        app: "VBPay",
+        app: "VBCall",
         admin: formData.admin,
         super: formData.super,
         type: formData.type as UserType,
