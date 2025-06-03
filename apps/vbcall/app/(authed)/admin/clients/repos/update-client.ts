@@ -61,6 +61,7 @@ export function updateClient({ input, pubId, userId }: props) {
         timezone: input.timezone,
         description: input.description,
       })
+      .where("pubId", "=", pubId)
       .execute();
   });
 }
