@@ -12,7 +12,6 @@ import { PhysPyConfigFormOutput } from "../components/py-config/phys-py-config-f
  * @returns The matching configuration record, or undefined if not found.
  */
 export function getPhysPyConfig(physPubId: string, perfYear: string) {
-  console.log("getPhysPyConfig", physPubId, perfYear);
   return db
     .selectFrom("physPerfYearConfig")
     .select([
