@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { resetPassword, type SignInOutput } from "aws-amplify/auth";
-import { useTheme } from "next-themes";
 import { toast } from "sonner";
 
 import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
@@ -10,7 +9,6 @@ import { useErrorDialog } from "@/hooks/use-error-dialog";
 export function useSignInCard() {
   const [currentState, setCurrentState] = useState<SignInOutput | null>(null);
   const [email, setEmail] = useState<string | null>(null);
-  const { theme } = useTheme();
   const [emailForReset, setEmailForReset] = useState<string | null>(null);
 
   const {
@@ -44,7 +42,6 @@ export function useSignInCard() {
   };
 
   return {
-    theme,
     currentState,
     setCurrentState,
     email,

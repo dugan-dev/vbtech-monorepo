@@ -20,7 +20,6 @@ import { TotpSetupForm } from "./topt-setup-form";
 
 export function SignInCard() {
   const {
-    theme,
     currentState,
     setCurrentState,
     email,
@@ -49,11 +48,12 @@ export function SignInCard() {
         </div>
         <CardHeader>
           <div className="mx-auto">
-            {theme === "dark" ? (
-              <Icons.logoDark height={80} width={150} />
-            ) : (
-              <Icons.logo height={80} width={150} />
-            )}
+            <Icons.logo height={80} width={150} className="block dark:hidden" />
+            <Icons.logoDark
+              height={80}
+              width={150}
+              className="hidden dark:block"
+            />
           </div>
           <CardTitle className="text-center text-2xl font-semibold">
             {currentState === null && emailForReset === null && "Sign in"}
