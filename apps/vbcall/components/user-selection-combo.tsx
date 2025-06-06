@@ -105,27 +105,15 @@ export function UserSelectionCombo({
             disabled={isLocked}
           >
             <span className="flex-1 truncate text-left">
-              {cId
-                ? `${
-                    comboItems.find((val) => {
-                      if (typeof val.value === "string") {
-                        return val.value.toLowerCase() === cId.toLowerCase();
-                      }
-                    })
-                      ? comboItems.find((val) => {
-                          if (typeof val.value === "string") {
-                            return (
-                              val.value.toLowerCase() === cId.toLowerCase()
-                            );
-                          }
-                          return (
-                            val.selectionDisplay?.toLowerCase() ===
-                            cId.toLowerCase()
-                          );
-                        })?.label
-                      : instructText
-                  }`
-                : instructText}
+            const selectedItem = comboItems.find((item) => {
+              const itemValue = typeof item.value === "string"
+                ? item.value
+                : item.selectionDisplay;
+              return itemValue?.toLowerCase() === cId.toLowerCase();
+            });
+            <span className="flex-1 truncate text-left">
+              {cId && selectedItem ? selectedItem.label : instructText}
+            </span>
             </span>
             <Icons.chevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
