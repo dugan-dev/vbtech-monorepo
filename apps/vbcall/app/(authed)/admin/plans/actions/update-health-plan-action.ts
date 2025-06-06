@@ -36,13 +36,13 @@ export const updateHealthPlanAction = authedActionClient
     }) => {
       const { userId, usersAppAttrs } = ctx;
 
-      const payerPermissions = usersAppAttrs.ids?.find(
+      const clientPermissions = usersAppAttrs.ids?.find(
         (id) => id.id === clientPubId,
       );
 
       if (
-        !payerPermissions ||
-        !payerPermissions.userRoles.includes(REQUIRED_USER_ROLE)
+        !clientPermissions ||
+        !clientPermissions.userRoles.includes(REQUIRED_USER_ROLE)
       ) {
         throw new Error("User does not have permission to edit this Client.");
       }

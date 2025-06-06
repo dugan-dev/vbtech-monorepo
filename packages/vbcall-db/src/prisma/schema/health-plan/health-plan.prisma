@@ -11,6 +11,10 @@ model health_plan {
         phone_number  String   @db.VarChar(20)
         fax_number    String   @db.VarChar(20)
         is_active     Boolean  @default(true)
+
+        @@index([client_pub_id])
+        @@index([plan_id])
+        @@index([is_active])
 }
 
 model health_plan_hist {
@@ -27,4 +31,8 @@ model health_plan_hist {
         phone_number  String   @db.VarChar(20)
         fax_number    String   @db.VarChar(20)
         is_active     Boolean
+
+        @@index([client_pub_id])
+        @@index([plan_id])
+        @@index([is_active])
 }

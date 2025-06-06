@@ -32,7 +32,7 @@ export default async function Page({
       <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
         <ManageHealthPlans
           userId={user.userId}
-          clientPubIdUrlParam={cId as string | undefined}
+          clientPubIdUrlParam={typeof cId === "string" ? cId : undefined}
         />
       </Suspense>
     </RestrictByUserAppAttrsServer>

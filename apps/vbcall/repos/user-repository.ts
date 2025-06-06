@@ -120,7 +120,7 @@ export const getUserSelectionData = cache(async () => {
   ]);
 
   if (!clients || !usersData) {
-    throw new Error("Failed to load payer or user data");
+    throw new Error("Failed to load client or user data");
   }
 
   const comboItems: ComboItem[] = clients.map((client) => ({

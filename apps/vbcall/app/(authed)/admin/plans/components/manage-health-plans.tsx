@@ -29,9 +29,7 @@ export async function ManageHealthPlans({
     );
   }
 
-  const clientPubId = clientPubIdUrlParam
-    ? (clientPubIdUrlParam as string)
-    : usersAppAttrs.slug!;
+  const clientPubId = clientPubIdUrlParam || usersAppAttrs.slug!;
 
   // Fetch health plans and PBPs
   const [plansData, pbpsData] = await Promise.all([
