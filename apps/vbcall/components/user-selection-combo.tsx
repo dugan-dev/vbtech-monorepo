@@ -68,13 +68,13 @@ export function UserSelectionCombo({
   const hasInitialized = useRef(false);
 
   useEffect(() => {
-    if (!hasInitialized && slug && slug !== cId && defaultLock) {
+    if (!hasInitialized.current && slug && slug !== cId && defaultLock) {
+      hasInitialized.current = true;
       setIsLocked(true);
       // Force immediate update without transition
       setCId(slug, { shallow: true });
     }
   }, [slug, cId, defaultLock, setCId]);
-
   function toggleLock() {
     if (isLocked) {
       execute({ slug: "" });
