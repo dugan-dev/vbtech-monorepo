@@ -27,6 +27,7 @@ export const updateHealthPlanAction = authedActionClient
   .metadata({
     actionName: "updateHealthPlanAction",
     allowedTypes: ALLOWED_USER_TYPES,
+    adminOnly: true,
   })
   .schema(schema)
   .action(
