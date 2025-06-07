@@ -73,5 +73,7 @@ export async function updateClient({ input, pubId, userId }: props) {
       })
       .where("pubId", "=", pubId)
       .execute();
+
+    return { success: true };
   });
 }
