@@ -10,7 +10,17 @@ type props = {
   lastName: string;
 };
 
-export function insertUser({
+/**
+ * Inserts a new user record into the database with metadata about the creator and timestamps.
+ *
+ * @param userId - The ID of the user performing the insertion.
+ * @param newUserId - The unique ID to assign to the new user.
+ * @param email - The email address of the new user.
+ * @param firstName - The first name of the new user.
+ * @param lastName - The last name of the new user.
+ * @returns An object indicating the operation was successful.
+ */
+export async function insertUser({
   userId,
   newUserId,
   email,
@@ -19,7 +29,7 @@ export function insertUser({
 }: props) {
   const now = new Date();
 
-  return db
+  await db
     .insertInto("user")
     .values({
       userId: newUserId,
@@ -32,4 +42,6 @@ export function insertUser({
       updatedAt: now,
     })
     .execute();
+
+  return { success: true };
 }

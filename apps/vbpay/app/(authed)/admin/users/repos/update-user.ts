@@ -10,7 +10,19 @@ type props = {
   lastName: string;
 };
 
-export function updateUser({
+/**
+ * Updates a user's information and records the previous state in the user history table within a single transaction.
+ *
+ * @param userId - The ID of the user performing the update.
+ * @param usersUserId - The ID of the user whose information is being updated.
+ * @param email - The new email address for the user.
+ * @param firstName - The new first name for the user.
+ * @param lastName - The new last name for the user.
+ * @returns An object indicating the update was successful.
+ *
+ * @remark The previous state of the user is saved to the `userHist` table before the update is applied.
+ */
+export async function updateUser({
   userId,
   usersUserId,
   email,
@@ -19,7 +31,7 @@ export function updateUser({
 }: props) {
   const now = new Date();
 
-  return db.transaction().execute(async (trx) => {
+  return await db.transaction().execute(async (trx) => {
     await trx
       .insertInto("userHist")
       .columns([
@@ -51,7 +63,7 @@ export function updateUser({
       )
       .execute();
 
-    return trx
+    await trx
       .updateTable("user")
       .set({
         email,
@@ -62,5 +74,7 @@ export function updateUser({
       })
       .where("userId", "=", usersUserId)
       .execute();
+
+    return { success: true };
   });
 }

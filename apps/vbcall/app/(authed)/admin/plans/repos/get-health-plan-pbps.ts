@@ -3,13 +3,13 @@ import { db } from "@workspace/vbcall-db/database";
 import "server-only";
 
 /**
- * Retrieves all health plan PBPs associated with the specified client public ID.
+ * Fetches all health plan PBPs linked to a given client public ID.
  *
- * @param clientPubId - The public identifier of the client whose health plan PBPs are to be fetched.
- * @returns A promise resolving to an array of PBPs, each containing `pubId`, `hpPubId`, `pbpId`, `pbpName`, and `isActive`.
+ * @param clientPubId - The public ID of the client whose health plan PBPs are being retrieved.
+ * @returns A promise that resolves to an array of PBPs, each with `pubId`, `hpPubId`, `pbpId`, `pbpName`, and `isActive` fields.
  */
-export function getHealthPlanPbps(clientPubId: string) {
-  return db
+export async function getHealthPlanPbps(clientPubId: string) {
+  return await db
     .selectFrom("healthPlanPbp as pbp")
     .innerJoin("healthPlan as hp", "hp.pubId", "pbp.hpPubId")
     .select([

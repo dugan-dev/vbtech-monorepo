@@ -10,8 +10,18 @@ type props = {
   userId: string;
 };
 
-export function updatePhysician({ input, pubId, userId }: props) {
-  return db.transaction().execute(async (trx) => {
+/**
+ * Updates a physician's record and logs the previous state to a history table within a database transaction.
+ *
+ * The function archives the current physician data before applying updates, ensuring historical changes are preserved.
+ *
+ * @param input - The updated physician data.
+ * @param pubId - The unique identifier of the physician to update.
+ * @param userId - The identifier of the user performing the update.
+ * @returns An object indicating the update was successful.
+ */
+export async function updatePhysician({ input, pubId, userId }: props) {
+  return await db.transaction().execute(async (trx) => {
     const now = new Date();
 
     // log existing to hist table
@@ -75,7 +85,7 @@ export function updatePhysician({ input, pubId, userId }: props) {
       )
       .execute();
 
-    return trx
+    await trx
       .updateTable("networkPhysician")
       .set({
         pubId,
@@ -94,5 +104,7 @@ export function updatePhysician({ input, pubId, userId }: props) {
         credential: input.credential,
       })
       .execute();
+
+    return { success: true };
   });
 }

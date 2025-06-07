@@ -10,8 +10,18 @@ type props = {
   userId: string;
 };
 
-export function updateEntity({ input, pubId, userId }: props) {
-  return db.transaction().execute(async (trx) => {
+/**
+ * Updates a network entity record and archives its previous state in a history table within a single transaction.
+ *
+ * Before updating, the current entity data is copied to the `networkEntityHist` table with a timestamp. The entity is then updated with new values and metadata.
+ *
+ * @param input - New values for the entity fields.
+ * @param pubId - Public identifier of the entity to update.
+ * @param userId - Identifier of the user performing the update.
+ * @returns An object indicating the update was successful.
+ */
+export async function updateEntity({ input, pubId, userId }: props) {
+  return await db.transaction().execute(async (trx) => {
     const now = new Date();
 
     // log existing to hist table
@@ -56,7 +66,7 @@ export function updateEntity({ input, pubId, userId }: props) {
       )
       .execute();
 
-    return trx
+    await trx
       .updateTable("networkEntity")
       .set({
         pubId,
@@ -70,5 +80,7 @@ export function updateEntity({ input, pubId, userId }: props) {
         taxId: input.taxId,
       })
       .execute();
+
+    return { success: true };
   });
 }

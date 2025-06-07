@@ -1,4 +1,4 @@
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { Control, useFieldArray, useFormContext } from "react-hook-form";
 
 import { Button } from "@workspace/ui/components/button";
 import { Card, CardContent } from "@workspace/ui/components/card";
@@ -18,9 +18,9 @@ type PBPItem = {
 };
 
 /**
- * Renders a card UI for a single Plan Benefit Package (PBP) entry within a form.
+ * Displays a card for editing a single Plan Benefit Package (PBP) entry within a form.
  *
- * Displays input fields for "PBP ID" and "PBP Name", and conditionally renders either a remove button or an "Active" toggle switch based on the PBP's published status.
+ * Shows input fields for "PBP ID" and "PBP Name", and conditionally renders either a remove button or an "Active" toggle switch based on whether the PBP has a published ID.
  *
  * @param field - The PBP data for this card, including identifiers and status.
  * @param index - The index of this PBP in the PBPs array.
@@ -40,7 +40,7 @@ function PBPCard({
   index: number;
   onRemove: () => void;
   canRemove: boolean;
-  control: any;
+  control: Control<HealthPlanFormData>;
   isDisabled: boolean;
 }) {
   const hasPublishedId =

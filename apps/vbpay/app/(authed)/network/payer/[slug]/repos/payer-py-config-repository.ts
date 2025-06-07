@@ -5,19 +5,14 @@ import "server-only";
 import { PayerPyConfigFormOutput } from "../components/py-config/payer-py-config-form-schema";
 
 /**
- * Retrieves a payer's performance year configuration.
+ * Fetches the configuration for a specific payer and performance year.
  *
- * This function queries the "payerPerfYearConfig" table and returns the first record that matches
- * the provided payer public identifier and performance year. The input performance year is parsed
- * as an integer before being used in the query.
- *
- * @param payerPubId - The public identifier of the payer.
- * @param perfYear - The performance year as a string, which will be converted to a number.
- *
- * @returns The matching configuration record, or undefined if no record is found.
+ * @param payerPubId - The unique public identifier for the payer.
+ * @param perfYear - The performance year to retrieve, as a string.
+ * @returns The configuration record if found; otherwise, undefined.
  */
-export function getPayerPyConfig(payerPubId: string, perfYear: string) {
-  return db
+export async function getPayerPyConfig(payerPubId: string, perfYear: string) {
+  return await db
     .selectFrom("payerPerfYearConfig")
     .select([
       "pubId",
@@ -42,26 +37,24 @@ export function getPayerPyConfig(payerPubId: string, perfYear: string) {
 }
 
 /**
- * Inserts a new payer performance year configuration record into the database.
+ * Creates a new payer performance year configuration record in the database.
  *
- * This function takes configuration data and metadata, including form data, user and payer identifiers,
- * and records a new entry with current timestamps. The performance year is parsed into a number, and
- * physician assignment details are conditionally included based on whether assignment is required.
+ * Inserts configuration and assignment details for a payer and performance year, using provided form data and identifiers. Physician assignment fields are included only if assignment is required.
  *
- * @param formData - Contains basic performance year configuration and physician assignment settings.
- * @param userId - Identifier of the user performing the operation.
- * @param payerPubId - Public identifier of the payer.
- * @param pubId - Publication identifier associated with the configuration.
- * @returns A promise that resolves with the result of the insertion operation.
+ * @param formData - Configuration and assignment details for the new record.
+ * @param userId - ID of the user creating the record.
+ * @param payerPubId - Public identifier for the payer.
+ * @param pubId - Publication identifier for the configuration.
+ * @returns A promise resolving to the result of the database insertion.
  */
-export function insertPayerPyConfig(
+export async function insertPayerPyConfig(
   formData: PayerPyConfigFormOutput,
   userId: string,
   payerPubId: string,
   pubId: string,
 ) {
   const now = new Date();
-  return db
+  return await db
     .insertInto("payerPerfYearConfig")
     .columns([
       "createdAt",
@@ -104,15 +97,14 @@ export function insertPayerPyConfig(
 }
 
 /**
- * Updates a payer performance year configuration record.
+ * Updates an existing payer performance year configuration and logs the previous state to a history table.
  *
- * This function logs the current configuration in a history table before applying the update. It sets new configuration values such as performance year, program, type, risk option, payment model, eligibility source, and physician assignment details, applying conditional logic for physician assignments.
+ * Archives the current configuration identified by {@link pubId} before applying updates from {@link formData}. Updates include performance year, program details, risk options, payment model, eligibility source, and physician assignment settings.
  *
- * @param formData - Object containing updated configuration and physician assignment details.
- * @param userId - Identifier of the user performing the update.
- * @param pubId - Publication ID that uniquely identifies the configuration record to update.
- *
- * @returns A promise that resolves when the update operation completes.
+ * @param formData - Updated configuration and physician assignment details.
+ * @param userId - ID of the user performing the update.
+ * @param pubId - Unique identifier for the configuration record to update.
+ * @returns An object indicating success after the update completes.
  */
 export async function updatePayerPyConfig(
   formData: PayerPyConfigFormOutput,
@@ -120,7 +112,7 @@ export async function updatePayerPyConfig(
   pubId: string,
 ) {
   const now = new Date();
-  return db.transaction().execute(async (trx) => {
+  return await db.transaction().execute(async (trx) => {
     // log existing to hist table
     await trx
       .insertInto("payerPerfYearConfigHist")
@@ -167,7 +159,7 @@ export async function updatePayerPyConfig(
       .execute();
 
     // update existing
-    return trx
+    await trx
       .updateTable("payerPerfYearConfig")
       .set({
         updatedAt: now,
@@ -188,5 +180,7 @@ export async function updatePayerPyConfig(
       })
       .where("pubId", "=", pubId)
       .execute();
+
+    return { success: true };
   });
 }

@@ -4,12 +4,18 @@ import { NetworkEntity } from "@/types/network-entity";
 
 import "server-only";
 
-export function getNetworkEntitiesForTable({
+/**
+ * Retrieves all network entities associated with a specified payer, ordered by marketing name.
+ *
+ * @param selectedPayer - The public identifier of the payer whose network entities are to be fetched.
+ * @returns An array of {@link NetworkEntity} objects matching the given payer.
+ */
+export async function getNetworkEntitiesForTable({
   selectedPayer,
 }: {
   selectedPayer: string;
 }): Promise<NetworkEntity[]> {
-  return db
+  return await db
     .selectFrom("networkEntity")
     .select([
       "pubId",

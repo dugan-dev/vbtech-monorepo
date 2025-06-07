@@ -11,6 +11,17 @@ type props = {
   formData: AddNetworkPhysicianFormOutput;
 };
 
+/**
+ * Inserts a new network physician record into the database, ensuring no duplicate NPI exists for the specified payer.
+ *
+ * @param pubId - The public identifier for the new physician record.
+ * @param payerPubId - The public identifier of the payer.
+ * @param userId - The identifier of the user performing the insertion.
+ * @param formData - The form data containing physician and affiliation information.
+ * @returns An object indicating successful insertion: `{ success: true }`.
+ *
+ * @throws {Error} If a physician with the same NPI already exists for the given payer.
+ */
 export async function insertPhysician({
   pubId,
   payerPubId,
@@ -61,5 +72,7 @@ export async function insertPhysician({
         vendorNetEntPubId: formData.affInfo.vendorNetEntPubId,
       })
       .execute();
+
+    return { success: true };
   });
 }

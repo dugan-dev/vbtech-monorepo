@@ -19,8 +19,20 @@ type props = {
   userId: string;
 };
 
-export function insertClient({ input, pubId, userId }: props) {
-  return db.transaction().execute(async (trx) => {
+/**
+ * Inserts a new client record into the database after checking for duplicates within a transaction.
+ *
+ * Checks for existing clients with the same name or code and aborts the operation if duplicates are found.
+ *
+ * @param input - The client data to insert.
+ * @param pubId - The public identifier associated with the client.
+ * @param userId - The identifier of the user performing the operation.
+ * @returns An object indicating successful insertion.
+ *
+ * @throws {Error} If a client with the same name or code already exists.
+ */
+export async function insertClient({ input, pubId, userId }: props) {
+  return await db.transaction().execute(async (trx) => {
     const duplicateChecks: DuplicateCheck[] = [
       {
         value: input.clientName,
@@ -58,7 +70,7 @@ export function insertClient({ input, pubId, userId }: props) {
 
     const now = new Date();
 
-    return trx
+    await trx
       .insertInto("client")
       .values({
         pubId,
@@ -73,5 +85,7 @@ export function insertClient({ input, pubId, userId }: props) {
         isActive: 1,
       })
       .execute();
+
+    return { success: true };
   });
 }

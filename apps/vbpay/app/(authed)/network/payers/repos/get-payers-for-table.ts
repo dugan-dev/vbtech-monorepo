@@ -4,12 +4,18 @@ import { Payer } from "@/types/payer";
 
 import "server-only";
 
-export function getPayersForTable({
+/**
+ * Retrieves a list of payers matching the provided public IDs, ordered by marketing name.
+ *
+ * @param usersPayerPubIds - Array of payer public IDs to filter the results.
+ * @returns A promise resolving to an array of {@link Payer} objects containing payer details.
+ */
+export async function getPayersForTable({
   usersPayerPubIds,
 }: {
   usersPayerPubIds: string[];
 }): Promise<Payer[]> {
-  return db
+  return await db
     .selectFrom("payer")
     .select([
       "pubId",
