@@ -22,8 +22,8 @@ type props = {
  *
  * @returns A promise that resolves when the transaction is complete.
  */
-export function updatePayer({ input, pubId, userId }: props) {
-  return db.transaction().execute(async (trx) => {
+export async function updatePayer({ input, pubId, userId }: props) {
+  return await db.transaction().execute(async (trx) => {
     const now = new Date();
 
     // log existing to hist table
@@ -74,7 +74,7 @@ export function updatePayer({ input, pubId, userId }: props) {
       )
       .execute();
 
-    return trx
+    await trx
       .updateTable("payer")
       .set({
         pubId,
@@ -92,5 +92,7 @@ export function updatePayer({ input, pubId, userId }: props) {
         websiteUrl: input.websiteUrl,
       })
       .execute();
+
+    return { success: true };
   });
 }

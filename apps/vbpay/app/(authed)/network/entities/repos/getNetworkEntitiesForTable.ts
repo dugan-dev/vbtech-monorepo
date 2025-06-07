@@ -4,12 +4,12 @@ import { NetworkEntity } from "@/types/network-entity";
 
 import "server-only";
 
-export function getNetworkEntitiesForTable({
+export async function getNetworkEntitiesForTable({
   selectedPayer,
 }: {
   selectedPayer: string;
 }): Promise<NetworkEntity[]> {
-  return db
+  return await db
     .selectFrom("networkEntity")
     .select([
       "pubId",

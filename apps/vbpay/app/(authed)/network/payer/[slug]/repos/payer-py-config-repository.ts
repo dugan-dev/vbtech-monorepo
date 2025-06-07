@@ -16,8 +16,8 @@ import { PayerPyConfigFormOutput } from "../components/py-config/payer-py-config
  *
  * @returns The matching configuration record, or undefined if no record is found.
  */
-export function getPayerPyConfig(payerPubId: string, perfYear: string) {
-  return db
+export async function getPayerPyConfig(payerPubId: string, perfYear: string) {
+  return await db
     .selectFrom("payerPerfYearConfig")
     .select([
       "pubId",
@@ -54,14 +54,14 @@ export function getPayerPyConfig(payerPubId: string, perfYear: string) {
  * @param pubId - Publication identifier associated with the configuration.
  * @returns A promise that resolves with the result of the insertion operation.
  */
-export function insertPayerPyConfig(
+export async function insertPayerPyConfig(
   formData: PayerPyConfigFormOutput,
   userId: string,
   payerPubId: string,
   pubId: string,
 ) {
   const now = new Date();
-  return db
+  return await db
     .insertInto("payerPerfYearConfig")
     .columns([
       "createdAt",
@@ -120,7 +120,7 @@ export async function updatePayerPyConfig(
   pubId: string,
 ) {
   const now = new Date();
-  return db.transaction().execute(async (trx) => {
+  return await db.transaction().execute(async (trx) => {
     // log existing to hist table
     await trx
       .insertInto("payerPerfYearConfigHist")
@@ -167,7 +167,7 @@ export async function updatePayerPyConfig(
       .execute();
 
     // update existing
-    return trx
+    await trx
       .updateTable("payerPerfYearConfig")
       .set({
         updatedAt: now,
@@ -188,5 +188,7 @@ export async function updatePayerPyConfig(
       })
       .where("pubId", "=", pubId)
       .execute();
+
+    return { success: true };
   });
 }

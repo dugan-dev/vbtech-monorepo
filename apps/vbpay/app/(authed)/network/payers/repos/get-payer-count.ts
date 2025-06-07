@@ -8,8 +8,8 @@ import { db } from "@workspace/db/database";
  *
  * @returns A promise that resolves to an object containing the "payerCount" property.
  */
-export function getPayerCount() {
-  return db
+export async function getPayerCount() {
+  return await db
     .selectFrom("payer")
     .select(db.fn.count<number>("pubId").as("payerCount"))
     .executeTakeFirst();

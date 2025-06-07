@@ -2,8 +2,8 @@ import { db } from "@workspace/vbcall-db/database";
 
 import "server-only";
 
-export function getClientsForTable() {
-  return db
+export async function getClientsForTable() {
+  return await db
     .selectFrom("client")
     .select([
       "pubId",

@@ -11,8 +11,8 @@ import { PhysPyConfigFormOutput } from "../components/py-config/phys-py-config-f
  * @param perfYear - The performance year to query, as a string.
  * @returns The configuration record if found; otherwise, undefined.
  */
-export function getPhysPyConfig(physPubId: string, perfYear: string) {
-  return db
+export async function getPhysPyConfig(physPubId: string, perfYear: string) {
+  return await db
     .selectFrom("physPerfYearConfig")
     .select([
       "pubId",

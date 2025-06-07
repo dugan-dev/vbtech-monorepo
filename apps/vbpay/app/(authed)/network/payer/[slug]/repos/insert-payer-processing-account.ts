@@ -10,12 +10,12 @@ import { db } from "@workspace/db/database";
  * @param userId - The ID of the user creating the link
  * @returns The result of the database insertion operation
  */
-export function insertPayerProcessingAccount(
+export async function insertPayerProcessingAccount(
   payerPubId: string,
   processingAccountId: string,
   userId: string,
 ) {
-  return db
+  return await db
     .insertInto("payerProcessingAccount")
     .values({
       payerPubId: payerPubId,

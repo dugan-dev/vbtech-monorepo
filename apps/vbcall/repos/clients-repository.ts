@@ -4,8 +4,8 @@ import { db } from "@workspace/vbcall-db/database";
 
 import "server-only";
 
-function getAllActiveClientsQry() {
-  return db
+async function getAllActiveClientsQry() {
+  return await db
     .selectFrom("client")
     .select(["client.pubId", "client.clientName"])
     .where("client.isActive", "=", 1)
@@ -16,8 +16,8 @@ export const getAllActiveClients = cache(async () => {
   return getAllActiveClientsQry();
 });
 
-function getAllClientsQry() {
-  return db
+async function getAllClientsQry() {
+  return await db
     .selectFrom("client")
     .select(["client.pubId", "client.clientName"])
     .execute();

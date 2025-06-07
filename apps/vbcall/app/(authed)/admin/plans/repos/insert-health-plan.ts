@@ -39,8 +39,13 @@ type props = {
  * @throws {Error} If a health plan with the same name or ID already exists for the client.
  * @throws {Error} If an unsupported field is encountered during duplicate checks.
  */
-export function insertHealthPlan({ input, pubId, userId, clientPubId }: props) {
-  return db.transaction().execute(async (trx) => {
+export async function insertHealthPlan({
+  input,
+  pubId,
+  userId,
+  clientPubId,
+}: props) {
+  return await db.transaction().execute(async (trx) => {
     const duplicateChecks: DuplicateCheck[] = [
       {
         value: input.planName,
@@ -122,7 +127,7 @@ export function insertHealthPlan({ input, pubId, userId, clientPubId }: props) {
       })
       .execute();
 
-    return trx
+    await trx
       .insertInto("healthPlanPbp")
       .values(
         input.pbps.map((pbp) => ({
@@ -137,5 +142,7 @@ export function insertHealthPlan({ input, pubId, userId, clientPubId }: props) {
         })),
       )
       .execute();
+
+    return { success: true };
   });
 }

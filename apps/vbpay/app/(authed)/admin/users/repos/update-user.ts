@@ -10,7 +10,7 @@ type props = {
   lastName: string;
 };
 
-export function updateUser({
+export async function updateUser({
   userId,
   usersUserId,
   email,
@@ -19,7 +19,7 @@ export function updateUser({
 }: props) {
   const now = new Date();
 
-  return db.transaction().execute(async (trx) => {
+  return await db.transaction().execute(async (trx) => {
     await trx
       .insertInto("userHist")
       .columns([
@@ -51,7 +51,7 @@ export function updateUser({
       )
       .execute();
 
-    return trx
+    await trx
       .updateTable("user")
       .set({
         email,
@@ -62,5 +62,7 @@ export function updateUser({
       })
       .where("userId", "=", usersUserId)
       .execute();
+
+    return { success: true };
   });
 }

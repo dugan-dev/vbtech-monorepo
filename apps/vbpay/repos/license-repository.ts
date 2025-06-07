@@ -9,8 +9,8 @@ import { db } from "@workspace/db/database";
 const VBPAY_LICENSE_CACHE_KEY = "VBPayLicenseInfoCacheKey";
 const REVALIDATE_SECONDS = 600; // 10 minutes
 
-function getVBPayLicenseQry() {
-  return db
+async function getVBPayLicenseQry() {
+  return await db
     .selectFrom("vbpayLicense")
     .select([
       "type",

@@ -8,8 +8,8 @@ import "server-only";
  * @param clientPubId - The public identifier of the client whose health plan PBPs are to be fetched.
  * @returns A promise resolving to an array of PBPs, each containing `pubId`, `hpPubId`, `pbpId`, `pbpName`, and `isActive`.
  */
-export function getHealthPlanPbps(clientPubId: string) {
-  return db
+export async function getHealthPlanPbps(clientPubId: string) {
+  return await db
     .selectFrom("healthPlanPbp as pbp")
     .innerJoin("healthPlan as hp", "hp.pubId", "pbp.hpPubId")
     .select([

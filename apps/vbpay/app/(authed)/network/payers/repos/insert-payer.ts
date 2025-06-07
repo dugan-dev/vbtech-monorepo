@@ -19,8 +19,8 @@ type props = {
   userId: string;
 };
 
-export function insertPayer({ input, pubId, userId }: props) {
-  return db.transaction().execute(async (trx) => {
+export async function insertPayer({ input, pubId, userId }: props) {
+  return await db.transaction().execute(async (trx) => {
     const duplicateChecks: DuplicateCheck[] = [
       {
         value: input.marketingName,
@@ -65,7 +65,7 @@ export function insertPayer({ input, pubId, userId }: props) {
 
     const now = new Date();
 
-    return trx
+    await trx
       .insertInto("payer")
       .values({
         pubId,
@@ -86,5 +86,7 @@ export function insertPayer({ input, pubId, userId }: props) {
         isActive: 1,
       })
       .execute();
+
+    return { success: true };
   });
 }

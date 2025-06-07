@@ -9,8 +9,8 @@ import "server-only";
 const VBPAY_GLOBAL_SETTINGS_CACHE_KEY = "GlobalSettingsCacheKey";
 const REVALIDATE_SECONDS = 600; // 10 minutes
 
-function getVBPayGlobalSettingsQry() {
-  return db
+async function getVBPayGlobalSettingsQry() {
+  return await db
     .selectFrom("vbpayGlobalSettings")
     .select([
       "allowedPayerTypes",

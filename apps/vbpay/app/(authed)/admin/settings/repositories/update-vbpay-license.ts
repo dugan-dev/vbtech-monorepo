@@ -12,7 +12,7 @@ export async function updateVBPayLicense({
   userId: string;
 }) {
   const now = new Date();
-  return db.transaction().execute(async (trx) => {
+  return await db.transaction().execute(async (trx) => {
     // log existing to hist table
     await trx
       .insertInto("vbpayLicenseHist")
@@ -56,7 +56,7 @@ export async function updateVBPayLicense({
       )
       .execute();
 
-    return trx
+    await trx
       .updateTable("vbpayLicense")
       .set({
         ...license,
@@ -64,5 +64,7 @@ export async function updateVBPayLicense({
         updatedBy: userId,
       })
       .execute();
+
+    return { success: true };
   });
 }

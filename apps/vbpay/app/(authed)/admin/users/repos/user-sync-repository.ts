@@ -44,7 +44,7 @@ export async function syncUsers(userId: string) {
   }
 
   // Insert or update sync timestamp
-  return db.transaction().execute(async (trx) => {
+  return await db.transaction().execute(async (trx) => {
     const now = new Date();
     const existingTimestamp = await trx
       .selectFrom("userSyncTimestamp")
@@ -53,7 +53,7 @@ export async function syncUsers(userId: string) {
       .executeTakeFirst();
 
     if (existingTimestamp) {
-      trx
+      await trx
         .updateTable("userSyncTimestamp")
         .set({
           lastSyncAt: now,
@@ -61,7 +61,7 @@ export async function syncUsers(userId: string) {
         .where("appName", "=", "VBPay")
         .execute();
     } else {
-      trx
+      await trx
         .insertInto("userSyncTimestamp")
         .values({
           appName: "VBPay",
@@ -72,8 +72,8 @@ export async function syncUsers(userId: string) {
   });
 }
 
-export function getLastUserSync() {
-  return db
+export async function getLastUserSync() {
+  return await db
     .selectFrom("userSyncTimestamp")
     .select(["lastSyncAt"])
     .where("appName", "=", "VBPay")

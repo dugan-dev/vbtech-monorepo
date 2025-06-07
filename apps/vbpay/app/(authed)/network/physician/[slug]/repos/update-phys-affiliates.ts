@@ -10,8 +10,8 @@ type props = {
   userId: string;
 };
 
-export function updatePhysAffiliates({ input, pubId, userId }: props) {
-  return db.transaction().execute(async (trx) => {
+export async function updatePhysAffiliates({ input, pubId, userId }: props) {
+  return await db.transaction().execute(async (trx) => {
     const now = new Date();
 
     // log existing to hist table
@@ -75,7 +75,7 @@ export function updatePhysAffiliates({ input, pubId, userId }: props) {
       )
       .execute();
 
-    return trx
+    await trx
       .updateTable("networkPhysician")
       .set({
         pubId,
@@ -90,5 +90,7 @@ export function updatePhysAffiliates({ input, pubId, userId }: props) {
           input.noAffiliates === true ? null : input.vendorNetEntPubId,
       })
       .execute();
+
+    return { success: true };
   });
 }

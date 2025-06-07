@@ -5,7 +5,7 @@ import { db } from "@workspace/db/database";
 import "server-only";
 
 export const getAllNetworkEntities = cache(async () => {
-  return db
+  return await db
     .selectFrom("networkEntity")
     .select([
       "pubId",
@@ -23,7 +23,7 @@ export const getAllNetworkEntities = cache(async () => {
 });
 
 export const getNetworkEntity = cache(async (pubId: string) => {
-  return db
+  return await db
     .selectFrom("networkEntity")
     .select([
       "pubId",

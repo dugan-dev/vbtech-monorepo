@@ -22,8 +22,8 @@ type props = {
  * @param userId - The identifier of the user performing the update.
  * @returns An object indicating whether the update was successful.
  */
-export function updateHealthPlan({ input, pubId, userId }: props) {
-  return db.transaction().execute(async (trx) => {
+export async function updateHealthPlan({ input, pubId, userId }: props) {
+  return await db.transaction().execute(async (trx) => {
     const now = new Date();
 
     // log existing to hist table
@@ -64,7 +64,7 @@ export function updateHealthPlan({ input, pubId, userId }: props) {
       )
       .execute();
 
-    trx
+    await trx
       .updateTable("healthPlan")
       .set({
         pubId,

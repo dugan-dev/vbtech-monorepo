@@ -22,13 +22,13 @@ type props = {
   userId: string;
 };
 
-export function insertNetworkEntity({
+export async function insertNetworkEntity({
   input,
   pubId,
   payerPubId,
   userId,
 }: props) {
-  return db.transaction().execute(async (trx) => {
+  return await db.transaction().execute(async (trx) => {
     const duplicateChecks: DuplicateCheck[] = [
       {
         value: input.marketingName,
@@ -74,7 +74,7 @@ export function insertNetworkEntity({
 
     const now = new Date();
 
-    return trx
+    await trx
       .insertInto("networkEntity")
       .values({
         pubId,
@@ -92,5 +92,7 @@ export function insertNetworkEntity({
         updatedAt: now,
       })
       .execute();
+
+    return { success: true };
   });
 }

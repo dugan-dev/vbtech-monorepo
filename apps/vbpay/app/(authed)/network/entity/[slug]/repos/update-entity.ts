@@ -10,8 +10,8 @@ type props = {
   userId: string;
 };
 
-export function updateEntity({ input, pubId, userId }: props) {
-  return db.transaction().execute(async (trx) => {
+export async function updateEntity({ input, pubId, userId }: props) {
+  return await db.transaction().execute(async (trx) => {
     const now = new Date();
 
     // log existing to hist table
@@ -56,7 +56,7 @@ export function updateEntity({ input, pubId, userId }: props) {
       )
       .execute();
 
-    return trx
+    await trx
       .updateTable("networkEntity")
       .set({
         pubId,
@@ -70,5 +70,7 @@ export function updateEntity({ input, pubId, userId }: props) {
         taxId: input.taxId,
       })
       .execute();
+
+    return { success: true };
   });
 }

@@ -16,7 +16,7 @@ export const isPayerPubIdValid = cache(async ({ pubId }: { pubId: string }) => {
 
 // Add cache for request deduplication
 export const getPayerByPubId = cache(async ({ pubId }: { pubId: string }) => {
-  return db
+  return await db
     .selectFrom("payer")
     .select([
       "pubId",
@@ -46,7 +46,7 @@ export const getPayerByPubId = cache(async ({ pubId }: { pubId: string }) => {
  * @returns A promise that resolves to an array of payer objects.
  */
 export const getAllPayers = cache(async () => {
-  return db
+  return await db
     .selectFrom("payer")
     .select([
       "pubId",

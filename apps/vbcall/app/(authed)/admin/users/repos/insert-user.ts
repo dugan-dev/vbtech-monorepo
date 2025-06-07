@@ -10,7 +10,7 @@ type props = {
   lastName: string;
 };
 
-export function insertUser({
+export async function insertUser({
   userId,
   newUserId,
   email,
@@ -19,7 +19,7 @@ export function insertUser({
 }: props) {
   const now = new Date();
 
-  return db
+  await db
     .insertInto("user")
     .values({
       userId: newUserId,
@@ -32,4 +32,6 @@ export function insertUser({
       updatedAt: now,
     })
     .execute();
+
+  return { success: true };
 }

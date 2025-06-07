@@ -8,8 +8,8 @@ import "server-only";
  * @param clientPubId - The public identifier of the client whose health plans are to be fetched.
  * @returns A promise resolving to an array of health plan records, each containing `pubId`, `planName`, `planId`, `phoneNumber`, `faxNumber`, and `isActive`.
  */
-export function getHealthPlansForTable(clientPubId: string) {
-  return db
+export async function getHealthPlansForTable(clientPubId: string) {
+  return await db
     .selectFrom("healthPlan")
     .select([
       "healthPlan.pubId",

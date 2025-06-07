@@ -61,5 +61,7 @@ export async function insertPhysician({
         vendorNetEntPubId: formData.affInfo.vendorNetEntPubId,
       })
       .execute();
+
+    return { success: true };
   });
 }

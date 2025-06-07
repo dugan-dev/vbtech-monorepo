@@ -10,8 +10,8 @@ type props = {
   userId: string;
 };
 
-export function updatePhysician({ input, pubId, userId }: props) {
-  return db.transaction().execute(async (trx) => {
+export async function updatePhysician({ input, pubId, userId }: props) {
+  return await db.transaction().execute(async (trx) => {
     const now = new Date();
 
     // log existing to hist table
@@ -75,7 +75,7 @@ export function updatePhysician({ input, pubId, userId }: props) {
       )
       .execute();
 
-    return trx
+    await trx
       .updateTable("networkPhysician")
       .set({
         pubId,
@@ -94,5 +94,7 @@ export function updatePhysician({ input, pubId, userId }: props) {
         credential: input.credential,
       })
       .execute();
+
+    return { success: true };
   });
 }

@@ -20,8 +20,8 @@ type props = {
  * @param userId - Identifier of the user performing the update.
  * @returns The result of the update operation on the `client` table.
  */
-export function updateClient({ input, pubId, userId }: props) {
-  return db.transaction().execute(async (trx) => {
+export async function updateClient({ input, pubId, userId }: props) {
+  await db.transaction().execute(async (trx) => {
     const now = new Date();
 
     // log existing to hist table
@@ -60,7 +60,7 @@ export function updateClient({ input, pubId, userId }: props) {
       )
       .execute();
 
-    return trx
+    await trx
       .updateTable("client")
       .set({
         pubId,

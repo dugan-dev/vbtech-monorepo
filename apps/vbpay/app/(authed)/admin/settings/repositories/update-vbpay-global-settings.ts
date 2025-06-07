@@ -12,7 +12,7 @@ export async function updateVBPayGlobalSettings({
   userId: string;
 }) {
   const now = new Date();
-  return db.transaction().execute(async (trx) => {
+  return await db.transaction().execute(async (trx) => {
     // log existing to hist table
     await trx
       .insertInto("vbpayGlobalSettingsHist")
@@ -61,7 +61,7 @@ export async function updateVBPayGlobalSettings({
       .execute();
 
     // update existing settings
-    return trx
+    await trx
       .updateTable("vbpayGlobalSettings")
       .set({
         ...settings,
@@ -69,5 +69,7 @@ export async function updateVBPayGlobalSettings({
         updatedBy: userId,
       })
       .execute();
+
+    return { success: true };
   });
 }
