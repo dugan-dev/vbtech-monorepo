@@ -40,7 +40,7 @@
     "react-hook-form": "7.56.4",
     "server-only": "0.0.1",
     "sharp": "0.34.2",
-    "sonner": "2.0.3",
+    "sonner": "2.0.5",
     "sst": "3.17.3",
     "zod": "3.25.28"
   },
