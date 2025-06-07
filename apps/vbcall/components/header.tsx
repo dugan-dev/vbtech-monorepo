@@ -27,6 +27,11 @@ type props = {
   userSelectionData?: UserSelectionData;
 };
 
+/**
+ * Renders a page header with an optional breadcrumb navigation, dynamic title, user selection controls, and a sign-out button.
+ *
+ * Displays breadcrumbs if provided, uses an override title if specified, and conditionally renders a user selection combo when user selection data is present.
+ */
 export function Header({
   breadcrumbs,
   overrideTitle,

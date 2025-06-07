@@ -27,6 +27,19 @@ import { useErrorDialog } from "@/hooks/use-error-dialog";
 import { ErrorDialog } from "@/components/error-dialog";
 import { Icons } from "@/components/icons";
 
+/**
+ * Renders a searchable combo box for selecting a user/client, with lock and unlock functionality.
+ *
+ * The component synchronizes the selected client ID with the URL query parameter `"cId"`, supports initializing from a provided slug, and allows toggling between locked and unlocked states. When locked, the selection cannot be changed until unlocked. Locking or unlocking triggers a server-side update and displays an error dialog if the update fails.
+ *
+ * @param comboItems - List of selectable items to display in the combo box.
+ * @param defaultLock - Whether the combo box should be locked by default.
+ * @param slug - Initial selected value to synchronize with the combo box and URL.
+ *
+ * @returns A React element rendering the combo box with lock/unlock controls and error handling.
+ *
+ * @remark The lock toggle is disabled if no client is selected. The combo box is disabled when locked.
+ */
 export function UserSelectionCombo({
   comboItems,
   defaultLock,

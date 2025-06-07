@@ -18,6 +18,11 @@ import { ResetPasswordForm } from "./reset-password-form";
 import { SignInForm } from "./sign-in-form";
 import { TotpSetupForm } from "./topt-setup-form";
 
+/**
+ * Renders a multi-step sign-in card interface with support for password reset, MFA setup, and error handling.
+ *
+ * Displays the appropriate form and title based on the current authentication step or password reset state. Includes theme toggling and error dialog presentation.
+ */
 export function SignInCard() {
   const {
     currentState,

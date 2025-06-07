@@ -14,6 +14,16 @@ type props = {
   clientPubIdUrlParam?: string;
 };
 
+/**
+ * Displays a table of health plans and their associated PBPs for a specified user and payer.
+ *
+ * If neither a payer ID URL parameter nor a user slug is available, renders a view indicating the missing payer ID.
+ *
+ * @param userId - The unique identifier for the user whose health plans are being managed.
+ * @param clientPubIdUrlParam - Optional payer ID from the URL; if not provided, the user's slug is used.
+ *
+ * @returns A React element displaying the health plans table or a missing parameter view.
+ */
 export async function ManageHealthPlans({
   userId,
   clientPubIdUrlParam,

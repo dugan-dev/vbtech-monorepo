@@ -17,7 +17,17 @@ type PBPItem = {
   pbpPubId: string;
 };
 
-// Component for a single PBP card
+/**
+ * Renders a card UI for a single Plan Benefit Package (PBP) entry within a form.
+ *
+ * Displays input fields for "PBP ID" and "PBP Name", and conditionally renders either a remove button or an "Active" toggle switch based on the PBP's published status.
+ *
+ * @param field - The PBP data for this card, including identifiers and status.
+ * @param index - The index of this PBP in the PBPs array.
+ * @param onRemove - Callback to remove this PBP from the list.
+ * @param canRemove - Whether this PBP can be removed.
+ * @param isDisabled - Whether the input fields are disabled.
+ */
 function PBPCard({
   field,
   index,
@@ -89,6 +99,11 @@ function PBPCard({
   );
 }
 
+/**
+ * Renders a form step for managing a dynamic list of Plan Benefit Packages (PBPs) within a health plan form.
+ *
+ * Allows users to add, remove, and edit PBPs, enforcing that at least one PBP is present. Each PBP can be marked as active or inactive, and removal is restricted if only one PBP remains or if the PBP has a published ID. Displays validation errors for the PBPs array when present.
+ */
 export function HealthPlanFormPBPsStep() {
   const form = useFormContext<HealthPlanFormData>();
   const { fields, append, remove } = useFieldArray({

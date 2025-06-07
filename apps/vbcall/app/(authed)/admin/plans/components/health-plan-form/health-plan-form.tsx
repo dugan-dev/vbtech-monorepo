@@ -20,6 +20,16 @@ type props = {
   pubId?: string;
 };
 
+/**
+ * Renders a multi-step form for creating or editing a health plan, including basic information and plan benefit packages.
+ *
+ * Displays an error dialog on submission errors, dynamically updates the form title based on whether editing or adding a plan, and manages step navigation and validation. On submission, ensures each plan benefit package has an `isActive` flag set to `true` if undefined before invoking the submit handler.
+ *
+ * @param onSuccess - Optional callback invoked after successful form submission.
+ * @param formData - Optional initial data for editing an existing health plan.
+ * @param clientPubId - Identifier for the client associated with the health plan.
+ * @param pubId - Optional identifier for the health plan being edited.
+ */
 export function HealthPlanForm({
   onSuccess,
   formData,

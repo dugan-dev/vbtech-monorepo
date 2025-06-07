@@ -24,6 +24,18 @@ type props = {
   pubId?: string;
 };
 
+/**
+ * React hook for managing a multi-step health plan form with validation, submission, and error handling.
+ *
+ * Provides step navigation, field validation, and handles both creation and updating of health plans. Integrates error dialog management and exposes form state and controls for use in UI components.
+ *
+ * @param onSuccess - Optional callback invoked after successful form submission.
+ * @param formData - Optional initial form data to prefill the form.
+ * @param clientPubId - Unique identifier for the client.
+ * @param pubId - Optional identifier for updating an existing health plan.
+ *
+ * @returns An object containing the form instance, submission handler, loading state, error dialog controls, step validation checker, navigation functions, and current step state.
+ */
 export function useHealthPlanForm({
   onSuccess,
   formData,
