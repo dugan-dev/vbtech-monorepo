@@ -9,6 +9,8 @@ model health_plan_pbp {
         pbp_id     String   @db.VarChar(3)
         pbp_name   String   @db.VarChar(255)
         is_active  Boolean  @default(true)
+
+        @@index([hp_pub_id])
 }
 
 model health_plan_pbp_hist {
@@ -21,6 +23,8 @@ model health_plan_pbp_hist {
         updated_by    String   @db.VarChar(50)
         hp_pub_id     String   @db.VarChar(12)
         pbp_id        String   @db.VarChar(3)
-        pbp_name      String   @db.VarChar(10)
+        pbp_name      String   @db.VarChar(255)
         is_active     Boolean
+
+        @@index([hp_pub_id])
 }
