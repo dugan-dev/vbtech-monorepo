@@ -89,8 +89,9 @@ export function useHealthPlanForm({
       );
     }
     if (step === 2) {
-      return pbps.length > 0 && pbps.every(pbp =>
-        pbp.pbpId.length > 0 && pbp.pbpName.length > 0
+      return (
+        pbps.length > 0 &&
+        pbps.every((pbp) => pbp.pbpId.length > 0 && pbp.pbpName.length > 0)
       );
     }
     if (step === 3) {

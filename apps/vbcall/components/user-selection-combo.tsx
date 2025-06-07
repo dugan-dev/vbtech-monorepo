@@ -85,6 +85,12 @@ export function UserSelectionCombo({
     }
   }
 
+  const selectedItem = comboItems.find((item) => {
+    const itemValue =
+      typeof item.value === "string" ? item.value : item.selectionDisplay;
+    return itemValue?.toLowerCase() === cId.toLowerCase();
+  });
+
   return (
     <div className="flex items-center gap-4">
       {isErrorDialogOpen && (
@@ -105,15 +111,9 @@ export function UserSelectionCombo({
             disabled={isLocked}
           >
             <span className="flex-1 truncate text-left">
-            const selectedItem = comboItems.find((item) => {
-              const itemValue = typeof item.value === "string"
-                ? item.value
-                : item.selectionDisplay;
-              return itemValue?.toLowerCase() === cId.toLowerCase();
-            });
-            <span className="flex-1 truncate text-left">
-              {cId && selectedItem ? selectedItem.label : instructText}
-            </span>
+              <span className="flex-1 truncate text-left">
+                {cId && selectedItem ? selectedItem.label : instructText}
+              </span>
             </span>
             <Icons.chevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
