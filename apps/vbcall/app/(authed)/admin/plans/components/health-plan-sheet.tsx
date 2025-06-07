@@ -25,6 +25,15 @@ type props = {
   pubId?: string;
 };
 
+/**
+ * Displays a sheet UI for adding or editing a health plan.
+ *
+ * Renders a button that opens a full-screen sheet containing a health plan form. The button and tooltip adapt based on whether {@link formData} is provided, supporting both add and edit modes. The sheet closes automatically upon successful form submission.
+ *
+ * @param formData - Existing health plan data to edit, or undefined to add a new plan.
+ * @param clientPubId - Identifier for the client associated with the health plan.
+ * @param pubId - Identifier for the health plan, used in edit mode.
+ */
 export function HealthPlanSheet({ formData, clientPubId, pubId }: props) {
   const [open, setOpen] = useState(false);
 

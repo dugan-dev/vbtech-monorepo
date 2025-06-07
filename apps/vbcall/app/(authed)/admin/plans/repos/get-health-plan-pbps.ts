@@ -2,6 +2,12 @@ import { db } from "@workspace/vbcall-db/database";
 
 import "server-only";
 
+/**
+ * Retrieves all health plan PBPs associated with the specified client public ID.
+ *
+ * @param clientPubId - The public identifier of the client whose health plan PBPs are to be fetched.
+ * @returns A promise resolving to an array of PBPs, each containing `pubId`, `hpPubId`, `pbpId`, `pbpName`, and `isActive`.
+ */
 export function getHealthPlanPbps(clientPubId: string) {
   return db
     .selectFrom("healthPlanPbp as pbp")

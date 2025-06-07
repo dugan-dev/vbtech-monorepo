@@ -91,6 +91,11 @@ export const ManageHealthPlansTableColumns: ColumnDef<HealthPlan>[] = [
   },
 ];
 
+/**
+ * Renders the action controls for a health plan row, enabling editing or management of the plan.
+ *
+ * Constructs form data from the provided health plan and passes it, along with the client ID from the query state, to the {@link HealthPlanSheet} component.
+ */
 function ActionsCell({ plan }: { plan: HealthPlan }) {
   const [cId] = useQueryState("cId", parseAsString.withDefault(""));
   const formData: HealthPlanFormData = {

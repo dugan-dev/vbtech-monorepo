@@ -5,6 +5,11 @@ import { formatPhoneNumber } from "@workspace/ui/lib/formatPhoneNumber";
 
 import { HealthPlanFormData } from "./health-plan-form-schema";
 
+/**
+ * Renders the basic information step of a health plan form, including fields for plan name, plan ID, PX phone number, and fax number.
+ *
+ * @returns A React component displaying input fields for entering basic health plan details.
+ */
 export function HealthPlanFormBasicInfoStep() {
   const form = useFormContext<HealthPlanFormData>();
   return (

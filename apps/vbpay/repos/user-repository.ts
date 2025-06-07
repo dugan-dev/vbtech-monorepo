@@ -78,15 +78,14 @@ export const getUsersData = cache(async ({ userId }: props) => {
 });
 
 /**
- * Updates the user's selection slug attribute in AWS Cognito.
+ * Updates the user's custom selection slug attribute in AWS Cognito and revalidates the user's cache.
  *
- * Retrieves the current user attributes, merges them with the new payer public ID as the slug, and sends an update command to Cognito.
- * On a successful update, the function revalidates the related cache tag. If the update fails, it logs the error and rethrows the exception.
+ * Retrieves the user's current custom app attributes, sets the `slug` property to the provided payer public ID, and updates the attribute in Cognito. After a successful update, the user's cache is revalidated to reflect the change.
  *
- * @param userId - The identifier of the user to update.
- * @param payerPubId - The new selection slug value to assign.
+ * @param userId - The unique identifier of the user whose selection slug is being updated.
+ * @param payerPubId - The new slug value to assign to the user.
  *
- * @throws {Error} When the update operation fails in AWS Cognito.
+ * @throws {Error} If the update operation in AWS Cognito fails.
  */
 export async function updateUserSelectionSlug(
   userId: string,

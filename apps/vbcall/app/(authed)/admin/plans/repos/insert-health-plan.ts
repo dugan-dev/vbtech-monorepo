@@ -25,6 +25,20 @@ type props = {
   userId: string;
 };
 
+/**
+ * Inserts a new health plan and its associated Plan Benefit Package (PBP) records into the database within a single transaction.
+ *
+ * Performs duplicate checks on the health plan's name and ID fields scoped to the client. If duplicates are found, the operation is aborted and an error is thrown. On success, creates a new health plan record and related PBP records, including metadata such as creation and update timestamps and user IDs.
+ *
+ * @param input - The health plan form data, including PBPs to associate.
+ * @param pubId - The public identifier for the new health plan.
+ * @param clientPubId - The public identifier for the client.
+ * @param userId - The identifier of the user performing the operation.
+ * @returns A promise resolving to the result of the PBP insert operation.
+ *
+ * @throws {Error} If a health plan with the same name or ID already exists for the client.
+ * @throws {Error} If an unsupported field is encountered during duplicate checks.
+ */
 export function insertHealthPlan({ input, pubId, userId, clientPubId }: props) {
   return db.transaction().execute(async (trx) => {
     const duplicateChecks: DuplicateCheck[] = [
