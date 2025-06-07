@@ -7,7 +7,11 @@ import { env } from "@/env/server";
 import { db } from "@workspace/db/database";
 
 const VBPAY_LICENSE_CACHE_KEY = "VBPayLicenseInfoCacheKey";
-const REVALIDATE_SECONDS = 600; // 10 minutes
+const REVALIDATE_SECONDS = 600; /**
+ * Retrieves the first VBPay license record from the database.
+ *
+ * @returns The first matching VBPay license record, or undefined if no record exists.
+ */
 
 async function getVBPayLicenseQry() {
   return await db

@@ -19,6 +19,18 @@ type props = {
   userId: string;
 };
 
+/**
+ * Inserts a new payer record into the database, ensuring no duplicate key fields exist for the same payer type.
+ *
+ * Checks for existing payers with matching marketing name, reference name, tax ID, or CMS ID within the same payer type before insertion. If duplicates are found, the operation is aborted and an error is thrown. On success, creates the payer record with the provided details and metadata.
+ *
+ * @param input - The payer details to insert.
+ * @param pubId - The publication or organization identifier for the payer.
+ * @param userId - The identifier of the user performing the insertion.
+ * @returns An object indicating successful insertion.
+ *
+ * @throws {Error} If a payer already exists with the same marketing name, reference name, tax ID, or CMS ID for the given payer type.
+ */
 export async function insertPayer({ input, pubId, userId }: props) {
   return await db.transaction().execute(async (trx) => {
     const duplicateChecks: DuplicateCheck[] = [

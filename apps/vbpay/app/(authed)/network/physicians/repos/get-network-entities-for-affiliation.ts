@@ -4,6 +4,12 @@ import { NetworkEntity } from "@/types/network-entity";
 
 import "server-only";
 
+/**
+ * Retrieves all network entities associated with a given payer.
+ *
+ * @param selectedPayer - The public identifier of the payer whose network entities are to be fetched.
+ * @returns A promise resolving to an array of {@link NetworkEntity} objects matching the specified payer, ordered by marketing name.
+ */
 export async function getNetworkEntitiesForAffiliation({
   selectedPayer,
 }: {

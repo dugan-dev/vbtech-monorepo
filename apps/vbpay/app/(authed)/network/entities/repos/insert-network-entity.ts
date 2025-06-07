@@ -22,6 +22,19 @@ type props = {
   userId: string;
 };
 
+/**
+ * Inserts a new network entity record into the database, ensuring no duplicate key fields exist for the same payer and entity type.
+ *
+ * Checks for duplicates on marketing name, reference name, tax ID, and organization NPI before insertion. If any duplicates are found, the operation is aborted and an error is thrown.
+ *
+ * @param input - The form data for the new network entity.
+ * @param pubId - The publisher ID for the new entity.
+ * @param payerPubId - The payer's publisher ID to associate with the entity.
+ * @param userId - The ID of the user performing the insertion.
+ * @returns An object indicating success: `{ success: true }`.
+ *
+ * @throws {Error} If a network entity with the same marketing name, reference name, tax ID, or organization NPI already exists for the given payer and entity type.
+ */
 export async function insertNetworkEntity({
   input,
   pubId,

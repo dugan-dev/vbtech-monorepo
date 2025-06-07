@@ -3,10 +3,10 @@ import { db } from "@workspace/vbcall-db/database";
 import "server-only";
 
 /**
- * Retrieves health plans for a given client, selecting key plan details.
+ * Fetches health plan records associated with the specified client public ID.
  *
- * @param clientPubId - The public identifier of the client whose health plans are to be fetched.
- * @returns A promise resolving to an array of health plan records, each containing `pubId`, `planName`, `planId`, `phoneNumber`, `faxNumber`, and `isActive`.
+ * @param clientPubId - The public identifier of the client whose health plans are retrieved.
+ * @returns A promise that resolves to an array of health plan objects, each including `pubId`, `planName`, `planId`, `phoneNumber`, `faxNumber`, and `isActive`.
  */
 export async function getHealthPlansForTable(clientPubId: string) {
   return await db

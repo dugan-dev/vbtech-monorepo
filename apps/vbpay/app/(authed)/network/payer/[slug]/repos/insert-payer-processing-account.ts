@@ -3,12 +3,12 @@ import "server-only";
 import { db } from "@workspace/db/database";
 
 /**
- * Inserts a record linking a payer with a processing account in the database.
+ * Creates a new association between a payer and a processing account in the database.
  *
- * @param payerPubId - The public ID of the payer to link
- * @param processingAccountId - The ID of the processing account to link
- * @param userId - The ID of the user creating the link
- * @returns The result of the database insertion operation
+ * @param payerPubId - Public identifier of the payer.
+ * @param processingAccountId - Identifier of the processing account to associate.
+ * @param userId - Identifier of the user performing the operation.
+ * @returns The result of the insertion operation.
  */
 export async function insertPayerProcessingAccount(
   payerPubId: string,
