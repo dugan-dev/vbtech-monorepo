@@ -13,8 +13,9 @@ interface UserAttributes {
 export function filterMainSidebarItems(
   userAttributes: UserAttributes,
 ): SidebarNavItem[] {
-  return MAIN_SIDEBAR_CONFIG(userAttributes.slug)
-    .filter((item) => isItemAllowedForUser(item, userAttributes))
+  return MAIN_SIDEBAR_CONFIG.filter((item) =>
+    isItemAllowedForUser(item, userAttributes),
+  )
     .map((item) => {
       // If the item has nested items, filter those as well
       if (item.items) {
