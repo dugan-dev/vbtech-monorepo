@@ -26,9 +26,13 @@ type props = {
 export const USERS_DATA_CACHE_TAG = "users-data";
 const REVALIDATE_SECONDS = 600; // 10 minutes
 
+// Function to generate consistent cache key for a user
+export const getUserCacheKey = (userId: string) =>
+  `${USERS_DATA_CACHE_TAG}-${userId}`;
+
 // Create the inner function that uses unstable_cache for time-based caching
 const getUserDataFromCache = (userId: string) => {
-  const cacheKey = `${USERS_DATA_CACHE_TAG}-${userId}`;
+  const cacheKey = getUserCacheKey(userId);
 
   return timedCache(
     async () => {
@@ -74,15 +78,14 @@ export const getUsersData = cache(async ({ userId }: props) => {
 });
 
 /**
- * Updates the user's selection slug attribute in AWS Cognito.
+ * Updates the user's custom selection slug attribute in AWS Cognito and revalidates the user's cache.
  *
- * Retrieves the current user attributes, merges them with the new payer public ID as the slug, and sends an update command to Cognito.
- * On a successful update, the function revalidates the related cache tag. If the update fails, it logs the error and rethrows the exception.
+ * Retrieves the user's current custom app attributes, sets the `slug` property to the provided payer public ID, and updates the attribute in Cognito. After a successful update, the user's cache is revalidated to reflect the change.
  *
- * @param userId - The identifier of the user to update.
- * @param payerPubId - The new selection slug value to assign.
+ * @param userId - The unique identifier of the user whose selection slug is being updated.
+ * @param payerPubId - The new slug value to assign to the user.
  *
- * @throws {Error} When the update operation fails in AWS Cognito.
+ * @throws {Error} If the update operation in AWS Cognito fails.
  */
 export async function updateUserSelectionSlug(
   userId: string,
@@ -92,8 +95,8 @@ export async function updateUserSelectionSlug(
 
   // Update user attributes with new payerPubId
   const appAttrs: UserAppAttrs = {
-    slug: payerPubId,
     ...usersData.usersAppAttrs,
+    slug: payerPubId,
   };
 
   const command = new AdminUpdateUserAttributesCommand({
@@ -109,7 +112,7 @@ export async function updateUserSelectionSlug(
 
   try {
     await cognitoClient.send(command);
-    revalidateTag(USERS_DATA_CACHE_TAG + "-" + userId);
+    revalidateTag(getUserCacheKey(userId));
   } catch (error) {
     console.error("Error editing user:", error);
     throw error;

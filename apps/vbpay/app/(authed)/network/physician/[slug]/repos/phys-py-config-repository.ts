@@ -5,14 +5,13 @@ import "server-only";
 import { PhysPyConfigFormOutput } from "../components/py-config/phys-py-config-form-schema";
 
 /**
- * Retrieves a physician performance year configuration record by physician public ID and performance year.
+ * Retrieves a physician performance year configuration record matching the given physician public ID and performance year.
  *
- * @param physPubId - The public identifier of the physician.
- * @param perfYear - The performance year as a string.
- * @returns The matching configuration record, or undefined if not found.
+ * @param physPubId - The public identifier for the physician.
+ * @param perfYear - The performance year to query, as a string.
+ * @returns The configuration record if found; otherwise, undefined.
  */
 export function getPhysPyConfig(physPubId: string, perfYear: string) {
-  console.log("getPhysPyConfig", physPubId, perfYear);
   return db
     .selectFrom("physPerfYearConfig")
     .select([

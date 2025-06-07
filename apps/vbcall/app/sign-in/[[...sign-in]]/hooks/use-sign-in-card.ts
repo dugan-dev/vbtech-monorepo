@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { resetPassword, type SignInOutput } from "aws-amplify/auth";
-import { useTheme } from "next-themes";
 import { toast } from "sonner";
 
 import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
 import { useErrorDialog } from "@/hooks/use-error-dialog";
 
+/**
+ * Provides state and logic for managing user sign-in and password reset flows in a sign-in card component.
+ *
+ * Exposes state variables for the current sign-in state and email addresses, as well as functions for handling password reset requests and error dialog management.
+ *
+ * @returns An object containing sign-in state, email management, password reset handling, and error dialog controls for use in authentication UI components.
+ */
 export function useSignInCard() {
   const [currentState, setCurrentState] = useState<SignInOutput | null>(null);
   const [email, setEmail] = useState<string | null>(null);
-  const { theme } = useTheme();
   const [emailForReset, setEmailForReset] = useState<string | null>(null);
 
   const {
@@ -44,7 +49,6 @@ export function useSignInCard() {
   };
 
   return {
-    theme,
     currentState,
     setCurrentState,
     email,

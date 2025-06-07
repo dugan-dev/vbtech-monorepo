@@ -18,9 +18,13 @@ import { ResetPasswordForm } from "./reset-password-form";
 import { SignInForm } from "./sign-in-form";
 import { TotpSetupForm } from "./topt-setup-form";
 
+/**
+ * Renders a multi-step sign-in card interface with support for password reset, multi-factor authentication, and error handling.
+ *
+ * Displays different forms and titles based on the current authentication step, manages transitions between steps, and provides theme toggling and error dialogs.
+ */
 export function SignInCard() {
   const {
-    theme,
     currentState,
     setCurrentState,
     email,
@@ -49,11 +53,12 @@ export function SignInCard() {
         </div>
         <CardHeader>
           <div className="mx-auto">
-            {theme === "dark" ? (
-              <Icons.logoDark height={80} width={150} />
-            ) : (
-              <Icons.logo height={80} width={150} />
-            )}
+            <Icons.logo height={80} width={150} className="block dark:hidden" />
+            <Icons.logoDark
+              height={80}
+              width={150}
+              className="hidden dark:block"
+            />
           </div>
           <CardTitle className="text-center text-2xl font-semibold">
             {currentState === null && emailForReset === null && "Sign in"}

@@ -3,13 +3,19 @@ import "server-only";
 import { env } from "process";
 import { cache } from "react";
 import { revalidateTag, unstable_cache as timedCache } from "next/cache";
+import { authenticatedUser } from "@/utils/amplify-server-utils";
 import {
   AdminGetUserCommand,
   AdminUpdateUserAttributesCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 
+import { ComboItem } from "@workspace/ui/types/combo-item";
+
 import { UserAppAttrs } from "@/types/user-app-attrs";
+import { UserSelectionData } from "@/types/user-selection-data";
 import { cognitoClient } from "@/lib/auth/cognito";
+
+import { getAllClients } from "./clients-repository";
 
 type props = {
   userId: string;
@@ -19,9 +25,13 @@ type props = {
 export const USERS_DATA_CACHE_TAG = "users-data";
 const REVALIDATE_SECONDS = 600; // 10 minutes
 
+// Function to generate consistent cache key for a user
+export const getUserCacheKey = (userId: string) =>
+  `${USERS_DATA_CACHE_TAG}-${userId}`;
+
 // Create the inner function that uses unstable_cache for time-based caching
 const getUserDataFromCache = (userId: string) => {
-  const cacheKey = `${USERS_DATA_CACHE_TAG}-${userId}`;
+  const cacheKey = getUserCacheKey(userId);
 
   return timedCache(
     async () => {
@@ -67,26 +77,23 @@ export const getUsersData = cache(async ({ userId }: props) => {
 });
 
 /**
- * Updates the user's selection slug attribute in AWS Cognito.
+ * Updates the user's selection slug attribute in AWS Cognito and revalidates the user's cache.
  *
- * Retrieves the current user attributes, merges them with the new payer public ID as the slug, and sends an update command to Cognito.
- * On a successful update, the function revalidates the related cache tag. If the update fails, it logs the error and rethrows the exception.
+ * @param userId - The unique identifier of the user whose slug is being updated.
+ * @param clientPubId - The new slug value to assign to the user.
  *
- * @param userId - The identifier of the user to update.
- * @param payerPubId - The new selection slug value to assign.
- *
- * @throws {Error} When the update operation fails in AWS Cognito.
+ * @throws {Error} If updating the user attributes in Cognito fails.
  */
 export async function updateUserSelectionSlug(
   userId: string,
-  payerPubId: string,
+  clientPubId: string,
 ) {
   const usersData = await getUsersData({ userId });
 
-  // Update user attributes with new payerPubId
+  // Update user attributes with new clientPubId
   const appAttrs: UserAppAttrs = {
-    slug: payerPubId,
     ...usersData.usersAppAttrs,
+    slug: clientPubId,
   };
 
   const command = new AdminUpdateUserAttributesCommand({
@@ -102,9 +109,41 @@ export async function updateUserSelectionSlug(
 
   try {
     await cognitoClient.send(command);
-    revalidateTag(USERS_DATA_CACHE_TAG + "-" + userId);
+    revalidateTag(getUserCacheKey(userId));
   } catch (error) {
     console.error("Error editing user:", error);
     throw error;
   }
 }
+
+// Wrap with React's cache for request deduplication
+export const getUserSelectionData = cache(async () => {
+  const user = await authenticatedUser();
+
+  // This Promise.all will benefit from React's cache
+  // for request deduplication
+  const [clients, usersData] = await Promise.all([
+    getAllClients(),
+    getUsersData({ userId: user?.userId || "" }),
+  ]);
+
+  if (!clients || !usersData) {
+    throw new Error("Failed to load client or user data");
+  }
+
+  const comboItems: ComboItem[] = clients.map((client) => ({
+    label: client.clientName,
+    value: client.pubId,
+  }));
+
+  const userSelectionData: UserSelectionData = {
+    defaultLock:
+      usersData.usersAppAttrs.slug !== undefined &&
+      usersData.usersAppAttrs.slug !== null &&
+      usersData.usersAppAttrs.slug !== "",
+    slug: usersData.usersAppAttrs.slug,
+    comboItems,
+  };
+
+  return userSelectionData;
+});
