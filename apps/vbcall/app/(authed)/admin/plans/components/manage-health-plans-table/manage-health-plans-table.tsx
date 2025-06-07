@@ -33,6 +33,7 @@ export function ManageHealthPlansTable({ plans, clientPubId }: props) {
       >
         <RestrictByUserAppAttrsClient
           adminOnly
+          allowedUserTypes={ALLOWED_USER_TYPES}
           requiredUserRoles={REQUIRED_USER_ROLES}
         >
           <HealthPlanSheet clientPubId={clientPubId} />

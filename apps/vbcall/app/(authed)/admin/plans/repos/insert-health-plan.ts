@@ -91,7 +91,7 @@ export function insertHealthPlan({ input, pubId, userId, clientPubId }: props) {
 
     const now = new Date();
 
-    trx
+    await trx
       .insertInto("healthPlan")
       .values({
         pubId,

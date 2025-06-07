@@ -72,12 +72,6 @@ export function HealthPlanForm({
       <div className="flex-1 overflow-auto">
         <div className="container max-w-screen-lg mx-auto px-6 py-8">
           <Form {...form}>
-            <ErrorDialog
-              open={isErrorDialogOpen}
-              onOpenChange={closeErrorDialog}
-              description={errorMsg}
-              title={errorTitle}
-            />
             <form
               onSubmit={form.handleSubmit((values) => {
                 // Ensure isActive is always defined for each PBP
