@@ -13,12 +13,12 @@ type props = {
 /**
  * Updates a client's information and archives the previous state in a history table within a single transaction.
  *
- * Archives the current client record in the `clientHist` table before applying updates to the `client` table for the specified {@link pubId}.
+ * The current client record is first copied to the `clientHist` table with a timestamp, then the `client` table is updated with new data for the specified {@link pubId}. Both operations are performed atomically.
  *
  * @param input - New client data to apply.
  * @param pubId - Identifier of the client to update.
  * @param userId - Identifier of the user performing the update.
- * @returns The result of the update operation on the `client` table.
+ * @returns An object indicating the update was successful.
  */
 export async function updateClient({ input, pubId, userId }: props) {
   await db.transaction().execute(async (trx) => {

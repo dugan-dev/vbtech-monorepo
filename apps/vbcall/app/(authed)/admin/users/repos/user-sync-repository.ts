@@ -4,6 +4,14 @@ import { insertUser } from "./insert-user";
 import { updateUser } from "./update-user";
 import { getAllUsers } from "./user-management-repository";
 
+/**
+ * Synchronizes user records between an external source and the local database, updating or inserting users as needed.
+ *
+ * For each user in the external source, adds missing users to the local database and updates existing users if their details differ. Updates the synchronization timestamp for the "VBCall" application upon completion.
+ *
+ * @param userId - The identifier of the user performing the synchronization.
+ * @returns An object indicating successful synchronization.
+ */
 export async function syncUsers(userId: string) {
   const usersCognito = await getAllUsers();
 
@@ -74,6 +82,11 @@ export async function syncUsers(userId: string) {
   });
 }
 
+/**
+ * Retrieves the most recent user synchronization timestamp for the "VBCall" application.
+ *
+ * @returns The latest synchronization record containing the {@link lastSyncAt} timestamp, or undefined if no record exists.
+ */
 export async function getLastUserSync() {
   return await db
     .selectFrom("userSyncTimestamp")

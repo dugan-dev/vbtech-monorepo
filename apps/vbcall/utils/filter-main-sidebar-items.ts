@@ -10,6 +10,14 @@ interface UserAttributes {
   slug?: string;
 }
 
+/**
+ * Filters the main sidebar navigation items to include only those accessible to the specified user.
+ *
+ * For each sidebar item and its nested items, checks user permissions and attributes to determine visibility.
+ *
+ * @param userAttributes - The attributes of the user used to determine sidebar access.
+ * @returns An array of sidebar navigation items permitted for the user, with nested items filtered accordingly.
+ */
 export function filterMainSidebarItems(
   userAttributes: UserAttributes,
 ): SidebarNavItem[] {

@@ -4,6 +4,15 @@ import { db } from "@workspace/db/database";
 
 import "server-only";
 
+/**
+ * Updates the global VBPay settings and records the previous settings in a history table within a single transaction.
+ *
+ * @param settings - The new global settings to apply.
+ * @param userId - The identifier of the user performing the update.
+ * @returns An object indicating the update was successful.
+ *
+ * @remark The update and history insertion are performed atomically; if any step fails, no changes are committed.
+ */
 export async function updateVBPayGlobalSettings({
   settings,
   userId,

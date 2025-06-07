@@ -7,7 +7,11 @@ import { db } from "@workspace/db/database";
 import "server-only";
 
 const VBPAY_GLOBAL_SETTINGS_CACHE_KEY = "GlobalSettingsCacheKey";
-const REVALIDATE_SECONDS = 600; // 10 minutes
+const REVALIDATE_SECONDS = 600; /**
+ * Retrieves the first record of VBPay global settings from the database.
+ *
+ * @returns An object containing VBPay global settings fields, or undefined if no record exists.
+ */
 
 async function getVBPayGlobalSettingsQry() {
   return await db

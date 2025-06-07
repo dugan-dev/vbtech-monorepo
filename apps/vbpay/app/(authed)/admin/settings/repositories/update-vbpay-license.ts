@@ -4,6 +4,15 @@ import { VBPayLicense } from "@/repos/license-repository";
 
 import { db } from "@workspace/db/database";
 
+/**
+ * Updates the VBPay license record and logs the previous state to the history table within a single transaction.
+ *
+ * @param license - The new license data to be saved.
+ * @param userId - The identifier of the user performing the update.
+ * @returns An object indicating the update was successful.
+ *
+ * @remark The update and historical logging are performed atomically; if either operation fails, no changes are committed.
+ */
 export async function updateVBPayLicense({
   license,
   userId,

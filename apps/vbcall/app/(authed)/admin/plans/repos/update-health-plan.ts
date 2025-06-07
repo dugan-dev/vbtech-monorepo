@@ -13,14 +13,16 @@ type props = {
 };
 
 /**
- * Updates a health plan and its associated Plan Benefit Packages (PBPs) within a single database transaction.
+ * Updates a health plan and its associated Plan Benefit Packages (PBPs) atomically.
  *
  * Archives the current state of the health plan and PBPs before applying updates. Updates the health plan's details, inserts new PBPs, updates changed PBPs, and deactivates PBPs that are no longer present in the input. All changes are recorded in corresponding history tables for audit purposes.
  *
  * @param input - The updated health plan data, including PBPs.
  * @param pubId - The public identifier of the health plan to update.
  * @param userId - The identifier of the user performing the update.
- * @returns An object indicating whether the update was successful.
+ * @returns An object with `success: true` if the update completes successfully.
+ *
+ * @remark All operations are performed within a single database transaction to ensure atomicity. If any step fails, no changes are committed.
  */
 export async function updateHealthPlan({ input, pubId, userId }: props) {
   return await db.transaction().execute(async (trx) => {
