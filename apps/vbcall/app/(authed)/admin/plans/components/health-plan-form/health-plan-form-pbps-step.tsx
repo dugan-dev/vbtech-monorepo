@@ -1,4 +1,4 @@
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { Control, useFieldArray, useFormContext } from "react-hook-form";
 
 import { Button } from "@workspace/ui/components/button";
 import { Card, CardContent } from "@workspace/ui/components/card";
@@ -40,7 +40,7 @@ function PBPCard({
   index: number;
   onRemove: () => void;
   canRemove: boolean;
-  control: any;
+  control: Control<HealthPlanFormData>;
   isDisabled: boolean;
 }) {
   const hasPublishedId =
