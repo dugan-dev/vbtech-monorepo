@@ -49,7 +49,7 @@ importers:
     dependencies:
       '@t3-oss/env-nextjs':
         specifier: 0.13.6
-        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)
+        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.63)
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -84,8 +84,8 @@ importers:
         specifier: 3.17.3
         version: 3.17.3
       zod:
-        specifier: 3.25.56
-        version: 3.25.56
+        specifier: 3.25.63
+        version: 3.25.63
     devDependencies:
       '@types/node':
         specifier: 22.15.30
@@ -122,7 +122,7 @@ importers:
         version: 1.3.2(react@19.1.0)
       '@t3-oss/env-nextjs':
         specifier: 0.13.6
-        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)
+        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.63)
       '@tanstack/table-core':
         specifier: 8.21.3
         version: 8.21.3
@@ -196,8 +196,8 @@ importers:
         specifier: 3.17.3
         version: 3.17.3
       zod:
-        specifier: 3.25.56
-        version: 3.25.56
+        specifier: 3.25.63
+        version: 3.25.63
     devDependencies:
       '@types/node':
         specifier: 22.15.30
@@ -234,7 +234,7 @@ importers:
         version: 1.3.2(react@19.1.0)
       '@t3-oss/env-nextjs':
         specifier: 0.13.6
-        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)
+        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.63)
       '@tanstack/table-core':
         specifier: 8.21.3
         version: 8.21.3
@@ -308,8 +308,8 @@ importers:
         specifier: 3.17.3
         version: 3.17.3
       zod:
-        specifier: 3.25.56
-        version: 3.25.56
+        specifier: 3.25.63
+        version: 3.25.63
     devDependencies:
       '@types/node':
         specifier: 22.15.30
@@ -340,7 +340,7 @@ importers:
         version: 15.3.3(next@15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       '@t3-oss/env-nextjs':
         specifier: 0.13.6
-        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)
+        version: 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.63)
       '@vercel/speed-insights':
         specifier: 1.2.0
         version: 1.2.0(next@15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
@@ -378,8 +378,8 @@ importers:
         specifier: 0.34.2
         version: 0.34.2
       zod:
-        specifier: 3.25.56
-        version: 3.25.56
+        specifier: 3.25.63
+        version: 3.25.63
     devDependencies:
       '@types/node':
         specifier: 22.15.30
@@ -577,8 +577,8 @@ importers:
         specifier: 1.0.7
         version: 1.0.7(tailwindcss@4.1.10)
       zod:
-        specifier: 3.25.56
-        version: 3.25.56
+        specifier: 3.25.63
+        version: 3.25.63
     devDependencies:
       '@tailwindcss/postcss':
         specifier: 4.1.10
@@ -5761,8 +5761,8 @@ packages:
   zod@3.24.2:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
-  zod@3.25.56:
-    resolution: {integrity: sha512-rd6eEF3BTNvQnR2e2wwolfTmUTnp70aUTqr0oaGbHifzC3BKJsoV+Gat8vxUMR1hwOKBs6El+qWehrHbCpW6SQ==}
+  zod@3.25.63:
+    resolution: {integrity: sha512-3ttCkqhtpncYXfP0f6dsyabbYV/nEUW+Xlu89jiXbTBifUfjaSqXOG6JnQPLtqt87n7KAmnMqcjay6c0Wq0Vbw==}
 
 snapshots:
 
@@ -7155,8 +7155,8 @@ snapshots:
       express-rate-limit: 7.5.0(express@5.1.0)
       pkce-challenge: 4.1.0
       raw-body: 3.0.0
-      zod: 3.25.56
-      zod-to-json-schema: 3.24.3(zod@3.25.56)
+      zod: 3.25.63
+      zod-to-json-schema: 3.24.3(zod@3.25.63)
     transitivePeerDependencies:
       - supports-color
 
@@ -8526,19 +8526,19 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@t3-oss/env-core@0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)':
+  '@t3-oss/env-core@0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.63)':
     optionalDependencies:
       arktype: 2.1.20
       typescript: 5.8.3
-      zod: 3.25.56
+      zod: 3.25.63
 
-  '@t3-oss/env-nextjs@0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)':
+  '@t3-oss/env-nextjs@0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.63)':
     dependencies:
-      '@t3-oss/env-core': 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.56)
+      '@t3-oss/env-core': 0.13.6(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.63)
     optionalDependencies:
       arktype: 2.1.20
       typescript: 5.8.3
-      zod: 3.25.56
+      zod: 3.25.63
 
   '@tailwindcss/node@4.1.10':
     dependencies:
@@ -9598,8 +9598,8 @@ snapshots:
       '@babel/plugin-proposal-private-methods': 7.18.6(@babel/core@7.26.9)
       eslint: 9.28.0(jiti@2.4.2)
       hermes-parser: 0.25.1
-      zod: 3.25.56
-      zod-validation-error: 3.4.0(zod@3.25.56)
+      zod: 3.25.63
+      zod-validation-error: 3.4.0(zod@3.25.63)
     transitivePeerDependencies:
       - supports-color
 
@@ -11050,7 +11050,7 @@ snapshots:
       '@prisma/generator-helper': 5.3.1
       '@prisma/internals': 5.3.1
       typescript: 5.8.3
-      zod: 3.25.56
+      zod: 3.25.63
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -12096,14 +12096,14 @@ snapshots:
     dependencies:
       zod: 3.24.2
 
-  zod-to-json-schema@3.24.3(zod@3.25.56):
+  zod-to-json-schema@3.24.3(zod@3.25.63):
     dependencies:
-      zod: 3.25.56
+      zod: 3.25.63
 
-  zod-validation-error@3.4.0(zod@3.25.56):
+  zod-validation-error@3.4.0(zod@3.25.63):
     dependencies:
-      zod: 3.25.56
+      zod: 3.25.63
 
   zod@3.24.2: {}
 
-  zod@3.25.56: {}
+  zod@3.25.63: {}
