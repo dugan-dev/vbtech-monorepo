@@ -42,7 +42,7 @@
     "sharp": "0.34.2",
     "sonner": "2.0.5",
     "sst": "3.17.5",
-    "zod": "3.25.63"
+    "zod": "3.25.64"
   },
   "devDependencies": {
     "@types/node": "22.15.31",
