@@ -45,7 +45,7 @@
     "zod": "3.25.63"
   },
   "devDependencies": {
-    "@types/node": "22.15.30",
+    "@types/node": "22.15.31",
     "@types/react": "19.1.6",
     "@types/react-dom": "19.1.6",
     "@workspace/eslint-config": "workspace:*",
