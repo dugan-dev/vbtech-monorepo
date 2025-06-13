@@ -115,8 +115,8 @@ importers:
         specifier: 3.828.0
         version: 3.828.0
       '@hookform/resolvers':
-        specifier: 5.1.0
-        version: 5.1.0(react-hook-form@7.57.0(react@19.1.0))
+        specifier: 5.1.1
+        version: 5.1.1(react-hook-form@7.57.0(react@19.1.0))
       '@radix-ui/react-icons':
         specifier: 1.3.2
         version: 1.3.2(react@19.1.0)
@@ -227,8 +227,8 @@ importers:
         specifier: 3.828.0
         version: 3.828.0
       '@hookform/resolvers':
-        specifier: 5.1.0
-        version: 5.1.0(react-hook-form@7.57.0(react@19.1.0))
+        specifier: 5.1.1
+        version: 5.1.1(react-hook-form@7.57.0(react@19.1.0))
       '@radix-ui/react-icons':
         specifier: 1.3.2
         version: 1.3.2(react@19.1.0)
@@ -472,8 +472,8 @@ importers:
   packages/ui:
     dependencies:
       '@hookform/resolvers':
-        specifier: 5.1.0
-        version: 5.1.0(react-hook-form@7.57.0(react@19.1.0))
+        specifier: 5.1.1
+        version: 5.1.1(react-hook-form@7.57.0(react@19.1.0))
       '@radix-ui/react-alert-dialog':
         specifier: 1.1.14
         version: 1.1.14(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1156,8 +1156,8 @@ packages:
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
-  '@hookform/resolvers@5.1.0':
-    resolution: {integrity: sha512-A5tY8gxqvvR0lFfropqpy/gUDOxjwT7LZCxJ8lNA9puK7nFNRl/O0egGKxzdF4JSz/pnnT1O8g76P/YMyTBEFw==}
+  '@hookform/resolvers@5.1.1':
+    resolution: {integrity: sha512-J/NVING3LMAEvexJkyTLjruSm7aOFx7QX21pzkiJfMoNG0wl5aFEjLTl7ay7IQb9EWY6AkrBy7tHL2Alijpdcg==}
     peerDependencies:
       react-hook-form: ^7.55.0
 
@@ -6981,7 +6981,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
-  '@hookform/resolvers@5.1.0(react-hook-form@7.57.0(react@19.1.0))':
+  '@hookform/resolvers@5.1.1(react-hook-form@7.57.0(react@19.1.0))':
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.57.0(react@19.1.0)
