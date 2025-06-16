@@ -1,7 +1,7 @@
 import { signOut } from "aws-amplify/auth";
 
 import { Button } from "@workspace/ui/components/button";
-import { clearSidebarState } from "@workspace/ui/components/main-sidebar/main-sidebar";
+import { clearSidebarState } from "@workspace/ui/components/main-sidebar/main-sidebar-cookies";
 import {
   Tooltip,
   TooltipContent,

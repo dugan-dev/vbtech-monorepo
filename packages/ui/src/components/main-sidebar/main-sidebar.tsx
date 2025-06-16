@@ -23,9 +23,11 @@ import {
 } from "@workspace/ui/components/sidebar";
 import {
   MainSidebarConfig,
-  type SidebarNavItem,
   type UserAttributes,
 } from "@workspace/ui/types/sidebar-nav-item";
+
+import { filterSidebarItems } from "./filter-sidebar-items";
+import { getCookieValue, setCookieValue } from "./main-sidebar-cookies";
 
 type props<TUserRole = string, TUserType = string> = {
   config: MainSidebarConfig<TUserRole, TUserType>;
@@ -53,119 +55,6 @@ type props<TUserRole = string, TUserType = string> = {
   };
   pathname: string;
 };
-
-// Cookie utilities for state persistence
-const COOKIE_MAX_AGE = 60 * 15; // 15 minutes (5 minutes after auto-logout)
-
-function getCookieName(appTitle: string): string {
-  const cookieName = `sidebar-collapsible-state-${appTitle.toLowerCase().replace(/\s+/g, "-")}`;
-  // Debug log for development
-  if (process.env.NODE_ENV === "development") {
-    console.log(`[MainSidebar] Cookie name for "${appTitle}": ${cookieName}`);
-  }
-  return cookieName;
-}
-
-function getCookieValue(appTitle: string): Record<string, boolean> {
-  if (typeof document === "undefined") return {};
-
-  const cookieName = getCookieName(appTitle);
-  const cookies = document.cookie.split(";");
-  const cookie = cookies.find((c) => c.trim().startsWith(`${cookieName}=`));
-
-  if (!cookie) return {};
-
-  try {
-    const value = cookie.split("=")[1];
-    if (!value) return {};
-    return JSON.parse(decodeURIComponent(value));
-  } catch {
-    return {};
-  }
-}
-
-function setCookieValue(
-  appTitle: string,
-  value: Record<string, boolean>,
-): void {
-  if (typeof document === "undefined") return;
-
-  const cookieName = getCookieName(appTitle);
-  const cookieValue = encodeURIComponent(JSON.stringify(value));
-  document.cookie = `${cookieName}=${cookieValue}; path=/; max-age=${COOKIE_MAX_AGE}`;
-}
-
-/**
- * Clears the sidebar collapsible state cookie for a specific app.
- * Call this function when the user logs out to reset the sidebar state.
- */
-export function clearSidebarState(appTitle: string): void {
-  if (typeof document === "undefined") return;
-
-  const cookieName = getCookieName(appTitle);
-  // Clear the cookie by setting it to expire in the past
-  document.cookie = `${cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-}
-
-/**
- * Filters sidebar navigation items based on user attributes.
- * This is a generic filtering function that can be used across different applications.
- */
-function filterSidebarItems<TUserRole = string, TUserType = string>(
-  items: SidebarNavItem<TUserRole, TUserType>[],
-  userAttributes: UserAttributes<TUserRole, TUserType>,
-): SidebarNavItem<TUserRole, TUserType>[] {
-  return items
-    .filter((item) => isItemAllowedForUser(item, userAttributes))
-    .map((item) => {
-      // If the item has nested items, filter those as well
-      if (item.items) {
-        const filteredNestedItems = item.items.filter((nestedItem) =>
-          isItemAllowedForUser(nestedItem, userAttributes),
-        );
-
-        // Only return the parent item if it has nested items or if it doesn't require nested items
-        return filteredNestedItems.length > 0 || !item.items
-          ? { ...item, items: filteredNestedItems }
-          : null;
-      }
-      return item;
-    })
-    .filter(Boolean) as SidebarNavItem<TUserRole, TUserType>[];
-}
-
-/**
- * Checks if a sidebar item is allowed for the given user attributes.
- */
-function isItemAllowedForUser<TUserRole = string, TUserType = string>(
-  item: SidebarNavItem<TUserRole, TUserType>,
-  userAttributes: UserAttributes<TUserRole, TUserType>,
-): boolean {
-  // Check if item is admin-only
-  if (item.isAdminOnly && !userAttributes.isAdmin) {
-    return false;
-  }
-
-  // Check user type restrictions
-  if (
-    item.allowedUserTypes &&
-    !item.allowedUserTypes.includes(userAttributes.type as TUserType)
-  ) {
-    return false;
-  }
-
-  // Check required roles
-  if (item.requiredRoles) {
-    const hasRequiredRole = item.requiredRoles.some((role) =>
-      userAttributes.roles?.includes(role as TUserRole),
-    );
-    if (!hasRequiredRole) {
-      return false;
-    }
-  }
-
-  return true;
-}
 
 /**
  * Generic main sidebar component that can be used across different applications.
