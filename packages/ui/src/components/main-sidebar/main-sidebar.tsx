@@ -168,8 +168,8 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {appSidebarNavItems?.map((item, index) => (
-                <SidebarMenuItem key={index}>
+              {appSidebarNavItems?.map((item) => (
+                <SidebarMenuItem key={item.id}>
                   {item.items ? (
                     <Collapsible
                       open={openItems[item.title] ?? false}
