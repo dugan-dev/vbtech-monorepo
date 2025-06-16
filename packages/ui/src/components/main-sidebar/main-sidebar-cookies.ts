@@ -1,5 +1,12 @@
 // Cookie utilities for state persistence
-export const COOKIE_MAX_AGE = 60 * 15; // 15 minutes (5 minutes after auto-logout)
+export const COOKIE_MAX_AGE = 60 * 15; /**
+ * Generates a normalized cookie name for storing sidebar collapsible state, scoped by the given application title.
+ *
+ * The generated name is lowercased and spaces are replaced with hyphens to ensure consistency.
+ *
+ * @param appTitle - The title of the application used to scope the cookie name.
+ * @returns The normalized cookie name for the sidebar state.
+ */
 
 export function getCookieName(appTitle: string): string {
   const cookieName = `sidebar-collapsible-state-${appTitle.toLowerCase().replace(/\s+/g, "-")}`;
@@ -10,6 +17,14 @@ export function getCookieName(appTitle: string): string {
   return cookieName;
 }
 
+/**
+ * Retrieves the sidebar state from a cookie associated with the given app title.
+ *
+ * Returns an object representing the sidebar's collapsed state, or an empty object if the cookie is missing, malformed, or not accessible.
+ *
+ * @param appTitle - The application title used to scope the cookie.
+ * @returns An object mapping sidebar keys to their collapsed state.
+ */
 export function getCookieValue(appTitle: string): Record<string, boolean> {
   if (typeof document === "undefined") return {};
 
@@ -28,6 +43,14 @@ export function getCookieValue(appTitle: string): Record<string, boolean> {
   }
 }
 
+/**
+ * Sets the sidebar state cookie for the specified application title.
+ *
+ * Stores the provided state object as a JSON-encoded, URI-encoded cookie value, scoped by the normalized app title. The cookie is set with a 15-minute expiration, path `/`, `SameSite=lax`, and the `secure` flag if using HTTPS.
+ *
+ * @param appTitle - The application title used to scope the cookie name.
+ * @param value - The sidebar state to persist.
+ */
 export function setCookieValue(
   appTitle: string,
   value: Record<string, boolean>,
@@ -41,8 +64,11 @@ export function setCookieValue(
 }
 
 /**
- * Clears the sidebar collapsible state cookie for a specific app.
- * Call this function when the user logs out to reset the sidebar state.
+ * Removes the sidebar state cookie associated with the specified app title.
+ *
+ * Call this function to reset the sidebar state, such as when a user logs out.
+ *
+ * @param appTitle - The title of the application whose sidebar state cookie should be cleared.
  */
 export function clearSidebarState(appTitle: string): void {
   if (typeof document === "undefined") return;

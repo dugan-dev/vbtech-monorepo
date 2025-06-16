@@ -9,14 +9,14 @@ import { AuthedProviders } from "@/components/authed-providers";
 import { VBCallMainSidebar } from "@/components/main-sidebar/main-sidebar";
 
 /**
- * Serves as the authenticated layout for the application, ensuring user authentication and setup prerequisites before rendering content.
+ * Renders the authenticated application layout, enforcing user authentication and providing user context to its children.
  *
- * Wraps its children with user context providers, and displays the main sidebar alongside the content area.
+ * Wraps the content with authentication and user data providers, and displays the main sidebar alongside the main content area.
  *
- * @param children - The content to render within the authenticated layout.
- * @returns The authenticated layout with all required context providers.
+ * @param children - The content to display within the authenticated layout.
+ * @returns The authenticated layout with all necessary context providers.
  *
- * @remark Redirects to the setup route if license or settings are missing, or returns an unauthorized response if the user is not authenticated.
+ * @remark Returns an unauthorized response if the user is not authenticated.
  */
 export default async function AuthedLayout({
   children,

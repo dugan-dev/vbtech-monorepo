@@ -16,6 +16,11 @@ import { Icons } from "@/components/icons";
 
 import { ErrorDialog } from "./error-dialog";
 
+/**
+ * Renders a sign-out button that prompts for confirmation and handles errors.
+ *
+ * Displays a confirmation dialog before signing out, clears sidebar state, and reloads the page upon successful sign-out. If an error occurs during sign-out, an error dialog is shown with details.
+ */
 export function SignOutButton() {
   const {
     openErrorDialog,
