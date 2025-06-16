@@ -1,29 +1,23 @@
-import { SidebarNavItem } from "@/types/sidebar-nav-item";
-import { UserRole } from "@/types/user-role";
-import { UserType } from "@/types/user-type";
-import { MAIN_SIDEBAR_CONFIG } from "@/components/main-sidebar/main-sidebar-config";
-
-interface UserAttributes {
-  type: UserType;
-  roles?: UserRole[];
-  isAdmin?: boolean;
-  slug?: string;
-}
+import {
+  SidebarNavItem,
+  UserAttributes,
+} from "@workspace/ui/types/sidebar-nav-item";
 
 /**
  * Filters the main sidebar navigation items to include only those accessible to the specified user.
  *
  * For each sidebar item and its nested items, checks user permissions and attributes to determine visibility.
  *
- * @param userAttributes - The attributes of the user used to determine sidebar access.
- * @returns An array of sidebar navigation items permitted for the user, with nested items filtered accordingly.
+ * @param navigationItems - The complete list of navigation items to filter
+ * @param userAttributes - The attributes of the user used to determine sidebar access
+ * @returns An array of sidebar navigation items permitted for the user, with nested items filtered accordingly
  */
-export function filterMainSidebarItems(
-  userAttributes: UserAttributes,
-): SidebarNavItem[] {
-  return MAIN_SIDEBAR_CONFIG.filter((item) =>
-    isItemAllowedForUser(item, userAttributes),
-  )
+export function filterSidebarItems<TUserRole = string, TUserType = string>(
+  navigationItems: SidebarNavItem<TUserRole, TUserType>[],
+  userAttributes: UserAttributes<TUserRole, TUserType>,
+): SidebarNavItem<TUserRole, TUserType>[] {
+  return navigationItems
+    .filter((item) => isItemAllowedForUser(item, userAttributes))
     .map((item) => {
       // If the item has nested items, filter those as well
       if (item.items) {
@@ -38,12 +32,12 @@ export function filterMainSidebarItems(
       }
       return item;
     })
-    .filter(Boolean) as SidebarNavItem[];
+    .filter(Boolean) as SidebarNavItem<TUserRole, TUserType>[];
 }
 
-function isItemAllowedForUser(
-  item: SidebarNavItem,
-  userAttributes: UserAttributes,
+function isItemAllowedForUser<TUserRole, TUserType>(
+  item: SidebarNavItem<TUserRole, TUserType>,
+  userAttributes: UserAttributes<TUserRole, TUserType>,
 ): boolean {
   // Check if item is admin-only
   if (item.isAdminOnly && !userAttributes.isAdmin) {
@@ -53,7 +47,7 @@ function isItemAllowedForUser(
   // Check user type restrictions
   if (
     item.allowedUserTypes &&
-    !item.allowedUserTypes.includes(userAttributes.type as UserType)
+    !item.allowedUserTypes.includes(userAttributes.type)
   ) {
     return false;
   }

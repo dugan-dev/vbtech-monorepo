@@ -11,7 +11,7 @@ import { Setup } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
 import { AuthedProviders } from "@/components/authed-providers";
-import { MainSidebar } from "@/components/main-sidebar/main-sidebar";
+import { VBPayMainSidebar } from "@/components/main-sidebar/main-sidebar";
 
 /**
  * Serves as the authenticated layout for the application, ensuring user authentication and setup prerequisites before rendering content.
@@ -57,7 +57,7 @@ export default async function AuthedLayout({
         <LicenseProvider license={license}>
           <SettingsProvider settings={settings}>
             <div className="flex flex-1">
-              <MainSidebar />
+              <VBPayMainSidebar />
               <div className="flex-1">
                 <div className="h-full overflow-y-auto">{children}</div>
               </div>

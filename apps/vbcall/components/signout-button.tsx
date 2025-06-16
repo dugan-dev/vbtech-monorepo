@@ -1,6 +1,7 @@
 import { signOut } from "aws-amplify/auth";
 
 import { Button } from "@workspace/ui/components/button";
+import { clearSidebarState } from "@workspace/ui/components/main-sidebar/main-sidebar";
 import {
   Tooltip,
   TooltipContent,
@@ -20,7 +21,10 @@ export function SignOutButton() {
     confDialogTitle,
     confDialogMsg,
   } = useConfirmationDialog({
-    onConfirmAsync: signOut,
+    onConfirmAsync: async () => {
+      clearSidebarState("VB Call");
+      await signOut();
+    },
     onConfirmAfterAsync: () => {
       window.location.reload();
     },

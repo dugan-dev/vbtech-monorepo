@@ -3,183 +3,68 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUserContext } from "@/contexts/user-context";
-import { filterMainSidebarItems } from "@/utils/filter-main-sidebar-items";
-import { useTheme } from "next-themes";
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@workspace/ui/components/collapsible";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-} from "@workspace/ui/components/sidebar";
-import { useIsMounted } from "@workspace/ui/hooks/use-is-mounted";
+import { MainSidebar } from "@workspace/ui/components/main-sidebar/main-sidebar";
 
 import { Icons } from "@/components/icons";
+import { MAIN_SIDEBAR_CONFIG } from "@/components/main-sidebar/main-sidebar-config";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { UserAvatar } from "@/components/user-avatar";
 
 /**
- * Displays the main sidebar navigation for the application, including navigation menus, theme toggle, and user information.
+ * Displays the main sidebar navigation for the VB Call application.
  *
- * The sidebar content and interactivity are dynamically adjusted based on the user's license status and roles, with user details sourced from context.
- *
- * @remark
- * Navigation items and menu buttons are disabled if the user does not have a valid license.
+ * Uses the shared MainSidebar component with app-specific configuration.
  */
-export function MainSidebar() {
+export function VBCallMainSidebar() {
+  const pathname = usePathname();
   const usersData = useUserContext();
   const userAppAttrs = usersData?.usersAppAttrs;
-  const mounted = useIsMounted();
   const rolesForSlug = userAppAttrs?.ids?.find(
     (id) => id.id === userAppAttrs.slug,
   )?.userRoles;
-  const appSidebarNavItems = userAppAttrs
-    ? filterMainSidebarItems({
-        type: userAppAttrs.type,
-        roles: rolesForSlug,
-        isAdmin: userAppAttrs.admin,
-        slug: userAppAttrs.slug,
-      })
-    : [];
-  const { theme } = useTheme();
-  const pathname = usePathname();
+
+  const config = {
+    appTitle: "VB Call",
+    appVersion: "1.0.0",
+    navigationItems: MAIN_SIDEBAR_CONFIG,
+    hasLicense: true,
+  };
+
+  const userData = {
+    firstName: usersData.firstName,
+    lastName: usersData.lastName,
+    email: usersData.email,
+  };
+
+  const userAppAttrsForSidebar = {
+    type: userAppAttrs?.type || "user",
+    roles: rolesForSlug,
+    isAdmin: userAppAttrs?.admin || false,
+    slug: userAppAttrs?.slug || "",
+  };
+
+  const icons = {
+    chevronDown: Icons.chevronDown,
+    chevronRight: Icons.chevronRight,
+    logo: Icons.logo,
+    logoDark: Icons.logoDark,
+  };
+
+  const components = {
+    ThemeToggle,
+    UserAvatar,
+    Link,
+  };
 
   return (
-    <Sidebar className="border-r" title="Main App Sidebar">
-      <SidebarHeader className="pt-3">
-        <SidebarMenu>
-          <SidebarMenuItem className="flex items-center justify-between">
-            <SidebarMenuButton size="lg" asChild>
-              <Link href="/" data-testid="app-sidebar-logo-link">
-                {mounted ? (
-                  theme === "dark" ? (
-                    <div className="flex aspect-square size-10 items-center justify-center rounded-lg bg-white text-primary-foreground">
-                      <Icons.logo width={32} height={32} />
-                    </div>
-                  ) : (
-                    <div className="flex aspect-square size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                      <Icons.logoDark width={32} height={32} />
-                    </div>
-                  )
-                ) : (
-                  <div className="flex aspect-square size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                    <Icons.logoDark width={32} height={32} />
-                  </div>
-                )}
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span
-                    className="font-semibold"
-                    data-testid="app-sidebar-title"
-                  >
-                    VB Call
-                  </span>
-                  <span data-testid="app-sidebar-version">v0.0.1</span>
-                </div>
-              </Link>
-            </SidebarMenuButton>
-            <div className="mr-2">
-              <ThemeToggle />
-            </div>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
-      <SidebarContent className="py-12">
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {appSidebarNavItems?.map((item, index) => (
-                <SidebarMenuItem key={index}>
-                  {item.items ? (
-                    <Collapsible>
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton
-                          size="lg"
-                          className="text-lg"
-                          data-testid={`app-sidebar-menu-item-${item.title.toLowerCase()}`}
-                        >
-                          {item.icon && <item.icon className="mr-2" />}
-                          <span>{item.title}</span>
-                          <Icons.chevronDown className="ml-auto" />
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <SidebarMenuSub>
-                          {item.items.map((subItem, subIndex) => (
-                            <SidebarMenuSubItem key={subIndex}>
-                              <SidebarMenuSubButton
-                                asChild
-                                isActive={pathname === subItem.href}
-                                className="text-lg"
-                                data-testid={`app-sidebar-submenu-item-${subItem.title.toLowerCase()}`}
-                              >
-                                <Link href={subItem.href || ""}>
-                                  {subItem.icon && (
-                                    <subItem.icon className="mr-2" />
-                                  )}
-                                  <span>{subItem.title}</span>
-                                </Link>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          ))}
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
-                    </Collapsible>
-                  ) : (
-                    <SidebarMenuButton
-                      size="lg"
-                      asChild
-                      isActive={pathname === item.href}
-                      className="text-lg"
-                      data-testid={`app-sidebar-menu-item-${item.title.toLowerCase()}`}
-                    >
-                      <Link href={item.href ?? ""}>
-                        {item.icon && <item.icon className="mr-2" />}
-                        <span>{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  )}
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter>
-        <div className="mb-4 mt-4 flex items-center gap-4 px-4">
-          <UserAvatar
-            firstName={usersData.firstName}
-            lastName={usersData.lastName}
-            email={usersData.email}
-          />
-          <div className="min-w-0 flex-1">
-            <p
-              className="max-w-[180px] truncate text-sm font-medium"
-              data-testid="app-sidebar-user-name"
-            >
-              {`${usersData.firstName} ${usersData.lastName}`}
-            </p>
-            <p
-              className="max-w-[180px] truncate text-xs text-muted-foreground"
-              data-testid="app-sidebar-user-email"
-            >
-              {usersData.email}
-            </p>
-          </div>
-        </div>
-      </SidebarFooter>
-    </Sidebar>
+    <MainSidebar
+      config={config}
+      userData={userData}
+      userAppAttrs={userAppAttrsForSidebar}
+      icons={icons}
+      components={components}
+      pathname={pathname}
+    />
   );
 }

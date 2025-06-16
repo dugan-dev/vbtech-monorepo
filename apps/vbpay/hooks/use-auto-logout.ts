@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { SignIn } from "@/routes";
 import { signOut } from "aws-amplify/auth";
 
+import { clearSidebarState } from "@workspace/ui/components/main-sidebar/main-sidebar";
+
 /**
  * React hook that automatically signs out the user after a specified period of inactivity and redirects to the sign-in page.
  *
@@ -22,6 +24,7 @@ export function useAutoLogout(minutes = 10) {
     const resetTimer = () => {
       clearTimeout(logoutTimer);
       logoutTimer = setTimeout(async () => {
+        clearSidebarState("VB Pay");
         await signOut();
         router.push(SignIn({}));
       }, timeout);

@@ -55,7 +55,9 @@
   --secondary: hsl(215 25 30); /* Dark Blue-Gray */
   --secondary-foreground: hsl(0 0 100); /* White */
   --muted: hsl(215 25 25); /* Muted Dark Blue-Gray */
-  --muted-foreground: hsl(215 25 85); /* Much Lighter Blue-Gray for Better Text Contrast */
+  --muted-foreground: hsl(
+    215 25 85
+  ); /* Much Lighter Blue-Gray for Better Text Contrast */
   --accent: hsl(215 50 45); /* Brighter Blue */
   --accent-foreground: hsl(0 0 100); /* White */
   --destructive: hsl(0 62 45); /* Dark Red */
@@ -117,6 +119,8 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-collapsible-down: collapsible-down 0.2s ease-out;
+  --animate-collapsible-up: collapsible-up 0.2s ease-out;
   --animate-spin: spin 1s linear infinite;
   --animate-caret-blink: caret-blink 1.25s ease-out infinite;
 
@@ -132,6 +136,24 @@
   @keyframes accordion-up {
     from {
       height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes collapsible-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-collapsible-content-height);
+    }
+  }
+
+  @keyframes collapsible-up {
+    from {
+      height: var(--radix-collapsible-content-height);
     }
     to {
       height: 0;
@@ -164,4 +186,23 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Collapsible content animation */
+.CollapsibleContent {
+  overflow: hidden;
+}
+.CollapsibleContent[data-state="open"] {
+  animation: collapsible-down 0.2s ease-out;
+}
+.CollapsibleContent[data-state="closed"] {
+  animation: collapsible-up 0.2s ease-out;
+}
+
+/* Sidebar chevron animation */
+.sidebar-chevron {
+  transition: transform 0.2s ease-in-out;
+}
+[data-state="open"] .sidebar-chevron {
+  transform: rotate(90deg);
 }
