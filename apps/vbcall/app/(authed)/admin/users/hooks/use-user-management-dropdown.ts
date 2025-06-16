@@ -3,8 +3,9 @@ import { usePathname } from "next/navigation";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+
 import { useConfirmationDialog } from "@/hooks/use-confirmation-dialog";
-import { useErrorDialog } from "@/hooks/use-error-dialog";
 
 import { disableUserAction } from "../action/disable-user-action";
 import { enableUserAction } from "../action/enable-user-action";

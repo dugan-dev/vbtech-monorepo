@@ -2,9 +2,8 @@ import { useState } from "react";
 import { resetPassword, type SignInOutput } from "aws-amplify/auth";
 import { toast } from "sonner";
 
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
-
-import { useErrorDialog } from "@/hooks/use-error-dialog";
 
 /**
  * Provides state and logic for managing user sign-in and password reset flows in a sign-in card component.

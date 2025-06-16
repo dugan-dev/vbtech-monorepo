@@ -2,19 +2,18 @@ import { APP_NAME } from "@/values/app-name";
 import { signOut } from "aws-amplify/auth";
 
 import { Button } from "@workspace/ui/components/button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { clearSidebarState } from "@workspace/ui/components/main-sidebar/main-sidebar-cookies";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 
 import { useConfirmationDialog } from "@/hooks/use-confirmation-dialog";
-import { useErrorDialog } from "@/hooks/use-error-dialog";
 import { ConfirmationDialog } from "@/components/confirmation-dialog";
 import { Icons } from "@/components/icons";
-
-import { ErrorDialog } from "./error-dialog";
 
 /**
  * Renders a sign-out button that prompts for confirmation and handles errors.

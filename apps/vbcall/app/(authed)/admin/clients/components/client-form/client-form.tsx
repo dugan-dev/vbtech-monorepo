@@ -2,13 +2,12 @@
 
 import { timezones } from "@/values/timezones";
 
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
 import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-button";
 import { FormTextarea } from "@workspace/ui/components/form/form-text-area";
-
-import { ErrorDialog } from "@/components/error-dialog";
 
 import { useClientForm } from "../../hooks/use-client-form";
 import { ClientFormData } from "./client-form-schema";

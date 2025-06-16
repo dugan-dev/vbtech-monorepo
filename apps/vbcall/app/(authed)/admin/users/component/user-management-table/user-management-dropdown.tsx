@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import {
   Tooltip,
   TooltipContent,
@@ -20,7 +21,6 @@ import {
 
 import { UserCognito } from "@/types/user-cognito";
 import { ConfirmationDialog } from "@/components/confirmation-dialog";
-import { ErrorDialog } from "@/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { useUserManagementDropdown } from "../../hooks/use-user-management-dropdown";

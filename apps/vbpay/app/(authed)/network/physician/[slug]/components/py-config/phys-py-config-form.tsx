@@ -3,6 +3,7 @@
 import { useLicenseContext } from "@/contexts/license-context";
 
 import { EditButton } from "@workspace/ui/components/edit-button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormCheckbox } from "@workspace/ui/components/form/form-checkbox";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
@@ -10,7 +11,6 @@ import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-butt
 
 import { PaymentTypeType } from "@/types/payment-type";
 import { PerfYears } from "@/types/perf-year";
-import { ErrorDialog } from "@/components/error-dialog";
 
 import { usePhysPyConfigForm } from "../../hooks/use-phys-py-config-form";
 import { PhysPyConfigFormData } from "./phys-py-config-form-schema";

@@ -3,11 +3,11 @@
 import { SignInOutput } from "aws-amplify/auth";
 
 import { Button } from "@workspace/ui/components/button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormInput } from "@workspace/ui/components/form/form-input";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
 
-import { ErrorDialog } from "@/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { useSignInForm } from "../hooks/use-sign-in-form";

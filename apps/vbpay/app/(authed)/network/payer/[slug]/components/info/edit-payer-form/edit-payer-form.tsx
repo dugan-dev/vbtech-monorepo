@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { EditButton } from "@workspace/ui/components/edit-button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
@@ -20,7 +21,6 @@ import { formatTaxId } from "@workspace/ui/lib/formatTaxId";
 
 import { PerfMonthLabels, PerfMonths } from "@/types/perf-month";
 import { PerfYears } from "@/types/perf-year";
-import { ErrorDialog } from "@/components/error-dialog";
 
 import { useEditPayerForm } from "../../../hooks/use-edit-payer-form";
 import { EditPayerFormData } from "./edit-payer-form-schema";
