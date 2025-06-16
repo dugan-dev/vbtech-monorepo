@@ -106,10 +106,10 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
     userAttributes,
   );
 
-  const hasLicense = config.hasLicense ?? true; // Default to true if not specified
+  const hasLicense = config.hasLicense ?? false; // Default to false if not specified
 
   // Handle collapsible item toggle
-  const handleItemToggle = (id: number, isOpen: boolean) => {
+  const handleItemToggle = (id: string, isOpen: boolean) => {
     setOpenItems((prev) => ({
       ...prev,
       [id]: isOpen,
