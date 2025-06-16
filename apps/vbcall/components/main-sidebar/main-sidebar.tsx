@@ -12,9 +12,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { UserAvatar } from "@/components/user-avatar";
 
 /**
- * Displays the main sidebar navigation for the VB Call application.
+ * Renders the main sidebar navigation for the VB Call application using the shared MainSidebar component.
  *
- * Uses the shared MainSidebar component with app-specific configuration.
+ * Passes app-specific configuration, user data, user roles, icons, and UI components to the sidebar.
  */
 export function VBCallMainSidebar() {
   const pathname = usePathname();

@@ -13,9 +13,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { UserAvatar } from "@/components/user-avatar";
 
 /**
- * Displays the main sidebar navigation for the VB Pay application.
+ * Renders the main sidebar navigation for the VB Pay application using the shared MainSidebar component.
  *
- * Uses the shared MainSidebar component with app-specific configuration including license checking.
+ * Passes user context, license status, app-specific configuration, and UI components to the sidebar for display and navigation.
  */
 export function VBPayMainSidebar() {
   const pathname = usePathname();

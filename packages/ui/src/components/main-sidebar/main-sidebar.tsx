@@ -56,17 +56,11 @@ type props<TUserRole = string, TUserType = string> = {
 };
 
 /**
- * Generic main sidebar component that can be used across different applications.
+ * Renders a customizable main sidebar with navigation, user info, and theme toggle for applications.
  *
- * Takes app-specific configuration and maintains all existing styling, icons, animations, and functionality.
- * Now includes state persistence for collapsible items and smooth animations.
+ * Displays app-specific navigation items, supports collapsible groups with state persisted in cookies, and shows user details in the footer. Navigation items are filtered based on user attributes, and items can be conditionally enabled or disabled depending on app license status.
  *
- * @param config - App-specific configuration including title, version, logo, and navigation items
- * @param userData - User information for the footer
- * @param userAppAttrs - User application attributes for filtering navigation items
- * @param icons - App-specific icons including chevronDown and chevronRight
- * @param components - App-specific components like ThemeToggle, UserAvatar, and Link
- * @param pathname - App-specific pathname
+ * @remark Collapsible navigation group open/close state is persisted per app title using cookies.
  */
 export function MainSidebar<TUserRole = string, TUserType = string>({
   config,

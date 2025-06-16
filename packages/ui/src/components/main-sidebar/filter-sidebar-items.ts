@@ -4,13 +4,11 @@ import {
 } from "@workspace/ui/types/sidebar-nav-item";
 
 /**
- * Filters the main sidebar navigation items to include only those accessible to the specified user.
+ * Returns a filtered list of sidebar navigation items that the specified user is permitted to access, including recursively filtered nested items.
  *
- * For each sidebar item and its nested items, checks user permissions and attributes to determine visibility.
- *
- * @param navigationItems - The complete list of navigation items to filter
- * @param userAttributes - The attributes of the user used to determine sidebar access
- * @returns An array of sidebar navigation items permitted for the user, with nested items filtered accordingly
+ * @param navigationItems - The sidebar navigation items to filter.
+ * @param userAttributes - The user's roles, type, and admin status used to determine access.
+ * @returns Sidebar navigation items allowed for the user, with nested items filtered according to the same rules.
  */
 export function filterSidebarItems<TUserRole = string, TUserType = string>(
   navigationItems: SidebarNavItem<TUserRole, TUserType>[],
@@ -35,6 +33,16 @@ export function filterSidebarItems<TUserRole = string, TUserType = string>(
     .filter(Boolean) as SidebarNavItem<TUserRole, TUserType>[];
 }
 
+/**
+ * Determines whether a sidebar navigation item is accessible to a user based on their attributes.
+ *
+ * The item is allowed if the user meets all of the following, when specified:
+ * - Is an admin if the item is admin-only.
+ * - Has a user type included in the item's allowed user types.
+ * - Possesses at least one of the item's required roles.
+ *
+ * @returns `true` if the user is permitted to access the item; otherwise, `false`.
+ */
 function isItemAllowedForUser<TUserRole, TUserType>(
   item: SidebarNavItem<TUserRole, TUserType>,
   userAttributes: UserAttributes<TUserRole, TUserType>,
