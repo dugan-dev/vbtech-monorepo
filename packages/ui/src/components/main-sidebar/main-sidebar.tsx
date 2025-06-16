@@ -172,7 +172,7 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
                 <SidebarMenuItem key={item.id}>
                   {item.items ? (
                     <Collapsible
-                      open={openItems[item.title] ?? false}
+                      open={openItems[item.id] ?? false}
                       onOpenChange={(isOpen) =>
                         handleItemToggle(item.id, isOpen)
                       }
