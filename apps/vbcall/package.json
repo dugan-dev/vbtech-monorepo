@@ -22,7 +22,7 @@
     "@workspace/ui": "workspace:*",
     "@workspace/vbcall-db": "workspace:*",
     "aws-amplify": "6.15.0",
-    "babel-plugin-react-compiler": "19.0.0-beta-ebf51a3-20250411",
+    "babel-plugin-react-compiler": "19.1.0-rc.2",
     "kysely": "0.28.2",
     "lucide-react": "0.515.0",
     "nanoid": "5.1.5",
@@ -45,7 +45,7 @@
     "zod": "3.25.64"
   },
   "devDependencies": {
-    "@types/node": "22.15.31",
+    "@types/node": "24.0.1",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@workspace/eslint-config": "workspace:*",
