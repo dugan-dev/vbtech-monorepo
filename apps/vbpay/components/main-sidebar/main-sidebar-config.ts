@@ -23,12 +23,14 @@ import {
   ShareFiles,
 } from "@/routes";
 
-import { SidebarNavItem } from "@/types/sidebar-nav-item";
+import { SidebarNavItem } from "@workspace/ui/types/sidebar-nav-item";
+
 import { Icons } from "@/components/icons";
 
 export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
   [
     {
+      id: "1",
       title: "Home",
       icon: Icons.layoutDashboard,
       href: Home({}),
@@ -44,16 +46,19 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
       ],
     },
     {
+      id: "2",
       title: "Files",
       icon: Icons.files,
       items: [
         {
+          id: "2.1",
           title: "Status",
           icon: Icons.cpu,
           href: FileStatus({}),
           allowedUserTypes: ["bpo", "payers", "payer"],
         },
         {
+          id: "2.2",
           title: "Upload",
           icon: Icons.diff,
           href: FileUpload({}),
@@ -62,22 +67,26 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
       ],
     },
     {
+      id: "3",
       title: "Payment",
       icon: Icons.receipt,
       items: [
         {
+          id: "3.1",
           title: "Rates",
           icon: Icons.dollarSign,
           href: ManagePaymentRates({}),
           allowedUserTypes: ["bpo", "payers", "payer"],
         },
         {
+          id: "3.2",
           title: "Planning",
           icon: Icons.notebook,
           href: PaymentPlanning({}),
           allowedUserTypes: ["bpo", "payers", "payer"],
         },
         {
+          id: "3.3",
           title: "Batches",
           icon: Icons.banknoteArrowUp,
           href: ManagePaymentBatches({}),
@@ -86,22 +95,26 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
       ],
     },
     {
+      id: "4",
       title: "Queues",
       icon: Icons.layers,
       items: [
         {
+          id: "4.1",
           title: "Manage",
           icon: Icons.barChartBig,
           href: QueuesManage({}),
           allowedUserTypes: ["bpo"],
         },
         {
+          id: "4.2",
           title: "Work",
           icon: Icons.pickaxe,
           href: QueuesWork({}),
           allowedUserTypes: ["bpo"],
         },
         {
+          id: "4.3",
           title: "Completed",
           icon: Icons.clipboardCheck,
           href: QueuesCompleted({}),
@@ -110,58 +123,68 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
       ],
     },
     {
+      id: "5",
       title: "Payer",
       icon: Icons.heartPulse,
       href: NetworkPayer({ slug: slug || "" }),
       allowedUserTypes: ["payer"],
     },
     {
+      id: "6",
       title: "Physician Org",
       icon: Icons.building2,
       href: NetworkEntity({ slug: slug || "" }),
       allowedUserTypes: ["po"],
     },
     {
+      id: "7",
       title: "Practice",
       icon: Icons.building,
       href: NetworkEntity({ slug: slug || "" }),
       allowedUserTypes: ["practice"],
     },
     {
+      id: "8",
       title: "Facility",
       icon: Icons.hotel,
       href: NetworkEntity({ slug: slug || "" }),
       allowedUserTypes: ["facility"],
     },
     {
+      id: "9",
       title: "Vendor",
       icon: Icons.store,
       href: NetworkEntity({ slug: slug || "" }),
       allowedUserTypes: ["vendor"],
     },
     {
+      id: "10",
       title: "Physician",
       icon: Icons.stethoscope,
       href: NetworkPhysician({ slug: slug || "" }),
       allowedUserTypes: ["physician"],
     },
     {
+      id: "11",
       title: "Network",
       icon: Icons.network,
       items: [
         {
+          id: "11.1",
           title: "Payers",
           icon: Icons.heartPulse,
           href: NetworkPayers({}),
           allowedUserTypes: ["bpo", "payers", "payer"],
         },
         {
+          id: "11.2",
           title: "Network Entities",
           icon: Icons.building2,
           href: NetworkEntities({}),
           allowedUserTypes: ["bpo", "payers", "payer"],
         },
         {
+          id: "11.3",
           title: "Physicians",
           icon: Icons.stethoscope,
           href: NetworkPhysicians({}),
@@ -170,22 +193,26 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
       ],
     },
     {
+      id: "12",
       title: "Beneficiaries",
       icon: Icons.users,
       items: [
         {
+          id: "12.1",
           title: "Search",
           icon: Icons.search,
           href: BeneficiariesSearch({}),
           allowedUserTypes: ["bpo", "payers", "payer"],
         },
         {
+          id: "12.2",
           title: "Alignment",
           icon: Icons.bookHeart,
           href: BeneficiariesAlignment({}),
           allowedUserTypes: ["bpo", "payers", "payer", "physician"],
         },
         {
+          id: "12.3",
           title: "Attribution",
           icon: Icons.clipboardList,
           href: BeneficiariesAttribution({}),
@@ -194,10 +221,12 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
       ],
     },
     {
+      id: "13",
       title: "Share",
       icon: Icons.share,
       items: [
         {
+          id: "13.1",
           title: "Files",
           icon: Icons.files,
           href: ShareFiles({}),
@@ -214,6 +243,7 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
           requiredRoles: ["read-files", "write-files"],
         },
         {
+          id: "13.2",
           title: "Notifications",
           icon: Icons.bell,
           href: RecentShareNotifications({}),
@@ -232,16 +262,19 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
       ],
     },
     {
+      id: "14",
       title: "Admin",
       icon: Icons.wrench,
       items: [
         {
+          id: "14.1",
           title: "Settings",
           icon: Icons.settings,
           href: AdminSettings({}),
           isAdminOnly: true,
         },
         {
+          id: "14.2",
           title: "Users",
           icon: Icons.users,
           href: AdminUsers({}),
@@ -249,4 +282,4 @@ export const MAIN_SIDEBAR_CONFIG = (slug?: string) =>
         },
       ],
     },
-  ] as SidebarNavItem[];
+  ] satisfies SidebarNavItem[];
