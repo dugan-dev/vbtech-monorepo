@@ -109,10 +109,10 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
   const hasLicense = config.hasLicense ?? true; // Default to true if not specified
 
   // Handle collapsible item toggle
-  const handleItemToggle = (itemTitle: string, isOpen: boolean) => {
+  const handleItemToggle = (id: number, isOpen: boolean) => {
     setOpenItems((prev) => ({
       ...prev,
-      [itemTitle]: isOpen,
+      [id]: isOpen,
     }));
   };
 
@@ -174,7 +174,7 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
                     <Collapsible
                       open={openItems[item.title] ?? false}
                       onOpenChange={(isOpen) =>
-                        handleItemToggle(item.title, isOpen)
+                        handleItemToggle(item.id, isOpen)
                       }
                     >
                       <CollapsibleTrigger asChild>

@@ -8,6 +8,8 @@ import {
   Home,
 } from "@/routes";
 
+import { SidebarNavItem } from "@workspace/ui/types/sidebar-nav-item";
+
 import { Icons } from "@/components/icons";
 
 export const MAIN_SIDEBAR_CONFIG = [
@@ -71,4 +73,4 @@ export const MAIN_SIDEBAR_CONFIG = [
       },
     ],
   },
-];
+] satisfies SidebarNavItem[];
