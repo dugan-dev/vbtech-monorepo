@@ -1,6 +1,7 @@
 import type { ElementType } from "react";
 
 export type SidebarNavItem<TUserRole = string, TUserType = string> = {
+  id: number;
   title: string;
   href?: string;
   items?: SidebarNavItem<TUserRole, TUserType>[];
