@@ -23,7 +23,7 @@ export function VBPayMainSidebar() {
   const license = useLicenseContext();
   const hasLicense = !!license;
 
-  const userAppAttrs = usersData?.usersAppAttrs;
+  const userAppAttrs = usersData?.usersAppAttrs ?? null;
   const rolesForSlug = userAppAttrs?.ids?.find(
     (id) => id.id === userAppAttrs.slug,
   )?.userRoles;
@@ -36,9 +36,9 @@ export function VBPayMainSidebar() {
   };
 
   const userData = {
-    firstName: usersData.firstName,
-    lastName: usersData.lastName,
-    email: usersData.email,
+    firstName: usersData.firstName ?? "",
+    lastName: usersData.lastName ?? "",
+    email: usersData.email ?? "",
   };
 
   const userAppAttrsForSidebar = {
@@ -49,7 +49,6 @@ export function VBPayMainSidebar() {
   };
 
   const icons = {
-    chevronDown: Icons.chevronDown,
     chevronRight: Icons.chevronRight,
     logo: Icons.logo,
     logoDark: Icons.logoDark,

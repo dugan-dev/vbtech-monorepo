@@ -1,3 +1,5 @@
+import type { ElementType } from "react";
+
 export type SidebarNavItem<TUserRole = string, TUserType = string> = {
   title: string;
   href?: string;
@@ -5,7 +7,7 @@ export type SidebarNavItem<TUserRole = string, TUserType = string> = {
   allowedUserTypes?: TUserType[];
   requiredRoles?: TUserRole[];
   isAdminOnly?: boolean;
-  icon?: React.ElementType;
+  icon?: ElementType;
 };
 
 export type UserAttributes<TUserRole = string, TUserType = string> = {

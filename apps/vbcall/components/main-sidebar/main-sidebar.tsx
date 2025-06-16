@@ -32,9 +32,9 @@ export function VBCallMainSidebar() {
   };
 
   const userData = {
-    firstName: usersData.firstName,
-    lastName: usersData.lastName,
-    email: usersData.email,
+    firstName: usersData.firstName ?? "",
+    lastName: usersData.lastName ?? "",
+    email: usersData.email ?? "",
   };
 
   const userAppAttrsForSidebar = {
@@ -45,7 +45,6 @@ export function VBCallMainSidebar() {
   };
 
   const icons = {
-    chevronDown: Icons.chevronDown,
     chevronRight: Icons.chevronRight,
     logo: Icons.logo,
     logoDark: Icons.logoDark,

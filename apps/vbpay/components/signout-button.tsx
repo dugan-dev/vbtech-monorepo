@@ -1,3 +1,4 @@
+import { APP_NAME } from "@/values/app-name";
 import { signOut } from "aws-amplify/auth";
 
 import { Button } from "@workspace/ui/components/button";
@@ -9,10 +10,21 @@ import {
 } from "@workspace/ui/components/tooltip";
 
 import { useConfirmationDialog } from "@/hooks/use-confirmation-dialog";
+import { useErrorDialog } from "@/hooks/use-error-dialog";
 import { ConfirmationDialog } from "@/components/confirmation-dialog";
 import { Icons } from "@/components/icons";
 
+import { ErrorDialog } from "./error-dialog";
+
 export function SignOutButton() {
+  const {
+    openErrorDialog,
+    isErrorDialogOpen,
+    errorMsg,
+    errorTitle,
+    closeErrorDialog,
+  } = useErrorDialog({});
+
   const {
     openConfDialog,
     isConfDialogOpen,
@@ -22,8 +34,13 @@ export function SignOutButton() {
     confDialogMsg,
   } = useConfirmationDialog({
     onConfirmAsync: async () => {
-      clearSidebarState("VB Pay");
-      await signOut();
+      try {
+        clearSidebarState(APP_NAME);
+        await signOut();
+      } catch (err) {
+        const error = err as Error;
+        openErrorDialog("Error Signing Out", error.message);
+      }
     },
     onConfirmAfterAsync: () => {
       window.location.reload();
@@ -31,7 +48,7 @@ export function SignOutButton() {
   });
 
   return (
-    <>
+    <Tooltip>
       {isConfDialogOpen && (
         <ConfirmationDialog
           open={isConfDialogOpen}
@@ -41,23 +58,29 @@ export function SignOutButton() {
           title={confDialogTitle}
         />
       )}
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            onClick={() =>
-              openConfDialog("Sign Out", "Are you sure you want to sign out?")
-            }
-            variant="ghost"
-            size="icon"
-            data-testid="sign-out-button"
-          >
-            <Icons.logout />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent data-testid="sign-out-button-tooltip-content">
-          Sign Out
-        </TooltipContent>
-      </Tooltip>
-    </>
+      {isErrorDialogOpen && (
+        <ErrorDialog
+          open={isErrorDialogOpen}
+          title={errorTitle}
+          description={errorMsg}
+          onOpenChange={closeErrorDialog}
+        />
+      )}
+      <TooltipTrigger asChild>
+        <Button
+          onClick={() =>
+            openConfDialog("Sign Out", "Are you sure you want to sign out?")
+          }
+          variant="ghost"
+          size="icon"
+          data-testid="sign-out-button"
+        >
+          <Icons.logout />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent data-testid="sign-out-button-tooltip-content">
+        Sign Out
+      </TooltipContent>
+    </Tooltip>
   );
 }

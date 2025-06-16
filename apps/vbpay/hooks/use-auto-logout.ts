@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { SignIn } from "@/routes";
+import { APP_NAME } from "@/values/app-name";
 import { signOut } from "aws-amplify/auth";
 
 import { clearSidebarState } from "@workspace/ui/components/main-sidebar/main-sidebar-cookies";
@@ -24,7 +25,7 @@ export function useAutoLogout(minutes = 10) {
     const resetTimer = () => {
       clearTimeout(logoutTimer);
       logoutTimer = setTimeout(async () => {
-        clearSidebarState("VB Pay");
+        clearSidebarState(APP_NAME);
         await signOut();
         router.push(SignIn({}));
       }, timeout);
@@ -44,5 +45,5 @@ export function useAutoLogout(minutes = 10) {
         window.removeEventListener(event, resetTimer),
       );
     };
-  }, []);
+  }, [minutes]);
 }

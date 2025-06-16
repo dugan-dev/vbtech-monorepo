@@ -43,7 +43,6 @@ type props<TUserRole = string, TUserType = string> = {
     slug?: string;
   };
   icons: {
-    chevronDown: React.ElementType;
     chevronRight: React.ElementType;
     logo: React.ElementType;
     logoDark: React.ElementType;
@@ -90,9 +89,7 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
 
   // Save state to cookie whenever it changes
   useEffect(() => {
-    if (Object.keys(openItems).length > 0) {
-      setCookieValue(config.appTitle, openItems);
-    }
+    setCookieValue(config.appTitle, openItems);
   }, [openItems, config.appTitle]);
 
   // Get user attributes for filtering

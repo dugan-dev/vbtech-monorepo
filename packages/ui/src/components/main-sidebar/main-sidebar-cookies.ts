@@ -36,7 +36,8 @@ export function setCookieValue(
 
   const cookieName = getCookieName(appTitle);
   const cookieValue = encodeURIComponent(JSON.stringify(value));
-  document.cookie = `${cookieName}=${cookieValue}; path=/; max-age=${COOKIE_MAX_AGE}`;
+  const secure = location.protocol === "https:" ? "; secure;" : "";
+  document.cookie = `${cookieName}=${cookieValue}; path=/; max-age=${COOKIE_MAX_AGE} sameSite=lax${secure}`;
 }
 
 /**
@@ -47,6 +48,7 @@ export function clearSidebarState(appTitle: string): void {
   if (typeof document === "undefined") return;
 
   const cookieName = getCookieName(appTitle);
+  const secure = location.protocol === "https:" ? "; secure;" : "";
   // Clear the cookie by setting it to expire in the past
-  document.cookie = `${cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+  document.cookie = `${cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT sameSite=lax${secure}`;
 }
