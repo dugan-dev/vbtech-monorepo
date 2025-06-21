@@ -2,30 +2,24 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
+import { ZodSchema } from "zod";
 
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
-type UpdatePasswordFormOutput = {
-  currentPassword: string;
-  newPassword: string;
-  confirmPassword: string;
-};
-
-type props = {
+type props<T extends object> = {
   updatePassword: (oldPassword: string, newPassword: string) => Promise<void>;
   closeDialog: () => void;
-  schema: z.ZodSchema;
-  defaultValues: UpdatePasswordFormOutput;
+  schema: ZodSchema<T>;
+  defaultValues: T;
 };
 
-export function useUpdatePasswordForm({
+export function useUpdatePasswordForm<T extends object>({
   updatePassword,
   closeDialog,
   schema,
   defaultValues,
-}: props) {
+}: props<T>) {
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -36,15 +30,16 @@ export function useUpdatePasswordForm({
     errorTitle,
   } = useErrorDialog({});
 
-  const form = useForm({
+  const form = useForm<T>({
     resolver: zodResolver(schema),
-    defaultValues,
+    defaultValues: defaultValues as import("react-hook-form").DefaultValues<T>,
   });
 
-  const onSubmit = async (formData: UpdatePasswordFormOutput) => {
+  const onSubmit = async (formData: T) => {
     setIsLoading(true);
 
     try {
+      // @ts-expect-error: The formData type is generic, but we expect currentPassword and newPassword fields
       await updatePassword(formData.currentPassword, formData.newPassword);
     } catch (e) {
       console.error(e);

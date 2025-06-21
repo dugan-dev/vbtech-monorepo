@@ -1,7 +1,10 @@
+"use client";
+
 import { APP_NAME } from "@/values/app-name";
 import { signOut } from "aws-amplify/auth";
 
 import { Button } from "@workspace/ui/components/button";
+import { ConfirmationDialog } from "@workspace/ui/components/common/confirmation-dialog";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { clearSidebarState } from "@workspace/ui/components/main-sidebar/main-sidebar-cookies";
 import {
@@ -12,8 +15,20 @@ import {
 import { useConfirmationDialog } from "@workspace/ui/hooks/use-confirmation-dialog";
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 
-import { ConfirmationDialog } from "@/components/confirmation-dialog";
 import { Icons } from "@/components/icons";
+
+type props = {
+  variant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
+  size?: "default" | "sm" | "lg" | "icon";
+  className?: string;
+  children?: React.ReactNode;
+};
 
 /**
  * Renders a button that allows the user to sign out, with confirmation and error dialogs.

@@ -5,12 +5,18 @@ import { usePathname } from "next/navigation";
 import { useLicenseContext } from "@/contexts/license-context";
 import { useUserContext } from "@/contexts/user-context";
 
+import { ThemeToggle } from "@workspace/ui/components/common/theme-toggle";
+import { UpdatePasswordForm } from "@workspace/ui/components/common/update-password-form";
+import { UserAvatar } from "@workspace/ui/components/common/user-avatar";
 import { MainSidebar } from "@workspace/ui/components/main-sidebar/main-sidebar";
 
 import { Icons } from "@/components/icons";
 import { MAIN_SIDEBAR_CONFIG } from "@/components/main-sidebar/main-sidebar-config";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { UserAvatar } from "@/components/user-avatar";
+import {
+  UpdatePasswordFormDefaultValues,
+  UpdatePasswordFormSchema,
+  type UpdatePasswordFormInput,
+} from "@/components/update-password-form/update-password-form-schema";
 
 /**
  * Renders the main sidebar navigation for the VB Pay application using the shared MainSidebar component.
@@ -56,7 +62,25 @@ export function VBPayMainSidebar() {
 
   const components = {
     ThemeToggle,
-    UserAvatar,
+    UserAvatar: () => (
+      <UserAvatar
+        firstName={userData.firstName}
+        lastName={userData.lastName}
+        email={userData.email}
+        icons={{
+          lock: Icons.lock,
+          logout: Icons.logout,
+        }}
+        UpdatePasswordForm={(props) => (
+          <UpdatePasswordForm<UpdatePasswordFormInput>
+            {...props}
+            icons={{ loader: Icons.loader }}
+            schema={UpdatePasswordFormSchema}
+            defaultValues={UpdatePasswordFormDefaultValues}
+          />
+        )}
+      />
+    ),
     Link,
   };
 

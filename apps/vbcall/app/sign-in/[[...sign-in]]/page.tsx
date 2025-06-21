@@ -5,10 +5,11 @@ import { redirect } from "next/navigation";
 import { RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
+import { SignInPage } from "@workspace/ui/components/auth/sign-in-page";
 import { getClientIP } from "@workspace/ui/utils/get-client-ip";
 import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
-import { SignInCard } from "./components/sign-in-card";
+import { Icons } from "@/components/icons";
 
 // Adapter function to convert Headers to plain object for getClientIP
 function getClientIpFromHeaders(headers: Headers) {
@@ -42,8 +43,10 @@ export default async function SignIn() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <SignInCard />
-    </main>
+    <SignInPage
+      Logo={<Icons.logo height={80} width={150} />}
+      LogoDark={<Icons.logoDark height={80} width={150} />}
+      LoaderIcon={<Icons.loader className="mr-2 h-4 w-4 animate-spin" />}
+    />
   );
 }
