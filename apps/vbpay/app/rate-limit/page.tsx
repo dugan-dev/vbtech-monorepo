@@ -3,12 +3,10 @@ import "server-only";
 import { redirect } from "next/navigation";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
-import {
-  pageApiLimiter,
-  RateLimiterRes,
-} from "@workspace/ui/lib/rate-limiter-flexible";
+import getRateLimitStatus from "@workspace/ui/components/common/rate-limit-page";
+import { pageApiLimiter } from "@workspace/ui/lib/rate-limiter-flexible";
 
-import { RateLimitCard } from "./components/rate-limit-card";
+import { RateLimitCardClient } from "./components/rate-limit-card-client";
 
 /**
  * Authenticates the user, applies rate limiting, and either redirects or displays a wait time.
@@ -27,24 +25,12 @@ export default async function Page({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const [user, { url }] = await Promise.all([
-    authenticatedUser(),
+  const retryIn = await getRateLimitStatus({
     searchParams,
-  ]);
+    authenticatedUser,
+    pageApiLimiter,
+    redirect,
+  });
 
-  let retryIn = 0;
-
-  try {
-    await pageApiLimiter.consume(user?.userId || "unknown");
-  } catch (error) {
-    const rlError = error as RateLimiterRes;
-    retryIn = Math.ceil(rlError.msBeforeNext / 1000);
-  }
-
-  if (retryIn === 0) {
-    const redirectUrl = url ? (url as string) : "/";
-    redirect(redirectUrl);
-  }
-
-  return <RateLimitCard retryIn={retryIn} />;
+  return <RateLimitCardClient retryIn={retryIn} />;
 }

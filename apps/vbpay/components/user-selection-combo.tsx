@@ -71,8 +71,7 @@ export function UserSelectionCombo({
       // Force immediate update without transition
       setPId(slug, { shallow: true });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug, pId]);
+  }, [slug, pId, setPId]);
 
   function toggleLock() {
     if (isLocked) {

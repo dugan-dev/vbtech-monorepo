@@ -95,8 +95,7 @@ export function AddNetworkEntityProvider({ children }: props) {
     if (!sheetOpen) {
       resetAllForms();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sheetOpen]);
+  }, [sheetOpen, resetAllForms]);
 
   const [nppesSearchSelection, setNppesSearchSelection] =
     useState<AddNetworkEntityFormInput>(AddNetworkEntityFormDefaultValues);
@@ -117,7 +116,6 @@ export function AddNetworkEntityProvider({ children }: props) {
         setSheetState("search");
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nppesSearchSelection]);
 
   const nppesSearchForm = useForm<NppesNetworkEntitySearchFormInput>({

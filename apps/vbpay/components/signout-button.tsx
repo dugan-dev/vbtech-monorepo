@@ -17,19 +17,6 @@ import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 
 import { Icons } from "@/components/icons";
 
-type props = {
-  variant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link";
-  size?: "default" | "sm" | "lg" | "icon";
-  className?: string;
-  children?: React.ReactNode;
-};
-
 /**
  * Renders a button that allows the user to sign out, with confirmation and error dialogs.
  *

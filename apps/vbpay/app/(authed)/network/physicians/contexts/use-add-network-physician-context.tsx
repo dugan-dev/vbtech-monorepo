@@ -131,8 +131,7 @@ export function AddNetworkPhysicianProvider({
     if (!sheetOpen) {
       resetAllForms();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sheetOpen]);
+  }, [sheetOpen, resetAllForms]);
 
   const [nppesSearchSelection, setNppesSearchSelection] =
     useState<AddNetworkPhysicianFormInput>(
@@ -163,7 +162,6 @@ export function AddNetworkPhysicianProvider({
         setSheetState("search");
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nppesSearchSelection]);
 
   const nppesSearchForm = useForm<NppesNetworkPhysicianSearchFormInput>({
@@ -392,7 +390,6 @@ export function AddNetworkPhysicianProvider({
     if (nppesApiResponseData.length > 0) {
       setSheetState("search");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Create the context value with explicit typing

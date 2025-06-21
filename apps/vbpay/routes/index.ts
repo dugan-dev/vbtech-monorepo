@@ -22,11 +22,11 @@ import * as ManagePaymentRatesRoute from "@/app/(authed)/payment/rates/page.info
 import * as QueuesCompletedRoute from "@/app/(authed)/queues/completed/page.info";
 import * as QueuesManageRoute from "@/app/(authed)/queues/manage/page.info";
 import * as QueuesWorkRoute from "@/app/(authed)/queues/work/page.info";
-import * as RateLimitRoute from "@/app/(authed)/rate-limit/page.info";
 import * as SetupRoute from "@/app/(authed)/setup/page.info";
 import * as ShareFilesRoute from "@/app/(authed)/share/files/page.info";
 import * as ShareNotificationDetailRoute from "@/app/(authed)/share/notifications/[slug]/page.info";
 import * as RecentShareNotificationsRoute from "@/app/(authed)/share/notifications/recent/page.info";
+import * as RateLimitRoute from "@/app/rate-limit/page.info";
 import * as SignInRoute from "@/app/sign-in/[[...sign-in]]/page.info";
 
 import { makeRoute } from "./makeRoute";
@@ -128,10 +128,6 @@ export const QueuesWork = makeRoute("/(authed)/queues/work", {
   ...defaultInfo,
   ...QueuesWorkRoute.Route,
 });
-export const RateLimit = makeRoute("/(authed)/rate-limit", {
-  ...defaultInfo,
-  ...RateLimitRoute.Route,
-});
 export const Setup = makeRoute("/(authed)/setup", {
   ...defaultInfo,
   ...SetupRoute.Route,
@@ -154,6 +150,10 @@ export const RecentShareNotifications = makeRoute(
     ...RecentShareNotificationsRoute.Route,
   },
 );
+export const RateLimit = makeRoute("/rate-limit", {
+  ...defaultInfo,
+  ...RateLimitRoute.Route,
+});
 export const SignIn = makeRoute("/sign-in/[[...sign-in]]", {
   ...defaultInfo,
   ...SignInRoute.Route,
