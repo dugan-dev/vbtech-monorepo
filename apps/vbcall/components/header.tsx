@@ -3,6 +3,7 @@
 import { Fragment } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { getPageTitle } from "@/utils/get-page-title";
+import { signOut } from "aws-amplify/auth";
 
 import {
   Breadcrumb,
@@ -12,12 +13,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb";
+import { SignoutButton } from "@workspace/ui/components/common/signout-button";
 import { Separator } from "@workspace/ui/components/separator";
 import { SidebarTrigger } from "@workspace/ui/components/sidebar";
 
 import { BreadcrumbItemType } from "@/types/breadcrumb-item";
 import { UserSelectionData } from "@/types/user-selection-data";
-import { SignOutButton } from "@/components/signout-button";
 
 import { UserSelectionCombo } from "./user-selection-combo";
 
@@ -87,7 +88,7 @@ export function Header({
             defaultLock={userSelectionData.defaultLock}
           />
         )}
-        <SignOutButton />
+        <SignoutButton signOut={signOut} />
       </div>
     </header>
   );

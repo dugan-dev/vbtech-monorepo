@@ -1,4 +1,4 @@
-import { customAlphabet } from "nanoid";
+import { customAlphabet } from "@workspace/ui/lib/nanoid";
 
 const length = 12;
 

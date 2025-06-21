@@ -1,4 +1,5 @@
 import { Button } from "@workspace/ui/components/button";
+import { ConfirmationDialog } from "@workspace/ui/components/common/confirmation-dialog";
 import {
   Dialog,
   DialogContent,
@@ -20,7 +21,6 @@ import {
 } from "@workspace/ui/components/tooltip";
 
 import { UserCognito } from "@/types/user-cognito";
-import { ConfirmationDialog } from "@/components/confirmation-dialog";
 import { Icons } from "@/components/icons";
 
 import { useUserManagementDropdown } from "../../hooks/use-user-management-dropdown";

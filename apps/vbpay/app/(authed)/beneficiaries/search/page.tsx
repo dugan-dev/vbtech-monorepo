@@ -1,30 +1,42 @@
 import "server-only";
 
-import { unauthorized } from "next/navigation";
-import { BeneficiariesSearch } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { BeneficiariesSearch, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
-const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+// Adapter function to convert Headers to plain object for getClientIP
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
 
 /**
- * Renders the Beneficiary Search page for authenticated users.
+ * Renders the beneficiaries search page for authenticated users with permitted roles.
  *
- * This server component concurrently checks user authentication and page rate limiting.
- * If no authenticated user is found, it immediately returns an unauthorized response.
- * Otherwise, it renders the "Beneficiary Search" page wrapped in a component that restricts access
- * based on specific allowed user types.
+ * Awaits user authentication, enforces rate limiting, and restricts access to users with allowed roles.
  *
- * @returns A JSX element representing either the restricted Beneficiary Search page for authenticated users or an unauthorized response.
+ * @returns The beneficiaries search page as a JSX element, or an unauthorized response if the user is not authenticated.
  */
 export default async function Page() {
-  // Check rate limiter
   const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: BeneficiariesSearch({}) }),
+    checkPageRateLimit({
+      pathname: BeneficiariesSearch({}),
+      config: {
+        getHeaders: headers,
+        redirect,
+        getRateLimitRoute: () => RateLimit({}),
+        authenticatedUser,
+        getClientIp: getClientIpFromHeaders,
+      },
+    }),
   ]);
 
   if (!user) {
@@ -33,10 +45,12 @@ export default async function Page() {
 
   return (
     <RestrictByUserAppAttrsServer
-      allowedUserTypes={ALLOWED_USER_TYPES}
+      allowedUserTypes={["bpo", "payers", "payer"] as UserType[]}
       userId={user.userId}
     >
-      <h1>Beneficiary Search</h1>
+      <div className="flex-1 flex flex-col space-y-4">
+        <h1>Beneficiaries Search</h1>
+      </div>
     </RestrictByUserAppAttrsServer>
   );
 }

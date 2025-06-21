@@ -5,9 +5,10 @@ import "server-only";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
+import { newPubId } from "@workspace/ui/lib/nanoid";
+
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
-import { newPubId } from "@/lib/nanoid";
 import { authedActionClient } from "@/lib/safe-action";
 
 import { PhysPyConfigFormSchema } from "../components/py-config/phys-py-config-form-schema";

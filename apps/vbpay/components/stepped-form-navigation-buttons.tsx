@@ -1,7 +1,7 @@
 import { Button } from "@workspace/ui/components/button";
 import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-button";
+import { SteppedFormStep } from "@workspace/ui/types/stepped-form-step";
 
-import { SteppedFormStep } from "@/types/stepped-form-step";
 import { Icons } from "@/components/icons";
 
 type props = {

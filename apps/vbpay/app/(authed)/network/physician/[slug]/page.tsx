@@ -1,10 +1,13 @@
 import "server-only";
 
 import { Suspense } from "react";
-import { unauthorized } from "next/navigation";
-import { NetworkPhysician } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { NetworkPhysician, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { PhysEntityPaymentMethodCardSkeleton } from "@/components/phys-entity-payment-method-card/phys-entity-payment-method-card-skeleton";
@@ -19,6 +22,12 @@ import { PhysPyConfigCardSkeleton } from "./components/py-config/phys-py-config-
 import { PhysPyConfigCardServer } from "./components/py-config/phys-py-config-card.server";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer", "physician"];
+
+// Adapter function to convert Headers to plain object for getClientIP
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
 
 /**
  * Renders the physician network page as a server component with authentication and access control.
@@ -42,8 +51,19 @@ export default async function Page({
   const [{ perfYear }, user] = await Promise.all([
     searchParams,
     authenticatedUser(),
-    checkPageRateLimit({ pathname: NetworkPhysician({ slug }) }),
   ]);
+
+  // check page rate limit
+  await checkPageRateLimit({
+    pathname: NetworkPhysician({ slug }),
+    config: {
+      getHeaders: headers,
+      redirect,
+      getRateLimitRoute: () => RateLimit({}),
+      authenticatedUser,
+      getClientIp: getClientIpFromHeaders,
+    },
+  });
 
   if (!user) {
     return unauthorized();

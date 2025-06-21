@@ -3,17 +3,25 @@ import { ManageNetworkEntities } from "./components/manage-network-entities";
 import "server-only";
 
 import { Suspense } from "react";
-import { unauthorized } from "next/navigation";
-import { NetworkEntities } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+
+// Adapter function to convert Headers to plain object for getClientIP
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
 
 /**
  * Displays the network entity management page with authentication, rate limiting, and user-type restrictions.
@@ -34,7 +42,16 @@ export default async function Page({
   ]);
 
   // check page rate limit
-  await checkPageRateLimit({ pathname: NetworkEntities({}) });
+  await checkPageRateLimit({
+    pathname: "/network/entities",
+    config: {
+      getHeaders: headers,
+      redirect,
+      getRateLimitRoute: () => RateLimit({}),
+      authenticatedUser,
+      getClientIp: getClientIpFromHeaders,
+    },
+  });
 
   if (!user) {
     return unauthorized();

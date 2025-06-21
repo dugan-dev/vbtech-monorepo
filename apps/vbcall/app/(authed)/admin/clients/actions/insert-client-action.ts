@@ -5,9 +5,10 @@ import "server-only";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
+import { newPubId } from "@workspace/ui/lib/nanoid";
+
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserType } from "@/types/user-type";
-import { newPubId } from "@/lib/nanoid";
 import { authedActionClient } from "@/lib/safe-action";
 import { editUser } from "@/app/(authed)/admin/users/repos/user-management-repository";
 

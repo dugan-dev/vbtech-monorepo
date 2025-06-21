@@ -1,10 +1,13 @@
 import "server-only";
 
 import { Suspense } from "react";
-import { unauthorized } from "next/navigation";
-import { NetworkPayer } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { NetworkPayer, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -17,6 +20,12 @@ import { PayerPyConfigCardSkeleton } from "./components/py-config/payer-py-confi
 import { PayerPyConfigCardServer } from "./components/py-config/payer-py-config-card.server";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+
+// Adapter function to convert Headers to plain object for getClientIP
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
 
 /**
  * Renders the payer configuration page for authenticated users with permitted roles.
@@ -39,7 +48,16 @@ export default async function Page({
   ]);
 
   // check page rate limit
-  await checkPageRateLimit({ pathname: NetworkPayer({ slug }) });
+  await checkPageRateLimit({
+    pathname: NetworkPayer({ slug }),
+    config: {
+      getHeaders: headers,
+      redirect,
+      getRateLimitRoute: () => RateLimit({}),
+      authenticatedUser,
+      getClientIp: getClientIpFromHeaders,
+    },
+  });
 
   if (!user) {
     return unauthorized();

@@ -2,11 +2,11 @@
 
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
+import { SteppedFormHeader } from "@workspace/ui/components/forms/stepped-form-header";
+import { SteppedFormNavigationButtons } from "@workspace/ui/components/forms/stepped-form-navigation-buttons";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
 
-import { SteppedFormHeader } from "@/components/stepped-form-header";
-import { SteppedFormNavigationButtons } from "@/components/stepped-form-navigation-buttons";
-
+import type { HealthPlanFormWithRequiredIsActive } from "../../hooks/use-health-plan-form";
 import { useHealthPlanForm } from "../../hooks/use-health-plan-form";
 import { HealthPlanFormBasicInfoStep } from "./health-plan-form-basic-info-step";
 import { HealthPlanFormPBPsStep } from "./health-plan-form-pbps-step";
@@ -85,7 +85,7 @@ export function HealthPlanForm({
             <form
               onSubmit={form.handleSubmit((values) => {
                 // Ensure isActive is always defined for each PBP
-                const formattedData = {
+                const formattedData: HealthPlanFormWithRequiredIsActive = {
                   ...values,
                   pbps: values.pbps.map((pbp) => ({
                     ...pbp,

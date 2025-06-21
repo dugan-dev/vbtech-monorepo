@@ -1,34 +1,44 @@
 import "server-only";
 
 import { Suspense } from "react";
-import { unauthorized } from "next/navigation";
-import { AdminHealthPlans } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 import { ManageHealthPlans } from "./components/manage-health-plans";
 
+// Adapter function to convert Headers to plain object for getClientIP
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
+
 /**
- * Renders the admin health plans management page with authentication, authorization, and rate limiting.
+ * Serves the plans management page for authenticated users within rate limits.
  *
- * Authenticates the user and enforces rate limits before rendering the management interface. Only admin users with appropriate attributes can access the page. Displays a skeleton loader while the health plans management component loads.
- *
- * @param searchParams - A promise resolving to the URL query parameters.
- * @returns The health plans management interface for authorized admin users, or an unauthorized response if authentication fails.
+ * Enforces rate limiting and user authentication before rendering the plans management page. Returns an unauthorized response if the user is not authenticated. Only authenticated users with permitted user types can access this page. A loading skeleton is displayed while plans management data is loading.
  */
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const [{ cId }, user] = await Promise.all([
-    searchParams,
+export default async function Page() {
+  // Check rate limiter
+  const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: AdminHealthPlans({}) }),
+    checkPageRateLimit({
+      pathname: "/admin/plans",
+      config: {
+        getHeaders: headers,
+        redirect,
+        getRateLimitRoute: () => RateLimit({}),
+        authenticatedUser,
+        getClientIp: getClientIpFromHeaders,
+      },
+    }),
   ]);
 
   if (!user) {
@@ -38,10 +48,7 @@ export default async function Page({
   return (
     <RestrictByUserAppAttrsServer userId={user.userId} adminOnly>
       <Suspense fallback={<DataTableSkeleton columnCount={6} />}>
-        <ManageHealthPlans
-          userId={user.userId}
-          clientPubIdUrlParam={typeof cId === "string" ? cId : undefined}
-        />
+        <ManageHealthPlans userId={user.userId} />
       </Suspense>
     </RestrictByUserAppAttrsServer>
   );

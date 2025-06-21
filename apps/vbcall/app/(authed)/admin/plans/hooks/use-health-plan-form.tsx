@@ -12,7 +12,6 @@ import { updateHealthPlanAction } from "../actions/update-health-plan-action";
 import {
   HealthPlanFormData,
   HealthPlanFormDefaultValues,
-  HealthPlanFormInput,
   HealthPlanFormSchema,
 } from "../components/health-plan-form/health-plan-form-schema";
 import { HealthPlanFormStepValues } from "../components/health-plan-form/health-plan-form-step-values";
@@ -22,6 +21,20 @@ type props = {
   formData?: HealthPlanFormData;
   clientPubId: string;
   pubId?: string;
+};
+
+// Define a custom type that ensures isActive is always boolean
+export type HealthPlanFormWithRequiredIsActive = {
+  planName: string;
+  planId: string;
+  phoneNumber: string;
+  faxNumber: string;
+  pbps: {
+    pbpPubId: string;
+    isActive: boolean;
+    pbpId: string;
+    pbpName: string;
+  }[];
 };
 
 /**
@@ -43,7 +56,7 @@ export function useHealthPlanForm({
   pubId,
 }: props) {
   const [currentStep, setCurrentStep] = useState(formData ? 2 : 1);
-  const form = useForm<HealthPlanFormInput>({
+  const form = useForm<HealthPlanFormWithRequiredIsActive>({
     resolver: zodResolver(HealthPlanFormSchema),
     defaultValues: formData ?? HealthPlanFormDefaultValues,
   });
@@ -167,20 +180,6 @@ export function useHealthPlanForm({
       },
     },
   );
-
-  // Define a custom type that ensures isActive is always boolean
-  type HealthPlanFormWithRequiredIsActive = {
-    planName: string;
-    planId: string;
-    phoneNumber: string;
-    faxNumber: string;
-    pbps: {
-      pbpPubId: string;
-      isActive: boolean;
-      pbpId: string;
-      pbpName: string;
-    }[];
-  };
 
   function onSubmit(formData: HealthPlanFormWithRequiredIsActive) {
     if (formData && pubId) {

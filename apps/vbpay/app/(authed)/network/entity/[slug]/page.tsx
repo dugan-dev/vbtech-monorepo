@@ -1,10 +1,13 @@
 import "server-only";
 
 import { Suspense } from "react";
-import { unauthorized } from "next/navigation";
-import { NetworkEntity } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { NetworkEntity, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { PhysEntityPaymentMethodCardSkeleton } from "@/components/phys-entity-payment-method-card/phys-entity-payment-method-card-skeleton";
@@ -25,6 +28,12 @@ const ALLOWED_USER_TYPES: UserType[] = [
   "vendor",
 ];
 
+// Adapter function to convert Headers to plain object for getClientIP
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
+
 /**
  * Renders a network entity page for authenticated users, enforcing access control and rate limiting.
  *
@@ -41,7 +50,16 @@ export default async function Page({
   const [user, { slug }] = await Promise.all([authenticatedUser(), params]);
 
   // check page rate limit
-  await checkPageRateLimit({ pathname: NetworkEntity({ slug }) });
+  await checkPageRateLimit({
+    pathname: NetworkEntity({ slug }),
+    config: {
+      getHeaders: headers,
+      redirect,
+      getRateLimitRoute: () => RateLimit({}),
+      authenticatedUser,
+      getClientIp: getClientIpFromHeaders,
+    },
+  });
 
   if (!user) {
     return unauthorized();

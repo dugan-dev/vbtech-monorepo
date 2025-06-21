@@ -5,12 +5,12 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { useDidMountEffect } from "@workspace/ui/hooks/use-did-mount-effect";
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 
 import { UserCognito } from "@/types/user-cognito";
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
-import { useDidMountEffect } from "@/hooks/use-did-mount-effect";
 
 import { createUserAction } from "../action/create-user-action";
 import { editUserAction } from "../action/edit-user-action";
@@ -204,7 +204,7 @@ export function useSteppedUserForm({
       form.setValue("admin", false);
       setSelectedUserType(type as UserType);
     }
-  }, [type]);
+  });
 
   return {
     form,

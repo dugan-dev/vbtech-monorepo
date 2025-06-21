@@ -1,14 +1,23 @@
 import "server-only";
 
-import { unauthorized } from "next/navigation";
-import { Beneficiary } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+
+// Adapter function to convert Headers to plain object for getClientIP
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
 
 /**
  * Renders the Beneficiary page for authenticated users with rate limits enforced.
@@ -31,7 +40,16 @@ export default async function Page({
   // Check rate limiter
   const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: Beneficiary({ slug }) }),
+    checkPageRateLimit({
+      pathname: `/beneficiary/${slug}`,
+      config: {
+        getHeaders: headers,
+        redirect,
+        getRateLimitRoute: () => RateLimit({}),
+        authenticatedUser,
+        getClientIp: getClientIpFromHeaders,
+      },
+    }),
   ]);
 
   if (!user) {
@@ -43,7 +61,9 @@ export default async function Page({
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <h1>Beneficiary</h1>
+      <div className="flex-1 flex flex-col space-y-4">
+        <h1>Beneficiary: {slug}</h1>
+      </div>
     </RestrictByUserAppAttrsServer>
   );
 }

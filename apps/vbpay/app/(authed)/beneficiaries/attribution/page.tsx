@@ -1,29 +1,42 @@
 import "server-only";
 
-import { unauthorized } from "next/navigation";
-import { BeneficiariesAttribution } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { BeneficiariesAttribution, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
-const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
+// Adapter function to convert Headers to plain object for getClientIP
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
 
 /**
- * Renders the Beneficiary Attribution page with user access restrictions.
+ * Renders the beneficiaries attribution page for authenticated users with permitted roles.
  *
- * This asynchronous server component concurrently checks the rate limit and user authentication status.
- * If the user is not authenticated, it returns an unauthorized response. Otherwise, it wraps the page content
- * within a component that enforces access only for allowed user types.
+ * Awaits user authentication, enforces rate limiting, and restricts access to users with allowed roles.
  *
- * @returns A JSX element containing the page content or an unauthorized response based on user authentication.
+ * @returns The beneficiaries attribution page as a JSX element, or an unauthorized response if the user is not authenticated.
  */
 export default async function Page() {
-  // Check rate limiter
   const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: BeneficiariesAttribution({}) }),
+    checkPageRateLimit({
+      pathname: BeneficiariesAttribution({}),
+      config: {
+        getHeaders: headers,
+        redirect,
+        getRateLimitRoute: () => RateLimit({}),
+        authenticatedUser,
+        getClientIp: getClientIpFromHeaders,
+      },
+    }),
   ]);
 
   if (!user) {
@@ -32,10 +45,12 @@ export default async function Page() {
 
   return (
     <RestrictByUserAppAttrsServer
-      allowedUserTypes={ALLOWED_USER_TYPES}
+      allowedUserTypes={["bpo", "payers", "payer"] as UserType[]}
       userId={user.userId}
     >
-      <h1>Beneficiary Attribution</h1>
+      <div className="flex-1 flex flex-col space-y-4">
+        <h1>Beneficiaries Attribution</h1>
+      </div>
     </RestrictByUserAppAttrsServer>
   );
 }

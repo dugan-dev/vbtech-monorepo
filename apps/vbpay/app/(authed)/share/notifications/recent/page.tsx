@@ -1,12 +1,20 @@
-import { unauthorized } from "next/navigation";
-import { RecentShareNotifications } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserRole } from "@/types/user-role";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 const REQUIRED_USER_ROLES: UserRole[] = ["read-notifications"];
+
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
 
 /**
  * Renders the Recent Notifications page.
@@ -18,10 +26,18 @@ const REQUIRED_USER_ROLES: UserRole[] = ["read-notifications"];
  * @returns A React element displaying recent notifications for an authenticated user, or an unauthorized response.
  */
 export default async function Page() {
-  // Check rate limiter
   const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: RecentShareNotifications({}) }),
+    checkPageRateLimit({
+      pathname: "/share/notifications/recent",
+      config: {
+        getHeaders: headers,
+        redirect,
+        getRateLimitRoute: () => RateLimit({}),
+        authenticatedUser,
+        getClientIp: getClientIpFromHeaders,
+      },
+    }),
   ]);
 
   if (!user) {

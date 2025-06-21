@@ -83,9 +83,7 @@ export function PhysPyConfigForm({
         />
       )}
       <form
-        onSubmit={form.handleSubmit((data) =>
-          onSubmit(data as PhysPyConfigFormData),
-        )}
+        onSubmit={form.handleSubmit((data) => onSubmit(data))}
         className="space-y-8"
       >
         <fieldset

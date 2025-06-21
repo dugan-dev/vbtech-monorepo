@@ -3,15 +3,18 @@ import "server-only";
 import { headers } from "next/headers";
 import { getUsersData } from "@/repos/user-repository";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { getClientIp } from "@/utils/get-client-ip";
-import { getRateLimitWaitTimeMessage } from "@/utils/get-rate-limit-wait-time-message";
 import { createSafeActionClient } from "next-safe-action";
-import { RateLimiterRes } from "rate-limiter-flexible";
 import z from "zod";
 
-import { UserTypeEnum } from "@/types/user-type";
+import {
+  authedLimiter,
+  RateLimiterRes,
+  unauthedLimiter,
+} from "@workspace/ui/lib/rate-limiter-flexible";
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { getRateLimitWaitTimeMessage } from "@workspace/ui/utils/rate-limit/get-rate-limit-wait-time-message";
 
-import { authedLimiter, unauthedLimiter } from "./rate-limiter-flexible";
+import { UserTypeEnum } from "@/types/user-type";
 
 const unauthedActionClient = createSafeActionClient({
   defineMetadataSchema() {
@@ -34,7 +37,12 @@ const unauthedActionClient = createSafeActionClient({
   },
 }).use(async ({ next, metadata }) => {
   const headerList = await headers();
-  const ip = getClientIp(headerList);
+  const plainHeaders = Object.fromEntries(headerList.entries());
+  const ip = getClientIP(plainHeaders);
+
+  if (!ip) {
+    throw new Error("Could not determine client IP address for rate limiting.");
+  }
 
   // throw error if rate limit exceeded
   await unauthedLimiter.consume(ip).catch((error: RateLimiterRes) => {

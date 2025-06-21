@@ -4,11 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUserContext } from "@/contexts/user-context";
 
+import { ThemeToggle } from "@workspace/ui/components/common/theme-toggle";
 import { MainSidebar } from "@workspace/ui/components/main-sidebar/main-sidebar";
 
 import { Icons } from "@/components/icons";
 import { MAIN_SIDEBAR_CONFIG } from "@/components/main-sidebar/main-sidebar-config";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { UserAvatar } from "@/components/user-avatar";
 
 /**

@@ -6,10 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
+import { ThemeToggle } from "@workspace/ui/components/common/theme-toggle";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 
 import { Icons } from "@/components/icons";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 import { useSignInCard } from "../hooks/use-sign-in-card";
 import { ChangePasswordForm } from "./change-password-form";

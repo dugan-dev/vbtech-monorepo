@@ -1,12 +1,20 @@
-import { unauthorized } from "next/navigation";
-import { ShareNotificationDetail } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserRole } from "@/types/user-role";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 const REQUIRED_USER_ROLES: UserRole[] = ["read-notifications"];
+
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
 
 /**
  * Renders the Notification Detail page with access control.
@@ -25,11 +33,18 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-
-  // Check rate limiter
   const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: ShareNotificationDetail({ slug }) }),
+    checkPageRateLimit({
+      pathname: `/share/notifications/${slug}`,
+      config: {
+        getHeaders: headers,
+        redirect,
+        getRateLimitRoute: () => RateLimit({}),
+        authenticatedUser,
+        getClientIp: getClientIpFromHeaders,
+      },
+    }),
   ]);
 
   if (!user) {

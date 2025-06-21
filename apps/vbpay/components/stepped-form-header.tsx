@@ -1,4 +1,5 @@
-import { SteppedFormStep } from "@/types/stepped-form-step";
+import { SteppedFormStep } from "@workspace/ui/types/stepped-form-step";
+
 import { Icons } from "@/components/icons";
 
 type props = {
@@ -45,8 +46,10 @@ export function SteppedFormHeader({
                 setCurrentStep !== undefined &&
                 isEditing ? (
                   <Icons.check className="h-5 w-5" />
-                ) : (
+                ) : step.icon ? (
                   <step.icon className="h-5 w-5" />
+                ) : (
+                  <span className="h-5 w-5" />
                 )}
               </div>
               <div

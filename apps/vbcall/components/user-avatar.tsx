@@ -5,6 +5,8 @@ import { signOut } from "aws-amplify/auth";
 
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar";
 import { Button } from "@workspace/ui/components/button";
+import { ConfirmationDialog } from "@workspace/ui/components/common/confirmation-dialog";
+import { UpdatePasswordDialog } from "@workspace/ui/components/common/update-password-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,11 +15,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
+import { useConfirmationDialog } from "@workspace/ui/hooks/use-confirmation-dialog";
 
-import { useConfirmationDialog } from "@/hooks/use-confirmation-dialog";
-import { ConfirmationDialog } from "@/components/confirmation-dialog";
 import { Icons } from "@/components/icons";
-import { UpdatePasswordDialog } from "@/components/update-password-dialog";
+import { UpdatePasswordForm } from "@/components/update-password-form/update-password-form";
 
 type props = {
   firstName: string;
@@ -62,6 +63,7 @@ export function UserAvatar({ firstName, lastName, email }: props) {
       <UpdatePasswordDialog
         isOpen={isPasswordUpdateDialogOpen}
         closeDialog={() => setIsPasswordUpdateDialogOpen(false)}
+        UpdatePasswordForm={UpdatePasswordForm}
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

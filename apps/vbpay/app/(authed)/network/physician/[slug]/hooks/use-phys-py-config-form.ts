@@ -14,7 +14,6 @@ import { insertPhysPyConfigAction } from "../actions/insert-phys-py-config-actio
 import { updatePhysPyConfigAction } from "../actions/update-phys-py-config-action";
 import {
   PhysPyConfigFormData,
-  PhysPyConfigFormInput,
   PhysPyConfigFormOutput,
   PhysPyConfigFormSchema,
 } from "../components/py-config/phys-py-config-form-schema";
@@ -63,7 +62,7 @@ export function usePhysPyConfigForm({
   const revalidationPath = usePathname();
 
   // Set up react hook form
-  const form = useForm<PhysPyConfigFormInput>({
+  const form = useForm<PhysPyConfigFormOutput>({
     resolver: zodResolver(PhysPyConfigFormSchema),
     defaultValues: data,
     mode: "onChange",

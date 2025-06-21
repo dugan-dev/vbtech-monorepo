@@ -1,12 +1,13 @@
-import { getVBPayLicense } from "@/repos/license-repository";
-
 import "server-only";
 
 import { Suspense } from "react";
-import { redirect } from "next/navigation";
-import { Home, Setup, SignIn } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { NotSetupView } from "./components/not-setup-view";
 import { NotSetupViewSkeleton } from "./components/not-setup-view-skeleton";
@@ -16,24 +17,29 @@ import { NotSetupViewSkeleton } from "./components/not-setup-view-skeleton";
  *
  * Redirects unauthenticated users to the sign-in page and users with a valid license to the home page. If the user is authenticated but no license is present, renders the setup view within a suspense boundary using a loading skeleton as fallback.
  */
+
+// Adapter function to convert Headers to plain object for getClientIP
+function getClientIpFromHeaders(headers: Headers) {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}
+
 export default async function Page() {
-  // Check rate limiter
-  await checkPageRateLimit({ pathname: Setup({}) });
+  await checkPageRateLimit({
+    pathname: "/setup",
+    config: {
+      getHeaders: headers,
+      redirect,
+      getRateLimitRoute: () => RateLimit({}),
+      authenticatedUser,
+      getClientIp: getClientIpFromHeaders,
+    },
+  });
 
-  // check if user is signed in and if the app is licensed.
-  const [license, user] = await Promise.all([
-    getVBPayLicense(),
-    authenticatedUser(),
-  ]);
+  const user = await authenticatedUser();
 
-  // If the user is not signed in, redirect them to the sign in page
   if (!user) {
-    return redirect(SignIn({}));
-  }
-
-  // If the app is licensed, redirect them to the home page
-  if (license) {
-    return redirect(Home({}));
+    return unauthorized();
   }
 
   return (

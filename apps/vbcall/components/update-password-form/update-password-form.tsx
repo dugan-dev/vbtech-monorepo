@@ -1,12 +1,19 @@
 "use client";
 
+import { updatePassword } from "aws-amplify/auth";
+
 import { Button } from "@workspace/ui/components/button";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
+import { useUpdatePasswordForm } from "@workspace/ui/hooks/use-update-password-form";
 
-import { useUpdatePasswordForm } from "@/hooks/use-update-password-form";
 import { Icons } from "@/components/icons";
+
+import {
+  UpdatePasswordFormDefaultValues,
+  UpdatePasswordFormSchema,
+} from "./update-password-form-schema";
 
 type props = {
   closeDialog: () => void;
@@ -21,7 +28,14 @@ export function UpdatePasswordForm({ closeDialog }: props) {
     closeErrorDialog,
     onSubmit,
     isLoading,
-  } = useUpdatePasswordForm({ closeDialog });
+  } = useUpdatePasswordForm({
+    updatePassword: (oldPassword, newPassword) =>
+      updatePassword({ oldPassword, newPassword }),
+    closeDialog,
+    schema: UpdatePasswordFormSchema,
+    defaultValues: UpdatePasswordFormDefaultValues,
+  });
+
   return (
     <Form {...form}>
       {isErrorDialogOpen && (

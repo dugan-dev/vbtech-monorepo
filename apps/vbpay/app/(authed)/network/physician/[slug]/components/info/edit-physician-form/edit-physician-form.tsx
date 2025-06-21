@@ -32,10 +32,7 @@ import {
 } from "@/types/taxonomy-codes";
 
 import { useEditPhysicianForm } from "../../../hooks/use-edit-physician-form";
-import {
-  EditPhysicianFormData,
-  EditPhysicianFormOutput,
-} from "./edit-physician-form-schema";
+import { EditPhysicianFormData } from "./edit-physician-form-schema";
 
 type props = {
   onSuccess: () => void;
@@ -93,9 +90,7 @@ export function EditPhysicianForm({
             title={errorTitle}
           />
           <form
-            onSubmit={form.handleSubmit((data) =>
-              onSubmit(data as EditPhysicianFormOutput),
-            )}
+            onSubmit={form.handleSubmit((data) => onSubmit(data))}
             className="space-y-4"
           >
             <ScrollArea className="max-h-[90vh] overflow-y-auto pr-4">

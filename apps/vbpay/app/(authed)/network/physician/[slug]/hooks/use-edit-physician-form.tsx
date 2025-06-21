@@ -13,7 +13,6 @@ import { UserType } from "@/types/user-type";
 import { updatePhysicianAction } from "../actions/update-physician-action";
 import {
   EditPhysicianFormData,
-  EditPhysicianFormInput,
   EditPhysicianFormOutput,
   EditPhysicianFormSchema,
 } from "../components/info/edit-physician-form/edit-physician-form-schema";
@@ -57,7 +56,7 @@ export function useEditPhysicianForm({
   const { slug: pubId } = useParams();
 
   // set up react-hook-form
-  const form = useForm<EditPhysicianFormInput>({
+  const form = useForm<EditPhysicianFormOutput>({
     resolver: zodResolver(EditPhysicianFormSchema),
     defaultValues: formData,
   });
