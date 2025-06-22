@@ -3,11 +3,11 @@ import { NPPES_PROVIDER_STATUS_CODE_VALUES } from "@/values/nppes-api-values";
 import { ColumnDef } from "@tanstack/table-core";
 
 import { Button } from "@workspace/ui/components/button";
+import { ClientFormattedDate } from "@workspace/ui/components/common/client-formatted-date";
 import { DataTableColumnHeader } from "@workspace/ui/components/data-table/data-table-column-header";
 import { stringToTitleCase } from "@workspace/ui/lib/stringToTitleCase";
 
 import { NppesApiResponseResult } from "@/types/nppes-api-reponse";
-import { ClientFormattedDate } from "@/components/client-formatted-date";
 import {
   AddNetworkEntityFormDefaultValues,
   AddNetworkEntityFormInput,

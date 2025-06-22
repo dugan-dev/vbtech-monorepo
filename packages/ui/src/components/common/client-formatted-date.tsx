@@ -8,5 +8,6 @@ type props = {
 };
 
 export function ClientFormattedDate({ date, options }: props) {
-  return <>{formatDate({ date, options })}</>;
+  const dateTimeStr = formatDate({ date, options });
+  return <time dateTime={dateTimeStr}>{formatDate({ date, options })}</time>;
 }
