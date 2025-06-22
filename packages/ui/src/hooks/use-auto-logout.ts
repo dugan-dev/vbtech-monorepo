@@ -2,32 +2,15 @@
 
 import { useEffect } from "react";
 
-type props = {
-  signOut: () => Promise<void>;
-  minutes?: number;
-  onLogout?: () => void;
-  clearSidebarState?: (appName: string) => void;
-  appName?: string;
-};
-
 /**
- * React hook that automatically signs out the user after a specified period of inactivity.
+ * React hook that automatically calls a callback after a specified period of inactivity.
  *
- * @param signOut - Function to sign out the user
- * @param minutes - Number of minutes of inactivity before triggering automatic logout. Defaults to 10.
- * @param onLogout - Optional callback function to execute after logout.
- * @param clearSidebarState - Optional function to clear sidebar state.
- * @param appName - Optional app name for sidebar state clearing.
+ * @param onAutoLogout - Callback to call after inactivity.
+ * @param minutes - Number of minutes of inactivity before triggering. Defaults to 10.
  *
  * @remark The inactivity timer resets on user activity such as mouse movement, key presses, clicks, or scrolling.
  */
-export function useAutoLogout({
-  signOut,
-  minutes = 10,
-  onLogout,
-  clearSidebarState,
-  appName,
-}: props) {
+export function useAutoLogout(onAutoLogout: () => void, minutes = 10) {
   const timeout = minutes * 60 * 1000;
 
   useEffect(() => {
@@ -35,15 +18,7 @@ export function useAutoLogout({
 
     const resetTimer = () => {
       clearTimeout(logoutTimer);
-      logoutTimer = setTimeout(async () => {
-        if (clearSidebarState && appName) {
-          clearSidebarState(appName);
-        }
-        await signOut();
-        if (onLogout) {
-          onLogout();
-        }
-      }, timeout);
+      logoutTimer = setTimeout(onAutoLogout, timeout);
     };
 
     const activityEvents = ["mousemove", "keydown", "click", "scroll"];
@@ -60,5 +35,5 @@ export function useAutoLogout({
         window.removeEventListener(event, resetTimer),
       );
     };
-  }, [timeout, signOut, onLogout, clearSidebarState, appName]);
+  }, [minutes, onAutoLogout, timeout]);
 }

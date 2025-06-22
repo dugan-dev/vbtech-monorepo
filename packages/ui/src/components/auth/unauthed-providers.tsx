@@ -1,20 +1,22 @@
 "use client";
 
-import { ThemeProvider } from "@workspace/ui/components/auth/theme-provider";
+import { type ResourcesConfig } from "aws-amplify";
 
-type props = {
+import { AuthInitializer } from "@workspace/ui/components/auth/auth-initializer";
+
+export type UnauthedProvidersProps = {
   children: React.ReactNode;
+  authConfig: ResourcesConfig["Auth"];
 };
 
-export function UnauthedProviders({ children }: props) {
+export function UnauthedProviders({
+  children,
+  authConfig,
+}: UnauthedProvidersProps) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
+    <>
+      <AuthInitializer authConfig={authConfig} />
       {children}
-    </ThemeProvider>
+    </>
   );
 }

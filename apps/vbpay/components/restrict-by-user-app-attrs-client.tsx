@@ -1,4 +1,8 @@
+"use client";
+
 import { useUserContext } from "@/contexts/user-context";
+
+import { RestrictByUserAppAttrsClient as UIRestrictByUserAppAttrsClient } from "@workspace/ui/components/common/restrict-by-user-app-attrs-client";
 
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
@@ -22,35 +26,12 @@ type props = {
  *
  * @returns The children if all access conditions are met; otherwise, null.
  */
-export default function RestrictByUserAppAttrsClient({
-  children,
-  allowedUserTypes,
-  requiredUserRoles,
-  adminOnly = false,
-}: props) {
+export default function RestrictByUserAppAttrsClient(props: props) {
   const userData = useUserContext();
-  const usersAppAttrs = userData.usersAppAttrs;
-
-  if (adminOnly && !usersAppAttrs.admin) {
-    return null;
-  }
-
-  if (allowedUserTypes && !allowedUserTypes.includes(usersAppAttrs.type)) {
-    return null;
-  }
-
-  if (requiredUserRoles && requiredUserRoles.length > 0) {
-    const numIds = usersAppAttrs.ids?.length || 0;
-    const id = usersAppAttrs.slug
-      ? usersAppAttrs.ids?.find((id) => id.id === usersAppAttrs.slug)
-      : numIds === 1
-        ? usersAppAttrs.ids?.[0]
-        : null;
-
-    if (!requiredUserRoles.every((role) => id?.userRoles.includes(role))) {
-      return null;
-    }
-  }
-
-  return <>{children}</>;
+  return (
+    <UIRestrictByUserAppAttrsClient<UserType, UserRole>
+      {...props}
+      usersAppAttrs={userData.usersAppAttrs}
+    />
+  );
 }

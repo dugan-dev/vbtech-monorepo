@@ -1,21 +1,25 @@
 "use client";
 
-import { AuthProvider } from "@workspace/ui/components/auth/auth-provider";
-import { ThemeProvider } from "@workspace/ui/components/auth/theme-provider";
+import { ReactNode } from "react";
 
-type props = {
-  children: React.ReactNode;
+import {
+  AuthProvider,
+  AuthProviderConfig,
+} from "@workspace/ui/components/auth/auth-provider";
+
+type Props = {
+  children: ReactNode;
+  authProviderConfig: AuthProviderConfig;
 };
 
-export function AuthedProviders({ children }: props) {
-  return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <AuthProvider getUser={async () => null}>{children}</AuthProvider>
-    </ThemeProvider>
-  );
+/**
+ * Provides authentication context to all nested child components.
+ *
+ * Wraps {@link children} with {@link AuthProvider} to ensure access to authentication state throughout the component tree.
+ *
+ * @param children - React nodes to render within the context providers.
+ * @param authProviderConfig - Configuration for the AuthProvider
+ */
+export function AuthedProviders({ children, authProviderConfig }: Props) {
+  return <AuthProvider config={authProviderConfig}>{children}</AuthProvider>;
 }

@@ -1,6 +1,16 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { signOut } from "aws-amplify/auth";
+
+import { clearSidebarState } from "@workspace/ui/components/main-sidebar/main-sidebar-cookies";
+import { useAutoLogout } from "@workspace/ui/hooks/use-auto-logout";
 
 /**
  * Represents an authenticated user with basic information.
@@ -15,11 +25,27 @@ export type AuthUser = {
 } | null;
 
 /**
+ * Configuration for the AuthProvider.
+ */
+export type AuthProviderConfig = {
+  /** Function to get the current user from AWS Amplify */
+  getCurrentUser: () => Promise<AuthUser>;
+  /** Function to redirect to sign-in page */
+  redirectToSignIn: () => void;
+  /** App name for clearing sidebar state */
+  appName: string;
+  /** Auto-logout timeout in minutes */
+  autoLogoutMinutes?: number;
+  /** Whether to check auth on visibility change */
+  checkOnVisibilityChange?: boolean;
+};
+
+/**
  * Props for the AuthProvider component.
  */
 type props = {
-  /** Function to retrieve the current authenticated user */
-  getUser: () => Promise<AuthUser>;
+  /** Configuration for the auth provider */
+  config: AuthProviderConfig;
   /** React children to be wrapped by the auth context */
   children: React.ReactNode;
 };
@@ -27,23 +53,72 @@ type props = {
 const AuthContext = createContext<AuthUser>(null);
 
 /**
- * Provides authentication context to the application.
+ * Provides authentication context to the application with session management.
  *
- * This component manages the authentication state and provides it to all child components
- * through React Context. It automatically fetches the user on mount and updates the
- * context when the user state changes.
+ * This component manages the authentication state, handles session checking,
+ * redirects unauthenticated users, and provides auto-logout functionality.
+ * It automatically fetches the user on mount and updates the context when
+ * the user state changes.
  *
- * @param props - Configuration object containing getUser function and children
+ * @param props - Configuration object containing auth config and children
  * @returns AuthProvider component that wraps children with authentication context
  */
-export function AuthProvider({ getUser, children }: props) {
+export function AuthProvider({ config, children }: props) {
   const [user, setUser] = useState<AuthUser>(null);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  const {
+    getCurrentUser,
+    redirectToSignIn,
+    appName,
+    autoLogoutMinutes = 10,
+    checkOnVisibilityChange = true,
+  } = config;
+
+  const checkSession = useCallback(async () => {
+    try {
+      const currentUser = await getCurrentUser();
+      setUser(currentUser);
+
+      if (!currentUser) {
+        redirectToSignIn();
+      }
+    } catch {
+      setUser(null);
+      redirectToSignIn();
+    } finally {
+      setCheckingAuth(false);
+    }
+  }, [getCurrentUser, redirectToSignIn]);
 
   useEffect(() => {
-    getUser()
-      .then(setUser)
-      .catch(() => setUser(null));
-  }, [getUser]);
+    checkSession();
+
+    if (checkOnVisibilityChange) {
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "visible") {
+          checkSession();
+        }
+      };
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      return () =>
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange,
+        );
+    }
+  }, [checkSession, checkOnVisibilityChange]);
+
+  const handleAutoLogout = useCallback(async () => {
+    clearSidebarState(appName);
+    await signOut();
+    redirectToSignIn();
+  }, [appName, redirectToSignIn]);
+
+  useAutoLogout(handleAutoLogout, autoLogoutMinutes);
+
+  if (checkingAuth) return null;
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 }
