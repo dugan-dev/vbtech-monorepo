@@ -7,6 +7,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@workspace/ui/components/collapsible";
+import { ThemeToggle } from "@workspace/ui/components/common/theme-toggle";
+import { UserAvatar } from "@workspace/ui/components/common/user-avatar";
 import {
   Sidebar,
   SidebarContent,
@@ -46,10 +48,11 @@ type props<TUserRole = string, TUserType = string> = {
     chevronRight: React.ElementType;
     logo: React.ElementType;
     logoDark: React.ElementType;
+    lock: React.ElementType;
+    logout: React.ElementType;
+    loader: React.ElementType;
   };
   components: {
-    ThemeToggle: React.ElementType;
-    UserAvatar: React.ElementType;
     Link: React.ElementType;
   };
   pathname: string;
@@ -70,8 +73,15 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
   components,
   pathname,
 }: props<TUserRole, TUserType>) {
-  const { ThemeToggle, UserAvatar, Link } = components;
-  const { chevronRight: ChevronRight, logo: Logo, logoDark: LogoDark } = icons;
+  const {
+    chevronRight: ChevronRight,
+    logo: Logo,
+    logoDark: LogoDark,
+    lock: LockIcon,
+    logout: LogoutIcon,
+    loader: LoaderIcon,
+  } = icons;
+  const { Link } = components;
 
   // State for collapsible items
   const [openItems, setOpenItems] = useState<Record<string, boolean>>(() => {
@@ -242,6 +252,11 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
             firstName={userData.firstName}
             lastName={userData.lastName}
             email={userData.email}
+            icons={{
+              lock: LockIcon,
+              logout: LogoutIcon,
+              loader: LoaderIcon,
+            }}
           />
           <div className="min-w-0 flex-1">
             <p className="max-w-[180px] truncate text-sm font-medium">
