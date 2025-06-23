@@ -66,17 +66,16 @@ export function useSteppedPayerPyConfigForm({
   const steps = PayerPyConfigFormSteps;
   const [currentStep, setCurrentStep] = useState(1);
 
-  // Navigate to next step
-  const nextStep = () => {
+  // Navigate to next step (async for UI compatibility)
+  const nextStep = async () => {
     const canProceed = isStepValid(currentStep);
-
     if (canProceed || currentStep === 2) {
       setCurrentStep((prev) => Math.min(prev + 1, steps.length));
     }
   };
 
-  // Navigate to previous step
-  const prevStep = () => {
+  // Navigate to previous step (async for UI compatibility)
+  const prevStep = async () => {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 

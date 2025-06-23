@@ -142,5 +142,6 @@ export function useSteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
     prevStep,
     nextStep,
     currentStep,
+    setCurrentStep,
   };
 }
