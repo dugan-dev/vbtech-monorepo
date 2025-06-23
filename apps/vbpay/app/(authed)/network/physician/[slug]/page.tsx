@@ -6,7 +6,7 @@ import { redirect, unauthorized } from "next/navigation";
 import { NetworkPhysician, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
-import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
 import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
@@ -22,12 +22,6 @@ import { PhysPyConfigCardSkeleton } from "./components/py-config/phys-py-config-
 import { PhysPyConfigCardServer } from "./components/py-config/phys-py-config-card.server";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer", "physician"];
-
-// Adapter function to convert Headers to plain object for getClientIP
-function getClientIpFromHeaders(headers: Headers) {
-  const plainHeaders = Object.fromEntries(headers.entries());
-  return getClientIP(plainHeaders) || "unknown";
-}
 
 /**
  * Renders the physician network page as a server component with authentication and access control.

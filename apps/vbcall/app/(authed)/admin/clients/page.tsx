@@ -7,18 +7,12 @@ import { RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
-import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
 import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 import { ManageClients } from "./components/manage-clients";
-
-// Adapter function to convert Headers to plain object for getClientIP
-function getClientIpFromHeaders(headers: Headers) {
-  const plainHeaders = Object.fromEntries(headers.entries());
-  return getClientIP(plainHeaders) || "unknown";
-}
 
 export default async function Page() {
   // Check rate limiter

@@ -50,3 +50,25 @@ export function getClientIP(
 
   return undefined;
 }
+
+/**
+ * Adapter function to convert Next.js Headers to plain object for getClientIP.
+ *
+ * This function extracts the client IP from Next.js Headers object and returns
+ * a fallback value of "unknown" if no IP is found.
+ *
+ * @param headers - Next.js Headers object
+ * @returns The client IP address as a string, or "unknown" if not found
+ *
+ * @example
+ * ```typescript
+ * import { headers } from "next/headers";
+ *
+ * const ip = getClientIpFromHeaders(headers());
+ * // Returns: '192.168.1.1' or 'unknown'
+ * ```
+ */
+export function getClientIpFromHeaders(headers: Headers): string {
+  const plainHeaders = Object.fromEntries(headers.entries());
+  return getClientIP(plainHeaders) || "unknown";
+}

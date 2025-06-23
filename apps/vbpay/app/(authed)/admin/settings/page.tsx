@@ -6,7 +6,7 @@ import { redirect, unauthorized } from "next/navigation";
 import { AdminSettings, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
-import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
 import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -15,12 +15,6 @@ import { LicenseCardSkeleton } from "./components/license/license-card-skeleton"
 import { LicenseCardServer } from "./components/license/license-card.server";
 import { SettingsCardSkeleton } from "./components/settings/settings-card-skeleton";
 import { SettingsCardServer } from "./components/settings/settings-card.server";
-
-// Adapter function to convert Headers to plain object for getClientIP
-function getClientIpFromHeaders(headers: Headers) {
-  const plainHeaders = Object.fromEntries(headers.entries());
-  return getClientIP(plainHeaders) || "unknown";
-}
 
 /**
  * Renders the admin settings page, allowing access only to authenticated admin users and enforcing rate limiting.

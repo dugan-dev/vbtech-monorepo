@@ -3,16 +3,10 @@ import { redirect, unauthorized } from "next/navigation";
 import { RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
-import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
 import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { StandardLayout } from "@/components/standard-layout";
-
-// Adapter function to convert Headers to plain object for getClientIP
-function getClientIpFromHeaders(headers: Headers) {
-  const plainHeaders = Object.fromEntries(headers.entries());
-  return getClientIP(plainHeaders) || "unknown";
-}
 
 /**
  * Serves the home page for authenticated users within rate limits.

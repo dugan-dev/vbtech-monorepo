@@ -5,19 +5,13 @@ import { redirect, unauthorized } from "next/navigation";
 import { FileUpload, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
-import { getClientIP } from "@workspace/ui/utils/get-client-ip";
+import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
 import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
-
-// Adapter function to convert Headers to plain object for getClientIP
-function getClientIpFromHeaders(headers: Headers) {
-  const plainHeaders = Object.fromEntries(headers.entries());
-  return getClientIP(plainHeaders) || "unknown";
-}
 
 /**
  * Renders the File Upload page with concurrent rate limiting and authentication checks.
