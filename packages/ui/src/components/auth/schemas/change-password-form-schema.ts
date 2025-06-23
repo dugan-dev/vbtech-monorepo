@@ -1,22 +1,27 @@
 import { z } from "zod";
 
 /**
- * Zod schema for change password form validation.
+ * Zod schema for change password form validation during sign-in.
  *
  * This schema validates:
- * - Password: Minimum 8 characters with complexity requirements
+ * - Password: Minimum 12 characters with complexity requirements
  * - Confirm password: Must match the password field
  */
 export const ChangePasswordFormSchema = z
   .object({
     password: z
       .string()
-      .min(8, "Password must be at least 8 characters")
+      .min(12, "Password must be at least 12 characters")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+      .regex(/[0-9]/, "Password must contain at least one number")
       .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+        /[^A-Za-z0-9]/,
+        "Password must contain at least one special character",
       ),
-    confirmPassword: z.string().min(1, "Please confirm your password"),
+    confirmPassword: z
+      .string()
+      .min(12, "Password must be at least 12 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",

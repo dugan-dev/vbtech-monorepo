@@ -1,6 +1,14 @@
-import * as z from "zod";
+import { z } from "zod";
 
-const UpdatePasswordFormSchema = z
+/**
+ * Zod schema for update password form validation in user profile.
+ *
+ * This schema validates:
+ * - Current password: Required field
+ * - New password: Minimum 12 characters with complexity requirements
+ * - Confirm password: Must match the new password field
+ */
+export const UpdatePasswordFormSchema = z
   .object({
     currentPassword: z
       .string()
@@ -24,20 +32,20 @@ const UpdatePasswordFormSchema = z
     path: ["confirmPassword"],
   });
 
-type UpdatePasswordFormData = z.infer<typeof UpdatePasswordFormSchema>;
-type UpdatePasswordFormInput = z.input<typeof UpdatePasswordFormSchema>;
-type UpdatePasswordFormOutput = z.output<typeof UpdatePasswordFormSchema>;
+/**
+ * TypeScript types for the update password form.
+ */
+export type UpdatePasswordFormData = z.infer<typeof UpdatePasswordFormSchema>;
+export type UpdatePasswordFormInput = z.input<typeof UpdatePasswordFormSchema>;
+export type UpdatePasswordFormOutput = z.output<
+  typeof UpdatePasswordFormSchema
+>;
 
-const UpdatePasswordFormDefaultValues: UpdatePasswordFormInput = {
+/**
+ * Default values for the update password form.
+ */
+export const UpdatePasswordFormDefaultValues: UpdatePasswordFormInput = {
   currentPassword: "",
   newPassword: "",
   confirmPassword: "",
-};
-
-export {
-  UpdatePasswordFormSchema,
-  UpdatePasswordFormDefaultValues,
-  type UpdatePasswordFormData,
-  type UpdatePasswordFormInput,
-  type UpdatePasswordFormOutput,
 };

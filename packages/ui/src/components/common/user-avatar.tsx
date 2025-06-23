@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar";
 import { Button } from "@workspace/ui/components/button";
 import { ConfirmationDialog } from "@workspace/ui/components/common/confirmation-dialog";
 import { UpdatePasswordDialog } from "@workspace/ui/components/common/update-password-dialog";
+import { UpdatePasswordForm } from "@workspace/ui/components/common/update-password-form";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,8 +28,8 @@ type UserAvatarProps = {
   icons: {
     lock: React.ElementType;
     logout: React.ElementType;
+    loader: React.ElementType;
   };
-  UpdatePasswordForm: React.ComponentType<{ closeDialog: () => void }>;
 };
 
 /**
@@ -40,7 +41,7 @@ type UserAvatarProps = {
  * - Change password functionality
  * - Sign out with confirmation dialog
  *
- * @param props - Component props including user data, icons, and password form
+ * @param props - Component props including user data and icons
  * @returns UserAvatar component with dropdown menu and user actions
  */
 export function UserAvatar({
@@ -48,7 +49,6 @@ export function UserAvatar({
   lastName,
   email,
   icons,
-  UpdatePasswordForm,
 }: UserAvatarProps) {
   const {
     confirm,
@@ -89,7 +89,9 @@ export function UserAvatar({
       <UpdatePasswordDialog
         isOpen={isPasswordUpdateDialogOpen}
         closeDialog={() => setIsPasswordUpdateDialogOpen(false)}
-        UpdatePasswordForm={UpdatePasswordForm}
+        UpdatePasswordForm={(props) => (
+          <UpdatePasswordForm {...props} icons={{ loader: icons.loader }} />
+        )}
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

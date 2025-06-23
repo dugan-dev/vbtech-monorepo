@@ -1,24 +1,32 @@
 "use client";
 
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { updatePassword } from "aws-amplify/auth";
-import { ZodSchema } from "zod";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
+import {
+  UpdatePasswordFormDefaultValues,
+  UpdatePasswordFormSchema,
+  type UpdatePasswordFormInput,
+  type UpdatePasswordFormOutput,
+} from "@workspace/ui/components/auth/schemas/update-password-form.schema";
 import { Button } from "@workspace/ui/components/button";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
-import { useUpdatePasswordForm } from "@workspace/ui/hooks/use-update-password-form";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
 /**
  * Props for the UpdatePasswordForm component.
  */
-type UpdatePasswordFormProps<T extends object> = {
+type UpdatePasswordFormProps = {
   closeDialog: () => void;
   icons: {
     loader: React.ElementType;
   };
-  schema: ZodSchema<T>;
-  defaultValues: T;
 };
 
 /**
@@ -31,30 +39,52 @@ type UpdatePasswordFormProps<T extends object> = {
  * - Loading states and error handling
  * - Integration with AWS Amplify auth
  *
- * @param props - Component props including close handler, icons, and form schema
+ * @param props - Component props including close handler and icons
  * @returns UpdatePasswordForm component with password update functionality
  */
-export function UpdatePasswordForm<T extends object>({
+export function UpdatePasswordForm({
   closeDialog,
   icons,
-  schema,
-  defaultValues,
-}: UpdatePasswordFormProps<T>) {
+}: UpdatePasswordFormProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
-    form,
     isErrorDialogOpen,
-    errorTitle,
-    errorMsg,
+    openErrorDialog,
     closeErrorDialog,
-    onSubmit,
-    isLoading,
-  } = useUpdatePasswordForm({
-    updatePassword: (oldPassword, newPassword) =>
-      updatePassword({ oldPassword, newPassword }),
-    closeDialog,
-    schema,
-    defaultValues,
+    errorMsg,
+    errorTitle,
+  } = useErrorDialog({});
+
+  const form = useForm<UpdatePasswordFormInput>({
+    resolver: zodResolver(UpdatePasswordFormSchema),
+    defaultValues: UpdatePasswordFormDefaultValues,
   });
+
+  const onSubmit = async (formData: UpdatePasswordFormOutput) => {
+    setIsLoading(true);
+
+    try {
+      await updatePassword({
+        oldPassword: formData.currentPassword,
+        newPassword: formData.newPassword,
+      });
+    } catch (e) {
+      console.error(e);
+      openErrorDialog("Error", getErrorMessage(e));
+      setIsLoading(false);
+      return;
+    }
+
+    closeDialog();
+
+    toast("Success", {
+      description: "Your password has been updated successfully.",
+      dismissible: true,
+      duration: 10000,
+      position: "top-center",
+    });
+  };
 
   const LoaderIcon = icons.loader;
 
@@ -69,12 +99,7 @@ export function UpdatePasswordForm<T extends object>({
         />
       )}
 
-      <form
-        onSubmit={form.handleSubmit(
-          onSubmit as import("react-hook-form").SubmitHandler<unknown>,
-        )}
-        className="grid gap-2 py-4"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2 py-4">
         <FormPasswordInput
           control={form.control}
           name="currentPassword"
