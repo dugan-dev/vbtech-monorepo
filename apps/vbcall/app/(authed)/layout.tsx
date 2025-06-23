@@ -5,30 +5,12 @@ import { UserProvider } from "@/contexts/user-context";
 import { getUsersData } from "@/repos/user-repository";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { APP_NAME } from "@/values/app-name";
-import { getCurrentUser as amplifyGetCurrentUser } from "aws-amplify/auth";
 
-import { AuthUser } from "@workspace/ui/components/auth/auth-provider";
 import { AuthedProviders } from "@workspace/ui/components/auth/authed-providers";
 import { ThemeProvider } from "@workspace/ui/components/auth/theme-provider";
+import { getCurrentUser } from "@workspace/ui/utils/get-current-user";
 
 import { VBCallMainSidebar } from "@/components/main-sidebar/main-sidebar";
-
-async function getCurrentUser(): Promise<AuthUser> {
-  try {
-    const user = await amplifyGetCurrentUser();
-    if (!user || !user.userId || !user.username || !user.signInDetails)
-      return null;
-    const { loginId, authFlowType } = user.signInDetails;
-    if (!loginId || !authFlowType) return null;
-    return {
-      userId: user.userId,
-      username: user.username,
-      signInDetails: { loginId, authFlowType },
-    };
-  } catch {
-    return null;
-  }
-}
 
 /**
  * Renders the authenticated application layout, enforcing user authentication and providing user context to its children.
