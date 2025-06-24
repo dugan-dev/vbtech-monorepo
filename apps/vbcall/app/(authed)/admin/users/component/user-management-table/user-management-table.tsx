@@ -1,8 +1,8 @@
 "use client";
 
+import { EmptyView } from "@workspace/ui/components/common/empty-view";
 import { DataTable } from "@workspace/ui/components/data-table/data-table";
 
-import { EmptyView } from "@/components/empty-view";
 import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 

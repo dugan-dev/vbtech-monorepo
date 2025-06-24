@@ -1,9 +1,12 @@
 import "server-only";
 
-import { unauthorized } from "next/navigation";
-import { BeneficiariesAlignment } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { BeneficiariesAlignment, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -23,7 +26,16 @@ export default async function Page() {
   // Check rate limiter
   const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: BeneficiariesAlignment({}) }),
+    checkPageRateLimit({
+      pathname: BeneficiariesAlignment({}),
+      config: {
+        getHeaders: headers,
+        redirect,
+        getRateLimitRoute: () => RateLimit({}),
+        authenticatedUser,
+        getClientIp: getClientIpFromHeaders,
+      },
+    }),
   ]);
 
   if (!user) {
@@ -35,7 +47,9 @@ export default async function Page() {
       allowedUserTypes={ALLOWED_USER_TYPES}
       userId={user.userId}
     >
-      <h1>Beneficiary Alignment</h1>
+      <div className="flex-1 flex flex-col space-y-4">
+        <h1>Beneficiary Alignment</h1>
+      </div>
     </RestrictByUserAppAttrsServer>
   );
 }

@@ -9,8 +9,12 @@ import { getVBPayLicense } from "@/repos/license-repository";
 import { getUsersData } from "@/repos/user-repository";
 import { Setup } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
+import { APP_NAME } from "@/values/app-name";
 
-import { AuthedProviders } from "@/components/authed-providers";
+import { AuthedProviders } from "@workspace/ui/components/auth/authed-providers";
+import { ThemeProvider } from "@workspace/ui/components/auth/theme-provider";
+import { getCurrentUser } from "@workspace/ui/utils/get-current-user";
+
 import { VBPayMainSidebar } from "@/components/main-sidebar/main-sidebar";
 
 /**
@@ -44,27 +48,42 @@ export default async function AuthedLayout({
 
   const userData = await getUsersData({ userId: user.userId });
 
+  const authProviderConfig = {
+    getCurrentUser,
+    redirectToSignIn: () => {}, // No-op for SSR, handled in client
+    appName: APP_NAME,
+    autoLogoutMinutes: 10,
+    checkOnVisibilityChange: true,
+  };
+
   return (
-    <AuthedProviders>
-      <UserProvider
-        usersData={{
-          usersAppAttrs: userData.usersAppAttrs,
-          firstName: userData.firstName ?? "",
-          lastName: userData.lastName ?? "",
-          email: userData.email ?? "",
-        }}
-      >
-        <LicenseProvider license={license}>
-          <SettingsProvider settings={settings}>
-            <div className="flex flex-1">
-              <VBPayMainSidebar />
-              <div className="flex-1">
-                <div className="h-full overflow-y-auto">{children}</div>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <AuthedProviders authProviderConfig={authProviderConfig}>
+        <UserProvider
+          usersData={{
+            usersAppAttrs: userData.usersAppAttrs,
+            firstName: userData.firstName ?? "",
+            lastName: userData.lastName ?? "",
+            email: userData.email ?? "",
+          }}
+        >
+          <LicenseProvider license={license}>
+            <SettingsProvider settings={settings}>
+              <div className="flex flex-1">
+                <VBPayMainSidebar />
+                <div className="flex-1">
+                  <div className="h-full overflow-y-auto">{children}</div>
+                </div>
               </div>
-            </div>
-          </SettingsProvider>
-        </LicenseProvider>
-      </UserProvider>
-    </AuthedProviders>
+            </SettingsProvider>
+          </LicenseProvider>
+        </UserProvider>
+      </AuthedProviders>
+    </ThemeProvider>
   );
 }

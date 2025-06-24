@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
+import { ClientFormattedDate } from "@workspace/ui/components/common/client-formatted-date";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 
 import {
@@ -15,7 +16,6 @@ import {
 import { LicenseType, LicenseTypeLabels } from "@/types/license-type";
 import { PaymentTypeLabels, PaymentTypeType } from "@/types/payment-type";
 import { UserType } from "@/types/user-type";
-import { ClientFormattedDate } from "@/components/client-formatted-date";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 import { SetupFormData } from "@/components/setup-form/setup-form-schema";
 

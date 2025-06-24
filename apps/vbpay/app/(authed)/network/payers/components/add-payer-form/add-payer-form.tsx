@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
@@ -19,7 +20,6 @@ import { formatTaxId } from "@workspace/ui/lib/formatTaxId";
 
 import { PerfMonthLabels, PerfMonths } from "@/types/perf-month";
 import { PerfYears } from "@/types/perf-year";
-import { ErrorDialog } from "@/components/error-dialog";
 
 import { useAddPayerForm } from "../../hooks/use-add-payer-form";
 

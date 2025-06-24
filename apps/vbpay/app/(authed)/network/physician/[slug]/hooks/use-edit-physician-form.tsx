@@ -6,13 +6,13 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+
 import { UserType } from "@/types/user-type";
-import { useErrorDialog } from "@/hooks/use-error-dialog";
 
 import { updatePhysicianAction } from "../actions/update-physician-action";
 import {
   EditPhysicianFormData,
-  EditPhysicianFormInput,
   EditPhysicianFormOutput,
   EditPhysicianFormSchema,
 } from "../components/info/edit-physician-form/edit-physician-form-schema";
@@ -56,7 +56,7 @@ export function useEditPhysicianForm({
   const { slug: pubId } = useParams();
 
   // set up react-hook-form
-  const form = useForm<EditPhysicianFormInput>({
+  const form = useForm<EditPhysicianFormOutput>({
     resolver: zodResolver(EditPhysicianFormSchema),
     defaultValues: formData,
   });

@@ -8,8 +8,6 @@ import { MainSidebar } from "@workspace/ui/components/main-sidebar/main-sidebar"
 
 import { Icons } from "@/components/icons";
 import { MAIN_SIDEBAR_CONFIG } from "@/components/main-sidebar/main-sidebar-config";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { UserAvatar } from "@/components/user-avatar";
 
 /**
  * Renders the main sidebar navigation for the VB Call application using the shared MainSidebar component.
@@ -48,11 +46,12 @@ export function VBCallMainSidebar() {
     chevronRight: Icons.chevronRight,
     logo: Icons.logo,
     logoDark: Icons.logoDark,
+    lock: Icons.lock,
+    logout: Icons.logout,
+    loader: Icons.loader,
   };
 
   const components = {
-    ThemeToggle,
-    UserAvatar,
     Link,
   };
 

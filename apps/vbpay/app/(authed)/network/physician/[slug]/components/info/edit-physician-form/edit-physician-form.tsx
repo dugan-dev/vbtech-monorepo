@@ -1,6 +1,7 @@
 "use client";
 
 import { EditButton } from "@workspace/ui/components/edit-button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
@@ -29,13 +30,9 @@ import {
   TaxonomyCodeDisplayNames,
   TaxonomyCodes,
 } from "@/types/taxonomy-codes";
-import { ErrorDialog } from "@/components/error-dialog";
 
 import { useEditPhysicianForm } from "../../../hooks/use-edit-physician-form";
-import {
-  EditPhysicianFormData,
-  EditPhysicianFormOutput,
-} from "./edit-physician-form-schema";
+import { EditPhysicianFormData } from "./edit-physician-form-schema";
 
 type props = {
   onSuccess: () => void;
@@ -93,9 +90,7 @@ export function EditPhysicianForm({
             title={errorTitle}
           />
           <form
-            onSubmit={form.handleSubmit((data) =>
-              onSubmit(data as EditPhysicianFormOutput),
-            )}
+            onSubmit={form.handleSubmit((data) => onSubmit(data))}
             className="space-y-4"
           >
             <ScrollArea className="max-h-[90vh] overflow-y-auto pr-4">

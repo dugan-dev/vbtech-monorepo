@@ -1,9 +1,12 @@
 import "server-only";
 
-import { unauthorized } from "next/navigation";
-import { QueuesManage } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { QueuesManage, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -20,10 +23,18 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
  * @returns A React element representing the Manage Queues page or an unauthorized response if access is denied.
  */
 export default async function Page() {
-  // Check rate limiter
   const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: QueuesManage({}) }),
+    checkPageRateLimit({
+      pathname: QueuesManage({}),
+      config: {
+        getHeaders: headers,
+        redirect,
+        getRateLimitRoute: () => RateLimit({}),
+        authenticatedUser,
+        getClientIp: getClientIpFromHeaders,
+      },
+    }),
   ]);
 
   if (!user) {

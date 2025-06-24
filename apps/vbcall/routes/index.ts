@@ -6,9 +6,9 @@ import * as AdminHealthPlansRoute from "@/app/(authed)/admin/plans/page.info";
 import * as AdminUsersRoute from "@/app/(authed)/admin/users/page.info";
 import * as AgentRoute from "@/app/(authed)/agent/page.info";
 import * as HomeRoute from "@/app/(authed)/page.info";
-import * as RateLimitRoute from "@/app/(authed)/rate-limit/page.info";
 import * as CallLogRoute from "@/app/(authed)/reporting/call-log/page.info";
 import * as DashboardRoute from "@/app/(authed)/reporting/dashboard/page.info";
+import * as RateLimitRoute from "@/app/rate-limit/page.info";
 import * as SignInRoute from "@/app/sign-in/[[...sign-in]]/page.info";
 
 import { makeRoute } from "./makeRoute";
@@ -37,10 +37,6 @@ export const Agent = makeRoute("/(authed)/agent", {
   ...defaultInfo,
   ...AgentRoute.Route,
 });
-export const RateLimit = makeRoute("/(authed)/rate-limit", {
-  ...defaultInfo,
-  ...RateLimitRoute.Route,
-});
 export const CallLog = makeRoute("/(authed)/reporting/call-log", {
   ...defaultInfo,
   ...CallLogRoute.Route,
@@ -48,6 +44,10 @@ export const CallLog = makeRoute("/(authed)/reporting/call-log", {
 export const Dashboard = makeRoute("/(authed)/reporting/dashboard", {
   ...defaultInfo,
   ...DashboardRoute.Route,
+});
+export const RateLimit = makeRoute("/rate-limit", {
+  ...defaultInfo,
+  ...RateLimitRoute.Route,
 });
 export const SignIn = makeRoute("/sign-in/[[...sign-in]]", {
   ...defaultInfo,

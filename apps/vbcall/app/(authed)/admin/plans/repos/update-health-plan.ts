@@ -1,8 +1,7 @@
 import "server-only";
 
+import { newPubId } from "@workspace/ui/lib/nanoid";
 import { db } from "@workspace/vbcall-db/database";
-
-import { newPubId } from "@/lib/nanoid";
 
 import { HealthPlanFormOutput } from "../components/health-plan-form/health-plan-form-schema";
 

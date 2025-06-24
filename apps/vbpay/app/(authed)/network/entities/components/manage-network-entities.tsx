@@ -3,7 +3,7 @@ import "server-only";
 import { getAllPayers } from "@/repos/payer-repository";
 import { getUsersData } from "@/repos/user-repository";
 
-import { MissingInvalidView } from "@/components/missing-invalid-view";
+import { MissingInvalidView } from "@workspace/ui/components/common/missing-invalid-view";
 
 import { getNetworkEntitiesForTable } from "../repos/getNetworkEntitiesForTable";
 import { ManageNetworkEntitiesTable } from "./manage-network-entities-table/manage-network-entities-table";

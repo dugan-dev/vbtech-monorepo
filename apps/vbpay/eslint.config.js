@@ -1,4 +1,18 @@
-import { nextJsConfig } from "@workspace/eslint-config/next-js"
+import { nextJsConfig } from "@workspace/eslint-config/next-js";
 
 /** @type {import("eslint").Linter.Config} */
-export default nextJsConfig
+const config = [
+  ...nextJsConfig,
+  {
+    rules: {
+      "react/no-unknown-property": [
+        "warn",
+        {
+          ignore: ["pl-input"],
+        },
+      ],
+    },
+  },
+];
+
+export default config;

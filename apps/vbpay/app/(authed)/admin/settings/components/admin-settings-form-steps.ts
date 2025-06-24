@@ -1,4 +1,5 @@
-import { SteppedFormStep } from "@/types/stepped-form-step";
+import { SteppedFormStep } from "@workspace/ui/types/stepped-form-step";
+
 import { Icons } from "@/components/icons";
 
 export const AdminSettingsFormSteps: SteppedFormStep[] = [

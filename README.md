@@ -64,6 +64,16 @@ We use shadcn/ui for our component library. Components are stored in `packages/u
 import { Button } from "@workspace/ui/components/button";
 ```
 
+The UI package includes:
+
+- **Basic UI Components**: Button, Card, Input, Form, etc.
+- **Specialized Components**: DataTable, MainSidebar, SteppedForm components
+- **Authentication Components**: AuthProvider, AuthInitializer, UpdatePasswordForm
+- **Rate Limiting Utilities**: Page and API rate limiting functions
+- **Utility Functions**: Date formatting, client IP extraction, validation helpers
+
+For comprehensive documentation of all available components, utilities, and usage examples, see the [UI Package README](packages/ui/README.md).
+
 To add new shadcn/ui components, run:
 
 ```bash

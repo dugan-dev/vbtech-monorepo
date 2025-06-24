@@ -1,10 +1,13 @@
 import "server-only";
 
 import { Suspense } from "react";
-import { unauthorized } from "next/navigation";
-import { NetworkPhysician } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { NetworkPhysician, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+
+import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { PhysEntityPaymentMethodCardSkeleton } from "@/components/phys-entity-payment-method-card/phys-entity-payment-method-card-skeleton";
@@ -42,8 +45,19 @@ export default async function Page({
   const [{ perfYear }, user] = await Promise.all([
     searchParams,
     authenticatedUser(),
-    checkPageRateLimit({ pathname: NetworkPhysician({ slug }) }),
   ]);
+
+  // check page rate limit
+  await checkPageRateLimit({
+    pathname: NetworkPhysician({ slug }),
+    config: {
+      getHeaders: headers,
+      redirect,
+      getRateLimitRoute: () => RateLimit({}),
+      authenticatedUser,
+      getClientIp: getClientIpFromHeaders,
+    },
+  });
 
   if (!user) {
     return unauthorized();

@@ -27,6 +27,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { InputDefaultClassname } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
@@ -47,13 +48,12 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { stringToTitleCase } from "@workspace/ui/lib/stringToTitleCase";
 
 import { PayloadPaymentMethod } from "@/types/payload-payment-method";
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
-import { useErrorDialog } from "@/hooks/use-error-dialog";
-import { ErrorDialog } from "@/components/error-dialog";
 import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 

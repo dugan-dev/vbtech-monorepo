@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Home } from "@/routes";
+import { signOut } from "aws-amplify/auth";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -11,8 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-
-import { SignOutButton } from "@/components/signout-button";
+import { SignoutButton } from "@workspace/ui/components/common/signout-button";
 
 export default function ForbiddenPage() {
   return (
@@ -37,7 +37,7 @@ export default function ForbiddenPage() {
           <Button variant="outline" asChild>
             <Link href={Home({})}>Go Home</Link>
           </Button>
-          <SignOutButton />
+          <SignoutButton signOut={signOut} />
         </CardFooter>
       </Card>
     </div>

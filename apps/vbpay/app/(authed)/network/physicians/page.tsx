@@ -3,12 +3,14 @@ import { ManageNetworkPhysicians } from "./components/manage-network-physicians"
 import "server-only";
 
 import { Suspense } from "react";
-import { unauthorized } from "next/navigation";
-import { NetworkPhysicians } from "@/routes";
+import { headers } from "next/headers";
+import { redirect, unauthorized } from "next/navigation";
+import { NetworkPhysicians, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
+import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -28,17 +30,25 @@ export default async function Page({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  // check page rate limit
-  await checkPageRateLimit({ pathname: NetworkPhysicians({}) });
-
-  const [{ pId }, user] = await Promise.all([
-    searchParams,
+  const [user] = await Promise.all([
     authenticatedUser(),
+    checkPageRateLimit({
+      pathname: NetworkPhysicians({}),
+      config: {
+        getHeaders: headers,
+        redirect,
+        getRateLimitRoute: () => RateLimit({}),
+        authenticatedUser,
+        getClientIp: getClientIpFromHeaders,
+      },
+    }),
   ]);
 
   if (!user) {
     return unauthorized();
   }
+
+  const { pId } = await searchParams;
 
   return (
     <RestrictByUserAppAttrsServer

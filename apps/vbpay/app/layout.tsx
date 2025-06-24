@@ -2,9 +2,11 @@ import { Play } from "next/font/google";
 
 import "@workspace/ui/globals.css";
 
+import { ThemeProvider } from "@workspace/ui/components/auth/theme-provider";
+import { UnauthedProviders } from "@workspace/ui/components/auth/unauthed-providers";
 import { Toaster } from "@workspace/ui/components/sonner";
 
-import { UnauthedProviders } from "@/components/unauthed-providers";
+import { authConfig } from "@/lib/auth/config";
 
 const fontSans = Play({
   subsets: ["latin"],
@@ -35,12 +37,19 @@ export default function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased `}
       >
-        <UnauthedProviders>
-          <div className="flex-1">
-            <div className="h-full overflow-y-auto">{children}</div>
-          </div>
-          <Toaster />
-        </UnauthedProviders>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <UnauthedProviders authConfig={authConfig}>
+            <div className="flex-1">
+              <div className="h-full overflow-y-auto">{children}</div>
+            </div>
+            <Toaster />
+          </UnauthedProviders>
+        </ThemeProvider>
       </body>
     </html>
   );

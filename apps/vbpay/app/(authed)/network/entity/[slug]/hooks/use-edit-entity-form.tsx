@@ -6,8 +6,9 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+
 import { UserType } from "@/types/user-type";
-import { useErrorDialog } from "@/hooks/use-error-dialog";
 
 import { updateEntityAction } from "../actions/update-entity-action";
 import {

@@ -6,7 +6,8 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { useErrorDialog } from "@/hooks/use-error-dialog";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+
 import {
   SetupFormDefaultValues,
   SetupFormInput,
@@ -141,5 +142,6 @@ export function useSteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
     prevStep,
     nextStep,
     currentStep,
+    setCurrentStep,
   };
 }

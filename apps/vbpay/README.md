@@ -40,12 +40,14 @@ pnpm dev --filter vbpay
 ```
 apps/vbpay/
 ├── app/ # App pages and API routes
-├── components/ # Reusable UI components
+├── components/ # App-specific UI components
 ├── env/ # Environment configuration
-├── hooks/ # Custom React hooks
+├── hooks/ # App-specific React hooks
 ├── routes/ # Type-safe route definitions
-└── utils/ # Utility functions
+└── utils/ # App-specific utility functions
 ```
+
+**Note**: Many shared utilities and components have been moved to the `@workspace/ui` package. See the [UI Package README](../../packages/ui/README.md) for available shared components and utilities.
 
 ## Environment Variables
 

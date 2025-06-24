@@ -1,9 +1,13 @@
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { Home, SignIn as SignInRoute } from "@/routes";
+import { Home, RateLimit, SignIn as SignInRoute } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
-import { SignInCard } from "./components/sign-in-card";
+import { SignInPage } from "@workspace/ui/components/auth/sign-in-page";
+import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
+import { checkPageRateLimit } from "@workspace/ui/utils/rate-limit/check-page-rate-limit";
+
+import { Icons } from "@/components/icons";
 
 /**
  * Renders the sign-in page or redirects to the home page if the user is authenticated.
@@ -15,15 +19,27 @@ import { SignInCard } from "./components/sign-in-card";
 export default async function SignIn() {
   const [user] = await Promise.all([
     authenticatedUser(),
-    checkPageRateLimit({ pathname: SignInRoute({}) }),
+    checkPageRateLimit({
+      pathname: SignInRoute({}),
+      config: {
+        getHeaders: headers,
+        redirect,
+        getRateLimitRoute: () => RateLimit({}),
+        authenticatedUser,
+        getClientIp: getClientIpFromHeaders,
+      },
+    }),
   ]);
 
   if (user) {
     return redirect(Home({}));
   }
+
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <SignInCard />
-    </main>
+    <SignInPage
+      Logo={<Icons.logo height={80} width={150} />}
+      LogoDark={<Icons.logoDark height={80} width={150} />}
+      LoaderIcon={<Icons.loader className="mr-2 h-4 w-4 animate-spin" />}
+    />
   );
 }
