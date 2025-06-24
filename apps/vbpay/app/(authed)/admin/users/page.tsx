@@ -5,7 +5,7 @@ import "server-only";
 import { Suspense } from "react";
 import { headers } from "next/headers";
 import { redirect, unauthorized } from "next/navigation";
-import { RateLimit } from "@/routes";
+import { AdminUsers, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
@@ -27,7 +27,7 @@ export default async function Page() {
   const [user] = await Promise.all([
     authenticatedUser(),
     checkPageRateLimit({
-      pathname: "/admin/users",
+      pathname: AdminUsers({}),
       config: {
         getHeaders: headers,
         redirect,

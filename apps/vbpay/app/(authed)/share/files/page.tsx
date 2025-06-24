@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { redirect, unauthorized } from "next/navigation";
-import { RateLimit } from "@/routes";
+import { RateLimit, ShareFiles } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
 import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
@@ -26,7 +26,7 @@ export default async function Page() {
   const [user] = await Promise.all([
     authenticatedUser(),
     checkPageRateLimit({
-      pathname: "/share/files",
+      pathname: ShareFiles({}),
       config: {
         getHeaders: headers,
         redirect,

@@ -2,7 +2,7 @@ import "server-only";
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { RateLimit } from "@/routes";
+import { RateLimit, SignIn as SignInRoute } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
 import { SignInPage } from "@workspace/ui/components/auth/sign-in-page";
@@ -22,6 +22,7 @@ export default async function SignIn() {
   const [user] = await Promise.all([
     authenticatedUser(),
     checkPageRateLimit({
+      pathname: SignInRoute({}),
       config: {
         getHeaders: headers,
         redirect,

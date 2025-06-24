@@ -3,7 +3,7 @@ import "server-only";
 import { Suspense } from "react";
 import { headers } from "next/headers";
 import { redirect, unauthorized } from "next/navigation";
-import { RateLimit } from "@/routes";
+import { RateLimit, Setup } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
 import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
@@ -20,7 +20,7 @@ import { NotSetupViewSkeleton } from "./components/not-setup-view-skeleton";
 
 export default async function Page() {
   await checkPageRateLimit({
-    pathname: "/setup",
+    pathname: Setup({}),
     config: {
       getHeaders: headers,
       redirect,

@@ -2,7 +2,7 @@ import "server-only";
 
 import { headers } from "next/headers";
 import { redirect, unauthorized } from "next/navigation";
-import { RateLimit } from "@/routes";
+import { ManagePaymentBatches, RateLimit } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 
 import { getClientIpFromHeaders } from "@workspace/ui/utils/get-client-ip";
@@ -25,7 +25,7 @@ export default async function Page() {
   const [user] = await Promise.all([
     authenticatedUser(),
     checkPageRateLimit({
-      pathname: "/payment/batches",
+      pathname: ManagePaymentBatches({}),
       config: {
         getHeaders: headers,
         redirect,
