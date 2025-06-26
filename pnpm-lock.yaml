@@ -151,8 +151,8 @@ importers:
         specifier: 15.3.3
         version: 15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-safe-action:
-        specifier: 8.0.2
-        version: 8.0.2(next@15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 8.0.7
+        version: 8.0.7(next@15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-themes:
         specifier: 0.4.6
         version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -263,8 +263,8 @@ importers:
         specifier: 15.3.3
         version: 15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-safe-action:
-        specifier: 8.0.2
-        version: 8.0.2(next@15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 8.0.7
+        version: 8.0.7(next@15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-themes:
         specifier: 0.4.6
         version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -4364,8 +4364,8 @@ packages:
     resolution: {integrity: sha512-md4cGoxuT4T4d/HDOXbrUHkTKrp/vp+m3aOA7XXVYwNsUNMK49g3SQicTSeV5GIz/5QVGAeYRAOlyp9OvlgsYA==}
     engines: {node: '>=10'}
 
-  next-safe-action@8.0.2:
-    resolution: {integrity: sha512-0xwxKRxDEbZryCtu5iiUEUKK+KOnrvH6HQMARj+HAFlsilcGUkD4thWT4WcFrb4we21yxmzwec0dMBzPS2SFWQ==}
+  next-safe-action@8.0.7:
+    resolution: {integrity: sha512-clQRxsvf4nZktCYkP1seeNH5rOZjsx6VYSAlpphvXvW+INIBvGySEStKutwtAPFV0/uZFJmNPt77ankoepUYXQ==}
     engines: {node: '>=18.17'}
     peerDependencies:
       next: '>= 14.0.0'
@@ -10610,7 +10610,7 @@ snapshots:
 
   new-github-issue-url@0.2.1: {}
 
-  next-safe-action@8.0.2(next@15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  next-safe-action@8.0.7(next@15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       next: 15.3.3(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
