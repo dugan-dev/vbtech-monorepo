@@ -114,7 +114,6 @@ To modify the theme, edit the CSS variables in `packages/ui/src/styles/globals.c
 ## Contributing
 
 1. Branch naming:
-
    - Feature: `feat/ABC-123-description`
    - Bug Fix: `fix/ABC-123-description`
    - Chore: `chore/ABC-123-description`
@@ -136,7 +135,6 @@ To modify the theme, edit the CSS variables in `packages/ui/src/styles/globals.c
 ## Local Development Setup
 
 1. Prerequisites:
-
    - Node.js >= 20
    - pnpm >= 10.4.1
    - AWS CLI configured with SSO
