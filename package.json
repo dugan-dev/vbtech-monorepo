@@ -21,7 +21,7 @@
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "husky": "9.1.7",
-    "prettier": "3.5.3",
+    "prettier": "3.6.2",
     "prettier-plugin-prisma": "5.0.0",
     "prettier-plugin-tailwindcss": "0.6.13",
     "sst": "3.17.5",
