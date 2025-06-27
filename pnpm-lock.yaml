@@ -400,6 +400,67 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
+  apps/web-armare:
+    dependencies:
+      '@t3-oss/env-nextjs':
+        specifier: 0.13.8
+        version: 0.13.8(arktype@2.1.20)(typescript@5.8.3)(zod@3.25.67)
+      '@workspace/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      babel-plugin-react-compiler:
+        specifier: 19.1.0-rc.2
+        version: 19.1.0-rc.2
+      lucide-react:
+        specifier: 0.524.0
+        version: 0.524.0(react@19.1.0)
+      next:
+        specifier: 15.3.4
+        version: 15.3.4(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next-themes:
+        specifier: 0.4.6
+        version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      query-string:
+        specifier: 9.2.1
+        version: 9.2.1
+      react:
+        specifier: 19.1.0
+        version: 19.1.0
+      react-dom:
+        specifier: 19.1.0
+        version: 19.1.0(react@19.1.0)
+      server-only:
+        specifier: 0.0.1
+        version: 0.0.1
+      sharp:
+        specifier: 0.34.2
+        version: 0.34.2
+      sst:
+        specifier: 3.17.8
+        version: 3.17.8
+      zod:
+        specifier: 3.25.67
+        version: 3.25.67
+    devDependencies:
+      '@types/node':
+        specifier: 24.0.6
+        version: 24.0.6
+      '@types/react':
+        specifier: 19.1.8
+        version: 19.1.8
+      '@types/react-dom':
+        specifier: 19.1.6
+        version: 19.1.6(@types/react@19.1.8)
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+
   packages/db:
     dependencies:
       '@prisma/client':
