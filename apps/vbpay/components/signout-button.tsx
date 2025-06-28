@@ -14,7 +14,7 @@ import { useErrorDialog } from "@/hooks/use-error-dialog";
 import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
 import { Icons } from "@/components/icons";
 
-import { ErrorDialog } from "./error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 
 /**
  * Renders a button that allows the user to sign out, with confirmation and error dialogs.

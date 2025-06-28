@@ -4,7 +4,7 @@ import { EditButton } from "@workspace/ui/components/edit-button";
 import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
 
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { SteppedFormHeader } from "@/components/stepped-form-header";
 import { SteppedFormNavigationButtons } from "@/components/stepped-form-navigation-buttons";
 

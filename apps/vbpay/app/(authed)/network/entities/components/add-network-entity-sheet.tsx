@@ -17,7 +17,7 @@ import {
   SheetTrigger,
 } from "@workspace/ui/components/sheet";
 
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 import { NppesNetworkEntitySearchForm } from "@/components/nppes-network-entity-search-form/nppes-network-entity-search-form";
 import { NppesNetworkEntityResultsTable } from "@/components/nppes-network-entity-table/nppes-network-entity-table";

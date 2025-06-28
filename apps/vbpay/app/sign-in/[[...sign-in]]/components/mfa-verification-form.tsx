@@ -6,7 +6,7 @@ import { Button } from "@workspace/ui/components/button";
 import { Form } from "@workspace/ui/components/form";
 import { FormInputOtp } from "@workspace/ui/components/form/form-input-otp";
 
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { useMfaVerificationForm } from "../hooks/use-mfa-verification-form";

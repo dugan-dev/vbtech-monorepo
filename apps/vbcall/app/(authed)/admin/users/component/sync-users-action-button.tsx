@@ -14,7 +14,7 @@ import { cn } from "@workspace/ui/lib/utils";
 
 import { useErrorDialog } from "@/hooks/use-error-dialog";
 import { ClientFormattedDate } from "@/components/client-formatted-date";
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { syncUsersAction } from "../action/sync-users-action";

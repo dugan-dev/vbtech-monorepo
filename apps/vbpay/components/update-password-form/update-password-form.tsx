@@ -5,7 +5,7 @@ import { Form } from "@workspace/ui/components/form";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
 
 import { useUpdatePasswordForm } from "@/hooks/use-update-password-form";
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 type props = {

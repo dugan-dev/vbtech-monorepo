@@ -8,7 +8,7 @@ import {
 } from "@workspace/ui/components/card";
 import { ThemeToggle } from "@workspace/ui/components/theme-toggle";
 
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { useSignInCard } from "../hooks/use-sign-in-card";

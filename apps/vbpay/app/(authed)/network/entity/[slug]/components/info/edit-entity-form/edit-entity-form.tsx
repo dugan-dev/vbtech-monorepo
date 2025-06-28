@@ -14,7 +14,7 @@ import {
   NetworkEntityTypeLabels,
   NetworkEntityTypes,
 } from "@/types/network-entity-type";
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 
 import { useEditEntityForm } from "../../../hooks/use-edit-entity-form";
 import { EditEntityFormData } from "./edit-entity-form-schema";

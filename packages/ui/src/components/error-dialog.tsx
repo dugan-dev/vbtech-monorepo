@@ -1,3 +1,5 @@
+import { AlertCircle } from "lucide-react";
+
 import {
   AlertDialog,
   AlertDialogContent,
@@ -7,8 +9,6 @@ import {
   AlertDialogTitle,
 } from "@workspace/ui/components/alert-dialog";
 import { Button } from "@workspace/ui/components/button";
-
-import { Icons } from "@/components/icons";
 
 type props = {
   open: boolean;
@@ -50,7 +50,7 @@ export function ErrorDialog({
             className="flex items-center gap-2"
             data-testid="error-dialog-title"
           >
-            <Icons.alertCircle className="h-6 w-6 text-destructive" />
+            <AlertCircle className="h-6 w-6 text-destructive" />
             {title}
           </AlertDialogTitle>
           <AlertDialogDescription data-testid="error-dialog-description">

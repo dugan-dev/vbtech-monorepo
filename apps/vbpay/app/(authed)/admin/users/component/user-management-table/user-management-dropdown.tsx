@@ -22,7 +22,7 @@ import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
 
 import { UserCognito } from "@/types/user-cognito";
 import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { useUserManagementDropdown } from "../../hooks/use-user-management-dropdown";

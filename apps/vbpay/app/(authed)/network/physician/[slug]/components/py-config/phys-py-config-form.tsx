@@ -10,7 +10,7 @@ import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-butt
 
 import { PaymentTypeType } from "@/types/payment-type";
 import { PerfYears } from "@/types/perf-year";
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 
 import { usePhysPyConfigForm } from "../../hooks/use-phys-py-config-form";
 import { PhysPyConfigFormData } from "./phys-py-config-form-schema";

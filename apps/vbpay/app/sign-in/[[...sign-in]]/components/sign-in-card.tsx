@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 import { ThemeToggle } from "@workspace/ui/components/theme-toggle";
 
