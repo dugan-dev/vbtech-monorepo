@@ -1,3 +1,5 @@
+import { AlertCircle } from "lucide-react";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,8 +10,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@workspace/ui/components/alert-dialog";
-
-import { Icons } from "@/components/icons";
 
 type props = {
   open: boolean;
@@ -40,7 +40,7 @@ export function ConfirmationDialog({
             className="flex items-center gap-2"
             data-testid="confirmation-dialog-title"
           >
-            <Icons.alertCircle className="h-6 w-6 text-destructive" />
+            <AlertCircle className="h-6 w-6 text-destructive" />
             {title}
           </AlertDialogTitle>
           <AlertDialogDescription data-testid="confirmation-dialog-description">
