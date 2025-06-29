@@ -9,7 +9,7 @@ import { MainSidebar } from "@workspace/ui/components/main-sidebar/main-sidebar"
 
 import { Icons } from "@/components/icons";
 import { MAIN_SIDEBAR_CONFIG } from "@/components/main-sidebar/main-sidebar-config";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@workspace/ui/components/theme-toggle";
 import { UserAvatar } from "@/components/user-avatar";
 
 /**

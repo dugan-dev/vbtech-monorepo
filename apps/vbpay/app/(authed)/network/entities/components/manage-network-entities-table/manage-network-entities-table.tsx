@@ -5,7 +5,7 @@ import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { NetworkEntity } from "@/types/network-entity";
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserRole } from "@/types/user-role";
-import { EmptyView } from "@/components/empty-view";
+import { EmptyView } from "@workspace/ui/components/empty-view";
 import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 

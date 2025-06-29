@@ -5,7 +5,7 @@ import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 
 import { UserCognito } from "@/types/user-cognito";
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { SteppedFormHeader } from "@/components/stepped-form-header";
 import { SteppedFormNavigationButtons } from "@/components/stepped-form-navigation-buttons";
 

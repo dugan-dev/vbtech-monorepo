@@ -6,7 +6,7 @@ import { Button } from "@workspace/ui/components/button";
 import { Form } from "@workspace/ui/components/form";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
 
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { useChangePasswordForm } from "../hooks/use-change-password-form";

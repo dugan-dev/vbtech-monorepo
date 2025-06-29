@@ -19,7 +19,7 @@ import { formatTaxId } from "@workspace/ui/lib/formatTaxId";
 
 import { PerfMonthLabels, PerfMonths } from "@/types/perf-month";
 import { PerfYears } from "@/types/perf-year";
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 
 import { useAddPayerForm } from "../../hooks/use-add-payer-form";
 

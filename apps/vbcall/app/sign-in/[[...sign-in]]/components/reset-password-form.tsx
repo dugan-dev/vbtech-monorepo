@@ -5,7 +5,7 @@ import { Form } from "@workspace/ui/components/form";
 import { FormInputOtp } from "@workspace/ui/components/form/form-input-otp";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
 
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { useResetPasswordForm } from "../hooks/use-reset-password-form";

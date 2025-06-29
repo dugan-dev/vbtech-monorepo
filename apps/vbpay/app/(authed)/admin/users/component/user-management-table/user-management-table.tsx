@@ -5,7 +5,7 @@ import { ComboItem } from "@workspace/ui/types/combo-item";
 import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
 
 import { UserCognito } from "@/types/user-cognito";
-import { EmptyView } from "@/components/empty-view";
+import { EmptyView } from "@workspace/ui/components/empty-view";
 import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 

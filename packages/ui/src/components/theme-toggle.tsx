@@ -1,18 +1,17 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import { Moon, Sun } from "lucide-react";
 
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "./button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@workspace/ui/components/tooltip";
-
-import { Icons } from "@/components/icons";
+} from "./tooltip";
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   return (
     <Tooltip>
@@ -21,11 +20,11 @@ export function ThemeToggle() {
           variant="ghost"
           size="icon"
           onClick={() =>
-            setTheme((prev) => (prev === "light" ? "dark" : "light"))
+            setTheme(resolvedTheme === "light" ? "dark" : "light")
           }
         >
-          <Icons.sun className="size-5 dark:hidden" />
-          <Icons.moon className="hidden size-5 dark:block" />
+          <Sun className="size-5 dark:hidden" aria-hidden="true" />
+          <Moon className="hidden size-5 dark:block" aria-hidden="true" />
           <span className="sr-only">Toggle Theme</span>
         </Button>
       </TooltipTrigger>

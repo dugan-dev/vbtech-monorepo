@@ -29,7 +29,7 @@ import {
   TaxonomyCodeDisplayNames,
   TaxonomyCodes,
 } from "@/types/taxonomy-codes";
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 
 import { useEditPhysicianForm } from "../../../hooks/use-edit-physician-form";
 import {

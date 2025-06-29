@@ -3,7 +3,7 @@
 import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
 
-import { ErrorDialog } from "@/components/error-dialog";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { SetupFormData } from "@/components/setup-form/setup-form-schema";
 import { SetupStep1LicenseInfo } from "@/components/setup-form/steps/setup-step1-license-info";
 import { SetupStep2LicenseFunctionality } from "@/components/setup-form/steps/setup-step2-license-functionality";
