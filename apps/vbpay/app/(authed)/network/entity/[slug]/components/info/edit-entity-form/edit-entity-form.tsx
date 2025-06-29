@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 import { EditButton } from "@workspace/ui/components/edit-button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
@@ -14,7 +15,6 @@ import {
   NetworkEntityTypeLabels,
   NetworkEntityTypes,
 } from "@/types/network-entity-type";
-import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 
 import { useEditEntityForm } from "../../../hooks/use-edit-entity-form";
 import { EditEntityFormData } from "./edit-entity-form-schema";

@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
-import { useErrorDialog } from "@/hooks/use-error-dialog";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 
 import {
   ResetPasswordFormDefaultValues,

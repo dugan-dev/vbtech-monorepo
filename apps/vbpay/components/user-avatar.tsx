@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
 
-import { useConfirmationDialog } from "@/hooks/use-confirmation-dialog";
+import { useConfirmationDialog } from "@workspace/ui/hooks/use-confirmation-dialog";
 import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
 import { Icons } from "@/components/icons";
 import { UpdatePasswordDialog } from "@/components/update-password-dialog";

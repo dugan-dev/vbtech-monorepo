@@ -5,6 +5,7 @@ import { signOut } from "aws-amplify/auth";
 
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar";
 import { Button } from "@workspace/ui/components/button";
+import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,9 +14,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
+import { useConfirmationDialog } from "@workspace/ui/hooks/use-confirmation-dialog";
 
-import { useConfirmationDialog } from "@/hooks/use-confirmation-dialog";
-import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
 import { Icons } from "@/components/icons";
 import { UpdatePasswordDialog } from "@/components/update-password-dialog";
 

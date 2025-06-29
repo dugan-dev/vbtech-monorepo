@@ -23,7 +23,7 @@ import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { cn } from "@workspace/ui/lib/utils";
 
 import { UserSelectionData } from "@/types/user-selection-data";
-import { useErrorDialog } from "@/hooks/use-error-dialog";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 

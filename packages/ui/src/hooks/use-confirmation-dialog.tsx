@@ -47,9 +47,15 @@ export function useConfirmationDialog({
   };
 
   const confirm = async () => {
-    onConfirmBeforeAsync && onConfirmBeforeAsync();
-    onConfirmAsync && (await onConfirmAsync());
-    onConfirmAfterAsync && onConfirmAfterAsync();
+    if (onConfirmBeforeAsync) {
+      onConfirmBeforeAsync();
+    }
+    if (onConfirmAsync) {
+      await onConfirmAsync();
+    }
+    if (onConfirmAfterAsync) {
+      onConfirmAfterAsync();
+    }
     close();
   };
 

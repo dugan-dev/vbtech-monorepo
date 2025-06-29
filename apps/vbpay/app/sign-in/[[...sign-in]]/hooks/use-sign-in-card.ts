@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
-import { useErrorDialog } from "@/hooks/use-error-dialog";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 
 /**
  * Provides state and logic for managing user sign-in and password reset flows in a sign-in card component.

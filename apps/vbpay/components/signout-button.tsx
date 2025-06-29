@@ -9,8 +9,8 @@ import {
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
 
-import { useConfirmationDialog } from "@/hooks/use-confirmation-dialog";
-import { useErrorDialog } from "@/hooks/use-error-dialog";
+import { useConfirmationDialog } from "@workspace/ui/hooks/use-confirmation-dialog";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
 import { Icons } from "@/components/icons";
 

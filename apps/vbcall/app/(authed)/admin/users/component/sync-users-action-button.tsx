@@ -5,16 +5,16 @@ import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 
 import { Button } from "@workspace/ui/components/button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { cn } from "@workspace/ui/lib/utils";
 
-import { useErrorDialog } from "@/hooks/use-error-dialog";
 import { ClientFormattedDate } from "@/components/client-formatted-date";
-import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { syncUsersAction } from "../action/sync-users-action";
