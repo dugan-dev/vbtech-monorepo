@@ -6,8 +6,10 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
+
 import { UserType } from "@/types/user-type";
-import { useErrorDialog } from "@/hooks/use-error-dialog";
 
 import { updateEntityAction } from "../actions/update-entity-action";
 import {
@@ -77,14 +79,7 @@ export function useEditEntityForm({ onSuccess, formData, payerPubId }: props) {
       form.reset();
     },
     onError: ({ error }) => {
-      openErrorDialog(
-        "Error",
-        error.validationErrors
-          ? `Invalid inputs. Please double check the data and try again. If the problem persists please contact support. ${JSON.stringify(error)}`
-          : error.serverError
-            ? error.serverError
-            : (error as string),
-      );
+      openErrorDialog("Error", getErrorMessage(error));
     },
   });
 

@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import {
   Sheet,
   SheetContent,
@@ -17,7 +18,6 @@ import {
   SheetTrigger,
 } from "@workspace/ui/components/sheet";
 
-import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 import { NppesNetworkPhysicianSearchForm } from "@/components/nppes-network-physician-search-form/nppes-network-physician-search-form";
 import { NppesNetworkPhysicianResultsTable } from "@/components/nppes-network-physician-table/nppes-network-physician-table";

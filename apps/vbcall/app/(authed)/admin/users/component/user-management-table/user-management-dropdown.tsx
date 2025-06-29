@@ -1,4 +1,5 @@
 import { Button } from "@workspace/ui/components/button";
+import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import {
   Tooltip,
   TooltipContent,
@@ -19,8 +21,6 @@ import {
 } from "@workspace/ui/components/tooltip";
 
 import { UserCognito } from "@/types/user-cognito";
-import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
-import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { useUserManagementDropdown } from "../../hooks/use-user-management-dropdown";

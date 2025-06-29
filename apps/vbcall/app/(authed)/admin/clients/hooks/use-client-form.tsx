@@ -4,7 +4,8 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { useErrorDialog } from "@/hooks/use-error-dialog";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
 import { insertClientAction } from "../actions/insert-client-action";
 import { updateClientAction } from "../actions/update-client-action";
@@ -48,14 +49,7 @@ export function useClientForm({ onSuccess, formData, clientPubId }: props) {
         form.reset();
       },
       onError: ({ error }) => {
-        openErrorDialog(
-          "Error",
-          error.validationErrors
-            ? `Invalid inputs. Please double check the data and try again. If the problem persists please contact support. ${JSON.stringify(error)}`
-            : error.serverError
-              ? error.serverError
-              : (error as string),
-        );
+        openErrorDialog("Error", getErrorMessage(error));
       },
     });
 
@@ -69,14 +63,7 @@ export function useClientForm({ onSuccess, formData, clientPubId }: props) {
         form.reset();
       },
       onError: ({ error }) => {
-        openErrorDialog(
-          "Error",
-          error.validationErrors
-            ? `Invalid inputs. Please double check the data and try again. If the problem persists please contact support. ${JSON.stringify(error)}`
-            : error.serverError
-              ? error.serverError
-              : (error as string),
-        );
+        openErrorDialog("Error", getErrorMessage(error));
       },
     });
 

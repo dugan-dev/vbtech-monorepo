@@ -14,17 +14,17 @@ import {
   CommandItem,
   CommandList,
 } from "@workspace/ui/components/command";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@workspace/ui/components/popover";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { cn } from "@workspace/ui/lib/utils";
 
 import { UserSelectionData } from "@/types/user-selection-data";
-import { useErrorDialog } from "@/hooks/use-error-dialog";
-import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 /**

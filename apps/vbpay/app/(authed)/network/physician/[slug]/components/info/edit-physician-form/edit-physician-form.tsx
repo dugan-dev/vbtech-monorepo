@@ -1,6 +1,7 @@
 "use client";
 
 import { EditButton } from "@workspace/ui/components/edit-button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
@@ -29,7 +30,6 @@ import {
   TaxonomyCodeDisplayNames,
   TaxonomyCodes,
 } from "@/types/taxonomy-codes";
-import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 
 import { useEditPhysicianForm } from "../../../hooks/use-edit-physician-form";
 import {
