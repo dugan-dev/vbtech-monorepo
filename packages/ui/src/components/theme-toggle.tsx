@@ -23,8 +23,8 @@ export function ThemeToggle() {
             setTheme(resolvedTheme === "light" ? "dark" : "light")
           }
         >
-          <Sun className="size-5 dark:hidden" />
-          <Moon className="hidden size-5 dark:block" />
+          <Sun className="size-5 dark:hidden" aria-hidden="true" />
+          <Moon className="hidden size-5 dark:block" aria-hidden="true" />
           <span className="sr-only">Toggle Theme</span>
         </Button>
       </TooltipTrigger>
