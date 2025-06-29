@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 type props = {
   onAction?: () => void;
@@ -15,19 +15,19 @@ export type ErrorDialogHook = {
 
 export function useErrorDialog({ onAction }: props): ErrorDialogHook {
   const [isOpen, setIsOpen] = useState(false);
-  const errorTitle = useRef("");
-  const errorMsg = useRef("");
+  const [errorTitle, setErrorTitle] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const open = (title: string, msg: string) => {
+    setErrorTitle(title);
+    setErrorMsg(msg);
     setIsOpen(true);
-    errorTitle.current = title;
-    errorMsg.current = msg;
   };
 
   const close = () => {
     setIsOpen(false);
-    errorTitle.current = "";
-    errorMsg.current = "";
+    setErrorTitle("");
+    setErrorMsg("");
   };
 
   const action = () => {
@@ -40,7 +40,7 @@ export function useErrorDialog({ onAction }: props): ErrorDialogHook {
     openErrorDialog: open,
     closeErrorDialog: close,
     action,
-    errorMsg: errorMsg.current,
-    errorTitle: errorTitle.current,
+    errorMsg,
+    errorTitle,
   };
 }

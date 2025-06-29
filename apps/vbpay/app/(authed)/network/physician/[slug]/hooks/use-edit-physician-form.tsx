@@ -8,6 +8,7 @@ import { toast } from "sonner";
 
 import { UserType } from "@/types/user-type";
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
 import { updatePhysicianAction } from "../actions/update-physician-action";
 import {
@@ -83,14 +84,7 @@ export function useEditPhysicianForm({
       form.reset();
     },
     onError: ({ error }) => {
-      openErrorDialog(
-        "Error",
-        error.validationErrors
-          ? `Invalid inputs. Please double check the data and try again. If the problem persists please contact support. ${JSON.stringify(error)}`
-          : error.serverError
-            ? error.serverError
-            : (error as string),
-      );
+      openErrorDialog("Error", getErrorMessage(error));
     },
   });
 

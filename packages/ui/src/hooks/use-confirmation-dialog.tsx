@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 type props = {
   onConfirmBeforeAsync?: () => void;
@@ -31,19 +31,19 @@ export function useConfirmationDialog({
   onConfirmAfterAsync,
 }: props) {
   const [isConfDialogOpen, setIsConfDialogOpen] = useState(false);
-  const confDialogTitle = useRef("");
-  const confDialogMsg = useRef("");
+  const [confDialogTitle, setConfDialogTitle] = useState("");
+  const [confDialogMsg, setConfDialogMsg] = useState("");
 
   const openConfDialog = (title: string, msg: string) => {
+    setConfDialogTitle(title);
+    setConfDialogMsg(msg);
     setIsConfDialogOpen(true);
-    confDialogTitle.current = title;
-    confDialogMsg.current = msg;
   };
 
   const close = () => {
-    confDialogTitle.current = "";
-    confDialogMsg.current = "";
     setIsConfDialogOpen(false);
+    setConfDialogTitle("");
+    setConfDialogMsg("");
   };
 
   const confirm = async () => {
@@ -68,7 +68,7 @@ export function useConfirmationDialog({
     openConfDialog,
     confirm,
     cancel,
-    confDialogTitle: confDialogTitle.current,
-    confDialogMsg: confDialogMsg.current,
+    confDialogTitle,
+    confDialogMsg,
   };
 }
