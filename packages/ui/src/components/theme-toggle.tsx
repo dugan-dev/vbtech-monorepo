@@ -11,7 +11,7 @@ import {
 } from "./tooltip";
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   return (
     <Tooltip>
@@ -20,7 +20,7 @@ export function ThemeToggle() {
           variant="ghost"
           size="icon"
           onClick={() =>
-            setTheme((prev) => (prev === "light" ? "dark" : "light"))
+            setTheme(resolvedTheme === "light" ? "dark" : "light")
           }
         >
           <Sun className="size-5 dark:hidden" />
