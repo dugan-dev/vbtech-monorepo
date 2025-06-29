@@ -13,11 +13,11 @@
 ## Code Style
 
 - Use TypeScript with strict mode
-- Import order: React → Next → 3rd party → workspace packages → local imports
+- Import order: React → Next → 3rd party → workspace packages → local imports (enforced via eslint-plugin-import)
 - Use `@workspace/ui` for shared components
 - Path aliases: `@/*` for local files, `@workspace/ui/*` for UI components
 - Tailwind CSS for styling with shadcn/ui components
-- Use `cn()` utility for conditional classes
+- Use `cn()` utility from `@workspace/ui/lib/utils` for conditional classes
 - Export default for page components, named exports for utilities
 
 ## Naming Conventions
@@ -29,5 +29,6 @@
 
 ## Error Handling
 
-- Use Zod for validation with `@t3-oss/env-nextjs`
+- Use `@t3-oss/env-nextjs` (wraps Zod) for environment variable validation only
+- Use Zod directly for runtime validation (API payloads, forms, user input)
 - Prefer explicit error types over generic Error
