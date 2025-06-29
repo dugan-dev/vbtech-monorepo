@@ -6,8 +6,9 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { UserType } from "@/types/user-type";
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+
+import { UserType } from "@/types/user-type";
 
 import { insertPhysPyConfigAction } from "../actions/insert-phys-py-config-action";
 import { updatePhysPyConfigAction } from "../actions/update-phys-py-config-action";

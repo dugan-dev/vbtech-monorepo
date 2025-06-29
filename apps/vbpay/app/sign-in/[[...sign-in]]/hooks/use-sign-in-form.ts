@@ -3,9 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn, SignInOutput } from "aws-amplify/auth";
 import { useForm } from "react-hook-form";
 
-import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
-
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
 import {
   SignInFormDefaultValues,

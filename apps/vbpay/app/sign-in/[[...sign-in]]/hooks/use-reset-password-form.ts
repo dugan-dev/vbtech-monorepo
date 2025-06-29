@@ -4,9 +4,8 @@ import { confirmResetPassword } from "aws-amplify/auth";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
-
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
 
 import {
   ResetPasswordFormDefaultValues,

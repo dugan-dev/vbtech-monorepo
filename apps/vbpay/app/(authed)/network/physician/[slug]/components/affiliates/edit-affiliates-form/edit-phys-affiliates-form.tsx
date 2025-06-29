@@ -2,6 +2,7 @@
 
 import { Alert, AlertDescription } from "@workspace/ui/components/alert";
 import { EditButton } from "@workspace/ui/components/edit-button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormCheckbox } from "@workspace/ui/components/form/form-checkbox";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
@@ -9,7 +10,6 @@ import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-butt
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 
-import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Icons } from "@/components/icons";
 
 import { useEditPhysAffiliatesForm } from "../../../hooks/use-edit-phys-affiliates-form";
