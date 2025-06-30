@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { signOut } from "aws-amplify/auth";
+import type { ComponentType } from "react";
 
-import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar";
-import { Button } from "@workspace/ui/components/button";
-import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
+import { Avatar, AvatarFallback } from "./avatar";
+import { Button } from "./button";
+import { ConfirmationDialog } from "./confirmation-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,19 +13,33 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu";
-import { useConfirmationDialog } from "@workspace/ui/hooks/use-confirmation-dialog";
+} from "./dropdown-menu";
+import { useConfirmationDialog } from "../hooks/use-confirmation-dialog";
 
-import { Icons } from "@/components/icons";
-import { UpdatePasswordDialog } from "@/components/update-password-dialog";
-
-type props = {
+interface UserAvatarProps {
   firstName: string;
   lastName: string;
   email: string;
-};
+  onSignOut: () => Promise<void>;
+  onSignOutComplete?: () => void;
+  lockIcon: ComponentType<{ className?: string }>;
+  logoutIcon: ComponentType<{ className?: string }>;
+  updatePasswordDialog: ComponentType<{
+    isOpen: boolean;
+    closeDialog: () => void;
+  }>;
+}
 
-export function UserAvatar({ firstName, lastName, email }: props) {
+export function UserAvatar({
+  firstName,
+  lastName,
+  email,
+  onSignOut,
+  onSignOutComplete,
+  lockIcon: LockIcon,
+  logoutIcon: LogoutIcon,
+  updatePasswordDialog: UpdatePasswordDialog,
+}: UserAvatarProps) {
   const {
     confirm,
     cancel,
@@ -34,10 +48,8 @@ export function UserAvatar({ firstName, lastName, email }: props) {
     confDialogTitle,
     confDialogMsg,
   } = useConfirmationDialog({
-    onConfirmAsync: signOut,
-    onConfirmAfterAsync: () => {
-      window.location.reload();
-    },
+    onConfirmAsync: onSignOut,
+    onConfirmAfterAsync: onSignOutComplete,
   });
 
   const [isPasswordUpdateDialogOpen, setIsPasswordUpdateDialogOpen] =
@@ -88,7 +100,7 @@ export function UserAvatar({ firstName, lastName, email }: props) {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setIsPasswordUpdateDialogOpen(true)}>
-            <Icons.lock className="mr-2 h-4 w-4" />
+            <LockIcon className="mr-2 h-4 w-4" />
             <span>Change Password</span>
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -96,7 +108,7 @@ export function UserAvatar({ firstName, lastName, email }: props) {
               openConfDialog("Sign Out", "Are you sure you want to sign out?")
             }
           >
-            <Icons.logout className="mr-2 h-4 w-4" />
+            <LogoutIcon className="mr-2 h-4 w-4" />
             <span>Sign out</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
