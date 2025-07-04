@@ -1,12 +1,13 @@
 "use client";
 
+import { UserPlus } from "lucide-react";
+
 import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { EmptyView } from "@workspace/ui/components/empty-view";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
 
 import { UserCognito } from "@/types/user-cognito";
-import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { AddUserSheet } from "../add-user-sheet";
@@ -55,7 +56,7 @@ export function UserManagementTable({
       <EmptyView
         title="No Users Yet"
         description="Get started by adding your first user to the system."
-        icon={<Icons.userPlus className="h-12 w-12 text-gray-400 mb-4" />}
+        icon={<UserPlus className="h-12 w-12 text-gray-400 mb-4" />}
         actionText={`Click the "Add User" button above to create a new user.`}
       />
     );

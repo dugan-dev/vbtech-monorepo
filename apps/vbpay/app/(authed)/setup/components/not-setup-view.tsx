@@ -1,6 +1,7 @@
 "use client";
 
 import { useUserContext } from "@/contexts/user-context";
+import { AlertCircle } from "lucide-react";
 
 import {
   Alert,
@@ -16,7 +17,6 @@ import {
 } from "@workspace/ui/components/card";
 
 import { UserType } from "@/types/user-type";
-import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { SetupSheet } from "./setup-sheet";
@@ -45,7 +45,7 @@ export function NotSetupView() {
       </CardHeader>
       <CardContent>
         <Alert>
-          <Icons.alertCircle className="h-4 w-4" />
+          <AlertCircle className="h-4 w-4" />
           <AlertTitle>No License Configured</AlertTitle>
           <AlertDescription>
             {canConfigure ? (

@@ -1,13 +1,12 @@
 "use client";
 
 import { SignInOutput } from "aws-amplify/auth";
+import { Loader2 } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormInputOtp } from "@workspace/ui/components/form/form-input-otp";
-
-import { Icons } from "@/components/icons";
 
 import { useMfaVerificationForm } from "../hooks/use-mfa-verification-form";
 
@@ -45,7 +44,7 @@ export function MfaVerificationForm({ setCurrentState }: props) {
         <Button type="submit" disabled={isLoading} className="mt-8">
           {isLoading ? (
             <>
-              <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               {"Signing in..."}
             </>
           ) : (

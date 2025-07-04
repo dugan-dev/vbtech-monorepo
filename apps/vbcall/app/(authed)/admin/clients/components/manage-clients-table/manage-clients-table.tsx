@@ -1,11 +1,12 @@
 "use client";
 
+import { BriefcaseBusiness } from "lucide-react";
+
 import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { EmptyView } from "@workspace/ui/components/empty-view";
 
 import { Client } from "@/types/client";
 import { UserType } from "@/types/user-type";
-import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { ClientDialog } from "../client-dialog";
@@ -23,9 +24,7 @@ export function ManageClientsTable({ clients }: props) {
       <EmptyView
         title="No Clients Yet"
         description="Get started by adding the first client to the system."
-        icon={
-          <Icons.briefcaseBusiness className="h-12 w-12 text-primary/80 mb-4" />
-        }
+        icon={<BriefcaseBusiness className="h-12 w-12 text-primary/80 mb-4" />}
       >
         <RestrictByUserAppAttrsClient adminOnly>
           <ClientDialog />

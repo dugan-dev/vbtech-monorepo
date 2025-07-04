@@ -1,5 +1,7 @@
 "use client";
 
+import { Stethoscope } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -16,7 +18,6 @@ import {
   NetworkPhysicianType,
   NetworkPhysicianTypeLabels,
 } from "@/types/network-physician-type";
-import { Icons } from "@/components/icons";
 
 import { EditPhysicianFormData } from "./edit-physician-form/edit-physician-form-schema";
 import { EditPhysicianSheet } from "./edit-physician-sheet";
@@ -37,7 +38,7 @@ export function PhysicianInfoCardClient({ data, payerPubId }: props) {
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.stethoscope className="size-6" />
+          <Stethoscope className="size-6" />
           <CardTitle className="text-2xl">{`${data.firstName} ${data.lastName}`}</CardTitle>
           <div className="relative ml-auto">
             <EditPhysicianSheet formData={data} payerPubId={payerPubId} />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { UserPlus } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -10,8 +11,6 @@ import {
 } from "@workspace/ui/components/sheet";
 import { ComboItem } from "@workspace/ui/types/combo-item";
 import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
-
-import { Icons } from "@/components/icons";
 
 import { SteppedUserForm } from "./user-form/stepped-user-form";
 
@@ -43,7 +42,7 @@ export function AddUserSheet({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetTrigger asChild>
         <Button onClick={() => onOpenChange(true)} disabled={isSubmitting}>
-          <Icons.userPlus className="h-4 w-4 mr-2" />
+          <UserPlus className="h-4 w-4 mr-2" />
           Add User
         </Button>
       </SheetTrigger>

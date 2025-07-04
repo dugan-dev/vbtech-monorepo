@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Eye } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -15,8 +16,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
-
-import { Icons } from "@/components/icons";
 
 import { EditPhysicianForm } from "./edit-physician-form/edit-physician-form";
 import { EditPhysicianFormData } from "./edit-physician-form/edit-physician-form-schema";
@@ -55,8 +54,12 @@ export function EditPhysicianSheet({ formData, payerPubId }: props) {
       <Tooltip>
         <TooltipTrigger asChild>
           <SheetTrigger asChild>
-            <Button variant="outline" onClick={() => setSheetOpen(true)}>
-              <Icons.eye className="h-4 w-4" />
+            <Button
+              variant="outline"
+              onClick={() => setSheetOpen(true)}
+              aria-label="View physician information"
+            >
+              <Eye className="h-4 w-4" />
             </Button>
           </SheetTrigger>
         </TooltipTrigger>

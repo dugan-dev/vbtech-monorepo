@@ -1,7 +1,8 @@
+import { Building, Building2, Hotel, Store } from "lucide-react";
+
 import { cn } from "@workspace/ui/lib/utils";
 
 import { NetworkEntityType } from "@/types/network-entity-type";
-import { Icons } from "@/components/icons";
 
 type props = {
   netEntType: NetworkEntityType;
@@ -11,12 +12,12 @@ type props = {
 export function NetworkEntityIcon({ netEntType, className }: props) {
   switch (netEntType) {
     case "po":
-      return <Icons.building2 className={cn("h-6 w-6", className)} />;
+      return <Building2 className={cn("h-6 w-6", className)} />;
     case "prac":
-      return <Icons.building className={cn("h-6 w-6", className)} />;
+      return <Building className={cn("h-6 w-6", className)} />;
     case "facl":
-      return <Icons.hotel className={cn("h-6 w-6", className)} />;
+      return <Hotel className={cn("h-6 w-6", className)} />;
     case "vendor":
-      return <Icons.store className={cn("h-6 w-6", className)} />;
+      return <Store className={cn("h-6 w-6", className)} />;
   }
 }

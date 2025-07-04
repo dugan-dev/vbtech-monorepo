@@ -1,5 +1,7 @@
 "use client";
 
+import { AlertCircle } from "lucide-react";
+
 import { Alert, AlertDescription } from "@workspace/ui/components/alert";
 import { EditButton } from "@workspace/ui/components/edit-button";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
@@ -9,8 +11,6 @@ import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-button";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { ComboItem } from "@workspace/ui/types/combo-item";
-
-import { Icons } from "@/components/icons";
 
 import { useEditPhysAffiliatesForm } from "../../../hooks/use-edit-phys-affiliates-form";
 import { EditPhysAffiliatesFormData } from "./edit-phys-affiliates-schema";
@@ -97,7 +97,7 @@ export function EditPhysAffiliatesForm({
                 </div>
                 <Alert className="bg-card flex flex-col gap-6">
                   <div className="flex items-center gap-2">
-                    <Icons.alertCircle className="h-4 w-4" />
+                    <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
                       If this physician has no affiliations, check the box
                       below.

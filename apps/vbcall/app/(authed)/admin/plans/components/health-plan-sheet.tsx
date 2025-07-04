@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Pencil, PlusCircle } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -13,8 +14,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
-
-import { Icons } from "@/components/icons";
 
 import { HealthPlanForm } from "./health-plan-form/health-plan-form";
 import { HealthPlanFormData } from "./health-plan-form/health-plan-form-schema";
@@ -48,11 +47,11 @@ export function HealthPlanSheet({ formData, clientPubId, pubId }: props) {
           <SheetTrigger asChild>
             {formData ? (
               <Button size="icon" variant="secondary">
-                <Icons.pencil className="h-4 w-4" />
+                <Pencil className="h-4 w-4" />
               </Button>
             ) : (
               <Button>
-                <Icons.plusCircle className="mr-2 h-4 w-4" />
+                <PlusCircle className="mr-2 h-4 w-4" />
                 Add Health Plan
               </Button>
             )}

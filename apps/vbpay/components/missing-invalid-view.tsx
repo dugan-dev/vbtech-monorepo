@@ -1,4 +1,4 @@
-import { Icons } from "@/components/icons";
+import { AlertCircle } from "lucide-react";
 
 type props = {
   description?: string;
@@ -8,7 +8,7 @@ type props = {
 export function MissingInvalidView({ description, title }: props) {
   return (
     <div className="p-6 text-center">
-      <Icons.alertCircle className="mx-auto size-12 text-gray-400" />
+      <AlertCircle className="mx-auto size-12 text-gray-400" />
       <h2 className="mt-2 text-lg font-medium text-gray-900">
         {title || "Missing, Invalid or Unauthorized parameter"}
       </h2>

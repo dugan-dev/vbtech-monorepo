@@ -1,7 +1,10 @@
 import { useState } from "react";
 
 interface UseUpdatePasswordProps {
-  updatePasswordFn: (data: { oldPassword: string; newPassword: string }) => Promise<void>;
+  updatePasswordFn: (data: {
+    oldPassword: string;
+    newPassword: string;
+  }) => Promise<void>;
   onSuccess?: () => void;
   onError?: (error: Error) => void;
   successMessage?: string;
@@ -37,7 +40,7 @@ export function useUpdatePassword({
     } catch (e) {
       console.error(e);
       const error = e instanceof Error ? e : new Error("An error occurred");
-      
+
       if (onError) {
         onError(error);
       } else {

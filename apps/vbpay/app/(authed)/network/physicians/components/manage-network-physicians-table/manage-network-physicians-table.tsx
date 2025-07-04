@@ -1,5 +1,7 @@
 "use client";
 
+import { Stethoscope } from "lucide-react";
+
 import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { EmptyView } from "@workspace/ui/components/empty-view";
 import { ComboItem } from "@workspace/ui/types/combo-item";
@@ -8,7 +10,6 @@ import { NetworkPhysician } from "@/types/network-physician";
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
-import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { AddNetworkPhysicianProvider } from "../../contexts/use-add-network-physician-context";
@@ -55,7 +56,7 @@ export function ManageNetworkPhysiciansTable({
             ? "Get started by adding your first network physician to the system."
             : "Network Entity configuration is pending. Please contact your support if you have any questions."
         }
-        icon={<Icons.stethoscope className="h-12 w-12 text-gray-400 mb-4" />}
+        icon={<Stethoscope className="h-12 w-12 text-gray-400 mb-4" />}
       >
         <RestrictByUserAppAttrsClient
           allowedUserTypes={ALLOWED_USER_TYPES}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Eye } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -14,8 +15,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
-
-import { Icons } from "@/components/icons";
 
 import { PhysPyConfigForm } from "./phys-py-config-form";
 import { PhysPyConfigFormData } from "./phys-py-config-form-schema";
@@ -65,7 +64,7 @@ export function PhysPyConfigDialog({ data, pubId, payerPubId }: props) {
               disabled={isSubmitting}
               className={!isUpdate ? "w-full" : undefined}
             >
-              {isUpdate && <Icons.eye className="h-4 w-4" />}
+              {isUpdate && <Eye className="h-4 w-4" />}
               {!isUpdate && <span>Add PY Configuration</span>}
             </Button>
           </DialogTrigger>

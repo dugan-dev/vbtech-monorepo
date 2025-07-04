@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { ComponentType } from "react";
 
+import { useConfirmationDialog } from "../hooks/use-confirmation-dialog";
 import { Avatar, AvatarFallback } from "./avatar";
 import { Button } from "./button";
 import { ConfirmationDialog } from "./confirmation-dialog";
@@ -14,7 +15,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
-import { useConfirmationDialog } from "../hooks/use-confirmation-dialog";
 
 interface UserAvatarProps {
   firstName: string;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Eye } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -20,7 +21,6 @@ import {
   NetworkEntityType,
   NetworkEntityTypeLabels,
 } from "@/types/network-entity-type";
-import { Icons } from "@/components/icons";
 
 import { EditEntityForm } from "./edit-entity-form/edit-entity-form";
 import { EditEntityFormData } from "./edit-entity-form/edit-entity-form-schema";
@@ -60,7 +60,7 @@ export function EditEntitySheet({ formData, payerPubId }: props) {
         <TooltipTrigger asChild>
           <SheetTrigger asChild>
             <Button variant="outline" onClick={() => setSheetOpen(true)}>
-              <Icons.eye className="h-4 w-4" />
+              <Eye className="h-4 w-4" />
             </Button>
           </SheetTrigger>
         </TooltipTrigger>

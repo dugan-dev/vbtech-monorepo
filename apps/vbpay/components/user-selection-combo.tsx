@@ -2,6 +2,7 @@
 
 import { startTransition, useEffect, useState } from "react";
 import { updateUserSelectionSlugAction } from "@/actions/update-user-selection-slug-action";
+import { Check, ChevronsUpDown, Lock, Unlock } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { parseAsString, useQueryState } from "nuqs";
 
@@ -25,7 +26,6 @@ import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { cn } from "@workspace/ui/lib/utils";
 
 import { UserSelectionData } from "@/types/user-selection-data";
-import { Icons } from "@/components/icons";
 
 export function UserSelectionCombo({
   comboItems,
@@ -126,7 +126,7 @@ export function UserSelectionCombo({
                   }`
                 : instructText}
             </span>
-            <Icons.chevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
+            <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-80 p-0">
@@ -146,7 +146,7 @@ export function UserSelectionCombo({
                       }}
                     >
                       {val.label}
-                      <Icons.check
+                      <Check
                         className={cn(
                           "ml-auto size-4",
                           pId === val.value ? "opacity-100" : "opacity-0",
@@ -173,14 +173,14 @@ export function UserSelectionCombo({
               isLocked ? "rotate-y-0 opacity-100" : "rotate-y-180 opacity-0"
             }`}
           >
-            <Icons.lock className="size-5" />
+            <Lock className="size-5" />
           </div>
           <div
             className={`absolute inset-0 flex items-center justify-center transition duration-300 ease-in-out ${
               isLocked ? "rotate-y-180 opacity-0" : "rotate-y-0 opacity-100"
             }`}
           >
-            <Icons.unlock className="size-5" />
+            <Unlock className="size-5" />
           </div>
         </div>
         <span className="sr-only">{isLocked ? "Locked" : "Unlocked"}</span>

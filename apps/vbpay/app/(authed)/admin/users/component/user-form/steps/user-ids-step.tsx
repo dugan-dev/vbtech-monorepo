@@ -1,5 +1,6 @@
 "use client";
 
+import { Plus, Trash2 } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
 import { Button } from "@workspace/ui/components/button";
@@ -25,7 +26,6 @@ import { ComboItem } from "@workspace/ui/types/combo-item";
 import { UserModeLabels, UserModes } from "@/types/user-mode";
 import { UserRoleLabels, type UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
-import { Icons } from "@/components/icons";
 
 import { getRolesForUserType } from "../../../utils/get-roles-for-user-type";
 import { UserFormData } from "../user-form-schema";
@@ -125,7 +125,7 @@ export function UserIdsStep({
             onClick={addNewId}
             disabled={isSubmitting}
           >
-            <Icons.plus className="mr-2 h-4 w-4" />
+            <Plus className="mr-2 h-4 w-4" />
             Add {labelForType}
           </Button>
         )}
@@ -145,7 +145,7 @@ export function UserIdsStep({
                     onClick={() => removeId(index)}
                     disabled={isSubmitting}
                   >
-                    <Icons.trash2 className="h-4 w-4 text-destructive" />
+                    <Trash2 className="h-4 w-4 text-destructive" />
                     <span className="sr-only">Remove {labelForType}</span>
                   </Button>
                 )}

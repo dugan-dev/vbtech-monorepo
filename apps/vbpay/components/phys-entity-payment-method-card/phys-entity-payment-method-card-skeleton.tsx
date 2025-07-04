@@ -1,3 +1,5 @@
+import { Landmark } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -14,8 +16,6 @@ import {
   TableRow,
 } from "@workspace/ui/components/table";
 
-import { Icons } from "@/components/icons";
-
 /**
  * Renders a skeleton card placeholder for the "Bank Accounts" payment method section.
  *
@@ -26,7 +26,7 @@ export function PhysEntityPaymentMethodCardSkeleton() {
     <Card className="min-w-[450px] w-1/3 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.landmark className="size-6" />
+          <Landmark className="size-6" />
           <CardTitle className="text-2xl">Bank Accounts</CardTitle>
           <div className="relative ml-auto">
             <Skeleton className="h-9 w-9 rounded-md" />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Eye } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -13,8 +14,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
-
-import { Icons } from "@/components/icons";
 
 import { PayerPyConfigFormData } from "./payer-py-config-form-schema";
 import { SteppedPayerPyConfigForm } from "./stepped-payer-py-config-form";
@@ -64,7 +63,7 @@ export function PayerPyConfigSheet({ data, pubId, payerPubId }: props) {
               disabled={isSubmitting}
               className={!isUpdate ? "w-full" : undefined}
             >
-              {isUpdate && <Icons.eye className="h-4 w-4" />}
+              {isUpdate && <Eye className="h-4 w-4" />}
               {!isUpdate && <span>Add PY Configuration</span>}
             </Button>
           </SheetTrigger>

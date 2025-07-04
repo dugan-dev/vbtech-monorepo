@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Eye } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -16,8 +17,6 @@ import {
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
 import { ComboItem } from "@workspace/ui/types/combo-item";
-
-import { Icons } from "@/components/icons";
 
 import { EditPhysAffiliatesForm } from "./edit-affiliates-form/edit-phys-affiliates-form";
 import { EditPhysAffiliatesFormData } from "./edit-affiliates-form/edit-phys-affiliates-schema";
@@ -60,7 +59,7 @@ export function EditPhysAffiliatesSheet({
         <TooltipTrigger asChild>
           <SheetTrigger asChild>
             <Button variant="outline" onClick={() => setSheetOpen(true)}>
-              <Icons.eye className="h-4 w-4" />
+              <Eye className="h-4 w-4" />
             </Button>
           </SheetTrigger>
         </TooltipTrigger>

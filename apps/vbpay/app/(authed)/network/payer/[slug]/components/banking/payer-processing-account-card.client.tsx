@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { Landmark, Loader2, PlusCircle } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { openProcessingAccountForm } from "payload-react";
 import { toast } from "sonner";
@@ -38,7 +39,6 @@ import {
 } from "@/types/payload-processing-account-status";
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
-import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { insertPayerProcessingAccountAction } from "../../actions/insert-payer-processing-account-action";
@@ -133,7 +133,7 @@ export function PayerProcessingAccountCardClient({
       />
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.landmark className="size-6" />
+          <Landmark className="size-6" />
           <CardTitle className="text-2xl">Bank Accounts</CardTitle>
           <div className="relative ml-auto">
             <RestrictByUserAppAttrsClient
@@ -148,7 +148,7 @@ export function PayerProcessingAccountCardClient({
                     onClick={handleNewProcessingAccountClick}
                     disabled={isPending}
                   >
-                    <Icons.plusCircle className="size-4" />
+                    <PlusCircle className="size-4" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -163,7 +163,7 @@ export function PayerProcessingAccountCardClient({
         <CardContent>
           {isPending ? (
             <div className="flex justify-center gap-2">
-              <Icons.loader className="size-6 animate-spin" />
+              <Loader2 className="size-6 animate-spin" />
               Syncing Bank Account Data...
             </div>
           ) : (

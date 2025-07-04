@@ -1,12 +1,13 @@
 "use client";
 
+import { HeartHandshake } from "lucide-react";
+
 import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { EmptyView } from "@workspace/ui/components/empty-view";
 
 import { HealthPlan } from "@/types/health-plan";
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
-import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { HealthPlanSheet } from "../health-plan-sheet";
@@ -35,9 +36,7 @@ export function ManageHealthPlansTable({ plans, clientPubId }: props) {
       <EmptyView
         title="No Health Plans Yet"
         description="Get started by adding the first health plan to the system."
-        icon={
-          <Icons.heartHandshake className="h-12 w-12 text-primary/80 mb-4" />
-        }
+        icon={<HeartHandshake className="h-12 w-12 text-primary/80 mb-4" />}
       >
         <RestrictByUserAppAttrsClient
           adminOnly

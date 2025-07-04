@@ -1,14 +1,13 @@
 "use client";
 
 import { SignInOutput } from "aws-amplify/auth";
+import { Loader2 } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormInput } from "@workspace/ui/components/form/form-input";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
-
-import { Icons } from "@/components/icons";
 
 import { useSignInForm } from "../hooks/use-sign-in-form";
 
@@ -81,7 +80,7 @@ export function SignInForm({
         <Button type="submit" disabled={isLoading}>
           {isLoading ? (
             <>
-              <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               {"Signing in..."}
             </>
           ) : (

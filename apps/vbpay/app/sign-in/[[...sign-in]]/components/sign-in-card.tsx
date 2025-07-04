@@ -9,14 +9,14 @@ import {
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { ThemeToggle } from "@workspace/ui/components/theme-toggle";
 
-import { Icons } from "@/components/icons";
+import { AppIcons } from "@/components/app-icons";
 
 import { useSignInCard } from "../hooks/use-sign-in-card";
 import { ChangePasswordForm } from "./change-password-form";
 import { MfaVerificationForm } from "./mfa-verification-form";
 import { ResetPasswordForm } from "./reset-password-form";
 import { SignInForm } from "./sign-in-form";
-import { TotpSetupForm } from "./topt-setup-form";
+import { TotpSetupForm } from "./totp-setup-form";
 
 /**
  * Renders a multi-step sign-in card interface with support for password reset, MFA setup, and error handling.
@@ -53,8 +53,12 @@ export function SignInCard() {
         </div>
         <CardHeader>
           <div className="mx-auto">
-            <Icons.logo height={80} width={150} className="block dark:hidden" />
-            <Icons.logoDark
+            <AppIcons.logo
+              height={80}
+              width={150}
+              className="block dark:hidden"
+            />
+            <AppIcons.logoDark
               height={80}
               width={150}
               className="hidden dark:block"

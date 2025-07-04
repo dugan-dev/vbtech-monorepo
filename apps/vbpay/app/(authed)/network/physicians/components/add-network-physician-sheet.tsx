@@ -1,5 +1,7 @@
 "use client";
 
+import { PlusCircle, Stethoscope } from "lucide-react";
+
 import { Button } from "@workspace/ui/components/button";
 import {
   Card,
@@ -18,7 +20,7 @@ import {
   SheetTrigger,
 } from "@workspace/ui/components/sheet";
 
-import { Icons } from "@/components/icons";
+import { AppIcons } from "@/components/app-icons";
 import { NppesNetworkPhysicianSearchForm } from "@/components/nppes-network-physician-search-form/nppes-network-physician-search-form";
 import { NppesNetworkPhysicianResultsTable } from "@/components/nppes-network-physician-table/nppes-network-physician-table";
 
@@ -53,7 +55,7 @@ export function AddNetworkPhysicianSheet() {
       )}
       <SheetTrigger asChild>
         <Button>
-          <Icons.plusCircle className="mr-2 h-4 w-4" />
+          <PlusCircle className="mr-2 h-4 w-4" />
           {"Add Network Physician"}
         </Button>
       </SheetTrigger>
@@ -68,7 +70,7 @@ export function AddNetworkPhysicianSheet() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Icons.stethoscope className="h-5 w-5" />
+                  <Stethoscope className="h-5 w-5" />
                   Advanced Physician Search via NPPES
                 </CardTitle>
                 <CardDescription>
@@ -100,7 +102,7 @@ export function AddNetworkPhysicianSheet() {
             </Button>
           )}
           {(sheetState === "search" || sheetState === "advanced") && (
-            <Icons.nppesLogo
+            <AppIcons.nppesLogo
               className="bg-white p-2 rounded-md ml-2"
               width={150}
               height={120}
