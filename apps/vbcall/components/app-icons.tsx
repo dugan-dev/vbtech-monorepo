@@ -1,6 +1,9 @@
 import Image from "next/image";
 
-type LogoProps = Omit<React.ComponentProps<typeof Image>, "src" | "alt"> & {
+type LogoProps = Omit<
+  React.ComponentProps<typeof Image>,
+  "src" | "alt" | "width" | "height"
+> & {
   width?: number;
   height?: number;
 };

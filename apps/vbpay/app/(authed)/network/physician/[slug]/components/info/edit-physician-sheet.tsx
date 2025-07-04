@@ -54,7 +54,11 @@ export function EditPhysicianSheet({ formData, payerPubId }: props) {
       <Tooltip>
         <TooltipTrigger asChild>
           <SheetTrigger asChild>
-            <Button variant="outline" onClick={() => setSheetOpen(true)}>
+            <Button
+              variant="outline"
+              onClick={() => setSheetOpen(true)}
+              aria-label="View physician information"
+            >
               <Eye className="h-4 w-4" />
             </Button>
           </SheetTrigger>
