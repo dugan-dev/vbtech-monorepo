@@ -1,12 +1,12 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
+
 import { Button } from "@workspace/ui/components/button";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormInputOtp } from "@workspace/ui/components/form/form-input-otp";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
-
-import { Icons } from "@/components/icons";
 
 import { useResetPasswordForm } from "../hooks/use-reset-password-form";
 
@@ -59,7 +59,7 @@ export function ResetPasswordForm({ setEmailForReset, emailForReset }: props) {
         <Button type="submit" disabled={isLoading} className="mt-8">
           {isLoading ? (
             <>
-              <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               {"Changing password..."}
             </>
           ) : (

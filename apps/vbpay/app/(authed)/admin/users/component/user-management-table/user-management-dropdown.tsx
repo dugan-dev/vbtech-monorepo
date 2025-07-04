@@ -1,3 +1,5 @@
+import { Ellipsis } from "lucide-react";
+
 import { Button } from "@workspace/ui/components/button";
 import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
 import {
@@ -23,7 +25,6 @@ import { ComboItem } from "@workspace/ui/types/combo-item";
 import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
 
 import { UserCognito } from "@/types/user-cognito";
-import { Icons } from "@/components/icons";
 
 import { useUserManagementDropdown } from "../../hooks/use-user-management-dropdown";
 import { EditUserSheet } from "../edit-user-sheet";
@@ -171,7 +172,7 @@ export function UserManagementDropdown({
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" disabled={isActionPending}>
-                <Icons.ellipsis className="h-4 w-4" />
+                <Ellipsis className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
           </TooltipTrigger>

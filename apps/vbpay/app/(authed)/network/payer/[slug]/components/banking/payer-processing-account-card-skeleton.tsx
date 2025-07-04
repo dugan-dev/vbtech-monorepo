@@ -1,3 +1,5 @@
+import { Landmark } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -14,8 +16,6 @@ import {
   TableRow,
 } from "@workspace/ui/components/table";
 
-import { Icons } from "@/components/icons";
-
 /**
  * Displays a card with a table-based skeleton UI as a loading placeholder for bank account information.
  *
@@ -26,7 +26,7 @@ export function PayerProcessingAccountCardSkeleton() {
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.landmark className="size-6" />
+          <Landmark className="size-6" />
           <CardTitle className="text-2xl">Bank Accounts</CardTitle>
           <div className="relative ml-auto">
             <Skeleton className="h-9 w-9 rounded-md" />

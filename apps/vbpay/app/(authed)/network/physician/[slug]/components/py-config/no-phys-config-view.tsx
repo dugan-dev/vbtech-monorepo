@@ -1,3 +1,5 @@
+import { Calendar } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -7,7 +9,6 @@ import {
 } from "@workspace/ui/components/card";
 
 import { UserType } from "@/types/user-type";
-import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { PhysPyConfigDialog } from "./phys-py-config-dialog";
@@ -35,7 +36,7 @@ export function NoPhysConfigView({ payerPubId, perfYear }: props) {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col items-center justify-center py-6 text-center">
-          <Icons.calendar className="h-10 w-10 text-muted-foreground mb-2" />
+          <Calendar className="h-10 w-10 text-muted-foreground mb-2" />
           <p className="text-sm text-muted-foreground">
             No configuration exists for this performance year
           </p>

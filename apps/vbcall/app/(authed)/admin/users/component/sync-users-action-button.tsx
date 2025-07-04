@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { RefreshCcw } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 
@@ -15,7 +16,6 @@ import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { cn } from "@workspace/ui/lib/utils";
 
 import { ClientFormattedDate } from "@/components/client-formatted-date";
-import { Icons } from "@/components/icons";
 
 import { syncUsersAction } from "../action/sync-users-action";
 import { useUserManagementContext } from "../contexts/user-management-context";
@@ -74,7 +74,7 @@ export function SyncUsersActionButton() {
             disabled={isPending}
             onClick={handleSyncUsers}
           >
-            <Icons.refresh
+            <RefreshCcw
               className={cn("h-4 w-4", isPending && "animate-spin")}
             />
           </Button>

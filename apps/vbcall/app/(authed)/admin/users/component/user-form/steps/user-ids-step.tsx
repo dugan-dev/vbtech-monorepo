@@ -1,5 +1,6 @@
 "use client";
 
+import { Plus, Trash2 } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
 import { Button } from "@workspace/ui/components/button";
@@ -24,7 +25,6 @@ import {
 import { UserModeLabels, UserModes } from "@/types/user-mode";
 import { UserRoleLabels, UserRoles, type UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
-import { Icons } from "@/components/icons";
 
 import { useUserManagementContext } from "../../../contexts/user-management-context";
 import { UserFormData } from "../user-form-schema";
@@ -85,7 +85,7 @@ export function UserIdsStep({ isSubmitting }: props) {
           onClick={addNewId}
           disabled={isSubmitting}
         >
-          <Icons.plus className="mr-2 h-4 w-4" />
+          <Plus className="mr-2 h-4 w-4" />
           Add {labelForType}
         </Button>
       </div>
@@ -103,7 +103,7 @@ export function UserIdsStep({ isSubmitting }: props) {
                   onClick={() => removeId(index)}
                   disabled={isSubmitting}
                 >
-                  <Icons.trash2 className="h-4 w-4 text-destructive" />
+                  <Trash2 className="h-4 w-4 text-destructive" />
                   <span className="sr-only">Remove {labelForType}</span>
                 </Button>
               </div>

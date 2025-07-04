@@ -1,5 +1,7 @@
 "use client";
 
+import { Building2 } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -17,7 +19,6 @@ import {
   NetworkEntityTypeLabels,
   NetworkEntityTypes,
 } from "@/types/network-entity-type";
-import { Icons } from "@/components/icons";
 
 import { useAddNetworkEntityContext } from "../../contexts/add-network-entity-context";
 
@@ -34,7 +35,7 @@ export function AddNetworkEntityForm() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Icons.building2 className="h-5 w-5" />
+                <Building2 className="h-5 w-5" />
                 Entity Info
               </CardTitle>
               <CardDescription>

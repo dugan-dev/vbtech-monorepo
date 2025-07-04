@@ -38,7 +38,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () =>
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, []);
+  }, [router]);
 
   useAutoLogout(10);
 

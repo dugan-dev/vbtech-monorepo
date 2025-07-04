@@ -9,7 +9,7 @@ import {
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { ThemeToggle } from "@workspace/ui/components/theme-toggle";
 
-import { Icons } from "@/components/icons";
+import { AppIcons } from "@/components/app-icons";
 
 import { useSignInCard } from "../hooks/use-sign-in-card";
 import { ChangePasswordForm } from "./change-password-form";
@@ -53,8 +53,12 @@ export function SignInCard() {
         </div>
         <CardHeader>
           <div className="mx-auto">
-            <Icons.logo height={80} width={150} className="block dark:hidden" />
-            <Icons.logoDark
+            <AppIcons.logo
+              height={80}
+              width={150}
+              className="block dark:hidden"
+            />
+            <AppIcons.logoDark
               height={80}
               width={150}
               className="hidden dark:block"

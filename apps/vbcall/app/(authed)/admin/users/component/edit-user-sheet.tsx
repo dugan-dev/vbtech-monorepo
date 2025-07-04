@@ -1,5 +1,7 @@
 "use client";
 
+import { UserCog } from "lucide-react";
+
 import { Button } from "@workspace/ui/components/button";
 import {
   Sheet,
@@ -13,7 +15,6 @@ import {
 } from "@workspace/ui/components/tooltip";
 
 import { UserCognito } from "@/types/user-cognito";
-import { Icons } from "@/components/icons";
 
 import { SteppedUserForm } from "./user-form/stepped-user-form";
 
@@ -57,7 +58,7 @@ export function EditUserSheet({
               onClick={() => onOpenChange(true)}
               disabled={isActionPending}
             >
-              <Icons.userCog className="size-5" />
+              <UserCog className="size-5" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>

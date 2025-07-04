@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ArrowLeft, Clock } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -13,8 +14,6 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { Progress } from "@workspace/ui/components/progress";
-
-import { Icons } from "@/components/icons";
 
 type props = {
   retryIn: number;
@@ -82,7 +81,7 @@ export function RateLimitCard({ retryIn }: props) {
       <CardContent className="space-y-6">
         <div className="flex flex-col items-center justify-center space-y-4">
           <div className="rounded-full bg-gray-100 p-4">
-            <Icons.clock className="h-8 w-8 text-gray-500" />
+            <Clock className="h-8 w-8 text-gray-500" />
           </div>
           <div className="text-center">
             <h3 className="text-4xl font-bold tabular-nums">
@@ -104,7 +103,7 @@ export function RateLimitCard({ retryIn }: props) {
           className="w-full"
           variant={isCountdownComplete ? "default" : "outline"}
         >
-          <Icons.arrowLeft className="mr-2 h-4 w-4" />
+          <ArrowLeft className="mr-2 h-4 w-4" />
           {isCountdownComplete ? "Continue" : "Please wait..."}
         </Button>
       </CardFooter>

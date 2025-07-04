@@ -1,3 +1,5 @@
+import { HeartHandshake } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -5,8 +7,6 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { Skeleton } from "@workspace/ui/components/skeleton";
-
-import { Icons } from "@/components/icons";
 
 /**
  * Displays a skeleton card placeholder for loading affiliate information in a physician network UI.
@@ -18,7 +18,7 @@ export function PhysAffiliatesCardSkeleton() {
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.heartHandshake className="size-6" />
+          <HeartHandshake className="size-6" />
           <CardTitle className="text-2xl">Affiliates</CardTitle>
           <div className="relative ml-auto">
             <Skeleton className="h-9 w-10 rounded-md" />

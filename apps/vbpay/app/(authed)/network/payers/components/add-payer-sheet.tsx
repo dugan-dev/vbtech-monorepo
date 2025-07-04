@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PlusCircle } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -10,8 +11,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@workspace/ui/components/sheet";
-
-import { Icons } from "@/components/icons";
 
 import { AddPayerForm } from "./add-payer-form/add-payer-form";
 
@@ -31,7 +30,7 @@ export function AddPayerSheet() {
     <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
       <SheetTrigger asChild>
         <Button>
-          <Icons.plusCircle className="mr-2 h-4 w-4" />
+          <PlusCircle className="mr-2 h-4 w-4" />
           Add Payer
         </Button>
       </SheetTrigger>

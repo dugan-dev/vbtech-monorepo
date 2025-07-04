@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Pencil, PlusCircle } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -15,8 +16,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
-
-import { Icons } from "@/components/icons";
 
 import { ClientForm } from "./client-form/client-form";
 import { ClientFormData } from "./client-form/client-form-schema";
@@ -40,11 +39,11 @@ export function ClientDialog({ formData, clientPubId }: props) {
           <DialogTrigger asChild>
             {formData ? (
               <Button size="icon" variant="secondary">
-                <Icons.pencil className="h-4 w-4" />
+                <Pencil className="h-4 w-4" />
               </Button>
             ) : (
               <Button>
-                <Icons.plusCircle className="mr-2 h-4 w-4" />
+                <PlusCircle className="mr-2 h-4 w-4" />
                 Add Client
               </Button>
             )}

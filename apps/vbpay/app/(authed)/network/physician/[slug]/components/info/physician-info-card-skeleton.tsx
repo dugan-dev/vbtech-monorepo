@@ -1,3 +1,5 @@
+import { Stethoscope } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -5,8 +7,6 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { Skeleton } from "@workspace/ui/components/skeleton";
-
-import { Icons } from "@/components/icons";
 
 /**
  * Displays a skeleton placeholder card representing physician information while data is loading.
@@ -18,7 +18,7 @@ export function PhysicianInfoCardSkeleton() {
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.stethoscope className="size-6" />
+          <Stethoscope className="size-6" />
           <CardTitle className="text-2xl">
             <Skeleton className="h-7 w-48" />
           </CardTitle>

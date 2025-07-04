@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Eye } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -15,8 +16,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
-
-import { Icons } from "@/components/icons";
 
 import { EditPayerForm } from "./edit-payer-form/edit-payer-form";
 import { EditPayerFormData } from "./edit-payer-form/edit-payer-form-schema";
@@ -54,7 +53,7 @@ export function EditPayerSheet({ formData }: props) {
         <TooltipTrigger asChild>
           <SheetTrigger asChild>
             <Button variant="outline" onClick={() => setSheetOpen(true)}>
-              <Icons.eye className="h-4 w-4" />
+              <Eye className="h-4 w-4" />
             </Button>
           </SheetTrigger>
         </TooltipTrigger>

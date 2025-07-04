@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "aws-amplify/auth";
 import { useLicenseContext } from "@/contexts/license-context";
 import { useUserContext } from "@/contexts/user-context";
+import { signOut } from "aws-amplify/auth";
+import { ChevronRight, Lock, LogOut } from "lucide-react";
 
 import { MainSidebar } from "@workspace/ui/components/main-sidebar/main-sidebar";
 import { ThemeToggle } from "@workspace/ui/components/theme-toggle";
 import { UserAvatar } from "@workspace/ui/components/user-avatar";
 
-import { Icons } from "@/components/icons";
+import { AppIcons } from "@/components/app-icons";
 import { MAIN_SIDEBAR_CONFIG } from "@/components/main-sidebar/main-sidebar-config";
 import { UpdatePasswordDialog } from "@/components/update-password-dialog";
 
@@ -51,20 +52,24 @@ export function VBPayMainSidebar() {
   };
 
   const icons = {
-    chevronRight: Icons.chevronRight,
-    logo: Icons.logo,
-    logoDark: Icons.logoDark,
+    chevronRight: ChevronRight,
+    logo: AppIcons.logo,
+    logoDark: AppIcons.logoDark,
   };
 
-  const UserAvatarWithProps = (props: { firstName: string; lastName: string; email: string }) => (
+  const UserAvatarWithProps = (props: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  }) => (
     <UserAvatar
       {...props}
       onSignOut={signOut}
       onSignOutComplete={() => {
         window.location.reload();
       }}
-      lockIcon={Icons.lock}
-      logoutIcon={Icons.logout}
+      lockIcon={Lock}
+      logoutIcon={LogOut}
       updatePasswordDialog={UpdatePasswordDialog}
     />
   );

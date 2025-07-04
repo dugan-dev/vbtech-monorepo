@@ -1,3 +1,5 @@
+import { Eye } from "lucide-react";
+
 import { Badge } from "@workspace/ui/components/badge";
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -14,7 +16,6 @@ import {
   PayloadProcessingAccountStatusLabels,
   PayloadProcessingAccountStatusType,
 } from "@/types/payload-processing-account-status";
-import { Icons } from "@/components/icons";
 
 import { getProcessingAccountStatusColor } from "../../utils/get-processing-account-status-color";
 
@@ -40,7 +41,7 @@ export function PayerProcessingAccountDetailsDialog({ account }: props) {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="ghost" size="sm">
-          <Icons.eye />
+          <Eye />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">

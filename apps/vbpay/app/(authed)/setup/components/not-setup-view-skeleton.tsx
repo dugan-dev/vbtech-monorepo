@@ -1,3 +1,5 @@
+import { AlertCircle } from "lucide-react";
+
 import {
   Alert,
   AlertDescription,
@@ -11,8 +13,6 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { Skeleton } from "@workspace/ui/components/skeleton";
-
-import { Icons } from "@/components/icons";
 
 /**
  * Displays a skeleton placeholder UI for the license setup view, indicating that a license is required but not yet configured.
@@ -29,7 +29,7 @@ export function NotSetupViewSkeleton() {
       </CardHeader>
       <CardContent>
         <Alert>
-          <Icons.alertCircle className="h-4 w-4" />
+          <AlertCircle className="h-4 w-4" />
           <AlertTitle>No License Configured</AlertTitle>
           <AlertDescription>
             <Skeleton className="h-4 w-full my-1" />

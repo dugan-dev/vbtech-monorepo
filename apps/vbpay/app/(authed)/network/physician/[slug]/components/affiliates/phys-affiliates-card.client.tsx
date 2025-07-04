@@ -1,6 +1,7 @@
 "use client";
 
 import { NetworkEntity, NetworkPayer } from "@/routes";
+import { HeartHandshake } from "lucide-react";
 
 import {
   Card,
@@ -10,8 +11,6 @@ import {
 } from "@workspace/ui/components/card";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { ComboItem } from "@workspace/ui/types/combo-item";
-
-import { Icons } from "@/components/icons";
 
 import { EditPhysAffiliatesFormData } from "./edit-affiliates-form/edit-phys-affiliates-schema";
 import { EditPhysAffiliatesSheet } from "./edit-phys-affiliates-sheet";
@@ -49,7 +48,7 @@ export function PhysAffiliatesCardClient({
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.heartHandshake className="size-6" />
+          <HeartHandshake className="size-6" />
           <CardTitle className="text-2xl">Affiliates</CardTitle>
           <div className="relative ml-auto">
             <EditPhysAffiliatesSheet

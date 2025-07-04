@@ -1,8 +1,9 @@
+import { ChevronRight } from "lucide-react";
+
 import { Button } from "@workspace/ui/components/button";
 import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-button";
 
 import { SteppedFormStep } from "@/types/stepped-form-step";
-import { Icons } from "@/components/icons";
 
 type props = {
   isStepValid: (step: number) => boolean;
@@ -40,7 +41,7 @@ export function SteppedFormNavigationButtons({
             disabled={!isStepValid(currentStep) || isSubmitting}
           >
             Next
-            <Icons.chevronRight className="ml-2 h-4 w-4" />
+            <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
         ) : (
           <FormSubmitButton

@@ -1,5 +1,7 @@
 "use client";
 
+import { HeartPulse } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -10,7 +12,6 @@ import { ScrollArea } from "@workspace/ui/components/scroll-area";
 
 import { PayerType, PayerTypeLabels } from "@/types/payer-type";
 import { PerfMonthLabels, PerformanceMonth } from "@/types/perf-month";
-import { Icons } from "@/components/icons";
 
 import { EditPayerFormData } from "./edit-payer-form/edit-payer-form-schema";
 import { EditPayerSheet } from "./edit-payer-sheet";
@@ -31,7 +32,7 @@ export function PayerInfoCardClient({ data }: props) {
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.heartPulse className="size-6" />
+          <HeartPulse className="size-6" />
           <CardTitle className="text-2xl">{`${data.referenceName ? `${data.marketingName} (${data.referenceName}) ` : `${data.marketingName}`}`}</CardTitle>
           <div className="relative ml-auto">
             <EditPayerSheet formData={data} />

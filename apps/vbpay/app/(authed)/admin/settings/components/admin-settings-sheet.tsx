@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Pencil } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -14,7 +15,6 @@ import {
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
 
-import { Icons } from "@/components/icons";
 import { SetupFormData } from "@/components/setup-form/setup-form-schema";
 
 import { SteppedAdminSettingsForm } from "./stepped-admin-settings-form";
@@ -43,7 +43,7 @@ export function AdminSettingsSheet({ data, from }: props) {
               size="icon"
               variant="outline"
             >
-              <Icons.pencil className="h-4 w-4" />
+              <Pencil className="h-4 w-4" />
             </Button>
           </SheetTrigger>
         </TooltipTrigger>

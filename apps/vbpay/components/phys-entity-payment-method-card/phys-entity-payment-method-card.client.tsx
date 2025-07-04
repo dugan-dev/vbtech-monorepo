@@ -4,6 +4,7 @@ import { useParams, usePathname } from "next/navigation";
 import { deletePayloadPaymentMethodAction } from "@/actions/delete-payload-payment-method-action";
 import { useUserContext } from "@/contexts/user-context";
 import { canUserEditPayer } from "@/utils/can-user-edit-payer";
+import { Landmark, MoreVertical, PlusCircle } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { PaymentMethodForm } from "payload-react";
 import { toast } from "sonner";
@@ -54,7 +55,6 @@ import { stringToTitleCase } from "@workspace/ui/lib/stringToTitleCase";
 import { PayloadPaymentMethod } from "@/types/payload-payment-method";
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
-import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 const ALLOWED_USER_TYPES: UserType[] = [
@@ -163,7 +163,7 @@ export function PhysEntityPaymentMethodCardClient({
       />
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.landmark className="size-6" />
+          <Landmark className="size-6" />
           <CardTitle className="text-2xl">Bank Accounts</CardTitle>
           <div className="relative ml-auto">
             <RestrictByUserAppAttrsClient
@@ -175,7 +175,7 @@ export function PhysEntityPaymentMethodCardClient({
                   <TooltipTrigger asChild>
                     <DialogTrigger asChild>
                       <Button variant="outline" size="icon">
-                        <Icons.plusCircle className="size-4" />
+                        <PlusCircle className="size-4" />
                       </Button>
                     </DialogTrigger>
                   </TooltipTrigger>
@@ -316,7 +316,7 @@ export function PhysEntityPaymentMethodCardClient({
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button variant="ghost" size="icon">
-                                <Icons.moreVertical className="size-4" />
+                                <MoreVertical className="size-4" />
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>

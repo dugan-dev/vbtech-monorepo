@@ -1,7 +1,7 @@
+import { CalendarCog } from "lucide-react";
+
 import { Card, CardContent, CardHeader } from "@workspace/ui/components/card";
 import { Skeleton } from "@workspace/ui/components/skeleton";
-
-import { Icons } from "@/components/icons";
 
 type props = {
   perfYear: string;
@@ -19,7 +19,7 @@ export function PayerPyConfigCardSkeleton({ perfYear }: props) {
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.calendarCog className="size-6" />
+          <CalendarCog className="size-6" />
           {perfYear ? (
             <h2 className="text-2xl font-semibold">{`PY ${perfYear}`}</h2>
           ) : (

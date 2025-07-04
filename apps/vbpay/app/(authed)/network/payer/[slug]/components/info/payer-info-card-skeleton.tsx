@@ -1,7 +1,7 @@
+import { HeartPulse } from "lucide-react";
+
 import { Card, CardContent, CardHeader } from "@workspace/ui/components/card";
 import { Skeleton } from "@workspace/ui/components/skeleton";
-
-import { Icons } from "@/components/icons";
 
 /**
  * Renders a skeleton card UI as a loading placeholder for payer information.
@@ -13,7 +13,7 @@ export function PayerInfoCardSkeleton() {
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.heartPulse className="size-6 text-muted-foreground/70" />
+          <HeartPulse className="size-6 text-muted-foreground/70" />
           <Skeleton className="h-7 w-40" />
           <div className="relative ml-auto">
             <Skeleton className="h-9 w-10 rounded-md" />

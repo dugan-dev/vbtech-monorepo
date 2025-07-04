@@ -1,5 +1,7 @@
 "use client";
 
+import { AlertCircle, Building2, Stethoscope, Users } from "lucide-react";
+
 import { Alert, AlertDescription } from "@workspace/ui/components/alert";
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -37,7 +39,6 @@ import {
   TaxonomyCodeDisplayNames,
   TaxonomyCodes,
 } from "@/types/taxonomy-codes";
-import { Icons } from "@/components/icons";
 
 import { useAddNetworkPhysicianContext } from "../../contexts/use-add-network-physician-context";
 
@@ -67,7 +68,7 @@ export function AddNetworkPhysicianForm() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Icons.stethoscope className="h-5 w-5" />
+                  <Stethoscope className="h-5 w-5" />
                   Physician Info
                 </CardTitle>
                 <CardDescription>
@@ -191,7 +192,7 @@ export function AddNetworkPhysicianForm() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Icons.users className="h-5 w-5" />
+                      <Users className="h-5 w-5" />
                       Organization Affiliations
                     </CardTitle>
                     <CardDescription>
@@ -220,7 +221,7 @@ export function AddNetworkPhysicianForm() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Icons.building2 className="h-5 w-5" />
+                      <Building2 className="h-5 w-5" />
                       Facility & Vendor Relations
                     </CardTitle>
                     <CardDescription>
@@ -248,7 +249,7 @@ export function AddNetworkPhysicianForm() {
 
               <Alert className="bg-card flex flex-col gap-6">
                 <div className="flex items-center gap-2">
-                  <Icons.alertCircle className="h-4 w-4" />
+                  <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
                     If this physician has no affiliations, check the box below.
                   </AlertDescription>

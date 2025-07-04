@@ -1,6 +1,7 @@
 "use client";
 
 import { useLicenseContext } from "@/contexts/license-context";
+import { CalendarCog } from "lucide-react";
 
 import {
   Card,
@@ -11,7 +12,6 @@ import {
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 
 import { PaymentTypeType } from "@/types/payment-type";
-import { Icons } from "@/components/icons";
 
 import { PhysPyConfigDialog } from "./phys-py-config-dialog";
 import { PhysPyConfigFormData } from "./phys-py-config-form-schema";
@@ -48,7 +48,7 @@ export function PhysPyConfigCardClient({
     <Card className="min-w-[300px] w-1/4 max-w-[33.333%] hover:transform hover:scale-105 transition duration-300">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Icons.calendarCog className="size-6" />
+          <CalendarCog className="size-6" />
           <CardTitle className="text-2xl">{`PY ${perfYear}`}</CardTitle>
           <div className="relative ml-auto">
             <PhysPyConfigDialog

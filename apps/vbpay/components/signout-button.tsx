@@ -1,5 +1,6 @@
 import { APP_NAME } from "@/values/app-name";
 import { signOut } from "aws-amplify/auth";
+import { LogOut } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
@@ -12,8 +13,6 @@ import {
 } from "@workspace/ui/components/tooltip";
 import { useConfirmationDialog } from "@workspace/ui/hooks/use-confirmation-dialog";
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
-
-import { Icons } from "@/components/icons";
 
 /**
  * Renders a button that allows the user to sign out, with confirmation and error dialogs.
@@ -79,7 +78,7 @@ export function SignOutButton() {
           size="icon"
           data-testid="sign-out-button"
         >
-          <Icons.logout />
+          <LogOut />
         </Button>
       </TooltipTrigger>
       <TooltipContent data-testid="sign-out-button-tooltip-content">

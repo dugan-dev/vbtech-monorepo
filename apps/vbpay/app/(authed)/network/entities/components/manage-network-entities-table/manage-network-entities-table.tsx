@@ -1,12 +1,13 @@
 "use client";
 
+import { Network } from "lucide-react";
+
 import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { EmptyView } from "@workspace/ui/components/empty-view";
 
 import { NetworkEntity } from "@/types/network-entity";
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserRole } from "@/types/user-role";
-import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { AddNetworkEntityProvider } from "../../contexts/add-network-entity-context";
@@ -39,7 +40,7 @@ export function ManageNetworkEntitiesTable({ entities, usersAppAttrs }: props) {
             ? "Get started by adding your first network entity to the system."
             : "Network Entity configuration is pending. Please contact your support if you have any questions."
         }
-        icon={<Icons.network className="h-12 w-12 text-gray-400 mb-4" />}
+        icon={<Network className="h-12 w-12 text-gray-400 mb-4" />}
       >
         <RestrictByUserAppAttrsClient requiredUserRoles={REQUIRED_USER_ROLES}>
           <AddNetworkEntityProvider>

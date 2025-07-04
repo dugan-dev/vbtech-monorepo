@@ -1,11 +1,12 @@
 "use client";
 
+import { HeartHandshake } from "lucide-react";
+
 import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { EmptyView } from "@workspace/ui/components/empty-view";
 
 import { Payer } from "@/types/payer";
 import { UserRole } from "@/types/user-role";
-import { Icons } from "@/components/icons";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { AddPayerSheet } from "../add-payer-sheet";
@@ -30,7 +31,7 @@ export function ManagePayersTable({ payers }: props) {
       <EmptyView
         title="No Payers Yet"
         description="Get started by adding your first payer to the system."
-        icon={<Icons.heartHandshake className="h-12 w-12 text-gray-400 mb-4" />}
+        icon={<HeartHandshake className="h-12 w-12 text-gray-400 mb-4" />}
       >
         <RestrictByUserAppAttrsClient requiredUserRoles={REQUIRED_USER_ROLES}>
           <AddPayerSheet />

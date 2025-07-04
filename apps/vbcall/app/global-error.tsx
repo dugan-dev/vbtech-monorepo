@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { AlertCircle } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -11,8 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card";
-
-import { Icons } from "@/components/icons";
 
 /**
  * Renders a global error page.
@@ -41,7 +40,7 @@ export default function GlobalError({
           <Card className="w-full max-w-md shadow-lg">
             <CardHeader className="space-y-1">
               <div className="flex justify-center mb-2">
-                <Icons.alertCircle className="h-10 w-10 text-destructive" />
+                <AlertCircle className="h-10 w-10 text-destructive" />
               </div>
               <CardTitle className="text-xl text-center">Error</CardTitle>
               <CardDescription className="text-center">

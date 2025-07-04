@@ -4,12 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUserContext } from "@/contexts/user-context";
 import { signOut } from "aws-amplify/auth";
+import { ChevronRight, Lock, LogOut } from "lucide-react";
 
 import { MainSidebar } from "@workspace/ui/components/main-sidebar/main-sidebar";
 import { ThemeToggle } from "@workspace/ui/components/theme-toggle";
 import { UserAvatar } from "@workspace/ui/components/user-avatar";
 
-import { Icons } from "@/components/icons";
+import { AppIcons } from "@/components/app-icons";
 import { MAIN_SIDEBAR_CONFIG } from "@/components/main-sidebar/main-sidebar-config";
 import { UpdatePasswordDialog } from "@/components/update-password-dialog";
 
@@ -47,9 +48,9 @@ export function VBCallMainSidebar() {
   };
 
   const icons = {
-    chevronRight: Icons.chevronRight,
-    logo: Icons.logo,
-    logoDark: Icons.logoDark,
+    chevronRight: ChevronRight,
+    logo: AppIcons.logo,
+    logoDark: AppIcons.logoDark,
   };
 
   const UserAvatarWithProps = (props: {
@@ -63,8 +64,8 @@ export function VBCallMainSidebar() {
       onSignOutComplete={() => {
         window.location.reload();
       }}
-      lockIcon={Icons.lock}
-      logoutIcon={Icons.logout}
+      lockIcon={Lock}
+      logoutIcon={LogOut}
       updatePasswordDialog={UpdatePasswordDialog}
     />
   );

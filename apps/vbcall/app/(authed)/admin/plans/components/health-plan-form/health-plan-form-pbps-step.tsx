@@ -1,11 +1,10 @@
+import { Plus, Trash2 } from "lucide-react";
 import { Control, useFieldArray, useFormContext } from "react-hook-form";
 
 import { Button } from "@workspace/ui/components/button";
 import { Card, CardContent } from "@workspace/ui/components/card";
 import { FormInput } from "@workspace/ui/components/form/form-input";
 import { FormSwitch } from "@workspace/ui/components/form/form-switch";
-
-import { Icons } from "@/components/icons";
 
 import { HealthPlanFormData } from "./health-plan-form-schema";
 
@@ -79,7 +78,7 @@ function PBPCard({
             className="absolute top-4 right-4 text-muted-foreground hover:text-destructive"
             onClick={onRemove}
           >
-            <Icons.trash2 className="h-4 w-4" />
+            <Trash2 className="h-4 w-4" />
             <span className="sr-only">Remove PBP</span>
           </Button>
         )}
@@ -157,7 +156,7 @@ export function HealthPlanFormPBPsStep() {
         onClick={addPbp}
         className="w-full"
       >
-        <Icons.plus className="h-4 w-4 mr-2" />
+        <Plus className="h-4 w-4 mr-2" />
         Add Another PBP
       </Button>
     </div>

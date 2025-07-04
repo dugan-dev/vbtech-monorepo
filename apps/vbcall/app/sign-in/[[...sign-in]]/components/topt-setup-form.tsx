@@ -1,14 +1,13 @@
 "use client";
 
 import { SignInOutput } from "aws-amplify/auth";
+import { Loader2 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 
 import { Button } from "@workspace/ui/components/button";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormInputOtp } from "@workspace/ui/components/form/form-input-otp";
-
-import { Icons } from "@/components/icons";
 
 import { useTotpSetupForm } from "../hooks/use-totp-setup-form";
 import { TotpSetupSecretDialog } from "./totp-setup-secret-dialog";
@@ -58,7 +57,7 @@ export function TotpSetupForm({ currentState, email, setCurrentState }: props) {
           <Button type="submit" disabled={isLoading} className="mt-4">
             {isLoading ? (
               <>
-                <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 {"Verifying..."}
               </>
             ) : (

@@ -1,5 +1,6 @@
+import { Check } from "lucide-react";
+
 import { SteppedFormStep } from "@/types/stepped-form-step";
-import { Icons } from "@/components/icons";
 
 type props = {
   currentStep: number;
@@ -44,7 +45,7 @@ export function SteppedFormHeader({
                 {currentStep > step.id &&
                 setCurrentStep !== undefined &&
                 isEditing ? (
-                  <Icons.check className="h-5 w-5" />
+                  <Check className="h-5 w-5" />
                 ) : (
                   <step.icon className="h-5 w-5" />
                 )}

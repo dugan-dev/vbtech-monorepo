@@ -1,5 +1,7 @@
 "use client";
 
+import { PlusCircle, Stethoscope } from "lucide-react";
+
 import { Button } from "@workspace/ui/components/button";
 import {
   Card,
@@ -18,7 +20,7 @@ import {
   SheetTrigger,
 } from "@workspace/ui/components/sheet";
 
-import { Icons } from "@/components/icons";
+import { AppIcons } from "@/components/app-icons";
 import { NppesNetworkEntitySearchForm } from "@/components/nppes-network-entity-search-form/nppes-network-entity-search-form";
 import { NppesNetworkEntityResultsTable } from "@/components/nppes-network-entity-table/nppes-network-entity-table";
 
@@ -53,7 +55,7 @@ export function AddNetworkEntitySheet() {
       )}
       <SheetTrigger asChild>
         <Button>
-          <Icons.plusCircle className="mr-2 h-4 w-4" />
+          <PlusCircle className="mr-2 h-4 w-4" />
           {"Add Network Entity"}
         </Button>
       </SheetTrigger>
@@ -68,7 +70,7 @@ export function AddNetworkEntitySheet() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Icons.stethoscope className="h-5 w-5" />
+                  <Stethoscope className="h-5 w-5" />
                   Advanced Entity Search via NPPES
                 </CardTitle>
                 <CardDescription>
@@ -98,7 +100,7 @@ export function AddNetworkEntitySheet() {
             </Button>
           )}
           {(sheetState === "search" || sheetState === "advanced") && (
-            <Icons.nppesLogo
+            <AppIcons.nppesLogo
               className="bg-white p-2 rounded-md ml-2"
               width={150}
               height={120}
