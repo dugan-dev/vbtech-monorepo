@@ -16,7 +16,7 @@ import { ChangePasswordForm } from "./change-password-form";
 import { MfaVerificationForm } from "./mfa-verification-form";
 import { ResetPasswordForm } from "./reset-password-form";
 import { SignInForm } from "./sign-in-form";
-import { TotpSetupForm } from "./topt-setup-form";
+import { TotpSetupForm } from "./totp-setup-form";
 
 /**
  * Renders a multi-step sign-in card interface with support for password reset, multi-factor authentication, and error handling.

@@ -57,7 +57,10 @@ export function TotpSetupForm({ currentState, email, setCurrentState }: props) {
           <Button type="submit" disabled={isLoading} className="mt-4">
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2
+                  className="mr-2 h-4 w-4 animate-spin"
+                  aria-hidden="true"
+                />
                 {"Verifying..."}
               </>
             ) : (
