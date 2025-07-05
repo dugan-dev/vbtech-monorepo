@@ -1,5 +1,6 @@
-import { BreadcrumbItemType } from "@/types/breadcrumb-item";
-import { UserSelectionData } from "@/types/user-selection-data";
+import { BreadcrumbItemType } from "@workspace/ui/types/breadcrumb-item";
+import { UserSelectionData } from "@workspace/ui/types/user-selection-data";
+
 import { Header } from "@/components/header";
 
 type props = {

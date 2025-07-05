@@ -11,9 +11,9 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 
 import { ComboItem } from "@workspace/ui/types/combo-item";
+import { UserSelectionData } from "@workspace/ui/types/user-selection-data";
 
 import { UserAppAttrs } from "@/types/user-app-attrs";
-import { UserSelectionData } from "@/types/user-selection-data";
 import { cognitoClient } from "@/lib/auth/cognito";
 
 import { getAllPayers } from "./payer-repository";

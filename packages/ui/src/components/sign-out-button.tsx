@@ -1,25 +1,28 @@
-import { APP_NAME } from "@/values/app-name";
-import { signOut } from "aws-amplify/auth";
-import { LogOut } from "lucide-react";
-
-import { Button } from "@workspace/ui/components/button";
-import { ConfirmationDialog } from "@workspace/ui/components/confirmation-dialog";
-import { ErrorDialog } from "@workspace/ui/components/error-dialog";
-import { clearSidebarState } from "@workspace/ui/components/main-sidebar/main-sidebar-cookies";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@workspace/ui/components/tooltip";
-import { useConfirmationDialog } from "@workspace/ui/hooks/use-confirmation-dialog";
-import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+} from "@radix-ui/react-tooltip";
+import { LogOut } from "lucide-react";
+
+import { useConfirmationDialog } from "../hooks/use-confirmation-dialog";
+import { useErrorDialog } from "../hooks/use-error-dialog";
+import { Button } from "./button";
+import { ConfirmationDialog } from "./confirmation-dialog";
+import { ErrorDialog } from "./error-dialog";
+import { clearSidebarState } from "./main-sidebar/main-sidebar-cookies";
+
+type props = {
+  APP_NAME: string;
+  signOut: () => Promise<void>;
+};
 
 /**
- * Renders a button that allows the user to sign out, with confirmation and error dialogs.
+ * Renders a sign-out button that prompts for confirmation and handles errors.
  *
- * Displays a confirmation dialog before signing out. If sign-out fails, an error dialog is shown. Upon successful sign-out, the page reloads.
+ * Displays a confirmation dialog before signing out, clears sidebar state, and reloads the page upon successful sign-out. If an error occurs during sign-out, an error dialog is shown with details.
  */
-export function SignOutButton() {
+export function SignOutButton({ APP_NAME, signOut }: props) {
   const {
     openErrorDialog,
     isErrorDialogOpen,
