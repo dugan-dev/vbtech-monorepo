@@ -2,7 +2,7 @@ import { getAllPayers } from "@/repos/payer-repository";
 import { getUsersData } from "@/repos/user-repository";
 import { networkEntitiesToFormCombos } from "@/utils/network-entities-to-form-combos";
 
-import { MissingInvalidView } from "@/components/missing-invalid-view";
+import { MissingInvalidView } from "@workspace/ui/components/missing-invalid-view";
 
 import { getNetworkEntitiesForAffiliation } from "../repos/get-network-entities-for-affiliation";
 import { getNetworkPhysiciansForTable } from "../repos/get-network-physicians-for-table";
