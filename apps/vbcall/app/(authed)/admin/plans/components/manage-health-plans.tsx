@@ -2,8 +2,9 @@ import "server-only";
 
 import { getUsersData } from "@/repos/user-repository";
 
+import { MissingInvalidView } from "@workspace/ui/components/missing-invalid-view";
+
 import { HealthPlan } from "@/types/health-plan";
-import { MissingInvalidView } from "@/components/missing-invalid-view";
 
 import { getHealthPlanPbps } from "../repos/get-health-plan-pbps";
 import { getHealthPlansForTable } from "../repos/get-health-plans-for-table";

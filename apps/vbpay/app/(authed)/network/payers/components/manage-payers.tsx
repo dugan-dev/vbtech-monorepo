@@ -2,7 +2,7 @@ import "server-only";
 
 import { getUsersData } from "@/repos/user-repository";
 
-import { MissingInvalidView } from "@/components/missing-invalid-view";
+import { MissingInvalidView } from "@workspace/ui/components/missing-invalid-view";
 
 import { getPayersForTable } from "../repos/get-payers-for-table";
 import { ManagePayersTable } from "./manage-payers-table/manage-payers-table";
