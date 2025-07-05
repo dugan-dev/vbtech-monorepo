@@ -1,4 +1,4 @@
-import { formatDate } from "@/utils/format-date";
+import { formatDate } from "@workspace/ui/lib/format-date";
 import {
   NPPES_IS_SOLE_PROPRIETOR_VALUES,
   NPPES_PROVIDER_GENDER_CODE_VALUES,

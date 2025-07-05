@@ -1,4 +1,4 @@
-import { formatDate } from "@/utils/format-date";
+import { formatDate } from "@workspace/ui/lib/format-date";
 import { NPPES_PROVIDER_STATUS_CODE_VALUES } from "@/values/nppes-api-values";
 import { ColumnDef } from "@tanstack/table-core";
 
