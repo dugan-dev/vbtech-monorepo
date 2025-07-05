@@ -7,13 +7,13 @@ import {
 import { ColumnDef } from "@tanstack/table-core";
 
 import { Button } from "@workspace/ui/components/button";
+import { ClientFormattedDate } from "@workspace/ui/components/client-formatted-date";
 import { DataTableColumnHeader } from "@workspace/ui/components/data-table/data-table-column-header";
 import { stringToTitleCase } from "@workspace/ui/lib/stringToTitleCase";
 
 import { NppesApiResponseResult } from "@/types/nppes-api-reponse";
 import { NppesSoleProprietor } from "@/types/nppes-sole-proprietor";
 import { TaxonomyCode, TaxonomyCodeSpecialties } from "@/types/taxonomy-codes";
-import { ClientFormattedDate } from "@/components/client-formatted-date";
 import {
   AddNetworkPhysicianFormDefaultValues,
   AddNetworkPhysicianFormInput,

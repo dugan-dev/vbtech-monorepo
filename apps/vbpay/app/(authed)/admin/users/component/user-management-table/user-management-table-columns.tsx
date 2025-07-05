@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/table-core";
 
 import { Badge } from "@workspace/ui/components/badge";
+import { ClientFormattedDate } from "@workspace/ui/components/client-formatted-date";
 import { DataTableColumnHeader } from "@workspace/ui/components/data-table/data-table-column-header";
 import {
   HoverCard,
@@ -14,7 +15,6 @@ import { DataTablePhysician } from "@workspace/ui/types/data-table-types";
 
 import { UserCognito } from "@/types/user-cognito";
 import { UserTypeLabels } from "@/types/user-type";
-import { ClientFormattedDate } from "@/components/client-formatted-date";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 import { UserTypeIcon } from "@/components/user-type-icon";
 
