@@ -24,8 +24,7 @@ import {
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { cn } from "@workspace/ui/lib/utils";
-
-import { UserSelectionData } from "@/types/user-selection-data";
+import { UserSelectionData } from "@workspace/ui/types/user-selection-data";
 
 /**
  * Renders a searchable combo box for selecting a user/client, with lock and unlock functionality.
