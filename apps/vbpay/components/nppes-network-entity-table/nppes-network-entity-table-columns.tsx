@@ -1,10 +1,10 @@
-import { formatDate } from "@workspace/ui/lib/format-date";
 import { NPPES_PROVIDER_STATUS_CODE_VALUES } from "@/values/nppes-api-values";
 import { ColumnDef } from "@tanstack/table-core";
 
 import { Button } from "@workspace/ui/components/button";
 import { ClientFormattedDate } from "@workspace/ui/components/client-formatted-date";
 import { DataTableColumnHeader } from "@workspace/ui/components/data-table/data-table-column-header";
+import { formatDate } from "@workspace/ui/lib/format-date";
 import { stringToTitleCase } from "@workspace/ui/lib/stringToTitleCase";
 
 import { NppesApiResponseResult } from "@/types/nppes-api-reponse";
