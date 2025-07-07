@@ -19,23 +19,30 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 py-4 px-6 shadow-sm">
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-4">
+      <header className="bg-white border-b border-gray-200 py-4 px-4 sm:px-6 shadow-sm">
+        <div className="container mx-auto grid grid-cols-[auto_1fr_auto] items-center gap-4">
+          {/* Logo - Left aligned */}
+          <div className="flex items-center space-x-2 sm:space-x-4 justify-self-start min-w-fit">
             <Image
-              src="/armare-logo.png"
+              src="/acr.png"
               alt="Armare Health"
-              width={200}
-              height={60}
-              className="h-10 w-auto"
+              width={400}
+              height={120}
+              className="h-16 w-auto rounded-md flex-shrink-0"
             />
           </div>
-          <div className="text-sm text-gray-600">
-            Provider Information Portal
+
+          {/* Title - Center aligned */}
+          <div className="flex justify-center">
+            <h1 className="text-3xl font-bold text-gray-900">
+              Provider Information
+            </h1>
           </div>
+
+          {/* Empty space for balance - Right aligned */}
+          <div></div>
         </div>
       </header>
-
       {/* Alert Banner */}
       <div className="bg-blue-50 border-b border-blue-200 py-3">
         <div className="container mx-auto px-6">
@@ -43,30 +50,25 @@ export default function Page() {
             <AlertCircle className="h-4 w-4 text-blue-600" />
             <AlertTitle className="text-blue-800">Important Notice</AlertTitle>
             <AlertDescription className="text-blue-700">
-              If you have received correspondence from Armare Health regarding
-              Medicare claim reviews, please review the information below for
-              response procedures and requirements.
+              If you have received correspondence from Armare Claim Review
+              regarding Medicare claim reviews, please review the information
+              below for response procedures and requirements.
             </AlertDescription>
           </Alert>
         </div>
       </div>
-
       {/* Main Content */}
       <main className="container mx-auto px-6 py-8">
         {/* Overview Section */}
         <section className="mb-12">
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-6">
-              Armare Health - Provider Information
-            </h1>
-
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">
                   About Our Organization
                 </h2>
                 <p className="text-gray-700 mb-4 leading-relaxed">
-                  Armare Health is a Medicare payment integrity contractor
+                  Armare Claim Review is a Medicare payment integrity contractor
                   working on behalf of Medicare Advantage organizations to
                   review claims and identify potential overpayments in
                   accordance with CMS regulations.
@@ -82,9 +84,6 @@ export default function Page() {
                   </Badge>
                   <Badge variant="outline" className="text-gray-600">
                     HIPAA Compliant
-                  </Badge>
-                  <Badge variant="outline" className="text-gray-600">
-                    Medicare Contractor
                   </Badge>
                 </div>
               </div>
@@ -202,7 +201,7 @@ export default function Page() {
                     <div>
                       <p className="font-medium text-gray-900">Email</p>
                       <p className="text-gray-600">
-                        providers@armaresupport.com
+                        providers@armareclaimreview.com
                       </p>
                     </div>
                   </div>
@@ -218,7 +217,9 @@ export default function Page() {
                     <Mail className="h-5 w-5 text-gray-500" />
                     <div>
                       <p className="font-medium text-gray-900">Appeals Email</p>
-                      <p className="text-gray-600">appeals@armaresupport.com</p>
+                      <p className="text-gray-600">
+                        appeals@armareclaimreview.com
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -240,12 +241,12 @@ export default function Page() {
                   Mailing Address
                 </h3>
                 <div className="bg-gray-50 p-4 rounded-lg border">
-                  <p className="font-medium text-gray-900">Armare Health</p>
-                  <p className="text-gray-700">Medical Records Department</p>
-                  <p className="text-gray-700">
-                    123 Healthcare Plaza, Suite 400
+                  <p className="font-medium text-gray-900">
+                    Armare Claim Review
                   </p>
-                  <p className="text-gray-700">Medical City, MC 12345</p>
+                  <p className="text-gray-700">Attn: Medical Records Review</p>
+                  <p className="text-gray-700">P.O. Box 9419</p>
+                  <p className="text-gray-700">San Diego, CA 92169</p>
                   <div className="mt-3 pt-3 border-t border-gray-200">
                     <p className="text-sm font-medium text-gray-900">
                       Required on envelope:
@@ -267,9 +268,7 @@ export default function Page() {
                     <p className="font-medium text-gray-900 mb-2">
                       Secure Email
                     </p>
-                    <p className="text-gray-700">
-                      medicalrecords@armaresupport.com
-                    </p>
+                    <p className="text-gray-700">records@armaresupport.com</p>
                     <p className="text-sm text-gray-500 mt-1">
                       Encrypted transmission required
                     </p>
@@ -277,7 +276,7 @@ export default function Page() {
 
                   <div className="bg-gray-50 p-4 rounded-lg border">
                     <p className="font-medium text-gray-900 mb-2">Secure Fax</p>
-                    <p className="text-gray-700">(555) 123-4599</p>
+                    <p className="text-gray-700">(858) 351-3291</p>
                     <p className="text-sm text-gray-500 mt-1">
                       HIPAA compliant transmission
                     </p>
@@ -361,18 +360,17 @@ export default function Page() {
           </div>
         </section>
       </main>
-
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 py-8">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <Image
-                src="/armare-logo.png"
+                src="/acr.png"
                 alt="Armare Health"
                 width={150}
                 height={45}
-                className="h-8 w-auto mb-4"
+                className="h-12 w-auto mb-4 rounded-md"
               />
               <p className="text-gray-600 text-sm">
                 Medicare payment integrity contractor operating under CMS
@@ -383,10 +381,10 @@ export default function Page() {
             <div>
               <h4 className="font-semibold text-gray-900 mb-3">Quick Access</h4>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li>General Inquiries: providers@armaresupport.com</li>
-                <li>Appeals: appeals@armaresupport.com</li>
-                <li>Medical Records: medicalrecords@armaresupport.com</li>
-                <li>Medical Records Fax: (555) 123-4599</li>
+                <li>General Inquiries: providers@armareclaimreview.com</li>
+                <li>Appeals: appeals@armareclaimreview.com</li>
+                <li>Medical Records: records@armareclaimreview.com</li>
+                <li>Medical Records Fax: (858) 351-3291</li>
               </ul>
             </div>
 
@@ -397,7 +395,7 @@ export default function Page() {
 
           <div className="text-center text-sm text-gray-500">
             <p>
-              &copy; {new Date().getFullYear()} Armare Health. All rights
+              &copy; {new Date().getFullYear()} Armare Claim Review. All rights
               reserved.
             </p>
           </div>
