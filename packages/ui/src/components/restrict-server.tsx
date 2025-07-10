@@ -49,8 +49,13 @@ export function RestrictServer<TUserType = string, TUserRole = string>({
     return onUnauthorized();
   }
 
-  // If setup is required and not completed, redirect to setup
-  if (requiresSetup && onSetupRequired) {
+  // If setup is required, block access
+  if (requiresSetup) {
+    if (!onSetupRequired) {
+      throw new Error(
+        "onSetupRequired callback is required when requiresSetup is true",
+      );
+    }
     return onSetupRequired();
   }
 
