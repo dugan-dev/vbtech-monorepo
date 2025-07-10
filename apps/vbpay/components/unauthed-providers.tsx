@@ -5,7 +5,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
 
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 
 import { AuthInitializer } from "./auth-initializer";
 
