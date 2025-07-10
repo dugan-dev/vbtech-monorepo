@@ -1,5 +1,7 @@
 import { useUserContext } from "@/contexts/user-context";
 
+import { RestrictClient } from "@workspace/ui/components/restrict-client";
+
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 
@@ -31,26 +33,14 @@ export default function RestrictByUserAppAttrsClient({
   const userData = useUserContext();
   const usersAppAttrs = userData.usersAppAttrs;
 
-  if (adminOnly && !usersAppAttrs.admin) {
-    return null;
-  }
-
-  if (allowedUserTypes && !allowedUserTypes.includes(usersAppAttrs.type)) {
-    return null;
-  }
-
-  if (requiredUserRoles && requiredUserRoles.length > 0) {
-    const numIds = usersAppAttrs.ids?.length || 0;
-    const id = usersAppAttrs.slug
-      ? usersAppAttrs.ids?.find((id) => id.id === usersAppAttrs.slug)
-      : numIds === 1
-        ? usersAppAttrs.ids?.[0]
-        : null;
-
-    if (!requiredUserRoles.every((role) => id?.userRoles.includes(role))) {
-      return null;
-    }
-  }
-
-  return <>{children}</>;
+  return (
+    <RestrictClient<UserType, UserRole>
+      userAppAttrs={usersAppAttrs}
+      allowedUserTypes={allowedUserTypes}
+      requiredUserRoles={requiredUserRoles}
+      adminOnly={adminOnly}
+    >
+      {children}
+    </RestrictClient>
+  );
 }
