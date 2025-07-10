@@ -83,4 +83,3 @@ export function RestrictServer<TUserType = string, TUserRole = string>({
 
   return <>{children}</>;
 }
-

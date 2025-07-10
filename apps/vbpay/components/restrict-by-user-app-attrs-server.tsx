@@ -1,5 +1,6 @@
 import { forbidden, redirect, unauthorized } from "next/navigation";
 import { getUsersData } from "@/repos/user-repository";
+
 import { RestrictServer } from "@workspace/ui/components/restrict-server";
 
 import "server-only";

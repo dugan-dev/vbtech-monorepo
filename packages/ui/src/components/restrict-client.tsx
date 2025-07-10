@@ -54,4 +54,3 @@ export function RestrictClient<TUserType = string, TUserRole = string>({
 
   return <>{children}</>;
 }
-

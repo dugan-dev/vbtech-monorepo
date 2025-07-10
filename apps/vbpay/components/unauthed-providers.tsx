@@ -3,9 +3,8 @@
 import { PropsWithChildren } from "react";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
-import { TooltipProvider } from "@workspace/ui/components/tooltip";
-
 import { ThemeProvider } from "@workspace/ui/components/theme-provider";
+import { TooltipProvider } from "@workspace/ui/components/tooltip";
 
 import { AuthInitializer } from "./auth-initializer";
 
