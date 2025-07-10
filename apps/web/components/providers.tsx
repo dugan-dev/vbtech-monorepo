@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+
 import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 
 /**

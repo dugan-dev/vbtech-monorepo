@@ -1,5 +1,8 @@
 import { PropsWithChildren } from "react";
-import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from "next-themes";
+import {
+  ThemeProvider as NextThemesProvider,
+  ThemeProviderProps,
+} from "next-themes";
 
 interface CustomThemeProviderProps extends PropsWithChildren {
   defaultTheme?: ThemeProviderProps["defaultTheme"];
@@ -8,12 +11,12 @@ interface CustomThemeProviderProps extends PropsWithChildren {
   enableColorScheme?: boolean;
 }
 
-export function ThemeProvider({ 
+export function ThemeProvider({
   children,
   defaultTheme = "system",
   enableSystem = true,
   disableTransitionOnChange = true,
-  enableColorScheme = true
+  enableColorScheme = true,
 }: CustomThemeProviderProps) {
   return (
     <NextThemesProvider
