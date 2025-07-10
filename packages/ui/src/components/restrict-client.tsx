@@ -1,14 +1,6 @@
 import { ReactNode } from "react";
 
-export type UserAppAttrs<TUserType = string, TUserRole = string> = {
-  admin: boolean;
-  type: TUserType;
-  slug?: string;
-  ids?: Array<{
-    id: string;
-    userRoles: TUserRole[];
-  }>;
-};
+import { UserAppAttrs } from "../types/user-app-attrs";
 
 export type RestrictClientProps<TUserType = string, TUserRole = string> = {
   children: ReactNode;
