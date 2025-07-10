@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { UserAppAttrs } from "../types/user-app-attrs";
 
-export type RestrictServerProps<TUserType = string, TUserRole = string> = {
+type props<TUserType = string, TUserRole = string> = {
   children: ReactNode;
   userAppAttrs: UserAppAttrs<TUserType, TUserRole> | null;
   allowedUserTypes?: TUserType[];
@@ -15,10 +15,10 @@ export type RestrictServerProps<TUserType = string, TUserRole = string> = {
 };
 
 /**
- * Server-side component that restricts rendering of children to users who meet specified 
+ * Server-side component that restricts rendering of children to users who meet specified
  * attribute and role requirements.
  *
- * Returns appropriate responses (unauthorized, forbidden, setup redirect) based on user 
+ * Returns appropriate responses (unauthorized, forbidden, setup redirect) based on user
  * permissions and application state. Only renders children if all access conditions are met.
  *
  * @param children - React nodes to render when access is granted.
@@ -43,7 +43,7 @@ export function RestrictServer<TUserType = string, TUserRole = string>({
   onForbidden,
   onSetupRequired,
   requiresSetup = false,
-}: RestrictServerProps<TUserType, TUserRole>) {
+}: props<TUserType, TUserRole>) {
   // Only authenticated users with app attributes can access this page
   if (!userAppAttrs) {
     return onUnauthorized();
@@ -83,3 +83,4 @@ export function RestrictServer<TUserType = string, TUserRole = string>({
 
   return <>{children}</>;
 }
+

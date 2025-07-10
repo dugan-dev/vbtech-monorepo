@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { UserAppAttrs } from "../types/user-app-attrs";
 
-export type RestrictClientProps<TUserType = string, TUserRole = string> = {
+type props<TUserType = string, TUserRole = string> = {
   children: ReactNode;
   userAppAttrs: UserAppAttrs<TUserType, TUserRole>;
   allowedUserTypes?: TUserType[];
@@ -13,7 +13,7 @@ export type RestrictClientProps<TUserType = string, TUserRole = string> = {
 /**
  * Restricts rendering of children to users who meet specified attribute and role requirements.
  *
- * Renders the provided children only if the current user satisfies all given access conditions, 
+ * Renders the provided children only if the current user satisfies all given access conditions,
  * including admin status, allowed user types, and required roles. Returns null if any condition is not met.
  *
  * @param children - React nodes to render when access is granted.
@@ -30,7 +30,7 @@ export function RestrictClient<TUserType = string, TUserRole = string>({
   allowedUserTypes,
   requiredUserRoles,
   adminOnly = false,
-}: RestrictClientProps<TUserType, TUserRole>) {
+}: props<TUserType, TUserRole>) {
   if (adminOnly && !userAppAttrs.admin) {
     return null;
   }
@@ -54,3 +54,4 @@ export function RestrictClient<TUserType = string, TUserRole = string>({
 
   return <>{children}</>;
 }
+
