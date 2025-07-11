@@ -3,12 +3,12 @@
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
+import { SteppedFormHeader } from "@workspace/ui/components/stepped-form-header";
+import { SteppedFormNavigationButtons } from "@workspace/ui/components/stepped-form-navigation-buttons";
 
 import { SetupStep1LicenseInfo } from "@/components/setup-form/steps/setup-step1-license-info";
 import { SetupStep2LicenseFunctionality } from "@/components/setup-form/steps/setup-step2-license-functionality";
 import { SetupStep3GlobalSettings } from "@/components/setup-form/steps/setup-step3-global-settings";
-import { SteppedFormHeader } from "@/components/stepped-form-header";
-import { SteppedFormNavigationButtons } from "@/components/stepped-form-navigation-buttons";
 
 import { useSteppedSetupForm } from "../hooks/use-stepped-setup-form";
 import { SetupFormSteps } from "./setup-form-steps";

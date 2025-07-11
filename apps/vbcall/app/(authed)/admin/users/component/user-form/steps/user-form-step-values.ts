@@ -1,6 +1,6 @@
 import { User, UserCog, UserPlus } from "lucide-react";
 
-import { SteppedFormStep } from "@/types/stepped-form-step";
+import { SteppedFormStep } from "@workspace/ui/types/stepped-form-step";
 
 export const UserFormStepValues: SteppedFormStep[] = [
   { id: 1, title: "Basic Information", icon: User },

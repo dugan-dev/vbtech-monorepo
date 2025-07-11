@@ -3,9 +3,8 @@
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
-
-import { SteppedFormHeader } from "@/components/stepped-form-header";
-import { SteppedFormNavigationButtons } from "@/components/stepped-form-navigation-buttons";
+import { SteppedFormHeader } from "@workspace/ui/components/stepped-form-header";
+import { SteppedFormNavigationButtons } from "@workspace/ui/components/stepped-form-navigation-buttons";
 
 import { useHealthPlanForm } from "../../hooks/use-health-plan-form";
 import { HealthPlanFormBasicInfoStep } from "./health-plan-form-basic-info-step";
