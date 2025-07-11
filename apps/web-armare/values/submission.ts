@@ -3,7 +3,7 @@ import type { SubmissionMethod } from "@/types/submission";
 export const SUBMISSION_METHODS: SubmissionMethod[] = [
   {
     title: "Secure Email",
-    value: "records@armaresupport.com",
+    value: "records@armareclaimreview.com",
     note: "Encrypted transmission required",
   },
   {
