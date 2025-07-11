@@ -1,6 +1,6 @@
 import { Check } from "lucide-react";
 
-import { SteppedFormStep } from "@/types/stepped-form-step";
+import { SteppedFormStep } from "../types/stepped-form-step";
 
 type props = {
   currentStep: number;

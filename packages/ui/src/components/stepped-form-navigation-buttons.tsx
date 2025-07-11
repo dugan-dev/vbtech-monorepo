@@ -1,9 +1,8 @@
 import { ChevronRight } from "lucide-react";
 
-import { Button } from "@workspace/ui/components/button";
-import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-button";
-
-import { SteppedFormStep } from "@/types/stepped-form-step";
+import { SteppedFormStep } from "../types/stepped-form-step";
+import { Button } from "./button";
+import { FormSubmitButton } from "./form/form-submit-button";
 
 type props = {
   isStepValid: (step: number) => boolean;

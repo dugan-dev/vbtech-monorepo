@@ -3,10 +3,10 @@
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
+import { SteppedFormHeader } from "@workspace/ui/components/stepped-form-header";
+import { SteppedFormNavigationButtons } from "@workspace/ui/components/stepped-form-navigation-buttons";
 
 import { UserCognito } from "@/types/user-cognito";
-import { SteppedFormHeader } from "@/components/stepped-form-header";
-import { SteppedFormNavigationButtons } from "@/components/stepped-form-navigation-buttons";
 
 import { useSteppedUserForm } from "../../hooks/use-stepped-user-form";
 import { BasicInfoStep } from "./steps/basic-info-step";

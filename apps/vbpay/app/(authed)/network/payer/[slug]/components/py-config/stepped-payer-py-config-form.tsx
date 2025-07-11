@@ -4,9 +4,8 @@ import { EditButton } from "@workspace/ui/components/edit-button";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { SheetHeader, SheetTitle } from "@workspace/ui/components/sheet";
-
-import { SteppedFormHeader } from "@/components/stepped-form-header";
-import { SteppedFormNavigationButtons } from "@/components/stepped-form-navigation-buttons";
+import { SteppedFormHeader } from "@workspace/ui/components/stepped-form-header";
+import { SteppedFormNavigationButtons } from "@workspace/ui/components/stepped-form-navigation-buttons";
 
 import { useSteppedPayerPyConfigForm } from "../../hooks/use-payer-py-config-form";
 import { PayerPyConfigFormData } from "./payer-py-config-form-schema";
