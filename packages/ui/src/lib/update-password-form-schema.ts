@@ -1,26 +1,31 @@
 import * as z from "zod";
 
+import {
+  PASSWORD_MIN_LENGTH,
+  PASSWORD_MIN_LENGTH_MESSAGE,
+  PASSWORD_REGEX,
+  PASSWORD_REQUIREMENTS_MESSAGE,
+  PASSWORDS_MUST_MATCH_MESSAGE,
+} from "./auth/password-validation";
+
 const UpdatePasswordFormSchema = z
   .object({
     currentPassword: z
       .string()
-      .min(12, "Password must be at least 12 characters"),
+      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_MESSAGE),
     newPassword: z
       .string()
-      .min(12, "Password must be at least 12 characters")
-      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-      .regex(/[0-9]/, "Password must contain at least one number")
-      .regex(
-        /[^A-Za-z0-9]/,
-        "Password must contain at least one special character",
+      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_MESSAGE)
+      .refine(
+        (value) => PASSWORD_REGEX.test(value),
+        PASSWORD_REQUIREMENTS_MESSAGE,
       ),
     confirmPassword: z
       .string()
-      .min(12, "Password must be at least 12 characters"),
+      .min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_MESSAGE),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
-    message: "Passwords do not match",
+    message: PASSWORDS_MUST_MATCH_MESSAGE,
     path: ["confirmPassword"],
   });
 
