@@ -74,6 +74,7 @@ export function HealthPlanForm({
           currentStep={currentStep}
           steps={HealthPlanFormStepValues}
           setCurrentStep={setCurrentStep}
+          isEditing={!!formData}
         />
       </SheetHeader>
 
@@ -108,11 +109,11 @@ export function HealthPlanForm({
               </fieldset>
               {/* Navigation buttons */}
               <SteppedFormNavigationButtons
-                steps={HealthPlanFormStepValues}
                 currentStep={currentStep}
-                prevStep={prevStep}
-                nextStep={nextStep}
+                steps={HealthPlanFormStepValues}
                 isStepValid={isStepValid}
+                nextStep={nextStep}
+                prevStep={prevStep}
                 isSubmitting={isPending}
               />
             </form>
