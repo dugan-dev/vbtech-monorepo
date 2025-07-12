@@ -27,7 +27,7 @@ export const PASSWORD_PATTERNS = {
   uppercase: /[A-Z]/,
   lowercase: /[a-z]/,
   number: /[0-9]/,
-  specialChar: /[^A-Za-z0-9]/,
+  specialChar: /[!@#$%^&*(),.?":{}|<>]/,
 } as const;
 
 /**
