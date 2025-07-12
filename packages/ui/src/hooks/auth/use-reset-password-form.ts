@@ -9,13 +9,8 @@ import {
   ResetPasswordFormSchema,
 } from "../../lib/auth/reset-password-form-schema";
 import { getErrorMessage } from "../../lib/get-error-message";
+import { ConfirmResetPasswordFunction } from "../../types/auth/password-reset";
 import { useErrorDialog } from "../use-error-dialog";
-
-type ConfirmResetPasswordFunction = (params: {
-  username: string;
-  confirmationCode: string;
-  newPassword: string;
-}) => Promise<void>;
 
 type props = {
   setEmailForReset: React.Dispatch<React.SetStateAction<string | null>>;
