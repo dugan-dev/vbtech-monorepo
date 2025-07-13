@@ -23,30 +23,23 @@ type LogoComponent = React.ComponentType<{
   className?: string;
 }>;
 
-type props = {
+type props<T extends SignInResult> = {
   logo: LogoComponent;
   logoDark: LogoComponent;
   signInFn: SignInFunction;
-  confirmSignInFn: ConfirmSignInFunction;
+  confirmSignInFn: ConfirmSignInFunction<T>;
   confirmResetPasswordFn: ConfirmResetPasswordFunction;
   resetPasswordFn: ResetPasswordFunction;
 };
 
-export function SignInCard<
-  T extends {
-    nextStep: {
-      signInStep: string;
-      totpSetupDetails?: { sharedSecret: string };
-    };
-  } = SignInResult,
->({
+export function SignInCard<T extends SignInResult = SignInResult>({
   logo: Logo,
   logoDark: LogoDark,
   signInFn,
   confirmSignInFn,
   confirmResetPasswordFn,
   resetPasswordFn,
-}: props) {
+}: props<T>) {
   const {
     currentState,
     setCurrentState,

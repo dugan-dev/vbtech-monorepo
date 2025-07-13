@@ -16,6 +16,5 @@ export type SignInFunction = (params: {
   password: string;
 }) => Promise<SignInResult>;
 
-export type ConfirmSignInFunction = (params: {
-  challengeResponse: string;
-}) => Promise<SignInResult>;
+export type ConfirmSignInFunction<T extends SignInResult = SignInResult> =
+  (params: { challengeResponse: string }) => Promise<T>;

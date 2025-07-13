@@ -3,20 +3,21 @@
 import { Loader2 } from "lucide-react";
 
 import { useChangePasswordForm } from "../../hooks/auth/use-change-password-form";
-import { ConfirmSignInFunction } from "../../types/auth";
+import { ConfirmSignInFunction, SignInResult } from "../../types/auth";
 import { Button } from "../button";
 import { ErrorDialog } from "../error-dialog";
 import { Form } from "../form";
 import { FormPasswordInput } from "../form/form-password-input";
 
-type props<T> = {
+type props<T extends SignInResult> = {
   setCurrentState: React.Dispatch<React.SetStateAction<T | null>>;
-  confirmSignInFn: ConfirmSignInFunction;
+  confirmSignInFn: ConfirmSignInFunction<T>;
 };
 
-export function ChangePasswordForm<
-  T extends { nextStep: { signInStep: string } },
->({ setCurrentState, confirmSignInFn }: props<T>) {
+export function ChangePasswordForm<T extends SignInResult = SignInResult>({
+  setCurrentState,
+  confirmSignInFn,
+}: props<T>) {
   const {
     form,
     onSubmit,

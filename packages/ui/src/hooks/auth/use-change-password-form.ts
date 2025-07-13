@@ -12,14 +12,15 @@ import { getErrorMessage } from "../../lib/get-error-message";
 import type { ConfirmSignInFunction, SignInResult } from "../../types/auth";
 import { useErrorDialog } from "../use-error-dialog";
 
-type props<T> = {
+type props<T extends SignInResult> = {
   setCurrentState: React.Dispatch<React.SetStateAction<T | null>>;
-  confirmSignInFn: ConfirmSignInFunction;
+  confirmSignInFn: ConfirmSignInFunction<T>;
 };
 
-export function useChangePasswordForm<
-  T extends { nextStep: { signInStep: string } } = SignInResult,
->({ setCurrentState, confirmSignInFn }: props<T>) {
+export function useChangePasswordForm<T extends SignInResult = SignInResult>({
+  setCurrentState,
+  confirmSignInFn,
+}: props<T>) {
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -47,7 +48,7 @@ export function useChangePasswordForm<
       const result = await confirmSignInFn({
         challengeResponse: formData.password,
       });
-      output = result as unknown as T;
+      output = result;
     } catch (e) {
       console.error(e);
       handleError(getErrorMessage(e));
