@@ -47,6 +47,25 @@ export function useTotpSetupForm<
       const result = await confirmSignInFn({
         challengeResponse: formData.code,
       });
+
+      // Validate the result has the expected structure
+      if (
+        !result ||
+        typeof result !== "object" ||
+        !("nextStep" in result) ||
+        !result.nextStep ||
+        typeof result.nextStep !== "object" ||
+        !("signInStep" in result.nextStep) ||
+        typeof result.nextStep.signInStep !== "string"
+      ) {
+        throw new Error(
+          "Invalid sign-in result: missing required nextStep.signInStep",
+        );
+      }
+
+      // Type-safe assertion: We've validated the structure matches T's constraint
+      // Using unknown intermediate cast to satisfy TypeScript's strict checking
+      // This is safe because we've verified the runtime structure
       output = result as unknown as T;
     } catch (e) {
       console.error(e);
