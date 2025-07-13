@@ -2,6 +2,7 @@
 
 import { Loader2 } from "lucide-react";
 
+import { useQrCode } from "../../hooks/auth/use-qr-code";
 import { useTotpSetupForm } from "../../hooks/auth/use-totp-setup-form";
 import type { SignInResult } from "../../types/auth";
 import { Button } from "../button";
@@ -41,6 +42,11 @@ export function TotpSetupForm<
 
   const secret = currentState.nextStep.totpSetupDetails?.sharedSecret || "";
   const qrCodeUrl = `otpauth://totp/${encodeURIComponent(email)}?secret=${secret}&issuer=${encodeURIComponent("VBTech")}`;
+  const {
+    qrCodeDataUrl,
+    isLoading: isQrLoading,
+    error: qrError,
+  } = useQrCode(qrCodeUrl);
 
   return (
     <Form {...form}>
@@ -58,11 +64,22 @@ export function TotpSetupForm<
             Scan this QR code with your authenticator app:
           </p>
           <div className="flex justify-center">
-            <img
-              src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrCodeUrl)}`}
-              alt="QR Code for MFA setup"
-              className="border rounded-md"
-            />
+            {isQrLoading ? (
+              <div className="w-[200px] h-[200px] border rounded-md flex items-center justify-center bg-muted">
+                <Loader2 className="h-8 w-8 animate-spin" />
+              </div>
+            ) : qrError ? (
+              <div className="w-[200px] h-[200px] border rounded-md flex items-center justify-center bg-muted text-sm text-muted-foreground text-center p-4">
+                Failed to generate QR code. Please use the manual setup option
+                below.
+              </div>
+            ) : qrCodeDataUrl ? (
+              <img
+                src={qrCodeDataUrl}
+                alt="QR Code for MFA setup"
+                className="border rounded-md"
+              />
+            ) : null}
           </div>
           <TotpSetupSecretDialog secret={secret} />
         </div>
