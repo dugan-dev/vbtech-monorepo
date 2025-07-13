@@ -9,7 +9,9 @@ type props = {
   resetPasswordFn: ResetPasswordFunction;
 };
 
-export function useSignInCard<T>({ resetPasswordFn }: props) {
+export function useSignInCard<T extends { nextStep: { signInStep: string } }>({
+  resetPasswordFn,
+}: props) {
   const [currentState, setCurrentState] = useState<T | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [emailForReset, setEmailForReset] = useState<string | null>(null);
