@@ -36,6 +36,7 @@
     "input-otp": "1.4.2",
     "lucide-react": "0.525.0",
     "next-themes": "0.4.6",
+    "qrcode": "1.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "7.60.0",
@@ -48,6 +49,7 @@
     "@tailwindcss/postcss": "4.1.11",
     "@turbo/gen": "2.5.4",
     "@types/node": "24.0.13",
+    "@types/qrcode": "1.5.5",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@workspace/eslint-config": "workspace:*",
@@ -62,8 +64,12 @@
     "./postcss.config": "./postcss.config.mjs",
     "./tailwind.config": "./tailwind.config.ts",
     "./lib/*": "./src/lib/*.ts",
+    "./lib/auth/*": "./src/lib/auth/*.ts",
     "./components/*": "./src/components/*.tsx",
+    "./components/auth/*": "./src/components/auth/*.tsx",
     "./hooks/*": "./src/hooks/*.tsx",
-    "./types/*": "./src/types/*.ts"
+    "./hooks/auth/*": "./src/hooks/auth/*.ts",
+    "./types/*": "./src/types/*.ts",
+    "./types/auth/*": "./src/types/auth/*.ts"
   }
 }

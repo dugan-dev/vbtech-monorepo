@@ -3,7 +3,7 @@ import { Home, SignIn as SignInRoute } from "@/routes";
 import { authenticatedUser } from "@/utils/amplify-server-utils";
 import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
 
-import { SignInCard } from "./components/sign-in-card";
+import { SignInWrapper } from "@/components/auth/sign-in-wrapper";
 
 /**
  * Renders the sign-in page or redirects to the home page if the user is authenticated.
@@ -23,7 +23,7 @@ export default async function SignIn() {
   }
   return (
     <main className="flex min-h-screen items-center justify-center">
-      <SignInCard />
+      <SignInWrapper />
     </main>
   );
 }
