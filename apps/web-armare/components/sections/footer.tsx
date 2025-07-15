@@ -11,7 +11,7 @@ export function Footer() {
           <div>
             <Image
               src="/acr.png"
-              alt="Armare Health"
+              alt="Armare Claim Review logo - Medicare Payment Integrity Contractor"
               width={150}
               height={45}
               className="h-12 w-auto mb-4 rounded-md"

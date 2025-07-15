@@ -6,10 +6,12 @@ import { Header } from "@/components/sections/header";
 import { MedicalRecords } from "@/components/sections/medical-records";
 import { Overview } from "@/components/sections/overview";
 import { ResponseRequirements } from "@/components/sections/response-requirements";
+import { StructuredData } from "@/components/structured-data";
 
 export default function Page() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <StructuredData />
       <Header />
       <AlertBanner />
       <main className="container mx-auto px-6 py-8">
