@@ -8,7 +8,7 @@ export function Header() {
         <div className="flex items-center space-x-2 sm:space-x-4 justify-self-start min-w-fit">
           <Image
             src="/acr.png"
-            alt="Armare Health"
+            alt="Armare Claim Review logo - Medicare Payment Integrity Contractor"
             width={400}
             height={120}
             className="h-16 w-auto rounded-md flex-shrink-0"

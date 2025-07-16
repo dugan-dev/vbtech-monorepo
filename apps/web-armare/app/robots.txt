@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Block access to admin or private areas if they exist
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /api/
+
+# Allow all other content
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.armareclaimreview.com/sitemap.xml
+
+# Crawl delay (optional - helps prevent overwhelming the server)
+Crawl-delay: 1
