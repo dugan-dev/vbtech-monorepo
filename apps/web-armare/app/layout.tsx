@@ -70,9 +70,6 @@ export const metadata: Metadata = {
       "Medicare payment integrity contractor conducting post-payment reviews to ensure accuracy and compliance with CMS guidelines.",
     images: ["/opengraph-image.png"],
   },
-  verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION,
-  },
   alternates: {
     canonical: "https://www.armareclaimreview.com",
   },
