@@ -5,19 +5,21 @@
     "build": {
       "dependsOn": ["^build"],
       "env": [
+        // Public/Configuration variables
         "NODE_ENV",
+        "NEXT_PUBLIC_TIMEZONE",
         "DB_HOST",
         "DB_PORT",
         "DB_USER",
-        "DB_PASSWORD",
         "DB_NAME",
         "AWS_REGION",
+        // Secrets
+        "DB_PASSWORD",
         "AWS_ACCESS_KEY_ID",
         "AWS_SECRET_ACCESS_KEY",
         "AWS_SESSION_TOKEN",
         "AWS_COGNITO_USER_POOL_ID",
-        "PAYLOAD_SECRET_KEY",
-        "NEXT_PUBLIC_TIMEZONE"
+        "PAYLOAD_SECRET_KEY"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"]
@@ -25,16 +27,21 @@
     "lint": {
       "dependsOn": ["^lint"],
       "env": [
+        // Public/Configuration variables
         "NODE_ENV",
+        "NEXT_PUBLIC_TIMEZONE",
         "DB_HOST",
         "DB_PORT",
         "DB_USER",
-        "DB_PASSWORD",
         "DB_NAME",
         "AWS_REGION",
+        // Secrets
+        "DB_PASSWORD",
         "AWS_ACCESS_KEY_ID",
         "AWS_SECRET_ACCESS_KEY",
-        "AWS_SESSION_TOKEN"
+        "AWS_SESSION_TOKEN",
+        "AWS_COGNITO_USER_POOL_ID",
+        "PAYLOAD_SECRET_KEY"
       ]
     },
     "format": {
@@ -43,47 +50,62 @@
     "lint:fix": {
       "dependsOn": ["^lint:fix"],
       "env": [
+        // Public/Configuration variables
         "NODE_ENV",
+        "NEXT_PUBLIC_TIMEZONE",
         "DB_HOST",
         "DB_PORT",
         "DB_USER",
-        "DB_PASSWORD",
-        "AWS_REGION",
         "DB_NAME",
+        "AWS_REGION",
+        // Secrets
+        "DB_PASSWORD",
         "AWS_ACCESS_KEY_ID",
         "AWS_SECRET_ACCESS_KEY",
-        "AWS_SESSION_TOKEN"
+        "AWS_SESSION_TOKEN",
+        "AWS_COGNITO_USER_POOL_ID",
+        "PAYLOAD_SECRET_KEY"
       ]
     },
     "check-types": {
       "dependsOn": ["^check-types"],
       "env": [
+        // Public/Configuration variables
         "NODE_ENV",
+        "NEXT_PUBLIC_TIMEZONE",
         "DB_HOST",
         "DB_PORT",
         "DB_USER",
-        "DB_PASSWORD",
         "DB_NAME",
         "AWS_REGION",
+        // Secrets
+        "DB_PASSWORD",
         "AWS_ACCESS_KEY_ID",
         "AWS_SECRET_ACCESS_KEY",
-        "AWS_SESSION_TOKEN"
+        "AWS_SESSION_TOKEN",
+        "AWS_COGNITO_USER_POOL_ID",
+        "PAYLOAD_SECRET_KEY"
       ]
     },
     "dev": {
       "cache": false,
       "persistent": true,
       "env": [
+        // Public/Configuration variables
         "NODE_ENV",
+        "NEXT_PUBLIC_TIMEZONE",
         "DB_HOST",
         "DB_PORT",
         "DB_USER",
-        "DB_PASSWORD",
         "DB_NAME",
         "AWS_REGION",
+        // Secrets
+        "DB_PASSWORD",
         "AWS_ACCESS_KEY_ID",
         "AWS_SECRET_ACCESS_KEY",
-        "AWS_SESSION_TOKEN"
+        "AWS_SESSION_TOKEN",
+        "AWS_COGNITO_USER_POOL_ID",
+        "PAYLOAD_SECRET_KEY"
       ]
     }
   }
