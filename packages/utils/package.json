@@ -9,9 +9,7 @@
   "dependencies": {},
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
-    "eslint": "9.31.0",
-    "typescript": "5.8.3"
+    "@workspace/typescript-config": "workspace:*"
   },
   "exports": {
     "./format-date": "./src/format-date.ts",
