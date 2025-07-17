@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
-import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
+import { getErrorMessage } from "@workspace/utils/get-error-message";
 
 import { insertClientAction } from "../actions/insert-client-action";
 import { updateClientAction } from "../actions/update-client-action";

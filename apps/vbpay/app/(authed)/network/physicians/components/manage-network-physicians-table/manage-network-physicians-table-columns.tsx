@@ -9,7 +9,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@workspace/ui/components/hover-card";
-import { formatTaxId } from "@workspace/ui/lib/formatTaxId";
+import { formatTaxId } from "@workspace/utils/format-tax-id";
 
 import { NetworkPhysician } from "@/types/network-physician";
 import {

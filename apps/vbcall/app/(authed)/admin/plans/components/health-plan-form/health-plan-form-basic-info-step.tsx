@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 
 import { FormInput } from "@workspace/ui/components/form/form-input";
-import { formatPhoneNumber } from "@workspace/ui/lib/formatPhoneNumber";
+import { formatPhoneNumber } from "@workspace/utils/format-phone-number";
 
 import { HealthPlanFormData } from "./health-plan-form-schema";
 

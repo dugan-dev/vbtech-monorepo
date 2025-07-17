@@ -5,8 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 
+import { getErrorMessage } from "@workspace/utils/get-error-message";
+
 import { useErrorDialog } from "../../hooks/use-error-dialog";
-import { getErrorMessage } from "../../lib/get-error-message";
 import {
   UpdatePasswordFormDefaultValues,
   UpdatePasswordFormOutput,

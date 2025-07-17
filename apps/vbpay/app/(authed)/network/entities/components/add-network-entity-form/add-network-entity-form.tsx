@@ -13,7 +13,7 @@ import { Form } from "@workspace/ui/components/form";
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
 import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-button";
-import { formatTaxId } from "@workspace/ui/lib/formatTaxId";
+import { formatTaxId } from "@workspace/utils/format-tax-id";
 
 import {
   NetworkEntityTypeLabels,

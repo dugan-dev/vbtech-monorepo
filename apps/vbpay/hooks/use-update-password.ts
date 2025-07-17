@@ -2,7 +2,7 @@ import { updatePassword } from "aws-amplify/auth";
 import { toast } from "sonner";
 
 import { useUpdatePassword as useSharedUpdatePassword } from "@workspace/ui/hooks/use-update-password";
-import { getErrorMessage } from "@workspace/ui/lib/get-error-message";
+import { getErrorMessage } from "@workspace/utils/get-error-message";
 
 interface UseUpdatePasswordProps {
   onSuccess?: () => void;

@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { validateStringIsUrl } from "@workspace/ui/lib/validateStringIsUrl";
+import { validateStringIsUrl } from "@workspace/utils/validate-string-is-url";
 
 const AddPayerFormSchema = z.object({
   payerType: z.string().refine(

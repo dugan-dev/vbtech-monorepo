@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { validateStringIsNumbers } from "@workspace/ui/lib/validateStringIsNumbers";
+import { validateStringIsNumbers } from "@workspace/utils/validate-string-is-numbers";
 
 const NppesNetworkEntitySearchFormSchema = z.object({
   orgNpi: z

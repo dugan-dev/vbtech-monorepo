@@ -3,12 +3,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { getErrorMessage } from "@workspace/utils/get-error-message";
+
 import {
   ResetPasswordFormDefaultValues,
   ResetPasswordFormOutput,
   ResetPasswordFormSchema,
 } from "../../lib/auth/reset-password-form-schema";
-import { getErrorMessage } from "../../lib/get-error-message";
 import { ConfirmResetPasswordFunction } from "../../types/auth/password-reset";
 import { useErrorDialog } from "../use-error-dialog";
 

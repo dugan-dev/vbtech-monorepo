@@ -23,6 +23,9 @@ importers:
       '@workspace/typescript-config':
         specifier: workspace:*
         version: link:packages/typescript-config
+      eslint:
+        specifier: 9.31.0
+        version: 9.31.0(jiti@2.4.2)
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -129,6 +132,9 @@ importers:
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@workspace/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@workspace/vbcall-db':
         specifier: workspace:*
         version: link:../../packages/vbcall-db
@@ -244,6 +250,9 @@ importers:
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@workspace/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       aws-amplify:
         specifier: 6.15.3
         version: 6.15.3
@@ -601,6 +610,9 @@ importers:
       '@tanstack/table-core':
         specifier: 8.21.3
         version: 8.21.3
+      '@workspace/utils':
+        specifier: workspace:*
+        version: link:../utils
       class-variance-authority:
         specifier: 0.7.1
         version: 0.7.1
@@ -671,15 +683,18 @@ importers:
       autoprefixer:
         specifier: 10.4.21
         version: 10.4.21(postcss@8.5.3)
-      eslint:
-        specifier: 9.31.0
-        version: 9.31.0(jiti@2.4.2)
       tailwindcss:
         specifier: 4.1.11
         version: 4.1.11
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
+
+  packages/utils:
+    devDependencies:
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
 
   packages/vbcall-db:
     dependencies:
