@@ -1,0 +1,26 @@
+{
+  "name": "@workspace/utils",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "eslint": "9.31.0",
+    "typescript": "5.8.3"
+  },
+  "exports": {
+    "./format-date": "./src/format-date.ts",
+    "./format-phone-number": "./src/format-phone-number.ts",
+    "./format-tax-id": "./src/format-tax-id.ts",
+    "./get-tz-adjusted-full-day-span": "./src/get-tz-adjusted-full-day-span.ts",
+    "./string-to-title-case": "./src/string-to-title-case.ts",
+    "./validate-string-is-numbers": "./src/validate-string-is-numbers.ts",
+    "./validate-string-is-url": "./src/validate-string-is-url.ts",
+    "./get-error-message": "./src/get-error-message.ts"
+  }
+}

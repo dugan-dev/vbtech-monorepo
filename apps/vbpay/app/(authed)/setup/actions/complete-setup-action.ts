@@ -6,7 +6,7 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { VBPAY_LICENSE_CACHE_KEY } from "@/repos/license-repository";
 import { z } from "zod";
 
-import { getTzAdjustedFullDaySpan } from "@workspace/ui/lib/getTzAdjustedFullDaySpan";
+import { getTzAdjustedFullDaySpan } from "@workspace/utils/get-tz-adjusted-full-day-span";
 
 import { authedActionClient } from "@/lib/safe-action";
 import { SetupFormSchema } from "@/components/setup-form/setup-form-schema";

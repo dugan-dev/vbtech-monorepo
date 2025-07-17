@@ -50,7 +50,7 @@ import {
   TooltipTrigger,
 } from "@workspace/ui/components/tooltip";
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
-import { stringToTitleCase } from "@workspace/ui/lib/stringToTitleCase";
+import { stringToTitleCase } from "@workspace/utils/string-to-title-case";
 
 import { PayloadPaymentMethod } from "@/types/payload-payment-method";
 import { UserRole } from "@/types/user-role";

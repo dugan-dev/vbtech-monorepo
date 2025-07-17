@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@workspace/ui/components/dialog";
 import { Separator } from "@workspace/ui/components/separator";
-import { formatPhoneNumber } from "@workspace/ui/lib/formatPhoneNumber";
+import { formatPhoneNumber } from "@workspace/utils/format-phone-number";
 
 import { PayloadProcessingAccount } from "@/types/payload-api-response-types";
 import {

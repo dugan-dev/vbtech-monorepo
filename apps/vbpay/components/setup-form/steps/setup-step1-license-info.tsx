@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
-import { formatPhoneNumber } from "@workspace/ui/lib/formatPhoneNumber";
+import { formatPhoneNumber } from "@workspace/utils/format-phone-number";
 
 import { LicenseTypeLabels, LicenseTypes } from "@/types/license-type";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { formatDate } from "@workspace/ui/lib/format-date";
+import { formatDate } from "@workspace/utils/format-date";
 
 type props = {
   date: Date | string;

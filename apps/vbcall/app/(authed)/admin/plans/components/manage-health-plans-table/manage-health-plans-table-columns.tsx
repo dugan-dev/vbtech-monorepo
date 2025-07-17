@@ -5,7 +5,7 @@ import { parseAsString, useQueryState } from "nuqs";
 
 import { Badge } from "@workspace/ui/components/badge";
 import { DataTableColumnHeader } from "@workspace/ui/components/data-table/data-table-column-header";
-import { formatPhoneNumber } from "@workspace/ui/lib/formatPhoneNumber";
+import { formatPhoneNumber } from "@workspace/utils/format-phone-number";
 
 import { HealthPlan } from "@/types/health-plan";
 

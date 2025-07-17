@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@workspace/ui/components/card";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
-import { stringToTitleCase } from "@workspace/ui/lib/stringToTitleCase";
+import { stringToTitleCase } from "@workspace/utils/string-to-title-case";
 
 import {
   AcoPaymentModelLabels,

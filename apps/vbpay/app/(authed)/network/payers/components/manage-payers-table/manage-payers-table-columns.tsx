@@ -6,7 +6,7 @@ import { ColumnDef } from "@tanstack/table-core";
 import { Badge } from "@workspace/ui/components/badge";
 import { Button } from "@workspace/ui/components/button";
 import { DataTableColumnHeader } from "@workspace/ui/components/data-table/data-table-column-header";
-import { formatTaxId } from "@workspace/ui/lib/formatTaxId";
+import { formatTaxId } from "@workspace/utils/format-tax-id";
 
 import { Payer } from "@/types/payer";
 import { PayerType, PayerTypeLabels } from "@/types/payer-type";

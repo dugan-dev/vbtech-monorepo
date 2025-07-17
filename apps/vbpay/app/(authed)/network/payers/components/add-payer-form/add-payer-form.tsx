@@ -16,7 +16,7 @@ import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
 import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-button";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
-import { formatTaxId } from "@workspace/ui/lib/formatTaxId";
+import { formatTaxId } from "@workspace/utils/format-tax-id";
 
 import { PerfMonthLabels, PerfMonths } from "@/types/perf-month";
 import { PerfYears } from "@/types/perf-year";

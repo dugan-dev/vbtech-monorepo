@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { getErrorMessage } from "../../lib/get-error-message";
+import { getErrorMessage } from "@workspace/utils/get-error-message";
+
 import type { ResetPasswordFunction } from "../../types/auth";
 import { useErrorDialog } from "../use-error-dialog";
 

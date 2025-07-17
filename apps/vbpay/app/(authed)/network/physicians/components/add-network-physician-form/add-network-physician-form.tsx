@@ -17,7 +17,7 @@ import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormInput } from "@workspace/ui/components/form/form-input";
 import { FormRadioGroup } from "@workspace/ui/components/form/form-radio-group";
 import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-button";
-import { formatTaxId } from "@workspace/ui/lib/formatTaxId";
+import { formatTaxId } from "@workspace/utils/format-tax-id";
 
 import {
   NetworkPhysicianClasses,

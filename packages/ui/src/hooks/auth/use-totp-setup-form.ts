@@ -2,13 +2,14 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { getErrorMessage } from "@workspace/utils/get-error-message";
+
 import { handleSignInNextStep } from "../../lib/auth/handle-sign-in-next-step";
 import {
   TotpSetupFormDefaultValues,
   TotpSetupFormOutput,
   TotpSetupFormSchema,
 } from "../../lib/auth/totp-setup-form-schema";
-import { getErrorMessage } from "../../lib/get-error-message";
 import type { ConfirmSignInFunction, SignInResult } from "../../types/auth";
 import { useErrorDialog } from "../use-error-dialog";
 
