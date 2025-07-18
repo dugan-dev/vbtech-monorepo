@@ -24,7 +24,7 @@
     "@workspace/vbcall-db": "workspace:*",
     "aws-amplify": "6.15.3",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
-    "kysely": "0.28.2",
+    "kysely": "0.28.3",
     "lucide-react": "0.525.0",
     "nanoid": "5.1.5",
     "next": "15.4.1",
