@@ -7,7 +7,7 @@ import {
   signIn,
 } from "aws-amplify/auth";
 
-import { SignInCard } from "@workspace/ui/components/auth/sign-in-card";
+import { SignInCard } from "@workspace/auth/components/auth/sign-in-card";
 
 import { AppIcons } from "@/components/app-icons";
 

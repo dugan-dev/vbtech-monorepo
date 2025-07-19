@@ -2,13 +2,14 @@
 
 import { Loader2 } from "lucide-react";
 
+import { Button } from "@workspace/ui/components/button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
+import { Form } from "@workspace/ui/components/form";
+import { FormInputOtp } from "@workspace/ui/components/form/form-input-otp";
+
 import { useQrCode } from "../../hooks/auth/use-qr-code";
 import { useTotpSetupForm } from "../../hooks/auth/use-totp-setup-form";
-import type { SignInResult } from "../../types/auth";
-import { Button } from "../button";
-import { ErrorDialog } from "../error-dialog";
-import { Form } from "../form";
-import { FormInputOtp } from "../form/form-input-otp";
+import type { SignInResult } from "../../types/auth/sign-in";
 import { TotpSetupSecretDialog } from "./totp-setup-secret-dialog";
 
 type ConfirmSignInFunction = (params: {

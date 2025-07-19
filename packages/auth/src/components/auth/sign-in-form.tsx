@@ -2,13 +2,14 @@
 
 import { Loader2 } from "lucide-react";
 
+import { Button } from "@workspace/ui/components/button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
+import { Form } from "@workspace/ui/components/form";
+import { FormInput } from "@workspace/ui/components/form/form-input";
+import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
+
 import { useSignInForm } from "../../hooks/auth/use-sign-in-form";
-import { SignInFunction } from "../../types/auth";
-import { Button } from "../button";
-import { ErrorDialog } from "../error-dialog";
-import { Form } from "../form";
-import { FormInput } from "../form/form-input";
-import { FormPasswordInput } from "../form/form-password-input";
+import { SignInFunction } from "../../types/auth/sign-in";
 
 type props<T> = {
   setCurrentState: React.Dispatch<React.SetStateAction<T | null>>;

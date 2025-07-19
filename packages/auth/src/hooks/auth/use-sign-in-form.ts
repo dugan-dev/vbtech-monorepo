@@ -2,6 +2,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { getErrorMessage } from "@workspace/utils/get-error-message";
 
 import { handleSignInNextStep } from "../../lib/auth/handle-sign-in-next-step";
@@ -10,8 +11,7 @@ import {
   SignInFormOutput,
   SignInFormSchema,
 } from "../../lib/auth/sign-in-form-schema";
-import type { SignInFunction, SignInResult } from "../../types/auth";
-import { useErrorDialog } from "../use-error-dialog";
+import type { SignInFunction, SignInResult } from "../../types/auth/sign-in";
 
 type props<T> = {
   setCurrentState: React.Dispatch<React.SetStateAction<T | null>>;

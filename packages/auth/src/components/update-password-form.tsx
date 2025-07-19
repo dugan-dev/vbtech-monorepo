@@ -7,16 +7,17 @@ import { useForm } from "react-hook-form";
 
 import { getErrorMessage } from "@workspace/utils/get-error-message";
 
-import { useErrorDialog } from "../../hooks/use-error-dialog";
+import { Button } from "@workspace/ui/components/button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
+import { Form } from "@workspace/ui/components/form";
+import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
+
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import {
   UpdatePasswordFormDefaultValues,
   UpdatePasswordFormOutput,
   UpdatePasswordFormSchema,
-} from "../../lib/update-password-form-schema";
-import { Button } from "../button";
-import { ErrorDialog } from "../error-dialog";
-import { Form } from "../form";
-import { FormPasswordInput } from "./form-password-input";
+} from "../lib/update-password-form-schema";
 
 interface UpdatePasswordFormProps {
   onSubmit: (data: {

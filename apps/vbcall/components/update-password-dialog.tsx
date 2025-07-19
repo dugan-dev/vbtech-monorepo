@@ -1,4 +1,4 @@
-import { UpdatePasswordDialog as SharedUpdatePasswordDialog } from "@workspace/ui/components/update-password-dialog";
+import { UpdatePasswordDialog as SharedUpdatePasswordDialog } from "@workspace/auth/components/update-password-dialog";
 
 import { useUpdatePassword } from "@/hooks/use-update-password";
 
