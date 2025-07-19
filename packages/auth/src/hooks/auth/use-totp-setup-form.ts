@@ -2,45 +2,23 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { getErrorMessage } from "@workspace/utils/get-error-message";
 
 import { handleSignInNextStep } from "../../lib/auth/handle-sign-in-next-step";
 import {
-  MfaVerificationFormDefaultValues,
-  MfaVerificationFormOutput,
-  MfaVerificationFormSchema,
-} from "../../lib/auth/mfa-verification-form-schema";
-import type { ConfirmSignInFunction, SignInResult } from "../../types/auth";
-import { useErrorDialog } from "../use-error-dialog";
+  TotpSetupFormDefaultValues,
+  TotpSetupFormOutput,
+  TotpSetupFormSchema,
+} from "../../lib/auth/totp-setup-form-schema";
+import type { ConfirmSignInFunction, SignInResult } from "../../types/auth/sign-in";
 
 type props<T> = {
   setCurrentState: React.Dispatch<React.SetStateAction<T | null>>;
   confirmSignInFn: ConfirmSignInFunction;
 };
 
-function isValidSignInResult<T extends { nextStep: { signInStep: string } }>(
-  result: unknown,
-): result is T {
-  if (typeof result !== "object" || result === null) {
-    return false;
-  }
-
-  const obj = result as Record<string, unknown>;
-
-  if (
-    !("nextStep" in obj) ||
-    typeof obj.nextStep !== "object" ||
-    obj.nextStep === null
-  ) {
-    return false;
-  }
-
-  const nextStep = obj.nextStep as Record<string, unknown>;
-
-  return "signInStep" in nextStep && typeof nextStep.signInStep === "string";
-}
-
-export function useMfaVerificationForm<
+export function useTotpSetupForm<
   T extends { nextStep: { signInStep: string } } = SignInResult,
 >({ setCurrentState, confirmSignInFn }: props<T>) {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,13 +36,12 @@ export function useMfaVerificationForm<
   };
 
   const form = useForm({
-    resolver: zodResolver(MfaVerificationFormSchema),
-    defaultValues: MfaVerificationFormDefaultValues,
+    resolver: zodResolver(TotpSetupFormSchema),
+    defaultValues: TotpSetupFormDefaultValues,
   });
 
-  const onSubmit = async (formData: MfaVerificationFormOutput) => {
+  const onSubmit = async (formData: TotpSetupFormOutput) => {
     setIsLoading(true);
-
     let output: T | null = null;
 
     try {
@@ -72,11 +49,25 @@ export function useMfaVerificationForm<
         challengeResponse: formData.code,
       });
 
-      if (isValidSignInResult<T>(result)) {
-        output = result;
-      } else {
-        throw new Error("Invalid sign-in result structure received");
+      // Validate the result has the expected structure
+      if (
+        !result ||
+        typeof result !== "object" ||
+        !("nextStep" in result) ||
+        !result.nextStep ||
+        typeof result.nextStep !== "object" ||
+        !("signInStep" in result.nextStep) ||
+        typeof result.nextStep.signInStep !== "string"
+      ) {
+        throw new Error(
+          "Invalid sign-in result: missing required nextStep.signInStep",
+        );
       }
+
+      // Type-safe assertion: We've validated the structure matches T's constraint
+      // Using unknown intermediate cast to satisfy TypeScript's strict checking
+      // This is safe because we've verified the runtime structure
+      output = result as unknown as T;
     } catch (e) {
       console.error(e);
       handleError(getErrorMessage(e));

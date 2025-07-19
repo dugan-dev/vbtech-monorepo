@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { getErrorMessage } from "@workspace/utils/get-error-message";
 
 import {
@@ -11,7 +12,6 @@ import {
   ResetPasswordFormSchema,
 } from "../../lib/auth/reset-password-form-schema";
 import { ConfirmResetPasswordFunction } from "../../types/auth/password-reset";
-import { useErrorDialog } from "../use-error-dialog";
 
 type props = {
   setEmailForReset: React.Dispatch<React.SetStateAction<string | null>>;

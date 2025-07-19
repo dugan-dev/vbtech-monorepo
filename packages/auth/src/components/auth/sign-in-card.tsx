@@ -1,16 +1,24 @@
 "use client";
 
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@workspace/ui/components/card";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
+import { ThemeToggle } from "@workspace/ui/components/theme-toggle";
+
 import { useSignInCard } from "../../hooks/auth/use-sign-in-card";
 import type {
-  ConfirmResetPasswordFunction,
   ConfirmSignInFunction,
-  ResetPasswordFunction,
   SignInFunction,
   SignInResult,
-} from "../../types/auth";
-import { Card, CardContent, CardHeader, CardTitle } from "../card";
-import { ErrorDialog } from "../error-dialog";
-import { ThemeToggle } from "../theme-toggle";
+} from "../../types/auth/sign-in";
+import type {
+  ConfirmResetPasswordFunction,
+  ResetPasswordFunction,
+} from "../../types/auth/password-reset";
 import { ChangePasswordForm } from "./change-password-form";
 import { MfaVerificationForm } from "./mfa-verification-form";
 import { ResetPasswordForm } from "./reset-password-form";

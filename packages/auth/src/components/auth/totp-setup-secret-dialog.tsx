@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 
-import { Button } from "../button";
+import { Button } from "@workspace/ui/components/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../dialog";
+} from "@workspace/ui/components/dialog";
 
 export function TotpSetupSecretDialog({ secret }: { secret: string }) {
   const [copied, setCopied] = useState(false);

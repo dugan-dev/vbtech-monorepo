@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { getErrorMessage } from "@workspace/utils/get-error-message";
 
-import type { ResetPasswordFunction } from "../../types/auth";
-import { useErrorDialog } from "../use-error-dialog";
+import type { ResetPasswordFunction } from "../../types/auth/password-reset";
 
 type props = {
   resetPasswordFn: ResetPasswordFunction;

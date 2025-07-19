@@ -4,8 +4,9 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "./dialog";
-import { UpdatePasswordForm } from "./form/update-password-form";
+} from "@workspace/ui/components/dialog";
+
+import { UpdatePasswordForm } from "./update-password-form";
 
 interface UpdatePasswordDialogProps {
   isOpen: boolean;

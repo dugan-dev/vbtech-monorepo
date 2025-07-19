@@ -2,12 +2,13 @@
 
 import { Loader2 } from "lucide-react";
 
+import { Button } from "@workspace/ui/components/button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
+import { Form } from "@workspace/ui/components/form";
+import { FormInputOtp } from "@workspace/ui/components/form/form-input-otp";
+
 import { useMfaVerificationForm } from "../../hooks/auth/use-mfa-verification-form";
-import { ConfirmSignInFunction } from "../../types/auth";
-import { Button } from "../button";
-import { ErrorDialog } from "../error-dialog";
-import { Form } from "../form";
-import { FormInputOtp } from "../form/form-input-otp";
+import { ConfirmSignInFunction } from "../../types/auth/sign-in";
 
 type props<T> = {
   setCurrentState: React.Dispatch<React.SetStateAction<T | null>>;
