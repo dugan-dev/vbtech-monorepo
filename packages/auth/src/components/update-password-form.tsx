@@ -5,14 +5,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 
-import { getErrorMessage } from "@workspace/utils/get-error-message";
-
 import { Button } from "@workspace/ui/components/button";
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import { Form } from "@workspace/ui/components/form";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
-
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
+import { getErrorMessage } from "@workspace/utils/get-error-message";
 import {
   UpdatePasswordFormDefaultValues,
   UpdatePasswordFormOutput,

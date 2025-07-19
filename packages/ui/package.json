@@ -64,7 +64,8 @@
     "./tailwind.config": "./tailwind.config.ts",
     "./lib/*": "./src/lib/*.ts",
     "./components/*": "./src/components/*.tsx",
-    "./hooks/*": "./src/hooks/*",
+    "./hooks/use-error-dialog": "./src/hooks/use-error-dialog.tsx",
+    "./hooks/*": "./src/hooks/*.ts",
     "./types/*": "./src/types/*.ts"
   }
 }
