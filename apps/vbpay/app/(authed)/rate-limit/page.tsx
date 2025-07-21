@@ -1,10 +1,12 @@
 import "server-only";
 
 import { redirect } from "next/navigation";
-import { RateLimiterRes } from "rate-limiter-flexible";
 
 import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
-import { pageApiLimiter } from "@workspace/auth/lib/utils/rate-limiter-flexible";
+import {
+  pageApiLimiter,
+  RateLimiterRes,
+} from "@workspace/auth/lib/utils/rate-limiter-flexible";
 
 import { RateLimitCard } from "./components/rate-limit-card";
 

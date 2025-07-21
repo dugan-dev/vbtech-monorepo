@@ -1,4 +1,4 @@
-import { RateLimiterMemory } from "rate-limiter-flexible";
+import { RateLimiterMemory, RateLimiterRes } from "rate-limiter-flexible";
 
 const pageApiLimiter = new RateLimiterMemory({
   keyPrefix: "page-api",
@@ -23,4 +23,4 @@ const unauthedLimiter = new RateLimiterMemory({
   blockDuration: 60, // Block for 1 minute
 });
 
-export { pageApiLimiter, authedLimiter, unauthedLimiter };
+export { pageApiLimiter, authedLimiter, unauthedLimiter, RateLimiterRes };
