@@ -2,8 +2,9 @@ import "server-only";
 
 import { unauthorized } from "next/navigation";
 import { QueuesManage } from "@/routes";
-import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+import { checkPageRateLimit } from "@/utils/rate-limiting";
+
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
 
 import { UserType } from "@/types/user-type";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";

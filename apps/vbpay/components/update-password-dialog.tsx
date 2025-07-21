@@ -1,6 +1,5 @@
 import { UpdatePasswordDialog as SharedUpdatePasswordDialog } from "@workspace/auth/components/update-password-dialog";
-
-import { useUpdatePassword } from "@/hooks/use-update-password";
+import { useUpdatePassword } from "@workspace/auth/hooks/use-update-password";
 
 type props = {
   isOpen: boolean;

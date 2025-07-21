@@ -11,14 +11,14 @@ import { ThemeToggle } from "@workspace/ui/components/theme-toggle";
 
 import { useSignInCard } from "../../hooks/auth/use-sign-in-card";
 import type {
+  ConfirmResetPasswordFunction,
+  ResetPasswordFunction,
+} from "../../types/auth/password-reset";
+import type {
   ConfirmSignInFunction,
   SignInFunction,
   SignInResult,
 } from "../../types/auth/sign-in";
-import type {
-  ConfirmResetPasswordFunction,
-  ResetPasswordFunction,
-} from "../../types/auth/password-reset";
 import { ChangePasswordForm } from "./change-password-form";
 import { MfaVerificationForm } from "./mfa-verification-form";
 import { ResetPasswordForm } from "./reset-password-form";
@@ -64,7 +64,7 @@ export function SignInCard<T extends SignInResult = SignInResult>({
 
   return (
     <Card>
-      <CardContent className="min-w-[425px] sm:max-w-[425px]">
+      <CardContent className="w-[10000px]">
         {isErrorDialogOpen && (
           <ErrorDialog
             title={errorTitle}

@@ -2,16 +2,19 @@ import "server-only";
 
 import { headers } from "next/headers";
 import { getUsersData } from "@/repos/user-repository";
-import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { getClientIp } from "@/utils/get-client-ip";
 import { getRateLimitWaitTimeMessage } from "@/utils/get-rate-limit-wait-time-message";
 import { createSafeActionClient } from "next-safe-action";
 import { RateLimiterRes } from "rate-limiter-flexible";
 import z from "zod";
 
-import { UserTypeEnum } from "@/types/user-type";
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
+import { getClientIp } from "@workspace/auth/lib/utils/get-client-ip";
+import {
+  authedLimiter,
+  unauthedLimiter,
+} from "@workspace/auth/lib/utils/rate-limiter-flexible";
 
-import { authedLimiter, unauthedLimiter } from "./rate-limiter-flexible";
+import { UserTypeEnum } from "@/types/user-type";
 
 const unauthedActionClient = createSafeActionClient({
   defineMetadataSchema() {

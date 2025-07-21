@@ -74,12 +74,14 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
   const { chevronRight: ChevronRight, logo: Logo, logoDark: LogoDark } = icons;
 
   // State for collapsible items
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>(() => {
-    if (typeof window !== "undefined") {
-      return getCookieValue(config.appTitle);
-    }
-    return {};
-  });
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Hydrate state from cookies after component mounts
+  useEffect(() => {
+    setOpenItems(getCookieValue(config.appTitle));
+    setIsHydrated(true);
+  }, [config.appTitle]);
 
   // Save state to cookie whenever it changes
   useEffect(() => {
@@ -166,7 +168,7 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
                 <SidebarMenuItem key={item.id}>
                   {item.items ? (
                     <Collapsible
-                      open={openItems[item.id] ?? false}
+                      open={isHydrated ? (openItems[item.id] ?? false) : false}
                       onOpenChange={(isOpen) =>
                         handleItemToggle(item.id, isOpen)
                       }
