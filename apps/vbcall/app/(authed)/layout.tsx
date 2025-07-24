@@ -3,7 +3,8 @@ import "server-only";
 import { unauthorized } from "next/navigation";
 import { UserProvider } from "@/contexts/user-context";
 import { getUsersData } from "@/repos/user-repository";
-import { authenticatedUser } from "@/utils/amplify-server-utils";
+
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
 
 import { AuthedProviders } from "@/components/authed-providers";
 import { VBCallMainSidebar } from "@/components/main-sidebar/main-sidebar";

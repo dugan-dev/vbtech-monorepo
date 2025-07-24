@@ -4,23 +4,26 @@ import { toast } from "sonner";
 import { useUpdatePassword as useSharedUpdatePassword } from "@workspace/ui/hooks/use-update-password";
 import { getErrorMessage } from "@workspace/utils/get-error-message";
 
-interface UseUpdatePasswordProps {
+type props = {
   onSuccess?: () => void;
-}
+};
 
-export function useUpdatePassword({ onSuccess }: UseUpdatePasswordProps = {}) {
+export function useUpdatePassword({ onSuccess }: props = {}) {
   return useSharedUpdatePassword({
-    updatePasswordFn: async (data) => {
+    updatePasswordFn: async (data: {
+      oldPassword: string;
+      newPassword: string;
+    }) => {
       await updatePassword({
         oldPassword: data.oldPassword,
         newPassword: data.newPassword,
       });
     },
     onSuccess,
-    onError: (error) => {
+    onError: (error: Error) => {
       throw new Error(getErrorMessage(error));
     },
-    showToast: (title, description) => {
+    showToast: (title: string, description: string) => {
       toast(title, {
         description,
         dismissible: true,

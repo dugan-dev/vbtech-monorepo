@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { Home, SignIn as SignInRoute } from "@/routes";
-import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+import { checkPageRateLimit } from "@/utils/rate-limiting";
+
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
 
 import { SignInWrapper } from "@/components/auth/sign-in-wrapper";
 

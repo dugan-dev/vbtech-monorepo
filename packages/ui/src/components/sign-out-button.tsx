@@ -1,8 +1,3 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@radix-ui/react-tooltip";
 import { LogOut } from "lucide-react";
 
 import { useConfirmationDialog } from "../hooks/use-confirmation-dialog";
@@ -11,6 +6,7 @@ import { Button } from "./button";
 import { ConfirmationDialog } from "./confirmation-dialog";
 import { ErrorDialog } from "./error-dialog";
 import { clearSidebarState } from "./main-sidebar/main-sidebar-cookies";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
 
 type props = {
   APP_NAME: string;
@@ -84,9 +80,7 @@ export function SignOutButton({ APP_NAME, signOut }: props) {
           <LogOut />
         </Button>
       </TooltipTrigger>
-      <TooltipContent data-testid="sign-out-button-tooltip-content">
-        Sign Out
-      </TooltipContent>
+      <TooltipContent>Sign Out</TooltipContent>
     </Tooltip>
   );
 }

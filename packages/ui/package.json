@@ -64,8 +64,10 @@
     "./tailwind.config": "./tailwind.config.ts",
     "./lib/*": "./src/lib/*.ts",
     "./components/*": "./src/components/*.tsx",
+    "./components/main-sidebar/main-sidebar-cookies": "./src/components/main-sidebar/main-sidebar-cookies.ts",
     "./hooks/use-error-dialog": "./src/hooks/use-error-dialog.tsx",
-    "./hooks/*": "./src/hooks/*.ts",
+    "./hooks/use-update-password": "./src/hooks/use-update-password.tsx",
+    "./hooks/*": "./src/hooks/*",
     "./types/*": "./src/types/*.ts"
   }
 }

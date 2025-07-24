@@ -3,10 +3,9 @@
 import { PropsWithChildren } from "react";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
+import { AuthInitializer } from "@workspace/auth/components/auth-initializer";
 import { ThemeProvider } from "@workspace/ui/components/theme-provider";
 import { TooltipProvider } from "@workspace/ui/components/tooltip";
-
-import { AuthInitializer } from "./auth-initializer";
 
 /**
  * Wraps child components with authentication adapter, tooltip, and theme providers for unauthenticated user flows.

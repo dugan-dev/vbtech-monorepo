@@ -1,5 +1,7 @@
 // Cookie utilities for state persistence
-export const COOKIE_MAX_AGE = 60 * 15; /**
+export const COOKIE_MAX_AGE = 60 * 10; // 10 minutes
+
+/**
  * Generates a normalized cookie name for storing sidebar collapsible state, scoped by the given application title.
  *
  * The generated name is lowercased and spaces are replaced with hyphens to ensure consistency.
@@ -46,7 +48,7 @@ export function getCookieValue(appTitle: string): Record<string, boolean> {
 /**
  * Sets the sidebar state cookie for the specified application title.
  *
- * Stores the provided state object as a JSON-encoded, URI-encoded cookie value, scoped by the normalized app title. The cookie is set with a 15-minute expiration, path `/`, `SameSite=lax`, and the `secure` flag if using HTTPS.
+ * Stores the provided state object as a JSON-encoded, URI-encoded cookie value, scoped by the normalized app title. The cookie is set with a 10-minute expiration, path `/`, `SameSite=lax`, and the `secure` flag if using HTTPS.
  *
  * @param appTitle - The application title used to scope the cookie name.
  * @param value - The sidebar state to persist.
