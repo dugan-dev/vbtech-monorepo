@@ -11,7 +11,10 @@ import {
   ChangePasswordFormSchema,
 } from "../../lib/auth/change-password-form-schema";
 import { handleSignInNextStep } from "../../lib/auth/handle-sign-in-next-step";
-import type { ConfirmSignInFunction, SignInResult } from "../../types/auth/sign-in";
+import type {
+  ConfirmSignInFunction,
+  SignInResult,
+} from "../../types/auth/sign-in";
 
 type props<T extends SignInResult> = {
   setCurrentState: React.Dispatch<React.SetStateAction<T | null>>;

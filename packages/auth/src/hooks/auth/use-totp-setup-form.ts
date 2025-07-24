@@ -11,7 +11,10 @@ import {
   TotpSetupFormOutput,
   TotpSetupFormSchema,
 } from "../../lib/auth/totp-setup-form-schema";
-import type { ConfirmSignInFunction, SignInResult } from "../../types/auth/sign-in";
+import type {
+  ConfirmSignInFunction,
+  SignInResult,
+} from "../../types/auth/sign-in";
 
 type props<T> = {
   setCurrentState: React.Dispatch<React.SetStateAction<T | null>>;

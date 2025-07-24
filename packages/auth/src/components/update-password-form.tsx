@@ -11,6 +11,7 @@ import { Form } from "@workspace/ui/components/form";
 import { FormPasswordInput } from "@workspace/ui/components/form/form-password-input";
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { getErrorMessage } from "@workspace/utils/get-error-message";
+
 import {
   UpdatePasswordFormDefaultValues,
   UpdatePasswordFormOutput,
