@@ -40,19 +40,21 @@ const unauthedActionClient = createSafeActionClient({
   const ip = getClientIp(headerList);
 
   // throw error if rate limit exceeded
-  await unauthedLimiter.consume(ip).catch((error: RateLimiterRes) => {
-    const msBeforeNext = error.msBeforeNext;
-    const waitTimeMessage = getRateLimitWaitTimeMessage(msBeforeNext);
+  await unauthedLimiter()
+    .consume(ip)
+    .catch((error: RateLimiterRes) => {
+      const msBeforeNext = error.msBeforeNext;
+      const waitTimeMessage = getRateLimitWaitTimeMessage(msBeforeNext);
 
-    console.error(
-      `Action error: ${metadata?.actionName}`,
-      `Rate limit exceeded. Try again in ${waitTimeMessage}.`,
-    );
+      console.error(
+        `Action error: ${metadata?.actionName}`,
+        `Rate limit exceeded. Try again in ${waitTimeMessage}.`,
+      );
 
-    throw new Error(
-      `Action rate limit exceeded. Please try again in ${waitTimeMessage}. Action: ${metadata?.actionName}`,
-    );
-  });
+      throw new Error(
+        `Action rate limit exceeded. Please try again in ${waitTimeMessage}. Action: ${metadata?.actionName}`,
+      );
+    });
 
   return await next();
 });
@@ -96,18 +98,20 @@ const authedActionClient = createSafeActionClient({
   }
 
   // throw error if rate limit exceeded
-  await authedLimiter.consume(user.userId).catch((error: RateLimiterRes) => {
-    const msBeforeNext = error.msBeforeNext;
-    const waitTimeMessage = getRateLimitWaitTimeMessage(msBeforeNext);
-    console.error(
-      `Action error: ${metadata?.actionName}`,
-      `Rate limit exceeded. Try again in ${waitTimeMessage}.`,
-    );
+  await authedLimiter()
+    .consume(user.userId)
+    .catch((error: RateLimiterRes) => {
+      const msBeforeNext = error.msBeforeNext;
+      const waitTimeMessage = getRateLimitWaitTimeMessage(msBeforeNext);
+      console.error(
+        `Action error: ${metadata?.actionName}`,
+        `Rate limit exceeded. Try again in ${waitTimeMessage}.`,
+      );
 
-    throw new Error(
-      `Action rate limit exceeded. Please try again in ${waitTimeMessage}. Action: ${metadata?.actionName}`,
-    );
-  });
+      throw new Error(
+        `Action rate limit exceeded. Please try again in ${waitTimeMessage}. Action: ${metadata?.actionName}`,
+      );
+    });
 
   // throw error if user not allowed
   if (allowedTypes && !allowedTypes.includes(usersAppAttrs.type)) {

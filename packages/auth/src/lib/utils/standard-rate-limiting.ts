@@ -18,12 +18,12 @@ export function createStandardRateLimiting(
   rateLimitRoute: (params: { secs: number }) => string,
 ) {
   const checkPageRateLimit = createCheckPageRateLimit({
-    rateLimiter: pageApiLimiter,
+    rateLimiter: pageApiLimiter(),
     rateLimitRoute,
   });
 
   const checkApiRateLimit = createCheckApiRateLimit({
-    rateLimiter: pageApiLimiter,
+    rateLimiter: pageApiLimiter(),
   });
 
   return { checkPageRateLimit, checkApiRateLimit };

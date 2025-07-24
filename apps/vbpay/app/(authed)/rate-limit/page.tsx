@@ -35,7 +35,7 @@ export default async function Page({
   let retryIn = 0;
 
   try {
-    await pageApiLimiter.consume(user?.userId || "unknown");
+    await pageApiLimiter().consume(user?.userId || "unknown");
   } catch (error) {
     const rlError = error as RateLimiterRes;
     retryIn = Math.ceil(rlError.msBeforeNext / 1000);
