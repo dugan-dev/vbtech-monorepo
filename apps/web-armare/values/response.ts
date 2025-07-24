@@ -8,11 +8,7 @@ export const RESPONSE_REQUIREMENTS: ResponseRequirement[] = [
   },
   {
     title: "Documentation Required",
-    content: [
-      "Complete medical records",
-      "Supporting documentation",
-      "Itemized billing records",
-    ],
+    content: ["Complete medical records", "Supporting documentation"],
     color: "orange",
   },
   {
