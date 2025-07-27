@@ -22,7 +22,7 @@ export function useAutoLogout(
   minutes = timeouts.autoLogout.minutes,
 ) {
   const router = useRouter();
-  const timeout = timeouts.autoLogout.milliseconds;
+  const timeout = minutes * 60 * 1000;
 
   useEffect(() => {
     let logoutTimer: ReturnType<typeof setTimeout>;
