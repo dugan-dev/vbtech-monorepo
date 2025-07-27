@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, Clock } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
@@ -38,6 +39,8 @@ export function RateLimitCard({
   const [isCountdownComplete, setIsCountdownComplete] = useState(retryIn <= 0);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  const router = useRouter();
+
   useEffect(() => {
     setSecondsRemaining(retryIn);
     setIsCountdownComplete(retryIn <= 0);
@@ -73,22 +76,7 @@ export function RateLimitCard({
 
   const handleBack = async () => {
     setIsRefreshing(true);
-
-    try {
-      // Try to navigate back first - if rate limit is still active,
-      // the server will redirect back to this page
-      window.history.back();
-
-      // If we're still here after a short delay, force a refresh
-      setTimeout(() => {
-        if (!document.hidden) {
-          window.location.reload();
-        }
-      }, 500);
-    } catch {
-      // Fallback to refresh if navigation fails
-      window.location.reload();
-    }
+    router.refresh();
   };
 
   return (
