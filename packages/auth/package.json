@@ -13,7 +13,7 @@
     "@workspace/ui": "workspace:*",
     "@workspace/utils": "workspace:*",
     "aws-amplify": "6.15.3",
-    "lucide-react": "0.525.0",
+    "lucide-react": "0.526.0",
     "qrcode": "1.5.4",
     "rate-limiter-flexible": "7.1.1",
     "react-hook-form": "7.60.0",
