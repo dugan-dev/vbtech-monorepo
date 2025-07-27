@@ -132,11 +132,15 @@ export function createUserRepository<TUserAppAttrs = Record<string, unknown>>(
   const getUserSelectionData = cache(async () => {
     const user = await authenticatedUser();
 
+    if (!user?.userId) {
+      throw new Error("User ID is required but not found");
+    }
+
     // This Promise.all will benefit from React's cache
     // for request deduplication
     const [items, usersData] = await Promise.all([
       deps.getAllItems(),
-      getUsersData({ userId: user?.userId || "" }),
+      getUsersData({ userId: user.userId }),
     ]);
 
     if (!items || !usersData) {
