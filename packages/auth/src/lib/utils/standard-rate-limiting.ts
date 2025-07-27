@@ -9,7 +9,7 @@ import {
  *
  * This assumes the app has:
  * - A RateLimit route function that takes { secs } and returns a URL string
- * - Standard rate limiting requirements (30 requests per 30 seconds)
+ * - Standard rate limiting requirements (actual limits defined in rate-limiter-flexible.ts)
  *
  * @param rateLimitRoute - The app's RateLimit route function
  * @returns Object with checkPageRateLimit and checkApiRateLimit functions
