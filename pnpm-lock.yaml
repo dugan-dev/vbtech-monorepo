@@ -15,8 +15,8 @@ importers:
         specifier: 0.25.0
         version: 0.25.0
       '@types/aws-lambda':
-        specifier: 8.10.150
-        version: 8.10.150
+        specifier: 8.10.152
+        version: 8.10.152
       '@workspace/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
@@ -2724,8 +2724,8 @@ packages:
     resolution: {integrity: sha512-Gye68+szmOp96xMvmondTRQYcYvevDqUP9JuN9jC6kqzFel7U1pJ/hoPvyD3WGQNxyKsdF+wJ5fvNaYXkzr6tQ==}
     hasBin: true
 
-  '@types/aws-lambda@8.10.150':
-    resolution: {integrity: sha512-AX+AbjH/rH5ezX1fbK8onC/a+HyQHo7QGmvoxAE42n22OsciAxvZoZNEr22tbXs8WfP1nIsBjKDpgPm3HjOZbA==}
+  '@types/aws-lambda@8.10.152':
+    resolution: {integrity: sha512-soT/c2gYBnT5ygwiHPmd9a1bftj462NWVk2tKCc1PYHSIacB2UwbTS2zYG4jzag1mRDuzg/OjtxQjQ2NKRB6Rw==}
 
   '@types/cross-spawn@6.0.2':
     resolution: {integrity: sha512-KuwNhp3eza+Rhu8IFI5HUXRP0LIhqH5cAjubUvGXXthh4YYBuP2ntwEX+Cz8GJoZUHlKo247wPWOfA9LYEq4cw==}
@@ -6044,7 +6044,7 @@ snapshots:
     dependencies:
       '@aws-amplify/data-schema-types': 1.2.0
       '@smithy/util-base64': 3.0.0
-      '@types/aws-lambda': 8.10.150
+      '@types/aws-lambda': 8.10.152
       '@types/json-schema': 7.0.15
       rxjs: 7.8.1
 
@@ -8838,7 +8838,7 @@ snapshots:
       semver: 7.6.2
       update-check: 1.5.4
 
-  '@types/aws-lambda@8.10.150': {}
+  '@types/aws-lambda@8.10.152': {}
 
   '@types/cross-spawn@6.0.2':
     dependencies:
