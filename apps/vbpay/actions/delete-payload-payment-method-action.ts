@@ -4,7 +4,7 @@ import "server-only";
 
 import { revalidatePath } from "next/cache";
 import { deletePaymentMethod } from "@/repos/payload-payment-method-repository";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";

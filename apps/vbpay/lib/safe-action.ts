@@ -7,7 +7,7 @@ import { getClientIp } from "@/utils/get-client-ip";
 import { getRateLimitWaitTimeMessage } from "@/utils/get-rate-limit-wait-time-message";
 import { createSafeActionClient } from "next-safe-action";
 import { RateLimiterRes } from "rate-limiter-flexible";
-import z from "zod";
+import z from "zod/v4";
 
 import { UserTypeEnum } from "@/types/user-type";
 

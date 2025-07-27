@@ -1,4 +1,4 @@
-import * as z from "zod";
+import * as z from "zod/v4";
 
 const EditEntityFormSchema = z.object({
   netEntType: z.string().refine(

@@ -3,13 +3,13 @@ Derived from: https://www.flightcontrol.dev/blog/fix-nextjs-routing-to-have-full
 */
 import Link from "next/link";
 import queryString from "query-string";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 type LinkProps = Parameters<typeof Link>[0];
 
 export type RouteInfo<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
 > = {
   name: string;
   params: Params;
@@ -17,17 +17,23 @@ export type RouteInfo<
   description?: string;
 };
 
-export type GetInfo<Result extends z.ZodSchema> = {
+export type GetInfo<Result extends z.ZodJSONSchema> = {
   result: Result;
 };
 
-export type PostInfo<Body extends z.ZodSchema, Result extends z.ZodSchema> = {
+export type PostInfo<
+  Body extends z.ZodJSONSchema,
+  Result extends z.ZodJSONSchema,
+> = {
   body: Body;
   result: Result;
   description?: string;
 };
 
-export type PutInfo<Body extends z.ZodSchema, Result extends z.ZodSchema> = {
+export type PutInfo<
+  Body extends z.ZodJSONSchema,
+  Result extends z.ZodJSONSchema,
+> = {
   body: Body;
   result: Result;
   description?: string;
@@ -36,8 +42,8 @@ export type PutInfo<Body extends z.ZodSchema, Result extends z.ZodSchema> = {
 type FetchOptions = Parameters<typeof fetch>[1];
 
 type CoreRouteElements<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema = typeof emptySchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema = typeof emptySchema,
 > = {
   params: z.output<Params>;
   paramsSchema: Params;
@@ -46,10 +52,10 @@ type CoreRouteElements<
 };
 
 type PutRouteBuilder<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
-  Body extends z.ZodSchema,
-  Result extends z.ZodSchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
+  Body extends z.ZodJSONSchema,
+  Result extends z.ZodJSONSchema,
 > = CoreRouteElements<Params, Search> & {
   (
     body: z.input<Body>,
@@ -65,10 +71,10 @@ type PutRouteBuilder<
 };
 
 type PostRouteBuilder<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
-  Body extends z.ZodSchema,
-  Result extends z.ZodSchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
+  Body extends z.ZodJSONSchema,
+  Result extends z.ZodJSONSchema,
 > = CoreRouteElements<Params, Search> & {
   (
     body: z.input<Body>,
@@ -84,9 +90,9 @@ type PostRouteBuilder<
 };
 
 type GetRouteBuilder<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
-  Result extends z.ZodSchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
+  Result extends z.ZodJSONSchema,
 > = CoreRouteElements<Params, Search> & {
   (
     p?: z.input<Params>,
@@ -99,9 +105,9 @@ type GetRouteBuilder<
 };
 
 type DeleteRouteBuilder<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
-> = CoreRouteElements<Params, z.ZodSchema> & {
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
+> = CoreRouteElements<Params, z.ZodJSONSchema> & {
   (
     p?: z.input<Params>,
     search?: z.input<Search>,
@@ -110,8 +116,8 @@ type DeleteRouteBuilder<
 };
 
 export type RouteBuilder<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
 > = CoreRouteElements<Params, Search> & {
   (p?: z.input<Params>, search?: z.input<Search>): string;
 
@@ -180,8 +186,8 @@ function createPathBuilder<T extends Record<string, string | string[]>>(
 }
 
 function createRouteBuilder<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
 >(route: string, info: RouteInfo<Params, Search>) {
   const fn = createPathBuilder<z.output<Params>>(route);
 
@@ -215,10 +221,10 @@ function createRouteBuilder<
 const emptySchema = z.object({});
 
 export function makePostRoute<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
-  Body extends z.ZodSchema,
-  Result extends z.ZodSchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
+  Body extends z.ZodJSONSchema,
+  Result extends z.ZodJSONSchema,
 >(
   route: string,
   info: RouteInfo<Params, Search>,
@@ -278,10 +284,10 @@ export function makePostRoute<
 }
 
 export function makePutRoute<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
-  Body extends z.ZodSchema,
-  Result extends z.ZodSchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
+  Body extends z.ZodJSONSchema,
+  Result extends z.ZodJSONSchema,
 >(
   route: string,
   info: RouteInfo<Params, Search>,
@@ -341,9 +347,9 @@ export function makePutRoute<
 }
 
 export function makeGetRoute<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
-  Result extends z.ZodSchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
+  Result extends z.ZodJSONSchema,
 >(
   route: string,
   info: RouteInfo<Params, Search>,
@@ -385,8 +391,8 @@ export function makeGetRoute<
 }
 
 export function makeDeleteRoute<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema,
 >(
   route: string,
   info: RouteInfo<Params, Search>,
@@ -421,8 +427,8 @@ export function makeDeleteRoute<
 }
 
 export function makeRoute<
-  Params extends z.ZodSchema,
-  Search extends z.ZodSchema = typeof emptySchema,
+  Params extends z.ZodJSONSchema,
+  Search extends z.ZodJSONSchema = typeof emptySchema,
 >(
   route: string,
   info: RouteInfo<Params, Search>,

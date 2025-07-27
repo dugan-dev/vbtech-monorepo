@@ -1,5 +1,5 @@
 import { isDateOnOrAfterToday } from "@/utils/is-date-on-or-after-today";
-import * as z from "zod";
+import * as z from "zod/v4";
 
 import { LicenseFunctionalityEnum } from "@/types/license-functionality";
 import { PayerTypeEnum } from "@/types/payer-type";
