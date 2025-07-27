@@ -6,7 +6,7 @@ import { signOut } from "aws-amplify/auth";
 
 import { clearSidebarState } from "@workspace/ui/components/main-sidebar/main-sidebar-cookies";
 
-import { timeouts } from "../constants/timeouts";
+import { timeouts } from "../constants/session-timeouts";
 import { AutoLogoutConfig } from "../types/auth/auth-config";
 
 /**

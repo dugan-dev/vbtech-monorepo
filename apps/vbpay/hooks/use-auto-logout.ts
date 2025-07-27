@@ -1,7 +1,7 @@
 import { SignIn } from "@/routes";
 import { APP_NAME } from "@/values/app-name";
 
-import { timeouts } from "@workspace/auth/constants/timeouts";
+import { timeouts } from "@workspace/auth/constants/session-timeouts";
 import { useAutoLogout as useAutoLogoutBase } from "@workspace/auth/hooks/use-auto-logout";
 
 /**
