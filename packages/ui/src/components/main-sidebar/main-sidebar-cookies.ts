@@ -62,7 +62,7 @@ export function setCookieValue(
   const cookieName = getCookieName(appTitle);
   const cookieValue = encodeURIComponent(JSON.stringify(value));
   const secure = location.protocol === "https:" ? "; secure;" : "";
-  document.cookie = `${cookieName}=${cookieValue}; path=/; max-age=${COOKIE_MAX_AGE} sameSite=lax${secure}`;
+  document.cookie = `${cookieName}=${cookieValue}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax${secure}`;
 }
 
 /**
@@ -78,5 +78,5 @@ export function clearSidebarState(appTitle: string): void {
   const cookieName = getCookieName(appTitle);
   const secure = location.protocol === "https:" ? "; secure;" : "";
   // Clear the cookie by setting it to expire in the past
-  document.cookie = `${cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT sameSite=lax${secure}`;
+  document.cookie = `${cookieName}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax${secure}`;
 }
