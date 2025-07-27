@@ -1,7 +1,8 @@
 import { unauthorized } from "next/navigation";
 import { ShareNotificationDetail } from "@/routes";
-import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+import { checkPageRateLimit } from "@/utils/rate-limiting";
+
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
 
 import { UserRole } from "@/types/user-role";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -27,10 +28,11 @@ export default async function Page({
   const { slug } = await params;
 
   // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: ShareNotificationDetail({ slug }) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({
+    pathname: ShareNotificationDetail({ slug }),
+    user,
+  });
 
   if (!user) {
     return unauthorized();

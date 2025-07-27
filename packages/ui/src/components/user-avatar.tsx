@@ -15,8 +15,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
 
-interface UserAvatarProps {
+type props = {
   firstName: string;
   lastName: string;
   email: string;
@@ -28,7 +29,7 @@ interface UserAvatarProps {
     isOpen: boolean;
     closeDialog: () => void;
   }>;
-}
+};
 
 export function UserAvatar({
   firstName,
@@ -39,7 +40,7 @@ export function UserAvatar({
   lockIcon: LockIcon,
   logoutIcon: LogoutIcon,
   updatePasswordDialog: UpdatePasswordDialog,
-}: UserAvatarProps) {
+}: props) {
   const {
     confirm,
     cancel,
@@ -76,15 +77,25 @@ export function UserAvatar({
         closeDialog={() => setIsPasswordUpdateDialogOpen(false)}
       />
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="flex h-8 w-8 gap-2 rounded-full">
-            <Avatar className="h-8 w-8">
-              <AvatarFallback className="border font-semibold hover:bg-accent dark:border-white/30 dark:bg-white/10">
-                {avatarFallbackText}
-              </AvatarFallback>
-            </Avatar>
-          </Button>
-        </DropdownMenuTrigger>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex h-8 w-8 gap-2 rounded-full"
+              >
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback className="border font-semibold hover:bg-accent dark:border-white/30 dark:bg-white/10">
+                    {avatarFallbackText}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>User Actions</p>
+          </TooltipContent>
+        </Tooltip>
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">

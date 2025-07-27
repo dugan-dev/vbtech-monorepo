@@ -1,7 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
+
 import { SignIn } from "./routes";
-import { authenticatedUser } from "./utils/amplify-server-utils";
 
 export async function middleware(request: NextRequest) {
   const user = await authenticatedUser();

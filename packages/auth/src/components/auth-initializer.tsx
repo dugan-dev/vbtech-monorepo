@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { Amplify } from "aws-amplify";
 
-import { authConfig } from "@/lib/auth/config";
+import { authConfig } from "../lib/auth/config";
 
 /**
  * Initializes AWS Amplify authentication configuration on component mount.

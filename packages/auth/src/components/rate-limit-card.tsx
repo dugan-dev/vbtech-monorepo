@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, Clock } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
@@ -15,31 +15,31 @@ import {
 } from "@workspace/ui/components/card";
 import { Progress } from "@workspace/ui/components/progress";
 
-type props = {
+type RateLimitCardProps = {
   retryIn: number;
+  maxDuration?: number; // The total block duration for consistent progress calculation
 };
 
 /**
  * Renders a card indicating the user has exceeded the rate limit and shows a countdown timer.
  *
  * This component displays a countdown that starts at the provided retry duration (retryIn) and decreases
- * every second. If a valid "retryAfter" query parameter is present, it uses this value to compute the progress.
+ * every second. The progress bar uses a consistent maxDuration to ensure smooth progress across page refreshes.
  * Until the countdown completes, the action button remains disabled.
  *
  * @param retryIn - The initial number of seconds the user must wait before proceeding.
+ * @param maxDuration - The total block duration for consistent progress calculation (defaults to 60 seconds)
  * @returns A JSX element representing the rate limit notification card.
  */
-export function RateLimitCard({ retryIn }: props) {
-  const searchParams = useSearchParams();
-  const retryAfterUrl = searchParams.get("retryAfter");
-  const retryAfter = retryAfterUrl
-    ? isNaN(parseInt(retryAfterUrl))
-      ? undefined
-      : parseInt(retryAfterUrl)
-    : undefined;
-  const router = useRouter();
+export function RateLimitCard({
+  retryIn,
+  maxDuration = 60,
+}: RateLimitCardProps) {
   const [secondsRemaining, setSecondsRemaining] = useState<number>(retryIn);
   const [isCountdownComplete, setIsCountdownComplete] = useState(retryIn <= 0);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     setSecondsRemaining(retryIn);
@@ -54,20 +54,29 @@ export function RateLimitCard({ retryIn }: props) {
     }
 
     const timer = setInterval(() => {
-      setSecondsRemaining((prev) => prev - 1);
+      setSecondsRemaining((prev) => {
+        const newValue = prev - 1;
+        // Add a small buffer to account for server/client time differences
+        if (newValue <= -2) {
+          setIsCountdownComplete(true);
+        }
+        return newValue;
+      });
     }, 1000);
 
     return () => clearInterval(timer);
   }, [secondsRemaining]);
 
-  const progress = retryAfter
-    ? Math.max(0, (secondsRemaining / retryAfter) * 100)
-    : retryIn > 0
-      ? Math.max(0, (secondsRemaining / retryIn) * 100)
-      : 0;
+  // Calculate progress based on the consistent maxDuration
+  // This ensures the progress bar doesn't reset on page refresh
+  const progress = Math.max(
+    0,
+    ((maxDuration - secondsRemaining) / maxDuration) * 100,
+  );
 
-  const handleBack = () => {
-    router.back();
+  const handleBack = async () => {
+    setIsRefreshing(true);
+    router.refresh();
   };
 
   return (
@@ -85,7 +94,7 @@ export function RateLimitCard({ retryIn }: props) {
           </div>
           <div className="text-center">
             <h3 className="text-4xl font-bold tabular-nums">
-              {secondsRemaining}
+              {Math.max(0, secondsRemaining)}
             </h3>
             <p className="text-sm text-gray-500">
               {isCountdownComplete
@@ -99,12 +108,16 @@ export function RateLimitCard({ retryIn }: props) {
       <CardFooter>
         <Button
           onClick={handleBack}
-          disabled={!isCountdownComplete}
+          disabled={!isCountdownComplete || isRefreshing}
           className="w-full"
           variant={isCountdownComplete ? "default" : "outline"}
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          {isCountdownComplete ? "Continue" : "Please wait..."}
+          {isRefreshing
+            ? "Checking..."
+            : isCountdownComplete
+              ? "Continue"
+              : "Please wait..."}
         </Button>
       </CardFooter>
     </Card>

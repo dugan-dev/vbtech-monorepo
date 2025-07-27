@@ -1,12 +1,16 @@
 import "server-only";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { RateLimiterRes } from "rate-limiter-flexible";
 
-import { pageApiLimiter } from "@/lib/rate-limiter-flexible";
-
-import { RateLimitCard } from "./components/rate-limit-card";
+import { RateLimitCard } from "@workspace/auth/components/rate-limit-card";
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
+import { getClientIp } from "@workspace/auth/lib/utils/get-client-ip";
+import {
+  PAGE_RATE_LIMIT,
+  pageApiLimiter,
+  RateLimiterRes,
+} from "@workspace/auth/lib/utils/rate-limiter-flexible";
 
 /**
  * Authenticates the user, applies rate limiting, and either redirects or displays a wait time.
@@ -25,15 +29,25 @@ export default async function Page({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const [user, { url }] = await Promise.all([
+  const [user, { url }, headerList] = await Promise.all([
     authenticatedUser(),
     searchParams,
+    headers(),
   ]);
 
   let retryIn = 0;
 
   try {
-    await pageApiLimiter.consume(user?.userId || "unknown");
+    // Use the same rate limiting key as the page rate limiter
+    // User-based for authenticated users, IP-based for public pages
+    let rlKey: string;
+    if (user?.userId) {
+      rlKey = `user:${user.userId}:global`;
+    } else {
+      const ip = getClientIp(headerList);
+      rlKey = `${ip}:global`;
+    }
+    await pageApiLimiter().consume(rlKey);
   } catch (error) {
     const rlError = error as RateLimiterRes;
     retryIn = Math.ceil(rlError.msBeforeNext / 1000);
@@ -44,5 +58,10 @@ export default async function Page({
     redirect(redirectUrl);
   }
 
-  return <RateLimitCard retryIn={retryIn} />;
+  return (
+    <RateLimitCard
+      retryIn={retryIn}
+      maxDuration={PAGE_RATE_LIMIT.BLOCK_DURATION}
+    />
+  );
 }

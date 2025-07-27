@@ -1,7 +1,8 @@
 import { unauthorized } from "next/navigation";
 import { RecentShareNotifications } from "@/routes";
-import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+import { checkPageRateLimit } from "@/utils/rate-limiting";
+
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
 
 import { UserRole } from "@/types/user-role";
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
@@ -19,10 +20,8 @@ const REQUIRED_USER_ROLES: UserRole[] = ["read-notifications"];
  */
 export default async function Page() {
   // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: RecentShareNotifications({}) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: RecentShareNotifications({}), user });
 
   if (!user) {
     return unauthorized();
