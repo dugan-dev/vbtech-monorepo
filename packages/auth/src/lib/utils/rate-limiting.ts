@@ -17,6 +17,15 @@ type RateLimiterRejection = {
   msBeforeNext: number;
 };
 
+function isRateLimiterRejection(error: unknown): error is RateLimiterRejection {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "msBeforeNext" in error &&
+    typeof (error as RateLimiterRejection).msBeforeNext === "number"
+  );
+}
+
 export function createCheckPageRateLimit(deps: RateLimitingDependencies) {
   return async function checkPageRateLimit({
     pathname,
@@ -44,10 +53,14 @@ export function createCheckPageRateLimit(deps: RateLimitingDependencies) {
 
       await deps.rateLimiter.consume(rlKey);
     } catch (rejRes: unknown) {
-      const rejection = rejRes as RateLimiterRejection;
-      const secs = Math.round(rejection.msBeforeNext / 1000) || 1;
-      const rateLimitRoute = deps.rateLimitRoute({ secs });
-      redirect(rateLimitRoute);
+      if (isRateLimiterRejection(rejRes)) {
+        const secs = Math.round(rejRes.msBeforeNext / 1000) || 1;
+        const rateLimitRoute = deps.rateLimitRoute({ secs });
+        redirect(rateLimitRoute);
+      } else {
+        // Re-throw unexpected errors
+        throw rejRes;
+      }
     }
   };
 }
@@ -64,9 +77,13 @@ export function createCheckApiRateLimit(
       rlKey = `${ip}:global`;
       await deps.rateLimiter.consume(rlKey);
     } catch (rejRes: unknown) {
-      const rejection = rejRes as RateLimiterRejection;
-      const secs = Math.round(rejection.msBeforeNext / 1000) || 1;
-      throw new Error(`Rate limit exceeded. Try again in ${secs} seconds.`);
+      if (isRateLimiterRejection(rejRes)) {
+        const secs = Math.round(rejRes.msBeforeNext / 1000) || 1;
+        throw new Error(`Rate limit exceeded. Try again in ${secs} seconds.`);
+      } else {
+        // Re-throw unexpected errors
+        throw rejRes;
+      }
     }
   };
 }
