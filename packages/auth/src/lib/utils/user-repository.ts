@@ -64,9 +64,20 @@ export function createUserRepository<TUserAppAttrs = Record<string, unknown>>(
           (attr) => attr.Name === "email",
         );
 
-        const usersAppAttrs: TUserAppAttrs = appAttrs?.Value
-          ? JSON.parse(appAttrs.Value)
-          : ({} as TUserAppAttrs);
+        let usersAppAttrs: TUserAppAttrs = {} as TUserAppAttrs;
+
+        if (appAttrs?.Value) {
+          try {
+            usersAppAttrs = JSON.parse(appAttrs.Value);
+          } catch (error) {
+            console.error(
+              `Failed to parse user app attributes for user ${userId}:`,
+              error,
+              `Raw value: ${appAttrs.Value}`,
+            );
+            usersAppAttrs = {} as TUserAppAttrs;
+          }
+        }
 
         return {
           usersAppAttrs,
