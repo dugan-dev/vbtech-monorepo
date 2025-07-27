@@ -6,7 +6,9 @@ import { getCurrentUser } from "aws-amplify/auth/server";
 
 import { authConfig } from "../auth/config";
 
-export function createAmplifyServerUtils(authConfig: ResourcesConfig["Auth"]): {
+export function createAmplifyServerUtils(
+  authConfigParam: ResourcesConfig["Auth"],
+): {
   runWithAmplifyServerContext: ReturnType<
     typeof createServerRunner
   >["runWithAmplifyServerContext"];
@@ -16,7 +18,7 @@ export function createAmplifyServerUtils(authConfig: ResourcesConfig["Auth"]): {
 } {
   const { runWithAmplifyServerContext } = createServerRunner({
     config: {
-      Auth: authConfig,
+      Auth: authConfigParam,
     },
   });
 
