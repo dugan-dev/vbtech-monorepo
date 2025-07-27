@@ -41,6 +41,7 @@
     "./components/auth-initializer": "./src/components/auth-initializer.tsx",
     "./components/auth-provider": "./src/components/auth-provider.tsx",
     "./components/rate-limit-card": "./src/components/rate-limit-card.tsx",
+
     "./constants/*": "./src/constants/*.ts",
     "./hooks/*": "./src/hooks/*.ts",
     "./hooks/auth/*": "./src/hooks/auth/*.ts",
