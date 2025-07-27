@@ -28,10 +28,11 @@ export default async function Page({
   const { slug } = await params;
 
   // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: ShareNotificationDetail({ slug }) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({
+    pathname: ShareNotificationDetail({ slug }),
+    user,
+  });
 
   if (!user) {
     return unauthorized();

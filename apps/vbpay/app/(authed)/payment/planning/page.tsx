@@ -18,10 +18,8 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
  */
 export default async function Page() {
   // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: PaymentPlanning({}) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: PaymentPlanning({}), user });
 
   if (!user) {
     return unauthorized();

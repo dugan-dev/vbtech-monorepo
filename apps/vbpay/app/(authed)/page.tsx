@@ -12,9 +12,8 @@ import { StandardLayout } from "@/components/standard-layout";
  * Enforces rate limiting and user authentication before rendering the home page. Returns an unauthorized response if the user is not authenticated.
  */
 export default async function Page() {
-  await checkPageRateLimit({ pathname: Home({}) });
-
   const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: Home({}), user });
 
   if (!user) {
     return unauthorized();

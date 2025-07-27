@@ -18,11 +18,9 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
  * Only authenticated users with permitted user types can access this page. If the user is not authenticated, an unauthorized response is returned. A loading skeleton is displayed while user management data is loading.
  */
 export default async function Page() {
-  // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: AdminUsers({}) }),
-  ]);
+  // Get user first, then check rate limiter with user context
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: AdminUsers({}), user });
 
   if (!user) {
     return unauthorized();

@@ -43,8 +43,9 @@ export default async function Page({
   const [{ perfYear }, user] = await Promise.all([
     searchParams,
     authenticatedUser(),
-    checkPageRateLimit({ pathname: NetworkPhysician({ slug }) }),
   ]);
+
+  await checkPageRateLimit({ pathname: NetworkPhysician({ slug }), user });
 
   if (!user) {
     return unauthorized();

@@ -23,10 +23,8 @@ import { SettingsCardServer } from "./components/settings/settings-card.server";
  */
 export default async function Page() {
   // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: AdminSettings({}) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: AdminSettings({}), user });
 
   if (!user) {
     return unauthorized();

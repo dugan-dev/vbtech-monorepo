@@ -22,10 +22,8 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo"];
  */
 export default async function Page() {
   // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: QueuesWork({}) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: QueuesWork({}), user });
 
   if (!user) {
     return unauthorized();

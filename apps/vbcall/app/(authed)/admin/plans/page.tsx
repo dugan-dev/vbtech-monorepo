@@ -25,11 +25,11 @@ export default async function Page({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const [{ cId }, user] = await Promise.all([
-    searchParams,
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: AdminHealthPlans({}) }),
-  ]);
+  // Get user first, then check rate limiter with user context
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: AdminHealthPlans({}), user });
+
+  const { cId } = await searchParams;
 
   if (!user) {
     return unauthorized();

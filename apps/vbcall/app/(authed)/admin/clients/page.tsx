@@ -13,11 +13,9 @@ import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-
 import { ManageClients } from "./components/manage-clients";
 
 export default async function Page() {
-  // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: AdminUsers({}) }),
-  ]);
+  // Get user first, then check rate limiter with user context
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: AdminUsers({}), user });
 
   if (!user) {
     return unauthorized();

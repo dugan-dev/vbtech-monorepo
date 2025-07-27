@@ -22,10 +22,8 @@ const REQUIRED_USER_ROLES: UserRole[] = ["read-files"];
  */
 export default async function Page() {
   // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: ShareFiles({}) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: ShareFiles({}), user });
 
   if (!user) {
     return unauthorized();

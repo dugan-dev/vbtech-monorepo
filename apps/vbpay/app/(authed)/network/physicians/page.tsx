@@ -28,13 +28,13 @@ export default async function Page({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  // check page rate limit
-  await checkPageRateLimit({ pathname: NetworkPhysicians({}) });
-
   const [{ pId }, user] = await Promise.all([
     searchParams,
     authenticatedUser(),
   ]);
+
+  // check page rate limit with user context
+  await checkPageRateLimit({ pathname: NetworkPhysicians({}), user });
 
   if (!user) {
     return unauthorized();

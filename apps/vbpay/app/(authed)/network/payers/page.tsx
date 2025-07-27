@@ -23,10 +23,8 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
  * @returns The page content as a React element, or an unauthorized response if access is denied.
  */
 export default async function Page() {
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: NetworkPayers({}) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: NetworkPayers({}), user });
 
   if (!user) {
     return unauthorized();

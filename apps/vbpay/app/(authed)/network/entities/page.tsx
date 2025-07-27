@@ -33,8 +33,8 @@ export default async function Page({
     authenticatedUser(),
   ]);
 
-  // check page rate limit
-  await checkPageRateLimit({ pathname: NetworkEntities({}) });
+  // check page rate limit with user context
+  await checkPageRateLimit({ pathname: NetworkEntities({}), user });
 
   if (!user) {
     return unauthorized();

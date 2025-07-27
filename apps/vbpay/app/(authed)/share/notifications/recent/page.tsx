@@ -20,10 +20,8 @@ const REQUIRED_USER_ROLES: UserRole[] = ["read-notifications"];
  */
 export default async function Page() {
   // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: RecentShareNotifications({}) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: RecentShareNotifications({}), user });
 
   if (!user) {
     return unauthorized();

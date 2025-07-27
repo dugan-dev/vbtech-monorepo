@@ -30,10 +30,8 @@ export default async function Page({
   const { slug } = await params;
 
   // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: Beneficiary({ slug }) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: Beneficiary({ slug }), user });
 
   if (!user) {
     return unauthorized();

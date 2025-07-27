@@ -41,8 +41,8 @@ export default async function Page({
 }) {
   const [user, { slug }] = await Promise.all([authenticatedUser(), params]);
 
-  // check page rate limit
-  await checkPageRateLimit({ pathname: NetworkEntity({ slug }) });
+  // check page rate limit with user context
+  await checkPageRateLimit({ pathname: NetworkEntity({ slug }), user });
 
   if (!user) {
     return unauthorized();

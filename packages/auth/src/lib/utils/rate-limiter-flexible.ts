@@ -1,5 +1,11 @@
 import { RateLimiterMemory, RateLimiterRes } from "rate-limiter-flexible";
 
+import {
+  AUTHED_ACTION_RATE_LIMIT,
+  PAGE_RATE_LIMIT,
+  UNAUTHED_ACTION_RATE_LIMIT,
+} from "../../constants/rate-limits";
+
 // Private variables to hold singleton instances
 let _pageApiLimiter: RateLimiterMemory | undefined;
 let _authedLimiter: RateLimiterMemory | undefined;
@@ -9,9 +15,9 @@ let _unauthedLimiter: RateLimiterMemory | undefined;
 const pageApiLimiter = (): RateLimiterMemory => {
   return (_pageApiLimiter ??= new RateLimiterMemory({
     keyPrefix: "page-api",
-    points: 30, // Number of requests by userId or IP
-    duration: 30, // Time window in seconds
-    blockDuration: 60, // Block for 1 minute
+    points: PAGE_RATE_LIMIT.POINTS,
+    duration: PAGE_RATE_LIMIT.DURATION,
+    blockDuration: PAGE_RATE_LIMIT.BLOCK_DURATION,
   }));
 };
 
@@ -19,9 +25,9 @@ const pageApiLimiter = (): RateLimiterMemory => {
 const authedLimiter = (): RateLimiterMemory => {
   return (_authedLimiter ??= new RateLimiterMemory({
     keyPrefix: "authed-safe-action",
-    points: 30, // Number of requests by userId
-    duration: 30, // Time window in seconds
-    blockDuration: 180, // Block for 3 minutes
+    points: AUTHED_ACTION_RATE_LIMIT.POINTS,
+    duration: AUTHED_ACTION_RATE_LIMIT.DURATION,
+    blockDuration: AUTHED_ACTION_RATE_LIMIT.BLOCK_DURATION,
   }));
 };
 
@@ -29,10 +35,18 @@ const authedLimiter = (): RateLimiterMemory => {
 const unauthedLimiter = (): RateLimiterMemory => {
   return (_unauthedLimiter ??= new RateLimiterMemory({
     keyPrefix: "unauthed-safe-action",
-    points: 10, // Number of requests by IP
-    duration: 30, // Time window in seconds
-    blockDuration: 60, // Block for 1 minute
+    points: UNAUTHED_ACTION_RATE_LIMIT.POINTS,
+    duration: UNAUTHED_ACTION_RATE_LIMIT.DURATION,
+    blockDuration: UNAUTHED_ACTION_RATE_LIMIT.BLOCK_DURATION,
   }));
 };
 
-export { pageApiLimiter, authedLimiter, unauthedLimiter, RateLimiterRes };
+export {
+  pageApiLimiter,
+  authedLimiter,
+  unauthedLimiter,
+  RateLimiterRes,
+  PAGE_RATE_LIMIT,
+  AUTHED_ACTION_RATE_LIMIT,
+  UNAUTHED_ACTION_RATE_LIMIT,
+};
