@@ -7,27 +7,28 @@ export function safeParseSearchParams<T extends z.ZodTypeAny>(
   searchParams: URLSearchParams,
 ): z.infer<T> {
   const paramsArray = getAllParamsAsArrays(searchParams);
-  return processSchema(schema, paramsArray);
+  return processSchema(schema, paramsArray) as z.infer<T>;
 }
 
 function processSchema(
   schema: z.ZodTypeAny,
   paramsArray: Record<string, string[]>,
 ): Record<string, any> {
-  if (schema instanceof z.ZodOptional) {
-    schema = schema._def.innerType;
+  let workingSchema = schema;
+  if (workingSchema instanceof z.ZodOptional) {
+    workingSchema = workingSchema.unwrap() as z.ZodTypeAny;
   }
-  switch (schema.constructor) {
+  switch (workingSchema.constructor) {
     case z.ZodObject: {
-      const shape = (schema as z.ZodObject<z.ZodRawShape>).shape;
+      const shape = (workingSchema as z.ZodObject<z.ZodRawShape>).shape;
       return parseShape(shape, paramsArray);
     }
     case z.ZodUnion: {
       const options = (
-        schema as z.ZodUnion<
+        workingSchema as z.ZodUnion<
           [z.ZodObject<z.ZodRawShape>, ...z.ZodObject<z.ZodRawShape>[]]
         >
-      )._def.options;
+      ).options;
       for (const option of options) {
         const shape = option.shape;
         const requireds = getRequireds(shape);
@@ -68,7 +69,7 @@ function parseShape(
 
   for (const key in shape) {
     if (shape.hasOwnProperty(key)) {
-      const fieldSchema: z.ZodTypeAny | undefined = shape[key];
+      const fieldSchema: z.ZodTypeAny | undefined = shape[key] as z.ZodTypeAny;
       if (paramsArray[key]) {
         const fieldData = convertToRequiredType(paramsArray[key], fieldSchema!);
 
@@ -126,7 +127,7 @@ function parseValues(schema: any, values: string[]): ParsedData<any> {
     case z.ZodString:
       return { data: values[0] };
     case z.ZodArray: {
-      const elementSchema = schema._def.type;
+      const elementSchema = (schema as z.ZodArray<z.ZodTypeAny>).element;
       switch (elementSchema.constructor) {
         case z.ZodNumber:
           return parseArray(values, parseNumber);
@@ -148,13 +149,10 @@ function parseValues(schema: any, values: string[]): ParsedData<any> {
 }
 
 function getInnerType(schema: z.ZodTypeAny) {
-  switch (schema.constructor) {
-    case z.ZodOptional:
-    case z.ZodDefault:
-      return schema._def.innerType;
-    default:
-      return schema;
+  if (schema instanceof z.ZodOptional || schema instanceof z.ZodDefault) {
+    return schema.unwrap();
   }
+  return schema;
 }
 
 function parseNumber(str: string): ParsedData<number> {
