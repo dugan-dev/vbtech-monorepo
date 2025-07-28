@@ -170,7 +170,7 @@ function createPathBuilder<T extends Record<string, string | string[]>>(
     if (catchAllSegment) {
       return p + catchAllSegment(params);
     } else {
-      return p.length ? p : "/";
+      return p.length ? "/" + p : "/";
     }
   };
 }
