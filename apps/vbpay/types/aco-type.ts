@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 
 type AcoTypeType = "standard" | "new entrant" | "high needs";
 

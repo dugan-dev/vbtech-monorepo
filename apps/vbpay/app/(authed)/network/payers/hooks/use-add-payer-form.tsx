@@ -55,13 +55,26 @@ export function useAddPayerForm({ onSuccess }: props) {
       },
     });
 
-  function onSubmit(formData: AddPayerFormOutput) {
+  function onSubmit(formData: AddPayerFormInput) {
+    // Transform the form data to match the expected output type
+    const transformedData: AddPayerFormOutput = {
+      payerType: formData.payerType,
+      initPerfYr: formData.initPerfYr,
+      initPerfMo: formData.initPerfMo,
+      marketingName: formData.marketingName,
+      cmsId: formData.cmsId === "" ? undefined : formData.cmsId,
+      legalName: formData.legalName === "" ? undefined : formData.legalName,
+      referenceName:
+        formData.referenceName === "" ? undefined : formData.referenceName,
+      taxId:
+        formData.taxId === "" ? undefined : formData.taxId?.replace("-", ""),
+      parentOrgName:
+        formData.parentOrgName === "" ? undefined : formData.parentOrgName,
+      websiteUrl: formData.websiteUrl === "" ? undefined : formData.websiteUrl,
+    };
+
     execInsertPayerAction({
-      formData: {
-        ...formData,
-        initPerfMo: formData.initPerfMo,
-        initPerfYr: formData.initPerfYr,
-      },
+      formData: transformedData,
       revalidationPath,
     });
   }

@@ -1,6 +1,8 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 
 export const Route = {
   name: "RateLimit",
-  params: z.object({}),
+  params: z.object({
+    secs: z.number(),
+  }),
 };

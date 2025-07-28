@@ -1,4 +1,4 @@
-import * as z from "zod";
+import * as z from "zod/v4";
 
 import { validateStringIsNumbers } from "@workspace/utils/validate-string-is-numbers";
 

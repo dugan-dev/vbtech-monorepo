@@ -1,4 +1,4 @@
-import * as z from "zod";
+import * as z from "zod/v4";
 
 import { UserModeEnum } from "@/types/user-mode";
 import { UserRoleEnum } from "@/types/user-role";
@@ -11,10 +11,11 @@ const UserFormSchema = z.object({
   email: z.string().min(1, "Required").email("Invalid email address"),
   type: UserTypeEnum.or(z.literal("")).superRefine((val, ctx) => {
     if (val === "") {
-      ctx.addIssue({
+      ctx.issues.push({
         code: z.ZodIssueCode.custom,
         message: "Required.",
         path: ["type"],
+        input: "",
       });
     }
   }),

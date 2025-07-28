@@ -95,7 +95,7 @@ export function useEditPhysAffiliatesForm({
   });
 
   // handle form submission
-  function onSubmit(formData: EditPhysAffiliatesFormOutput) {
+  function onSubmit(formData: EditPhysAffiliatesFormInput) {
     if (!userCanEdit) {
       openErrorDialog(
         "Error",
@@ -103,9 +103,25 @@ export function useEditPhysAffiliatesForm({
       );
       return;
     }
+
+    // Transform the form data to match the expected output type
+    const transformedData: EditPhysAffiliatesFormOutput = {
+      poNetEntPubId:
+        formData.poNetEntPubId === "" ? undefined : formData.poNetEntPubId,
+      faclNetEntPubId:
+        formData.faclNetEntPubId === "" ? undefined : formData.faclNetEntPubId,
+      pracNetEntPubId:
+        formData.pracNetEntPubId === "" ? undefined : formData.pracNetEntPubId,
+      vendorNetEntPubId:
+        formData.vendorNetEntPubId === ""
+          ? undefined
+          : formData.vendorNetEntPubId,
+      noAffiliates: formData.noAffiliates,
+    };
+
     execute({
       pubId: pubId as string,
-      formData,
+      formData: transformedData,
       revalidationPath,
       payerPubId,
     });

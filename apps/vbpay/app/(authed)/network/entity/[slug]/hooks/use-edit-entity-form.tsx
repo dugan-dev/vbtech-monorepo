@@ -83,7 +83,7 @@ export function useEditEntityForm({ onSuccess, formData, payerPubId }: props) {
     },
   });
 
-  function onSubmit(formData: EditEntityFormOutput) {
+  function onSubmit(formData: EditEntityFormInput) {
     if (!userCanEdit) {
       openErrorDialog(
         "Error",
@@ -91,9 +91,22 @@ export function useEditEntityForm({ onSuccess, formData, payerPubId }: props) {
       );
       return;
     }
+
+    // Transform the form data to match the expected output type
+    const transformedData: EditEntityFormOutput = {
+      netEntType: formData.netEntType,
+      marketingName: formData.marketingName,
+      legalName: formData.legalName === "" ? undefined : formData.legalName,
+      referenceName:
+        formData.referenceName === "" ? undefined : formData.referenceName,
+      orgNpi: formData.orgNpi === "" ? undefined : formData.orgNpi,
+      taxId:
+        formData.taxId === "" ? undefined : formData.taxId?.replace("-", ""),
+    };
+
     execute({
       pubId: pubId as string,
-      formData,
+      formData: transformedData,
       revalidationPath,
       payerPubId,
     });

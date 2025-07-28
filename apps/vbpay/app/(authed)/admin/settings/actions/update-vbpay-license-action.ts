@@ -4,7 +4,7 @@ import "server-only";
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { VBPAY_LICENSE_CACHE_KEY } from "@/repos/license-repository";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 import { getTzAdjustedFullDaySpan } from "@workspace/utils/get-tz-adjusted-full-day-span";
 

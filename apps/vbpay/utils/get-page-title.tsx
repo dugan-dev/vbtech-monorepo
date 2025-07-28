@@ -90,7 +90,7 @@ export function getPageTitle(pathname: string, slug?: string) {
       return "Work Queues";
     case ShareNotificationDetail({ slug: slug ?? "" }):
       return "Share Notification Detail";
-    case RateLimit({}):
+    case RateLimit({ secs: 0 }):
       return "";
     case RecentShareNotifications({}):
       return "Recent Notifications";
