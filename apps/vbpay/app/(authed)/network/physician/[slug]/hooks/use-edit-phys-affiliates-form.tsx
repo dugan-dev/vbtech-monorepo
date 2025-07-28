@@ -95,7 +95,7 @@ export function useEditPhysAffiliatesForm({
   });
 
   // handle form submission
-  function onSubmit(formData: EditPhysAffiliatesFormOutput) {
+  function onSubmit(formData: EditPhysAffiliatesFormInput) {
     if (!userCanEdit) {
       openErrorDialog(
         "Error",

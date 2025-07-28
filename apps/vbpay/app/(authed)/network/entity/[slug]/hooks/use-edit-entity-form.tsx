@@ -83,7 +83,7 @@ export function useEditEntityForm({ onSuccess, formData, payerPubId }: props) {
     },
   });
 
-  function onSubmit(formData: EditEntityFormOutput) {
+  function onSubmit(formData: EditEntityFormInput) {
     if (!userCanEdit) {
       openErrorDialog(
         "Error",

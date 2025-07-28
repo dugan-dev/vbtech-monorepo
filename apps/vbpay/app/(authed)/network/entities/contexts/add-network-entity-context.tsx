@@ -200,7 +200,7 @@ export function AddNetworkEntityProvider({ children }: props) {
       },
     });
 
-  function onSubmit(formData: AddNetworkEntityFormOutput) {
+  function onSubmit(formData: AddNetworkEntityFormInput) {
     execInsertNetworkEntityAction({
       payerPubId: payerPubId || "",
       formData,

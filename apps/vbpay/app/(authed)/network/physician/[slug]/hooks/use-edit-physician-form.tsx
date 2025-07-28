@@ -90,7 +90,7 @@ export function useEditPhysicianForm({
   });
 
   // handle form submission
-  function onSubmit(formData: EditPhysicianFormOutput) {
+  function onSubmit(formData: EditPhysicianFormInput) {
     if (!userCanEdit) {
       openErrorDialog(
         "Error",

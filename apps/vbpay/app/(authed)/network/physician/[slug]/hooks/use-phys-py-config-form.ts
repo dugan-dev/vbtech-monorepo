@@ -131,7 +131,7 @@ export function usePhysPyConfigForm({
   const { slug } = useParams();
   const physPubId = slug as string;
 
-  function onSubmit(formData: PhysPyConfigFormOutput) {
+  function onSubmit(formData: PhysPyConfigFormInput) {
     if (!userCanEdit) {
       openErrorDialog(
         "Error",

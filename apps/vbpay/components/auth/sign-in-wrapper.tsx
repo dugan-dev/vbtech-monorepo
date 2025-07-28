@@ -13,13 +13,15 @@ import { AppIcons } from "@/components/app-icons";
 
 export function SignInWrapper() {
   return (
-    <SignInCard
-      logo={AppIcons.logo}
-      logoDark={AppIcons.logoDark}
-      signInFn={signIn}
-      confirmSignInFn={confirmSignIn}
-      confirmResetPasswordFn={confirmResetPassword}
-      resetPasswordFn={resetPassword}
-    />
+    <div className="w-[425px]">
+      <SignInCard
+        logo={AppIcons.logo}
+        logoDark={AppIcons.logoDark}
+        signInFn={signIn}
+        confirmSignInFn={confirmSignIn}
+        confirmResetPasswordFn={confirmResetPassword}
+        resetPasswordFn={resetPassword}
+      />
+    </div>
   );
 }

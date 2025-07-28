@@ -64,7 +64,7 @@ export function SignInCard<T extends SignInResult = SignInResult>({
 
   return (
     <Card>
-      <CardContent className="min-w-[425px] sm:max-w-[425px]">
+      <CardContent>
         {isErrorDialogOpen && (
           <ErrorDialog
             title={errorTitle}

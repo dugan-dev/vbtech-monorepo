@@ -11,7 +11,7 @@ const PayerPyConfigFormSchema = z.object({
   }),
   physAssignment: z
     .object({
-      isRequired: z.boolean({ required_error: "Required" }),
+      isRequired: z.boolean({ message: "Required" }),
       physAssignSource: z
         .string()
         .transform((val) => (val === "" ? undefined : val))

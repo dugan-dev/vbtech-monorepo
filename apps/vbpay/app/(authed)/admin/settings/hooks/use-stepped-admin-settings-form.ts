@@ -159,7 +159,7 @@ export function useSteppedAdminSettingsForm({
     },
   });
 
-  function onSubmit(formData: SetupFormOutput) {
+  function onSubmit(formData: SetupFormInput) {
     setIsSubmitting?.(true);
 
     if (from === "license") {

@@ -55,7 +55,7 @@ export function useAddPayerForm({ onSuccess }: props) {
       },
     });
 
-  function onSubmit(formData: AddPayerFormOutput) {
+  function onSubmit(formData: AddPayerFormInput) {
     execInsertPayerAction({
       formData: {
         ...formData,

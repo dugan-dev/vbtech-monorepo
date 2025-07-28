@@ -107,7 +107,7 @@ export function useSteppedSetupForm({ onSuccess, setIsSubmitting }: props) {
     },
   );
 
-  function onSubmit(formData: SetupFormOutput) {
+  function onSubmit(formData: SetupFormInput) {
     setIsSubmitting?.(true);
     executeCompleteSetup({
       licenseInfo: formData.licenseInfo,

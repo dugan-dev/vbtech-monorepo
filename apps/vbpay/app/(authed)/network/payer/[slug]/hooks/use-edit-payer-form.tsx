@@ -97,7 +97,7 @@ export function useEditPayerForm({ onSuccess, formData }: props) {
    * @remark
    * If the user lacks permission to edit the payer, an error dialog is displayed and the update action is not executed.
    */
-  function onSubmit(formData: EditPayerFormOutput) {
+  function onSubmit(formData: EditPayerFormInput) {
     if (!userCanEdit) {
       openErrorDialog(
         "Error",

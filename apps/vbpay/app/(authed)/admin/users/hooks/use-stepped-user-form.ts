@@ -181,7 +181,7 @@ export function useSteppedUserForm({
     },
   );
 
-  function onSubmit(formData: UserFormOutput) {
+  function onSubmit(formData: UserFormInput) {
     setIsSubmitting?.(true);
     if (user) {
       executeEditUser({

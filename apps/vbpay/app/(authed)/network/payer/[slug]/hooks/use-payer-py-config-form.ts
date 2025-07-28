@@ -180,7 +180,7 @@ export function useSteppedPayerPyConfigForm({
    *
    * @param formData - The form data to submit.
    */
-  function onSubmit(formData: PayerPyConfigFormOutput) {
+  function onSubmit(formData: PayerPyConfigFormInput) {
     if (!userCanEdit) {
       openErrorDialog(
         "Error",
