@@ -13,7 +13,7 @@ import { TaxonomyCode, TaxonomyCodeSpecialties } from "@/types/taxonomy-codes";
 
 import "server-only";
 
-import { z } from "zod";
+import { z } from "zod/v4";
 
 const NppesSearchParamsSchema = z.object({
   npiType: z.literal("individual").or(z.literal("organization")),

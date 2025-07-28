@@ -1,4 +1,4 @@
-import * as z from "zod";
+import * as z from "zod/v4";
 
 const TotpSetupFormSchema = z.object({
   code: z.string().length(6, "Code must be 6 characters long"),

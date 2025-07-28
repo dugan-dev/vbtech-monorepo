@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod/v4";
 
 type UserMode = "aco"; // TODO: add additional modes to match payer types as we support additional modes.
 

@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { getUsersData } from "@/repos/user-repository";
 import { getRateLimitWaitTimeMessage } from "@/utils/get-rate-limit-wait-time-message";
 import { createSafeActionClient } from "next-safe-action";
-import z from "zod";
+import z from "zod/v4";
 
 import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
 import { getClientIp } from "@workspace/auth/lib/utils/get-client-ip";

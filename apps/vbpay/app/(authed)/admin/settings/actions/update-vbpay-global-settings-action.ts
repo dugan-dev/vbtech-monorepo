@@ -4,7 +4,7 @@ import "server-only";
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { VBPAY_GLOBAL_SETTINGS_CACHE_KEY } from "@/repos/global-settings-repository";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 import { authedActionClient } from "@/lib/safe-action";
 import { SetupFormSchema } from "@/components/setup-form/setup-form-schema";
