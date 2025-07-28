@@ -1,17 +1,17 @@
 import * as z from "zod/v4";
 
 const PhysPyConfigFormSchema = z.object({
-  perfYear: z.string({ required_error: "Required" }),
+  perfYear: z.string({ message: "Required" }),
   enableCapPayments: z
-    .boolean({ required_error: "Required" })
+    .boolean({ message: "Required" })
     .optional()
     .default(false),
   enableClaimPayments: z
-    .boolean({ required_error: "Required" })
+    .boolean({ message: "Required" })
     .optional()
     .default(false),
   enableValuePayments: z
-    .boolean({ required_error: "Required" })
+    .boolean({ message: "Required" })
     .optional()
     .default(false),
 });

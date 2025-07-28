@@ -97,7 +97,7 @@ export function useEditPayerForm({ onSuccess, formData }: props) {
    * @remark
    * If the user lacks permission to edit the payer, an error dialog is displayed and the update action is not executed.
    */
-  function onSubmit(formData: EditPayerFormOutput) {
+  function onSubmit(formData: EditPayerFormInput) {
     if (!userCanEdit) {
       openErrorDialog(
         "Error",
@@ -105,9 +105,27 @@ export function useEditPayerForm({ onSuccess, formData }: props) {
       );
       return;
     }
+
+    // Transform the form data to match the expected output type
+    const transformedData: EditPayerFormOutput = {
+      payerType: formData.payerType,
+      initPerfYr: formData.initPerfYr,
+      initPerfMo: formData.initPerfMo,
+      marketingName: formData.marketingName,
+      cmsId: formData.cmsId === "" ? undefined : formData.cmsId,
+      legalName: formData.legalName === "" ? undefined : formData.legalName,
+      referenceName:
+        formData.referenceName === "" ? undefined : formData.referenceName,
+      taxId:
+        formData.taxId === "" ? undefined : formData.taxId?.replace("-", ""),
+      parentOrgName:
+        formData.parentOrgName === "" ? undefined : formData.parentOrgName,
+      websiteUrl: formData.websiteUrl === "" ? undefined : formData.websiteUrl,
+    };
+
     execute({
       pubId: pubId as string,
-      formData,
+      formData: transformedData,
       revalidationPath,
     });
   }
