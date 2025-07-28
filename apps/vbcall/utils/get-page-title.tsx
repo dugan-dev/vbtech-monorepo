@@ -36,7 +36,7 @@ export function getPageTitle(pathname: string, slug?: string) {
       return "Dashboard";
     case CallLog({}):
       return "Call Log";
-    case RateLimit({}):
+    case RateLimit({ secs: 0 }):
       return "";
     default:
       throw new Error(`Get page title: Unknown pathname: ${pathname}`);
