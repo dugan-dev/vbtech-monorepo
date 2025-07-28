@@ -3,8 +3,9 @@ import "server-only";
 import { Suspense } from "react";
 import { unauthorized } from "next/navigation";
 import { AdminSettings } from "@/routes";
-import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+import { checkPageRateLimit } from "@/utils/rate-limiting";
+
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
 
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
@@ -22,10 +23,8 @@ import { SettingsCardServer } from "./components/settings/settings-card.server";
  */
 export default async function Page() {
   // Check rate limiter
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: AdminSettings({}) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: AdminSettings({}), user });
 
   if (!user) {
     return unauthorized();

@@ -5,9 +5,9 @@ import "server-only";
 import { Suspense } from "react";
 import { unauthorized } from "next/navigation";
 import { NetworkPayers } from "@/routes";
-import { authenticatedUser } from "@/utils/amplify-server-utils";
-import { checkPageRateLimit } from "@/utils/check-page-rate-limit";
+import { checkPageRateLimit } from "@/utils/rate-limiting";
 
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
 import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-table-skeleton";
 
 import { UserType } from "@/types/user-type";
@@ -23,10 +23,8 @@ const ALLOWED_USER_TYPES: UserType[] = ["bpo", "payers", "payer"];
  * @returns The page content as a React element, or an unauthorized response if access is denied.
  */
 export default async function Page() {
-  const [user] = await Promise.all([
-    authenticatedUser(),
-    checkPageRateLimit({ pathname: NetworkPayers({}) }),
-  ]);
+  const user = await authenticatedUser();
+  await checkPageRateLimit({ pathname: NetworkPayers({}), user });
 
   if (!user) {
     return unauthorized();

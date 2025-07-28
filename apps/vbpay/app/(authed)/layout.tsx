@@ -8,7 +8,8 @@ import { getVBPayGlobalSettings } from "@/repos/global-settings-repository";
 import { getVBPayLicense } from "@/repos/license-repository";
 import { getUsersData } from "@/repos/user-repository";
 import { Setup } from "@/routes";
-import { authenticatedUser } from "@/utils/amplify-server-utils";
+
+import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
 
 import { AuthedProviders } from "@/components/authed-providers";
 import { VBPayMainSidebar } from "@/components/main-sidebar/main-sidebar";

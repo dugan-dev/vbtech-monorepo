@@ -7,16 +7,21 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@hookform/resolvers": "5.1.1",
+    "@aws-amplify/adapter-nextjs": "1.6.7",
+    "@aws-sdk/client-cognito-identity-provider": "3.848.0",
+    "@hookform/resolvers": "5.2.0",
     "@workspace/ui": "workspace:*",
     "@workspace/utils": "workspace:*",
-    "lucide-react": "0.525.0",
+    "aws-amplify": "6.15.4",
+    "lucide-react": "0.526.0",
     "qrcode": "1.5.4",
-    "react-hook-form": "7.60.0",
+    "rate-limiter-flexible": "7.2.0",
+    "react-hook-form": "7.61.1",
     "sonner": "2.0.6",
     "zod": "4.0.10"
   },
   "peerDependencies": {
+    "next": "15.4.4",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
@@ -26,16 +31,26 @@
     "@types/react-dom": "19.1.6",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
+    "next": "15.4.4",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
   "exports": {
     "./components/*": "./src/components/*.tsx",
     "./components/auth/*": "./src/components/auth/*.tsx",
+    "./components/auth-initializer": "./src/components/auth-initializer.tsx",
+    "./components/auth-provider": "./src/components/auth-provider.tsx",
+    "./components/rate-limit-card": "./src/components/rate-limit-card.tsx",
+
+    "./constants/*": "./src/constants/*.ts",
     "./hooks/*": "./src/hooks/*.ts",
     "./hooks/auth/*": "./src/hooks/auth/*.ts",
+    "./hooks/use-auto-logout": "./src/hooks/use-auto-logout.ts",
+    "./hooks/use-update-password": "./src/hooks/use-update-password.ts",
     "./lib/*": "./src/lib/*.ts",
     "./lib/auth/*": "./src/lib/auth/*.ts",
+    "./lib/server/*": "./src/lib/server/*.ts",
+    "./lib/utils/*": "./src/lib/utils/*.ts",
     "./types/*": "./src/types/*.ts",
     "./types/auth/*": "./src/types/auth/*.ts"
   }

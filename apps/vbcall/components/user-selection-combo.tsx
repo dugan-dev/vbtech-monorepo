@@ -22,6 +22,11 @@ import {
   PopoverTrigger,
 } from "@workspace/ui/components/popover";
 import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@workspace/ui/components/tooltip";
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 import { cn } from "@workspace/ui/lib/utils";
 import { UserSelectionData } from "@workspace/ui/types/user-selection-data";
@@ -161,31 +166,38 @@ export function UserSelectionCombo({
           </Command>
         </PopoverContent>
       </Popover>
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={toggleLock}
-        className="relative overflow-hidden"
-        disabled={cId === ""}
-      >
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition duration-300 ease-in-out ${
-              isLocked ? "rotate-y-0 opacity-100" : "rotate-y-180 opacity-0"
-            }`}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleLock}
+            className="relative overflow-hidden"
+            disabled={cId === ""}
           >
-            <Lock className="size-5" />
-          </div>
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition duration-300 ease-in-out ${
-              isLocked ? "rotate-y-180 opacity-0" : "rotate-y-0 opacity-100"
-            }`}
-          >
-            <Unlock className="size-5" />
-          </div>
-        </div>
-        <span className="sr-only">{isLocked ? "Locked" : "Unlocked"}</span>
-      </Button>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div
+                className={`absolute inset-0 flex items-center justify-center transition duration-300 ease-in-out ${
+                  isLocked ? "rotate-y-0 opacity-100" : "rotate-y-180 opacity-0"
+                }`}
+              >
+                <Lock className="size-5" />
+              </div>
+              <div
+                className={`absolute inset-0 flex items-center justify-center transition duration-300 ease-in-out ${
+                  isLocked ? "rotate-y-180 opacity-0" : "rotate-y-0 opacity-100"
+                }`}
+              >
+                <Unlock className="size-5" />
+              </div>
+            </div>
+            <span className="sr-only">{isLocked ? "Locked" : "Unlocked"}</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{isLocked ? "Unlock Selection" : "Lock Selection"}</p>
+        </TooltipContent>
+      </Tooltip>
     </div>
   );
 }

@@ -18,7 +18,7 @@ import {
   UpdatePasswordFormSchema,
 } from "../lib/update-password-form-schema";
 
-interface UpdatePasswordFormProps {
+type props = {
   onSubmit: (data: {
     currentPassword: string;
     newPassword: string;
@@ -28,7 +28,7 @@ interface UpdatePasswordFormProps {
   loadingText?: string;
   submitText?: string;
   className?: string;
-}
+};
 
 export function UpdatePasswordForm({
   onSubmit,
@@ -37,7 +37,7 @@ export function UpdatePasswordForm({
   loadingText = "Updating...",
   submitText = "Update Password",
   className,
-}: UpdatePasswordFormProps) {
+}: props) {
   const [internalLoading, setInternalLoading] = useState(false);
 
   const {

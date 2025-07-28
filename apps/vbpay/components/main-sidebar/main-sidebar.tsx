@@ -7,13 +7,13 @@ import { useUserContext } from "@/contexts/user-context";
 import { signOut } from "aws-amplify/auth";
 import { ChevronRight, Lock, LogOut } from "lucide-react";
 
+import { UpdatePasswordDialog } from "@workspace/auth/components/update-password-dialog";
 import { MainSidebar } from "@workspace/ui/components/main-sidebar/main-sidebar";
 import { ThemeToggle } from "@workspace/ui/components/theme-toggle";
 import { UserAvatar } from "@workspace/ui/components/user-avatar";
 
 import { AppIcons } from "@/components/app-icons";
 import { MAIN_SIDEBAR_CONFIG } from "@/components/main-sidebar/main-sidebar-config";
-import { UpdatePasswordDialog } from "@/components/update-password-dialog";
 
 /**
  * Renders the main sidebar navigation for the VB Pay application using the shared MainSidebar component.

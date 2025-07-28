@@ -6,45 +6,33 @@ import {
   DialogTitle,
 } from "@workspace/ui/components/dialog";
 
+import { useUpdatePassword } from "../hooks/use-update-password";
 import { UpdatePasswordForm } from "./update-password-form";
 
-interface UpdatePasswordDialogProps {
+type props = {
   isOpen: boolean;
-  onClose: () => void;
-  onSubmit: (data: {
-    currentPassword: string;
-    newPassword: string;
-  }) => Promise<void>;
-  isLoading?: boolean;
-  title?: string;
-  description?: string;
-  loadingText?: string;
-  submitText?: string;
-}
+  closeDialog: () => void;
+};
 
-export function UpdatePasswordDialog({
-  isOpen,
-  onClose,
-  onSubmit,
-  isLoading,
-  title = "Change Password",
-  description = "Enter your new password below. We recommend using a strong, unique password.",
-  loadingText,
-  submitText,
-}: UpdatePasswordDialogProps) {
+export function UpdatePasswordDialog({ isOpen, closeDialog }: props) {
+  const { handleUpdatePassword, isLoading } = useUpdatePassword({
+    onSuccess: closeDialog,
+  });
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={closeDialog}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogTitle>Change Password</DialogTitle>
+          <DialogDescription>
+            Enter your new password below. We recommend using a strong, unique
+            password.
+          </DialogDescription>
         </DialogHeader>
         <UpdatePasswordForm
-          onSubmit={onSubmit}
-          onClose={onClose}
+          onSubmit={handleUpdatePassword}
+          onClose={closeDialog}
           isLoading={isLoading}
-          loadingText={loadingText}
-          submitText={submitText}
         />
       </DialogContent>
     </Dialog>
