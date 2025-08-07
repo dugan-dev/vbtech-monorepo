@@ -23,7 +23,7 @@
     "@workspace/db": "workspace:*",
     "@workspace/ui": "workspace:*",
     "@workspace/utils": "workspace:*",
-    "aws-amplify": "6.15.4",
+    "aws-amplify": "6.15.5",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
     "kysely": "0.28.3",
     "lucide-react": "0.526.0",
