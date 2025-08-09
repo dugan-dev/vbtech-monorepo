@@ -9,7 +9,7 @@
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "1.6.7",
     "@aws-sdk/client-cognito-identity-provider": "3.848.0",
-    "@hookform/resolvers": "5.2.0",
+    "@hookform/resolvers": "5.2.1",
     "@workspace/ui": "workspace:*",
     "@workspace/utils": "workspace:*",
     "aws-amplify": "6.15.5",
