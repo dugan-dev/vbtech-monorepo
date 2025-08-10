@@ -21,6 +21,7 @@
     "@tanstack/table-core": "8.21.3",
     "@workspace/auth": "workspace:*",
     "@workspace/db": "workspace:*",
+    "@workspace/routing": "workspace:*",
     "@workspace/ui": "workspace:*",
     "@workspace/utils": "workspace:*",
     "aws-amplify": "6.15.5",
