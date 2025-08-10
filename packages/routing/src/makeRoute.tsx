@@ -3,12 +3,12 @@ Derived from: https://www.flightcontrol.dev/blog/fix-nextjs-routing-to-have-full
 */
 import Link from "next/link";
 import queryString from "query-string";
-import { z } from "zod/v4";
+import { z } from "zod";
 
 type LinkProps = Parameters<typeof Link>[0];
 
 export type RouteInfo<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
 > = {
   name: string;
@@ -36,8 +36,8 @@ export type PutInfo<Body extends z.ZodTypeAny, Result extends z.ZodTypeAny> = {
 type FetchOptions = Parameters<typeof fetch>[1];
 
 type CoreRouteElements<
-  Params extends z.ZodType<Record<string, any>>,
-  Search extends z.ZodTypeAny = typeof emptySchema,
+  Params extends z.ZodType<Record<string, unknown>>,
+  Search extends z.ZodTypeAny = z.ZodObject<Record<string, never>>,
 > = {
   params: z.output<Params>;
   paramsSchema: Params;
@@ -46,7 +46,7 @@ type CoreRouteElements<
 };
 
 type PutRouteBuilder<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
   Body extends z.ZodTypeAny,
   Result extends z.ZodTypeAny,
@@ -65,7 +65,7 @@ type PutRouteBuilder<
 };
 
 type PostRouteBuilder<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
   Body extends z.ZodTypeAny,
   Result extends z.ZodTypeAny,
@@ -84,7 +84,7 @@ type PostRouteBuilder<
 };
 
 type GetRouteBuilder<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
   Result extends z.ZodTypeAny,
 > = CoreRouteElements<Params, Search> & {
@@ -99,7 +99,7 @@ type GetRouteBuilder<
 };
 
 type DeleteRouteBuilder<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
 > = CoreRouteElements<Params, z.ZodTypeAny> & {
   (
@@ -110,7 +110,7 @@ type DeleteRouteBuilder<
 };
 
 export type RouteBuilder<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
 > = CoreRouteElements<Params, Search> & {
   (p?: z.input<Params>, search?: z.input<Search>): string;
@@ -176,10 +176,10 @@ function createPathBuilder<T extends Record<string, string | string[]>>(
 }
 
 function createRouteBuilder<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
 >(route: string, info: RouteInfo<Params, Search>) {
-  const fn = createPathBuilder<z.output<Params>>(route);
+  const fn = createPathBuilder<Record<string, string | string[]>>(route);
 
   return (params?: z.input<Params>, search?: z.input<Search>) => {
     let checkedParams: z.output<Params>;
@@ -204,16 +204,14 @@ function createRouteBuilder<
       );
     }
 
-    const baseUrl = fn(checkedParams);
+    const baseUrl = fn(checkedParams as Record<string, string | string[]>);
     const searchString = search && queryString.stringify(search);
     return [baseUrl, searchString ? `?${searchString}` : ""].join("");
   };
 }
 
-const emptySchema = z.object({});
-
 export function makePostRoute<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
   Body extends z.ZodTypeAny,
   Result extends z.ZodTypeAny,
@@ -276,7 +274,7 @@ export function makePostRoute<
 }
 
 export function makePutRoute<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
   Body extends z.ZodTypeAny,
   Result extends z.ZodTypeAny,
@@ -339,7 +337,7 @@ export function makePutRoute<
 }
 
 export function makeGetRoute<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
   Result extends z.ZodTypeAny,
 >(
@@ -383,7 +381,7 @@ export function makeGetRoute<
 }
 
 export function makeDeleteRoute<
-  Params extends z.ZodType<Record<string, any>>,
+  Params extends z.ZodType<Record<string, unknown>>,
   Search extends z.ZodTypeAny,
 >(
   route: string,
@@ -419,8 +417,8 @@ export function makeDeleteRoute<
 }
 
 export function makeRoute<
-  Params extends z.ZodType<Record<string, any>>,
-  Search extends z.ZodTypeAny = typeof emptySchema,
+  Params extends z.ZodType<Record<string, unknown>>,
+  Search extends z.ZodTypeAny = z.ZodObject<Record<string, never>>,
 >(
   route: string,
   info: RouteInfo<Params, Search>,
@@ -459,7 +457,7 @@ export function makeRoute<
     const params = info.params.parse(props);
     const extraProps = { ...props };
     for (const key of Object.keys(params)) {
-      delete (extraProps as any)[key];
+      delete (extraProps as Record<string, unknown>)[key];
     }
     return (
       <Link

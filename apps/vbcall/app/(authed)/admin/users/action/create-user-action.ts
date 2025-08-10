@@ -3,7 +3,7 @@
 import "server-only";
 
 import { revalidatePath } from "next/cache";
-import { z } from "zod/v4";
+import { z } from "zod";
 
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserType } from "@/types/user-type";

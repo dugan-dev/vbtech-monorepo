@@ -53,6 +53,9 @@ importers:
       '@t3-oss/env-nextjs':
         specifier: 0.13.8
         version: 0.13.8(arktype@2.1.20)(typescript@5.9.2)(zod@4.0.17)
+      '@workspace/routing':
+        specifier: workspace:*
+        version: link:../../packages/routing
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -132,6 +135,9 @@ importers:
       '@workspace/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@workspace/routing':
+        specifier: workspace:*
+        version: link:../../packages/routing
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -250,6 +256,9 @@ importers:
       '@workspace/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@workspace/routing':
+        specifier: workspace:*
+        version: link:../../packages/routing
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -353,6 +362,9 @@ importers:
       '@vercel/speed-insights':
         specifier: 1.2.0
         version: 1.2.0(next@15.4.6(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
+      '@workspace/routing':
+        specifier: workspace:*
+        version: link:../../packages/routing
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -414,6 +426,9 @@ importers:
       '@t3-oss/env-nextjs':
         specifier: 0.13.8
         version: 0.13.8(arktype@2.1.20)(typescript@5.9.2)(zod@4.0.17)
+      '@workspace/routing':
+        specifier: workspace:*
+        version: link:../../packages/routing
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -600,6 +615,37 @@ importers:
       typescript-eslint:
         specifier: 8.39.0
         version: 8.39.0(eslint@9.33.0(jiti@2.4.2))(typescript@5.9.2)
+
+  packages/routing:
+    dependencies:
+      query-string:
+        specifier: 9.2.2
+        version: 9.2.2
+    devDependencies:
+      '@types/react':
+        specifier: 19.1.9
+        version: 19.1.9
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      eslint:
+        specifier: 9.33.0
+        version: 9.33.0(jiti@2.4.2)
+      next:
+        specifier: 15.4.6
+        version: 15.4.6(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react:
+        specifier: 19.1.1
+        version: 19.1.1
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+      zod:
+        specifier: 4.0.17
+        version: 4.0.17
 
   packages/typescript-config: {}
 

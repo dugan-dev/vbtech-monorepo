@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import { z } from "zod";
 
 type LicenseStatus = "active" | "expired" | "suspended" | "canceled";
 const LicenseStatuses = ["active", "expired", "suspended", "canceled"] as const;

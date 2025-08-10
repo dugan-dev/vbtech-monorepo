@@ -1,4 +1,4 @@
-import * as z from "zod/v4";
+import * as z from "zod";
 
 import { UserModeEnum } from "@/types/user-mode";
 import { UserRoleEnum } from "@/types/user-role";

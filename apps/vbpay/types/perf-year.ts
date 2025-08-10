@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import { z } from "zod";
 
 type PerfYear = "2024" | "2025" | "2026";
 
