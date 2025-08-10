@@ -1,4 +1,4 @@
-import * as z from "zod/v4";
+import * as z from "zod";
 
 const ClientFormSchema = z.object({
   clientName: z.string().min(1, "Required").max(255),

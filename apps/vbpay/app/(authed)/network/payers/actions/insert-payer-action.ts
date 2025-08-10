@@ -4,7 +4,7 @@ import "server-only";
 
 import { revalidatePath } from "next/cache";
 import { getVBPayLicense } from "@/repos/license-repository";
-import { z } from "zod/v4";
+import { z } from "zod";
 
 import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserMode } from "@/types/user-mode";

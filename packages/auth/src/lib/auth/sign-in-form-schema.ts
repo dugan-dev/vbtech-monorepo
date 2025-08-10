@@ -1,4 +1,4 @@
-import * as z from "zod/v4";
+import * as z from "zod";
 
 const SignInFormSchema = z.object({
   email: z.string().min(1, "Required").email("Invalid email address"),

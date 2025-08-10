@@ -1,4 +1,4 @@
-import * as z from "zod/v4";
+import * as z from "zod";
 
 const PhysPyConfigFormSchema = z.object({
   perfYear: z.string({ message: "Required" }),

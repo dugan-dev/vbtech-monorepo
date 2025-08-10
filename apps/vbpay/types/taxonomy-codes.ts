@@ -1,4 +1,4 @@
-import z from "zod/v4";
+import z from "zod";
 
 type TaxonomyCode =
   | "193200000X"

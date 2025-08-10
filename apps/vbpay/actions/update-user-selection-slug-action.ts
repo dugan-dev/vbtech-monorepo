@@ -3,7 +3,7 @@
 import "server-only";
 
 import { updateUserSelectionSlug } from "@/repos/user-repository";
-import { z } from "zod/v4";
+import { z } from "zod";
 
 import { authedActionClient } from "@/lib/safe-action";
 

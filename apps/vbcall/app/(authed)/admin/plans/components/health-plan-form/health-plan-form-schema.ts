@@ -1,4 +1,4 @@
-import * as z from "zod/v4";
+import * as z from "zod";
 
 const HealthPlanFormSchema = z.object({
   planName: z.string().min(1, "Required").max(255),

@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import { z } from "zod";
 
 type LicenseType = "bpaas" | "saas";
 const LicenseTypes = ["bpaas", "saas"] as const;
