@@ -13,7 +13,7 @@ export function safeParseSearchParams<T extends z.ZodTypeAny>(
 function processSchema(
   schema: z.ZodTypeAny,
   paramsArray: Record<string, string[]>,
-): Record<string, any> {
+): Record<string, unknown> {
   let workingSchema = schema;
   if (workingSchema instanceof z.ZodOptional) {
     workingSchema = workingSchema.unwrap() as z.ZodTypeAny;
@@ -64,8 +64,8 @@ function parseShape(
   shape: z.ZodRawShape,
   paramsArray: Record<string, string[]>,
   isPartOfUnion = false,
-): Record<string, any> {
-  const parsed: Record<string, any> = {};
+): Record<string, unknown> {
+  const parsed: Record<string, unknown> = {};
 
   for (const key in shape) {
     if (Object.prototype.hasOwnProperty.call(shape, key)) {
@@ -107,7 +107,7 @@ function getAllParamsAsArrays(
 function convertToRequiredType(
   values: string[],
   schema: z.ZodTypeAny,
-): ParsedData<any> {
+): ParsedData<unknown> {
   const usedSchema = getInnerType(schema);
   if (values.length > 1 && !(usedSchema instanceof z.ZodArray))
     return { error: "Multiple values for non-array field" };
@@ -118,7 +118,10 @@ function convertToRequiredType(
   return value;
 }
 
-function parseValues(schema: any, values: string[]): ParsedData<any> {
+function parseValues(
+  schema: z.ZodTypeAny,
+  values: string[],
+): ParsedData<unknown> {
   switch (schema.constructor) {
     case z.ZodNumber:
       return parseNumber(values[0]!);
@@ -148,9 +151,9 @@ function parseValues(schema: any, values: string[]): ParsedData<any> {
   }
 }
 
-function getInnerType(schema: z.ZodTypeAny) {
+function getInnerType(schema: z.ZodTypeAny): z.ZodTypeAny {
   if (schema instanceof z.ZodOptional || schema instanceof z.ZodDefault) {
-    return schema.unwrap();
+    return schema.unwrap() as z.ZodTypeAny;
   }
   return schema;
 }

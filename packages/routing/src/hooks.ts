@@ -7,13 +7,11 @@ import { z } from "zod";
 
 import { RouteBuilder } from "./makeRoute";
 
-const emptySchema = z.object({});
-
 type PushOptions = Parameters<ReturnType<typeof useRouter>["push"]>[1];
 
 export function usePush<
-  Params extends z.ZodType<Record<string, any>>,
-  Search extends z.ZodTypeAny = typeof emptySchema,
+  Params extends z.ZodType<Record<string, unknown>>,
+  Search extends z.ZodTypeAny = z.ZodObject<Record<string, never>>,
 >(builder: RouteBuilder<Params, Search>) {
   const { push } = useRouter();
   return (
@@ -26,8 +24,8 @@ export function usePush<
 }
 
 export function useParams<
-  Params extends z.ZodType<Record<string, any>>,
-  Search extends z.ZodTypeAny = typeof emptySchema,
+  Params extends z.ZodType<Record<string, unknown>>,
+  Search extends z.ZodTypeAny = z.ZodObject<Record<string, never>>,
 >(builder: RouteBuilder<Params, Search>): z.output<Params> {
   const res = builder.paramsSchema.safeParse(useNextParams());
   if (!res.success) {
@@ -39,8 +37,8 @@ export function useParams<
 }
 
 export function useSearchParams<
-  Params extends z.ZodType<Record<string, any>>,
-  Search extends z.ZodTypeAny = typeof emptySchema,
+  Params extends z.ZodType<Record<string, unknown>>,
+  Search extends z.ZodTypeAny = z.ZodObject<Record<string, never>>,
 >(builder: RouteBuilder<Params, Search>): z.output<Search> {
   const res = builder.searchSchema!.safeParse(
     convertURLSearchParamsToObject(useNextSearchParams()),
