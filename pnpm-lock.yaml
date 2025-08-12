@@ -118,8 +118,8 @@ importers:
         specifier: 1.6.8
         version: 1.6.8(aws-amplify@6.15.5)(next@15.4.6(@opentelemetry/api@1.4.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       '@aws-sdk/client-cognito-identity-provider':
-        specifier: 3.864.0
-        version: 3.864.0
+        specifier: 3.865.0
+        version: 3.865.0
       '@hookform/resolvers':
         specifier: 5.2.1
         version: 5.2.1(react-hook-form@7.62.0(react@19.1.1))
@@ -236,8 +236,8 @@ importers:
         specifier: 1.6.8
         version: 1.6.8(aws-amplify@6.15.5)(next@15.4.6(@opentelemetry/api@1.4.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       '@aws-sdk/client-cognito-identity-provider':
-        specifier: 3.864.0
-        version: 3.864.0
+        specifier: 3.865.0
+        version: 3.865.0
       '@hookform/resolvers':
         specifier: 5.2.1
         version: 5.2.1(react-hook-form@7.62.0(react@19.1.1))
@@ -491,8 +491,8 @@ importers:
         specifier: 1.6.8
         version: 1.6.8(aws-amplify@6.15.5)(next@15.4.6(@opentelemetry/api@1.4.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       '@aws-sdk/client-cognito-identity-provider':
-        specifier: 3.864.0
-        version: 3.864.0
+        specifier: 3.865.0
+        version: 3.865.0
       '@hookform/resolvers':
         specifier: 5.2.1
         version: 5.2.1(react-hook-form@7.62.0(react@19.1.1))
@@ -921,8 +921,8 @@ packages:
   '@aws-crypto/util@5.2.0':
     resolution: {integrity: sha512-4RkU9EsI6ZpBve5fseQlGNUWKMa1RLPQ1dnjnQoe07ldfIzcsGb5hC5W0Dm7u423KWzawlrpbjXBrXCEv9zazQ==}
 
-  '@aws-sdk/client-cognito-identity-provider@3.864.0':
-    resolution: {integrity: sha512-6bIP1tsopRGBHUWximtJpGdVa76huQw5t4C7t08hz27JsgGv4FvTrblYmA8Qc3mzODhqI7GszNtNKwb14L3i5g==}
+  '@aws-sdk/client-cognito-identity-provider@3.865.0':
+    resolution: {integrity: sha512-jwHiY8iTW2qiN8W3oPqmYBm8rvLSuosB7fu1c3zlP+l7OmNENaVKNaX0ljcB5z4WhEGbgkJ2DHIAaTxvCtot9g==}
     engines: {node: '>=18.0.0'}
 
   '@aws-sdk/client-firehose@3.621.0':
@@ -1088,10 +1088,6 @@ packages:
   '@aws-sdk/types@3.609.0':
     resolution: {integrity: sha512-+Tqnh9w0h2LcrUsdXyT1F8mNhXz+tVYBtP19LpeEGntmvHwa2XzvLUCWpoIAIVsHp5+HdB2X9Sn0KAtmbFXc2Q==}
     engines: {node: '>=16.0.0'}
-
-  '@aws-sdk/types@3.840.0':
-    resolution: {integrity: sha512-xliuHaUFZxEx1NSXeLLZ9Dyu6+EJVQKEoD+yM+zqUo3YDZ7medKJWY6fIOKiPX/N7XbLdBYwajb15Q7IL8KkeA==}
-    engines: {node: '>=18.0.0'}
 
   '@aws-sdk/types@3.862.0':
     resolution: {integrity: sha512-Bei+RL0cDxxV+lW2UezLbCYYNeJm6Nzee0TpW0FfyTRBhH9C1XQh4+x+IClriXvgBnRquTMMYsmJfvx8iyLKrg==}
@@ -2464,10 +2460,6 @@ packages:
   '@smithy/types@3.7.2':
     resolution: {integrity: sha512-bNwBYYmN8Eh9RyjS1p2gW6MIhSO2rl7X9QeLM8iTdcGRP+eDiIWDt66c9IysCc22gefKszZv+ubV9qZc7hdESg==}
     engines: {node: '>=16.0.0'}
-
-  '@smithy/types@4.3.1':
-    resolution: {integrity: sha512-UqKOQBL2x6+HWl3P+3QqFD4ncKq0I8Nuz9QItGv5WuKuMHuuwlhvqcZCoXGfc+P1QmfJE7VieykoYYmrOoFJxA==}
-    engines: {node: '>=18.0.0'}
 
   '@smithy/types@4.3.2':
     resolution: {integrity: sha512-QO4zghLxiQ5W9UZmX2Lo0nta2PuE1sSrXUYDoaB6HMR762C0P7v/HEPHf6ZdglTVssJG1bsrSBxdc3quvDSihw==}
@@ -6260,7 +6252,7 @@ snapshots:
   '@aws-crypto/crc32@5.2.0':
     dependencies:
       '@aws-crypto/util': 5.2.0
-      '@aws-sdk/types': 3.840.0
+      '@aws-sdk/types': 3.862.0
       tslib: 2.8.1
 
   '@aws-crypto/sha256-browser@5.2.0':
@@ -6289,7 +6281,7 @@ snapshots:
       '@smithy/util-utf8': 2.3.0
       tslib: 2.8.1
 
-  '@aws-sdk/client-cognito-identity-provider@3.864.0':
+  '@aws-sdk/client-cognito-identity-provider@3.865.0':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
@@ -7008,11 +7000,6 @@ snapshots:
   '@aws-sdk/types@3.609.0':
     dependencies:
       '@smithy/types': 3.7.2
-      tslib: 2.8.1
-
-  '@aws-sdk/types@3.840.0':
-    dependencies:
-      '@smithy/types': 4.3.1
       tslib: 2.8.1
 
   '@aws-sdk/types@3.862.0':
@@ -8670,10 +8657,6 @@ snapshots:
       tslib: 2.8.1
 
   '@smithy/types@3.7.2':
-    dependencies:
-      tslib: 2.8.1
-
-  '@smithy/types@4.3.1':
     dependencies:
       tslib: 2.8.1
 
