@@ -21,13 +21,13 @@
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "eslint": "9.33.0",
-    "next": "15.4.6",
+    "next": "15.5.2",
     "react": "19.1.1",
     "typescript": "5.9.2",
     "zod": "4.0.17"
   },
   "peerDependencies": {
-    "next": "15.4.6",
+    "next": "15.5.2",
     "react": "19.1.1",
     "zod": "4.0.17"
   }
