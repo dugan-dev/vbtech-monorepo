@@ -27,8 +27,8 @@
   },
   "devDependencies": {
     "@types/qrcode": "1.5.5",
-    "@types/react": "19.1.10",
-    "@types/react-dom": "19.1.7",
+    "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.8",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "next": "15.5.2",
