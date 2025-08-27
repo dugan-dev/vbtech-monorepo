@@ -14,7 +14,7 @@ import {
 import { FormInput } from "@workspace/ui/components/form/form-input";
 import { FormRadioGroup } from "@workspace/ui/components/form/form-radio-group";
 import { Textarea } from "@workspace/ui/components/textarea";
-import { formatPhoneNumber } from "@workspace/ui/lib/formatPhoneNumber";
+import { formatPhoneNumber } from "@workspace/utils/format-phone-number";
 
 import { ErrorDialog } from "@/components/error-dialog";
 
