@@ -32,7 +32,7 @@
     "zod": "4.0.17"
   },
   "devDependencies": {
-    "@types/node": "24.2.1",
+    "@types/node": "24.3.0",
     "@types/react": "19.1.12",
     "@types/react-dom": "19.1.8",
     "@workspace/eslint-config": "workspace:*",
