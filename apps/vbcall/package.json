@@ -43,7 +43,7 @@
     "server-only": "0.0.1",
     "sharp": "0.34.3",
     "sonner": "2.0.7",
-    "sst": "3.17.10",
+    "sst": "3.17.11",
     "zod": "4.1.5"
   },
   "devDependencies": {
