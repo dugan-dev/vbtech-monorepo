@@ -39,8 +39,8 @@ importers:
         specifier: 0.6.14
         version: 0.6.14(@ianvs/prettier-plugin-sort-imports@4.7.0(prettier@3.6.2))(prettier@3.6.2)
       sst:
-        specifier: 3.17.10
-        version: 3.17.10
+        specifier: 3.17.11
+        version: 3.17.11
       turbo:
         specifier: 2.5.6
         version: 2.5.6
@@ -87,8 +87,8 @@ importers:
         specifier: 0.34.3
         version: 0.34.3
       sst:
-        specifier: 3.17.10
-        version: 3.17.10
+        specifier: 3.17.11
+        version: 3.17.11
       zod:
         specifier: 4.1.5
         version: 4.1.5
@@ -205,8 +205,8 @@ importers:
         specifier: 2.0.7
         version: 2.0.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       sst:
-        specifier: 3.17.10
-        version: 3.17.10
+        specifier: 3.17.11
+        version: 3.17.11
       zod:
         specifier: 4.1.5
         version: 4.1.5
@@ -323,8 +323,8 @@ importers:
         specifier: 2.0.7
         version: 2.0.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       sst:
-        specifier: 3.17.10
-        version: 3.17.10
+        specifier: 3.17.11
+        version: 3.17.11
       zod:
         specifier: 4.1.5
         version: 4.1.5
@@ -460,8 +460,8 @@ importers:
         specifier: 0.34.3
         version: 0.34.3
       sst:
-        specifier: 3.17.10
-        version: 3.17.10
+        specifier: 3.17.11
+        version: 3.17.11
       zod:
         specifier: 4.1.5
         version: 4.1.5
@@ -5537,48 +5537,48 @@ packages:
     resolution: {integrity: sha512-qC9iz2FlN7DQl3+wjwn3802RTyjCx7sDvfQEXchwa6CWOx07/WVfh91gBmQ9fahw8snwGEWU3xGzOt4tFyHLxg==}
     engines: {node: '>= 0.6'}
 
-  sst-darwin-arm64@3.17.10:
-    resolution: {integrity: sha512-6yhDXvnN1CUR7Ygy9Y4AduXOgrcuUdvM5rLB/qJZN0yLTjx35PJH4pzKnvEro9iTifkzCs+1QJlVKPvdWAqm/g==}
+  sst-darwin-arm64@3.17.11:
+    resolution: {integrity: sha512-c3A0MIJ+fb2T6gjUvDvt3Pakx9QSqJduO3gb48kVlE0NPApTau16CXzEyyoVKZNFxGFakuGUjFtTJfrfmTiwbA==}
     cpu: [arm64]
     os: [darwin]
 
-  sst-darwin-x64@3.17.10:
-    resolution: {integrity: sha512-UlmvWtQqEJe6yvoJtzu5fBzkAkofBfgElOB+hpviCzxmnZgznymJXZA94uRe7ruNeKQQs7eCUl0w4iuW7i+ZYA==}
+  sst-darwin-x64@3.17.11:
+    resolution: {integrity: sha512-ctKPvmN4E52sN23EpTcuDQPXYkic8iY9Piy6b3ie9g1voPxs0h36XrRIckbYq5enSeby2Gk4BeI7OaZlj8B90A==}
     cpu: [x64]
     os: [darwin]
 
-  sst-linux-arm64@3.17.10:
-    resolution: {integrity: sha512-CIiQg9Zt2ACbl95aFKiVqgcm9c1tGHWltGk1RF21lSffNE5hGrP4ZJcB8y6ASbMsObTkB+ezbUBVrlnIOl93ww==}
+  sst-linux-arm64@3.17.11:
+    resolution: {integrity: sha512-LdXpUDT5A5g6W0YkON15ySwmTDMbhXkbVxCk6YqB4eus5iEL4pniV/qImPsHcl5od2bWbPosjeDFLnGogxwPLA==}
     cpu: [arm64]
     os: [linux]
 
-  sst-linux-x64@3.17.10:
-    resolution: {integrity: sha512-e4qZ7kVi5ReEy62/uS6pOZgAx1Bj377SclvGRtCXJQutYf/8DG3USHATrsWNg15FemEi8zoW6qeQThxFTcO6yg==}
+  sst-linux-x64@3.17.11:
+    resolution: {integrity: sha512-UU7ZK4qlb19Bc6G3Tj8BL0lYhKRBkdVul3gsCHc8D07gjHrDYP1JZcRPteq/Ij7zLlLBzNilwhpBNhDcRqJ2BA==}
     cpu: [x64]
     os: [linux]
 
-  sst-linux-x86@3.17.10:
-    resolution: {integrity: sha512-qd/CCaFt+9US9ZnCBFQe6DlJsvEZGlSq9C73hBPNkVNRIMqJ9lY9aXLDWMyaqEk9NpZHpyKvog01YkH5Y+k2KQ==}
+  sst-linux-x86@3.17.11:
+    resolution: {integrity: sha512-q/Y+trzKVT9pc/kIYkgnISQqv69y/6T6IM1/fBgq3ZWbb9TBpLrW848vFS0PThH23QrcuV1U+2e6a9IgU67LHg==}
     cpu: [x86]
     os: [linux]
 
-  sst-win32-arm64@3.17.10:
-    resolution: {integrity: sha512-Dlvc1JbD/Y2ZEm+y9oukoXmskbPkll8lbwID32n8Jlyw8yOJYFEn/YghFm5L5lMgvWIeHU6X4YPW0zNGFd1H/w==}
+  sst-win32-arm64@3.17.11:
+    resolution: {integrity: sha512-lTIepV7/0GqUTbpTIAYs3KZegRzvb+xYEwkJwEFL7eCKKUGnrGPo13858PHeKmYdGRWa4tbeOsviRYaoXrWCDw==}
     cpu: [arm64]
     os: [win32]
 
-  sst-win32-x64@3.17.10:
-    resolution: {integrity: sha512-jguun7b96U7fp+X95QT6mz7Fvnca0vgIwj9J0k7aTj2DA/S4uvDNrJzarmlSg9Qs66wGvBXDmTrZrAnhlhkP2A==}
+  sst-win32-x64@3.17.11:
+    resolution: {integrity: sha512-CLZTwqRDUGWShaR02Nd1VMGG9G/a50NY0rjh/WopaTFj2SoEot/vZil4LkVWqma4rOdNX+ABJ4//O92VQSHkQQ==}
     cpu: [x64]
     os: [win32]
 
-  sst-win32-x86@3.17.10:
-    resolution: {integrity: sha512-weTAKEnSKIWiidBxMamAJL+qPb/sfOdPSBIY77fzYBNWghSc1N3tttPzHg6LcMAjwCVmBYN7zJS4MDHooPTFIg==}
+  sst-win32-x86@3.17.11:
+    resolution: {integrity: sha512-KQKeU/6m7AUu9LFg71wMn6612aY+ZHwmUsTRdGPOt6zDr1oGJAFUy8lXtbqx6txpdKgDzixHDT6aLXvnf9DR0Q==}
     cpu: [x86]
     os: [win32]
 
-  sst@3.17.10:
-    resolution: {integrity: sha512-+GBQ/G+I/UdcGHk6hnhUMGywb1e0rPsGghwBY3Yy8WlWx7FCzLI2aVTgT0SdRwa93G2+jdnlbhXPBrTPQRqz9w==}
+  sst@3.17.11:
+    resolution: {integrity: sha512-Hwl14L55ZmgAX2ZtBSBoe5BpClSlZ/LNPgB/yqQpX2eaWME5dmW+Qmrm1HHGLft8JD85pJd6P2i7wuFkMrS/qA==}
     hasBin: true
 
   statuses@2.0.1:
@@ -11998,31 +11998,31 @@ snapshots:
 
   sqlstring@2.3.3: {}
 
-  sst-darwin-arm64@3.17.10:
+  sst-darwin-arm64@3.17.11:
     optional: true
 
-  sst-darwin-x64@3.17.10:
+  sst-darwin-x64@3.17.11:
     optional: true
 
-  sst-linux-arm64@3.17.10:
+  sst-linux-arm64@3.17.11:
     optional: true
 
-  sst-linux-x64@3.17.10:
+  sst-linux-x64@3.17.11:
     optional: true
 
-  sst-linux-x86@3.17.10:
+  sst-linux-x86@3.17.11:
     optional: true
 
-  sst-win32-arm64@3.17.10:
+  sst-win32-arm64@3.17.11:
     optional: true
 
-  sst-win32-x64@3.17.10:
+  sst-win32-x64@3.17.11:
     optional: true
 
-  sst-win32-x86@3.17.10:
+  sst-win32-x86@3.17.11:
     optional: true
 
-  sst@3.17.10:
+  sst@3.17.11:
     dependencies:
       aws-sdk: 2.1692.0
       aws4fetch: 1.0.18
@@ -12030,14 +12030,14 @@ snapshots:
       opencontrol: 0.0.6
       openid-client: 5.6.4
     optionalDependencies:
-      sst-darwin-arm64: 3.17.10
-      sst-darwin-x64: 3.17.10
-      sst-linux-arm64: 3.17.10
-      sst-linux-x64: 3.17.10
-      sst-linux-x86: 3.17.10
-      sst-win32-arm64: 3.17.10
-      sst-win32-x64: 3.17.10
-      sst-win32-x86: 3.17.10
+      sst-darwin-arm64: 3.17.11
+      sst-darwin-x64: 3.17.11
+      sst-linux-arm64: 3.17.11
+      sst-linux-x64: 3.17.11
+      sst-linux-x86: 3.17.11
+      sst-win32-arm64: 3.17.11
+      sst-win32-x64: 3.17.11
+      sst-win32-x86: 3.17.11
     transitivePeerDependencies:
       - supports-color
 
