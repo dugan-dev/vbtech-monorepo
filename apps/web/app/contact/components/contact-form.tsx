@@ -3,6 +3,7 @@
 import { CheckCircle } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
+import { ErrorDialog } from "@workspace/ui/components/error-dialog";
 import {
   Form,
   FormControl,
@@ -15,8 +16,6 @@ import { FormInput } from "@workspace/ui/components/form/form-input";
 import { FormRadioGroup } from "@workspace/ui/components/form/form-radio-group";
 import { Textarea } from "@workspace/ui/components/textarea";
 import { formatPhoneNumber } from "@workspace/utils/format-phone-number";
-
-import { ErrorDialog } from "@/components/error-dialog";
 
 import { useContactForm } from "../hooks/use-contact-form";
 
