@@ -38,18 +38,25 @@ jobs:
 
       - name: Create environment files
         run: |
-          # Create .env for vbpay (non-sensitive variables only)
+          # Create .env for vbpay (including sensitive variables for build)
           cat > apps/vbpay/.env << EOL
           DB_HOST=${{ vars.DB_HOST }}
           DB_PORT=${{ vars.DB_PORT }}
           DB_USER=${{ vars.DB_USER }}
           DB_NAME=${{ vars.DB_NAME }}
           AWS_REGION=${{ vars.AWS_REGION }}
-           NODE_ENV=production
-           NEXT_PUBLIC_TIMEZONE=${{ vars.NEXT_PUBLIC_TIMEZONE }}
-           EOL
+          NODE_ENV=production
+          NEXT_PUBLIC_TIMEZONE=${{ vars.NEXT_PUBLIC_TIMEZONE }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          AWS_COGNITO_USER_POOL_ID=${{ secrets.AWS_COGNITO_USER_POOL_ID }}
+          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
+          PAYLOAD_SECRET_KEY=${{ secrets.PAYLOAD_SECRET_KEY }}
+          RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+          EOL
 
-          # Create .env for vbcall (non-sensitive variables only)
+          # Create .env for vbcall (including sensitive variables for build)
           cat > apps/vbcall/.env << EOL
           DB_HOST=${{ vars.DB_HOST }}
           DB_PORT=${{ vars.DB_PORT }}
@@ -58,16 +65,12 @@ jobs:
           AWS_REGION=${{ vars.AWS_REGION }}
           NODE_ENV=production
           NEXT_PUBLIC_TIMEZONE=${{ vars.NEXT_PUBLIC_TIMEZONE }}
-           EOL
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          AWS_COGNITO_USER_POOL_ID=${{ secrets.AWS_COGNITO_USER_POOL_ID }}
+          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
+          EOL
 
       - name: Build
         run: pnpm turbo build
-        env:
-          # All secrets passed as environment variables (not written to disk)
-          PAYLOAD_SECRET_KEY: ${{ secrets.PAYLOAD_SECRET_KEY }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          AWS_COGNITO_USER_POOL_ID: ${{ secrets.AWS_COGNITO_USER_POOL_ID }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
