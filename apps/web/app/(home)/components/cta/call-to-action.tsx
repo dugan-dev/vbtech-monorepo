@@ -5,6 +5,7 @@ import { CTA_CONTENT } from "./cta-content";
 export function CallToAction() {
   return (
     <section
+      id={CTA_CONTENT.id}
       className="py-24 bg-white text-center"
       aria-label={CTA_CONTENT.sectionAriaLabel}
     >

@@ -54,7 +54,7 @@ export function Header() {
                       <ul className="grid gap-3 p-4 md:w-[300px]">
                         {item.children.map((child) => (
                           <ListItem
-                            key={child.href}
+                            key={child.id}
                             href={child.href}
                             title={child.title}
                           >
@@ -112,7 +112,7 @@ export function Header() {
                   <CollapsibleContent className="ml-4 space-y-2 mt-2 border-l border-gray-300 dark:border-gray-700 pl-4">
                     {item.children.map((child) => (
                       <Link
-                        key={child.href}
+                        key={child.id}
                         href={child.href}
                         className="block text-sm text-gray-700 dark:text-gray-300 hover:text-primary transition-colors duration-200"
                       >

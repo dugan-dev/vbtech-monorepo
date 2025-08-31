@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 
 export const WHY_CONTENT = {
+  id: "why",
   title: "Why Choose VB Tech?",
   description:
     "Industry expertise, purpose-built tools, and customized solutions to optimize healthcare operations, reduce costs, and ensure compliance.",

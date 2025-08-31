@@ -4,6 +4,7 @@ import { PARTNERING_CONTENT } from "./partnering-content";
 export function Partnering() {
   return (
     <section
+      id={PARTNERING_CONTENT.id}
       className="py-16 bg-white"
       aria-label={PARTNERING_CONTENT.sectionAriaLabel}
     >

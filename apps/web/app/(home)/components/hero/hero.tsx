@@ -7,6 +7,7 @@ import { HERO_CONTENT } from "./hero-content";
 export function Hero() {
   return (
     <section
+      id={HERO_CONTENT.id}
       className="bg-gradient-to-br from-gray-100 to-white py-16"
       aria-label="Hero section"
     >

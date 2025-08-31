@@ -3,7 +3,11 @@ import { WHY_CONTENT } from "./why-content";
 
 export function WhyVBTech() {
   return (
-    <section className="py-20 bg-gray-50" aria-labelledby="why-vbtech-title">
+    <section
+      id={WHY_CONTENT.id}
+      className="py-20 bg-gray-50"
+      aria-labelledby="why-vbtech-title"
+    >
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2
           className="text-3xl font-semibold text-gray-900"

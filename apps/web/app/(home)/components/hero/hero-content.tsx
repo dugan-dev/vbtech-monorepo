@@ -1,6 +1,7 @@
 import { Contact } from "@/routes";
 
 export const HERO_CONTENT = {
+  id: "hero",
   title: {
     line1: "You Focus on Patient Care,",
     line2: "We Focus on Operations.",
@@ -24,7 +25,7 @@ export const HERO_CONTENT = {
   cta: {
     primary: {
       text: "Learn More",
-      href: "/services",
+      href: "#services",
     },
     secondary: {
       text: "Get in Touch",

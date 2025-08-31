@@ -1,9 +1,9 @@
 import { ProcessStep } from "./process-step";
-import { PROCESS_STEPS } from "./process-steps";
+import { PROCESS_ID, PROCESS_STEPS } from "./process-steps";
 
 export function Process() {
   return (
-    <section className="py-16 bg-[#F3F7FA]">
+    <section id={PROCESS_ID} className="py-16 bg-[#F3F7FA]">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-3xl font-semibold text-gray-900">
           Our Proven Process

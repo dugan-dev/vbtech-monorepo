@@ -2,19 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  About,
-  Contact,
-  Home,
-  Privacy,
-  ServicesConsulting,
-  ServicesTpa,
-  SolutionsClaims,
-  SolutionsMailroom,
-  SolutionsPayments,
-  SolutionsVbpay,
-  Terms,
-} from "@/routes";
+import { About, Contact, Home, Privacy, Terms } from "@/routes";
 import { Linkedin, Mail } from "lucide-react";
 
 export function Footer() {
@@ -81,24 +69,18 @@ export function Footer() {
             <h3 className="text-lg font-semibold ">Services & Solutions</h3>
             <ul className="mt-4 space-y-2  text-sm">
               <li>
-                <Link
-                  href={ServicesConsulting({})}
-                  className="hover:text-white transition"
-                >
+                <Link href="/#services" className="hover:text-white transition">
                   Consulting Services
                 </Link>
               </li>
               <li>
-                <Link
-                  href={ServicesTpa({})}
-                  className="hover:text-white transition"
-                >
+                <Link href="/#services" className="hover:text-white transition">
                   TPA Services
                 </Link>
               </li>
               <li>
                 <Link
-                  href={SolutionsVbpay({})}
+                  href="/#solutions"
                   className="hover:text-white transition"
                 >
                   VB Pay
@@ -106,7 +88,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href={SolutionsPayments({})}
+                  href="/#solutions"
                   className="hover:text-white transition"
                 >
                   {`Provider Payment & Remittance`}
@@ -114,7 +96,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href={SolutionsClaims({})}
+                  href="/#solutions"
                   className="hover:text-white transition"
                 >
                   Claim Clearinghouse
@@ -122,10 +104,18 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href={SolutionsMailroom({})}
+                  href="/#solutions"
                   className="hover:text-white transition"
                 >
                   Inbound Mailroom
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/#solutions"
+                  className="hover:text-white transition"
+                >
+                  Outbound Mailroom
                 </Link>
               </li>
             </ul>
@@ -146,7 +136,7 @@ export function Footer() {
               <Linkedin className="w-5 h-5" />
             </Link>
             <Link
-              href="mailto:info@valuebasedtech.com"
+              href="mailto:contact@valuebasedtech.com"
               className="hover:text-white transition"
             >
               <Mail className="w-5 h-5" />

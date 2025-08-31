@@ -1,5 +1,7 @@
 import { BarChart, RefreshCw, Settings, ShieldCheck } from "lucide-react";
 
+export const PROCESS_ID = "process";
+
 export const PROCESS_STEPS = [
   {
     id: "analyze",

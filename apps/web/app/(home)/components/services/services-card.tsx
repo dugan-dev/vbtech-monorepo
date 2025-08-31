@@ -12,7 +12,7 @@ type props = {
   icon: LucideIcon;
   title: string;
   description: string;
-  href: string;
+  href?: string;
 };
 
 export function ServiceCard({ icon: Icon, title, description, href }: props) {
@@ -26,15 +26,17 @@ export function ServiceCard({ icon: Icon, title, description, href }: props) {
       </CardHeader>
       <CardContent className="flex flex-col flex-grow">
         <p className="text-gray-600 flex-grow">{description}</p>
-        <div className="pt-6">
-          <Link
-            href={href}
-            className="text-primary hover:underline hover:font-semibold inline-flex items-center"
-            aria-label={`Learn more about ${title}`}
-          >
-            Learn More <span aria-hidden="true">→</span>
-          </Link>
-        </div>
+        {href && (
+          <div className="pt-6">
+            <Link
+              href={href}
+              className="text-primary hover:underline hover:font-semibold inline-flex items-center"
+              aria-label={`Learn more about ${title}`}
+            >
+              Learn More <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

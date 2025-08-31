@@ -9,6 +9,7 @@ import { SOLUTIONS_CONTENT } from "./solutions-content";
 export function Solutions() {
   return (
     <section
+      id={SOLUTIONS_CONTENT.id}
       className="py-16 bg-gradient-to-br from-gray-50"
       aria-labelledby="solutions-title"
     >
@@ -22,7 +23,10 @@ export function Solutions() {
 
         <div className="mt-10 flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Left Column (VB Pay) */}
-          <Card className="w-96 transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 relative bg-primary/90 text-white border border-gray-200 md:min-w-96">
+          <Card
+            id={SOLUTIONS_CONTENT.vbPay.id}
+            className="w-96 transition-all duration-150 ease-in-out hover:shadow-xl hover:scale-105 relative bg-primary/90 text-white border border-gray-200 md:min-w-96"
+          >
             <CardHeader className="flex flex-col items-center text-center relative pt-14 pb-4">
               {/* Flagship Badge (Adjusted Position) */}
               <div className="absolute top-4 left-4">
@@ -54,14 +58,6 @@ export function Solutions() {
               <p className="mt-3 text-sm text-gray-300">
                 {SOLUTIONS_CONTENT.vbPay.tagline}
               </p>
-
-              {/* Learn More Link (Underlined for Visibility) */}
-              <a
-                href={SOLUTIONS_CONTENT.vbPay.link}
-                className="mt-3 text-white font-semibold underline decoration-white hover:opacity-80"
-              >
-                Learn More →
-              </a>
             </CardContent>
           </Card>
 
