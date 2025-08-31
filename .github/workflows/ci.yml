@@ -45,9 +45,9 @@ jobs:
           DB_USER=${{ vars.DB_USER }}
           DB_NAME=${{ vars.DB_NAME }}
           AWS_REGION=${{ vars.AWS_REGION }}
-          NODE_ENV=production
-          NEXT_PUBLIC_TIMEZONE=${{ vars.NEXT_PUBLIC_TIMEZONE }}
-          EOL
+           NODE_ENV=production
+           NEXT_PUBLIC_TIMEZONE=${{ vars.NEXT_PUBLIC_TIMEZONE }}
+           EOL
 
           # Create .env for vbcall (non-sensitive variables only)
           cat > apps/vbcall/.env << EOL
