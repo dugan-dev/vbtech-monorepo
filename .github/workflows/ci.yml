@@ -72,5 +72,11 @@ jobs:
           AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}
           EOL
 
+          # Create .env for web (including sensitive variables for build)
+          cat > apps/web/.env << EOL
+          NODE_ENV=production
+          RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+          EOL
+
       - name: Build
         run: pnpm turbo build
