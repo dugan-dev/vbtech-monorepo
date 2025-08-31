@@ -10,7 +10,7 @@ export function Solutions() {
   return (
     <section
       id={SOLUTIONS_CONTENT.id}
-      className="py-16 bg-gradient-to-br from-gray-50"
+      className="py-16 bg-gradient-to-br from-gray-50 scroll-mt-24"
       aria-labelledby="solutions-title"
     >
       <div className="max-w-5xl mx-auto px-6 text-center">

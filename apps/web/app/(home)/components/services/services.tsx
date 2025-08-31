@@ -5,7 +5,7 @@ export function Services() {
   return (
     <section
       id={SERVICES_CONTENT.id}
-      className="py-16"
+      className="py-16 scroll-mt-24"
       aria-labelledby="services-title"
     >
       <div className="max-w-6xl mx-auto px-6 text-center">
