@@ -8,7 +8,6 @@ type props = {
 };
 
 export function SolutionItem({ icon: Icon, title, description, id }: props) {
-  console.log("id", id);
   return (
     <div id={id} className="flex items-start space-x-4">
       {Icon && (
