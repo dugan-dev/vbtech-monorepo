@@ -13,7 +13,7 @@ This is the VB Tech marketing website built with Next.js 15 and the App Router. 
 - Cal.com integration for demo scheduling
 - Google Analytics and LinkedIn Insight Tag integration
 - Vercel Speed Insights for performance monitoring
-- Custom font configuration (Geist)
+- Custom font configuration (Play)
 
 ## Development
 
