@@ -307,7 +307,7 @@ export default function Page() {
                 Mail: 864 Grand Avenue, #99, San Diego, CA 92109
                 <br />
                 <br />
-                Phone: 888-409-5802
+                Phone: (888) 873-5837
                 <br /> <br />
                 This Website is operated by VALUE BASED TECHNOLOGIES LLC.
               </p>
