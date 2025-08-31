@@ -19,32 +19,31 @@ const safeActionClient = createSafeActionClient({
   handleServerError(e, utils) {
     const { clientInput, metadata } = utils;
 
-    // Log to console.
+    // Log to console (detailed internal context for debugging).
     console.error(
       `Action error: ${metadata?.actionName}`,
       e.message,
+      e.stack,
       clientInput,
     );
 
-    return e.message;
+    return "An unexpected server error occurred";
   },
 }).use(async ({ next, metadata }) => {
   const headerList = await headers();
   const ip = getClientIp(headerList);
+  const ipKey = ip ?? "unknown";
 
   // throw error if rate limit exceeded
-  await pageApiLimiter.consume(ip).catch((error: RateLimiterRes) => {
+  await pageApiLimiter.consume(ipKey).catch((error: RateLimiterRes) => {
     const msBeforeNext = error.msBeforeNext;
     const waitTimeMessage = getRateLimitWaitTimeMessage(msBeforeNext);
 
     console.error(
-      `Action error: ${metadata?.actionName}`,
-      `Rate limit exceeded. Try again in ${waitTimeMessage}.`,
+      `Action rate limit exceeded: ${metadata?.actionName} - Try again in ${waitTimeMessage}`,
     );
 
-    throw new Error(
-      `Action rate limit exceeded. Please try again in ${waitTimeMessage}. Action: ${metadata?.actionName}`,
-    );
+    throw new Error(`Rate limit exceeded. Try again in ${waitTimeMessage}.`);
   });
 
   return await next();
