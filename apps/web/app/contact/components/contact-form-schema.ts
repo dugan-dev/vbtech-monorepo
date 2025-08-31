@@ -12,7 +12,7 @@ export const ContactFormSchema = z.object({
     .string()
     .min(2, { message: "Organization name is required." }),
   phone: z.string().optional(),
-  serviceInterest: z.enum(["consulting", "tpa", "tech", "other"], {
+  serviceInterest: z.enum(["consulting", "tpa", "bpaas", "other"], {
     message: "Please select a service you're interested in.",
   }),
   message: z

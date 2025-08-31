@@ -124,7 +124,7 @@ export function ContactForm() {
               items={[
                 { value: "consulting", label: "Consulting Services" },
                 { value: "tpa", label: "TPA Services" },
-                { value: "tech", label: "Tech Solutions" },
+                { value: "bpaas", label: "BPaaS Solutions" },
                 { value: "other", label: "Other" },
               ]}
             />
