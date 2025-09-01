@@ -36,32 +36,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Create environment files
-        run: |
-          # Create .env for vbpay (non-sensitive variables only)
-          cat > apps/vbpay/.env << EOL
-          DB_HOST=${{ vars.DB_HOST }}
-          DB_PORT=${{ vars.DB_PORT }}
-          DB_USER=${{ vars.DB_USER }}
-          DB_NAME=${{ vars.DB_NAME }}
-          AWS_REGION=${{ vars.AWS_REGION }}
-          NEXT_PUBLIC_TIMEZONE=${{ vars.NEXT_PUBLIC_TIMEZONE }}
-          EOL
-
-          # Create .env for vbcall (non-sensitive variables only)
-          cat > apps/vbcall/.env << EOL
-          DB_HOST=${{ vars.DB_HOST }}
-          DB_PORT=${{ vars.DB_PORT }}
-          DB_USER=${{ vars.DB_USER }}
-          DB_NAME=${{ vars.DB_NAME }}
-          AWS_REGION=${{ vars.AWS_REGION }}
-          NEXT_PUBLIC_TIMEZONE=${{ vars.NEXT_PUBLIC_TIMEZONE }}
-          EOL
-
       - name: Build
         run: pnpm turbo build
         env:
           NODE_ENV: production
+          # Configuration variables
+          DB_HOST: ${{ vars.DB_HOST }}
+          DB_PORT: ${{ vars.DB_PORT }}
+          DB_USER: ${{ vars.DB_USER }}
+          DB_NAME: ${{ vars.DB_NAME }}
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          NEXT_PUBLIC_TIMEZONE: ${{ vars.NEXT_PUBLIC_TIMEZONE }}
           # Secrets provided at runtime only
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           AWS_COGNITO_USER_POOL_ID: ${{ secrets.AWS_COGNITO_USER_POOL_ID }}
