@@ -30,7 +30,8 @@ export const handleContactFormSubmissionAction = safeActionClient
         from: "Value Based Tech <no-reply@web.valuebasedtech.com>",
         to: [
           "tdugan@valuebasedtech.com",
-          "jyap@valuebasedtech.com, contact@valuebasedtech.com",
+          "jyap@valuebasedtech.com",
+          "contact@valuebasedtech.com",
         ],
         subject: `New Website Contact Form Submission from ${formData.organization}`,
         replyTo: formData.email,
