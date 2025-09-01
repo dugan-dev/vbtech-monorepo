@@ -595,8 +595,8 @@ importers:
         specifier: 6.15.0
         version: 6.15.0(typescript@5.9.2)
       prisma-kysely:
-        specifier: 2.0.0
-        version: 2.0.0(prisma@6.15.0(typescript@5.9.2))
+        specifier: 2.1.0
+        version: 2.1.0(prisma@6.15.0(typescript@5.9.2))
 
   packages/eslint-config:
     devDependencies:
@@ -855,8 +855,8 @@ importers:
         specifier: 6.15.0
         version: 6.15.0(typescript@5.9.2)
       prisma-kysely:
-        specifier: 2.0.0
-        version: 2.0.0(prisma@6.15.0(typescript@5.9.2))
+        specifier: 2.1.0
+        version: 2.1.0(prisma@6.15.0(typescript@5.9.2))
 
 packages:
 
@@ -5353,8 +5353,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  prisma-kysely@2.0.0:
-    resolution: {integrity: sha512-B5ZKWrobz+whhskMZxE9n1HdP1KGfDciHe1kf0xlsjUdOgl+jEoFDs7iJhROAnUrXY5iELCNiT8d/QmA1/bp6Q==}
+  prisma-kysely@2.1.0:
+    resolution: {integrity: sha512-zh0SjP0e9UEJ7gsU3i2faUntj8oHC5cVJ6QXwPxeMm/0ucnS5RjgOVcQYEj3Ks7ZtVAdGS7OT8nhYN7TXt1lWQ==}
     hasBin: true
     peerDependencies:
       prisma: ~6.15
@@ -11799,7 +11799,7 @@ snapshots:
 
   prettier@3.6.2: {}
 
-  prisma-kysely@2.0.0(prisma@6.15.0(typescript@5.9.2)):
+  prisma-kysely@2.1.0(prisma@6.15.0(typescript@5.9.2)):
     dependencies:
       '@mrleebo/prisma-ast': 0.13.0
       '@prisma/generator-helper': 6.15.0
