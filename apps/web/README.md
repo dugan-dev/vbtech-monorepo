@@ -13,21 +13,29 @@ This is the VB Tech marketing website built with Next.js 15 and the App Router. 
 - Cal.com integration for demo scheduling
 - Google Analytics and LinkedIn Insight Tag integration
 - Vercel Speed Insights for performance monitoring
-- Custom font configuration (Geist)
+- Custom font configuration (Play)
 
 ## Development
 
-1. Copy environment variables(if any):
+1. Install dependencies:
+
+```bash
+pnpm install
+```
+
+2. Copy environment variables(if any):
 
 ```bash
 cp .env.example .env.local
 ```
 
-2. Start the development server:
+3. Start the development server:
 
 ```bash
 pnpm dev --filter web
 ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the site.
 
 ## Project Structure
 

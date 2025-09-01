@@ -1,10 +1,6 @@
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
-
 export default function Page() {
   return (
-    <div className="flex flex-col items-center flex-1">
-      <Header />
+    <div className="mt-20 flex flex-col items-center flex-1">
       <main className="flex-1 px-6 py-12">
         <div className="container mx-auto max-w-4xl space-y-8">
           <h1 className="text-4xl font-bold">Terms of Use</h1>
@@ -634,7 +630,6 @@ export default function Page() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

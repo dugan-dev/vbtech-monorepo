@@ -19,7 +19,8 @@
         "AWS_SECRET_ACCESS_KEY",
         "AWS_SESSION_TOKEN",
         "AWS_COGNITO_USER_POOL_ID",
-        "PAYLOAD_SECRET_KEY"
+        "PAYLOAD_SECRET_KEY",
+        "RESEND_API_KEY"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"]
@@ -41,7 +42,8 @@
         "AWS_SECRET_ACCESS_KEY",
         "AWS_SESSION_TOKEN",
         "AWS_COGNITO_USER_POOL_ID",
-        "PAYLOAD_SECRET_KEY"
+        "PAYLOAD_SECRET_KEY",
+        "RESEND_API_KEY"
       ]
     },
     "format": {
@@ -64,7 +66,8 @@
         "AWS_SECRET_ACCESS_KEY",
         "AWS_SESSION_TOKEN",
         "AWS_COGNITO_USER_POOL_ID",
-        "PAYLOAD_SECRET_KEY"
+        "PAYLOAD_SECRET_KEY",
+        "RESEND_API_KEY"
       ]
     },
     "check-types": {
@@ -84,7 +87,8 @@
         "AWS_SECRET_ACCESS_KEY",
         "AWS_SESSION_TOKEN",
         "AWS_COGNITO_USER_POOL_ID",
-        "PAYLOAD_SECRET_KEY"
+        "PAYLOAD_SECRET_KEY",
+        "RESEND_API_KEY"
       ]
     },
     "dev": {
@@ -105,7 +109,8 @@
         "AWS_SECRET_ACCESS_KEY",
         "AWS_SESSION_TOKEN",
         "AWS_COGNITO_USER_POOL_ID",
-        "PAYLOAD_SECRET_KEY"
+        "PAYLOAD_SECRET_KEY",
+        "RESEND_API_KEY"
       ]
     }
   }

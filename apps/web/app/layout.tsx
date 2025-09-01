@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Play } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -7,17 +7,23 @@ import "@workspace/ui/globals.css";
 import { Metadata } from "next";
 import { LinkedInInsightTag } from "nextjs-linkedin-insight-tag";
 
+import { Toaster } from "@workspace/ui/components/sonner";
+
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import { Providers } from "@/components/providers";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 
-const fontSans = Geist({
+const fontSans = Play({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["400", "700"],
 });
 
-const fontMono = Geist_Mono({
+const fontMono = Play({
   subsets: ["latin"],
   variable: "--font-mono",
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -75,10 +81,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fontSans.variable} ${fontMono.variable} flex flex-1 font-sans antialiased`}
+        className={`${fontSans.variable} ${fontMono.variable} flex flex-col flex-1 font-sans antialiased`}
       >
         <Providers>
+          <Header />
           {children}
+          <Toaster />
+          <Footer />
           <TailwindIndicator />
           <LinkedInInsightTag />
           <SpeedInsights />

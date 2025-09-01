@@ -3,8 +3,7 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    NEXT_RUNTIME: z.enum(["edge", "nodejs"]).optional(),
-    NODE_ENV: z.enum(["development", "test", "production"]),
+    RESEND_API_KEY: z.string(),
   },
   // If you're using Next.js < 13.4.4, you'll need to specify the runtimeEnv manually
   // runtimeEnv: {
