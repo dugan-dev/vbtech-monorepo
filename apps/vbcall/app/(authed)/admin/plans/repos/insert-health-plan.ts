@@ -1,6 +1,6 @@
 import "server-only";
 
-import { db } from "@workspace/vbcall-db/database";
+import { db } from "@workspace/db/database";
 
 import { newPubId } from "@/lib/nanoid";
 
