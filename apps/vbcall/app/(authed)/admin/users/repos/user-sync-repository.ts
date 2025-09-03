@@ -1,4 +1,4 @@
-import { db } from "@workspace/vbcall-db/database";
+import { db } from "@workspace/db/database";
 
 import { insertUser } from "./insert-user";
 import { updateUser } from "./update-user";

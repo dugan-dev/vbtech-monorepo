@@ -6,6 +6,87 @@ export type Generated<T> =
     : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export type client = {
+  id: Generated<number>;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  clientName: string;
+  clientCode: string;
+  timezone: string;
+  description: string;
+  isActive: Generated<number>;
+};
+export type client_hist = {
+  id: Generated<number>;
+  histAddedAt: Timestamp;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  clientName: string;
+  clientCode: string;
+  timezone: string;
+  description: string;
+  isActive: number;
+};
+export type health_plan = {
+  id: Generated<number>;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  clientPubId: string;
+  planName: string;
+  planId: string;
+  phoneNumber: string;
+  faxNumber: string;
+  isActive: Generated<number>;
+};
+export type health_plan_hist = {
+  id: Generated<number>;
+  histAddedAt: Timestamp;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  clientPubId: string;
+  planName: string;
+  planId: string;
+  phoneNumber: string;
+  faxNumber: string;
+  isActive: number;
+};
+export type health_plan_pbp = {
+  id: Generated<number>;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  hpPubId: string;
+  pbpId: string;
+  pbpName: string;
+  isActive: Generated<number>;
+};
+export type health_plan_pbp_hist = {
+  id: Generated<number>;
+  histAddedAt: Timestamp;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  hpPubId: string;
+  pbpId: string;
+  pbpName: string;
+  isActive: number;
+};
 export type network_entity = {
   id: Generated<number>;
   pubId: string;
@@ -311,6 +392,12 @@ export type vbpay_license_hist = {
   functionality: string;
 };
 export type DB = {
+  client: client;
+  clientHist: client_hist;
+  healthPlan: health_plan;
+  healthPlanHist: health_plan_hist;
+  healthPlanPbp: health_plan_pbp;
+  healthPlanPbpHist: health_plan_pbp_hist;
   networkEntity: network_entity;
   networkEntityHist: network_entity_hist;
   networkPhysician: network_physician;

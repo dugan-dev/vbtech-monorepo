@@ -2,8 +2,8 @@ import "server-only";
 
 import { ReferenceExpression } from "kysely";
 
-import { db } from "@workspace/vbcall-db/database";
-import { DB } from "@workspace/vbcall-db/types";
+import { db } from "@workspace/db/database";
+import { DB } from "@workspace/db/types";
 
 import { ClientFormOutput } from "../components/client-form/client-form-schema";
 

@@ -1,6 +1,6 @@
 import { cache } from "react";
 
-import { db } from "@workspace/vbcall-db/database";
+import { db } from "@workspace/db/database";
 
 import "server-only";
 

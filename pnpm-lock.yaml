@@ -135,6 +135,9 @@ importers:
       '@workspace/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@workspace/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@workspace/routing':
         specifier: workspace:*
         version: link:../../packages/routing
@@ -144,9 +147,6 @@ importers:
       '@workspace/utils':
         specifier: workspace:*
         version: link:../../packages/utils
-      '@workspace/vbcall-db':
-        specifier: workspace:*
-        version: link:../../packages/vbcall-db
       aws-amplify:
         specifier: 6.15.5
         version: 6.15.5
