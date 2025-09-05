@@ -360,8 +360,8 @@ importers:
         specifier: 15.5.2
         version: 15.5.2(next@15.5.2(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
       '@react-email/components':
-        specifier: 0.5.1
-        version: 0.5.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        specifier: 0.5.2
+        version: 0.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@t3-oss/env-nextjs':
         specifier: 0.13.8
         version: 0.13.8(arktype@2.1.20)(typescript@5.9.2)(zod@4.1.5)
@@ -415,7 +415,7 @@ importers:
         version: 7.62.0(react@19.1.1)
       resend:
         specifier: 6.0.2
-        version: 6.0.2(@react-email/render@1.2.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
+        version: 6.0.2(@react-email/render@1.2.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       server-only:
         specifier: 0.0.1
         version: 0.0.1
@@ -835,28 +835,6 @@ importers:
       '@workspace/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-
-  packages/vbcall-db:
-    dependencies:
-      '@prisma/client':
-        specifier: 6.15.0
-        version: 6.15.0(prisma@6.15.0(typescript@5.9.2))(typescript@5.9.2)
-      kysely:
-        specifier: 0.28.5
-        version: 0.28.5
-      mysql2:
-        specifier: 3.14.4
-        version: 3.14.4
-      server-only:
-        specifier: 0.0.1
-        version: 0.0.1
-    devDependencies:
-      prisma:
-        specifier: 6.15.0
-        version: 6.15.0(typescript@5.9.2)
-      prisma-kysely:
-        specifier: 2.2.0
-        version: 2.2.0(prisma@6.15.0(typescript@5.9.2))
 
 packages:
 
@@ -2487,8 +2465,8 @@ packages:
     peerDependencies:
       react: ^18.0 || ^19.0 || ^19.0.0-rc
 
-  '@react-email/components@0.5.1':
-    resolution: {integrity: sha512-2BxfSZSqMZ6cyQearFIz7h4vZ8m+NiwtZ7PBVdTV7APmK9wxMRBx0rTBO63FV214DTipyPwBjGIcscLh5U+IZg==}
+  '@react-email/components@0.5.2':
+    resolution: {integrity: sha512-P0HHIWWMaBZaou0dB3AhSfIgQm2wWkx/+7etg1t8r6IwIbT8Vygjl01j23GvxfL5Ncs5JpjxGP/n2A1ALRgc4g==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^18.0 || ^19.0 || ^19.0.0-rc
@@ -2552,8 +2530,8 @@ packages:
     peerDependencies:
       react: ^18.0 || ^19.0 || ^19.0.0-rc
 
-  '@react-email/render@1.2.1':
-    resolution: {integrity: sha512-7M4Xi8ITESZKS7pOPE0HWhKJWtS/JrAqPIyFPqIPJXZJHkjFMYXn2b/tAsHOufYW5/LTk4U1IkBMaVwE06kykw==}
+  '@react-email/render@1.2.2':
+    resolution: {integrity: sha512-9MOMX7bGUvb3a7hNtoPguxyQUg38PuL88jhXmAgpWlF93yn0spj6pmVHkngLDlJYwYeBEQusPsQyyBv622Kdnw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^18.0 || ^19.0 || ^19.0.0-rc
@@ -8570,7 +8548,7 @@ snapshots:
     dependencies:
       react: 19.1.1
 
-  '@react-email/components@0.5.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@react-email/components@0.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
       '@react-email/body': 0.1.0(react@19.1.1)
       '@react-email/button': 0.2.0(react@19.1.1)
@@ -8587,7 +8565,7 @@ snapshots:
       '@react-email/link': 0.0.12(react@19.1.1)
       '@react-email/markdown': 0.0.15(react@19.1.1)
       '@react-email/preview': 0.0.13(react@19.1.1)
-      '@react-email/render': 1.2.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@react-email/render': 1.2.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@react-email/row': 0.0.12(react@19.1.1)
       '@react-email/section': 0.0.16(react@19.1.1)
       '@react-email/tailwind': 1.2.2(react@19.1.1)
@@ -8637,7 +8615,7 @@ snapshots:
     dependencies:
       react: 19.1.1
 
-  '@react-email/render@1.2.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@react-email/render@1.2.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
       html-to-text: 9.0.5
       prettier: 3.6.2
@@ -12050,9 +12028,9 @@ snapshots:
 
   require-main-filename@2.0.0: {}
 
-  resend@6.0.2(@react-email/render@1.2.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)):
+  resend@6.0.2(@react-email/render@1.2.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)):
     optionalDependencies:
-      '@react-email/render': 1.2.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@react-email/render': 1.2.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
 
   resolve-from@4.0.0: {}
 
