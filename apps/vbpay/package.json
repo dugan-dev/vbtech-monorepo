@@ -24,7 +24,7 @@
     "@workspace/routing": "workspace:*",
     "@workspace/ui": "workspace:*",
     "@workspace/utils": "workspace:*",
-    "aws-amplify": "6.15.5",
+    "aws-amplify": "6.15.6",
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "kysely": "0.28.5",
     "lucide-react": "0.542.0",

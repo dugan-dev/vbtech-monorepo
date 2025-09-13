@@ -12,7 +12,7 @@
     "@hookform/resolvers": "5.2.1",
     "@workspace/ui": "workspace:*",
     "@workspace/utils": "workspace:*",
-    "aws-amplify": "6.15.5",
+    "aws-amplify": "6.15.6",
     "lucide-react": "0.542.0",
     "qrcode": "1.5.4",
     "rate-limiter-flexible": "7.3.0",
