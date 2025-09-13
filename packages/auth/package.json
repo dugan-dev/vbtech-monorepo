@@ -7,7 +7,7 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@aws-amplify/adapter-nextjs": "1.6.8",
+    "@aws-amplify/adapter-nextjs": "1.6.9",
     "@aws-sdk/client-cognito-identity-provider": "3.887.0",
     "@hookform/resolvers": "5.2.1",
     "@workspace/ui": "workspace:*",
