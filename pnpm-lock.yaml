@@ -408,8 +408,8 @@ importers:
         specifier: 19.1.1
         version: 19.1.1(react@19.1.1)
       react-email:
-        specifier: 4.2.8
-        version: 4.2.8
+        specifier: 4.2.11
+        version: 4.2.11
       react-hook-form:
         specifier: 7.62.0
         version: 7.62.0(react@19.1.1)
@@ -5485,8 +5485,8 @@ packages:
     peerDependencies:
       react: ^19.1.1
 
-  react-email@4.2.8:
-    resolution: {integrity: sha512-Eqzs/xZnS881oghPO/4CQ1cULyESuUhEjfYboXmYNOokXnJ6QP5GKKJZ6zjkg9SnKXxSrIxSo5PxzCI5jReJMA==}
+  react-email@4.2.11:
+    resolution: {integrity: sha512-/7TXRgsTrXcV1u7kc5ZXDVlPvZqEBaYcflMhE2FgWIJh3OHLjj2FqctFTgYcp0iwzbR59a7gzJLmSKyD0wYJEQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -12011,11 +12011,10 @@ snapshots:
       react: 19.1.1
       scheduler: 0.26.0
 
-  react-email@4.2.8:
+  react-email@4.2.11:
     dependencies:
       '@babel/parser': 7.27.2
       '@babel/traverse': 7.27.1
-      chalk: 5.6.0
       chokidar: 4.0.3
       commander: 13.1.0
       debounce: 2.0.0
