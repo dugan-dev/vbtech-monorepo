@@ -7,7 +7,7 @@ import {
   MysqlDialect,
   replaceWithNoncontingentExpression,
 } from "kysely";
-import { createPool } from "mysql2";
+import { createPool } from "mysql2/promise";
 
 import { DB } from "@workspace/db/types";
 
