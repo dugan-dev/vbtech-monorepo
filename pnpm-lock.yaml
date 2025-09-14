@@ -154,8 +154,8 @@ importers:
         specifier: 19.1.0-rc.3
         version: 19.1.0-rc.3
       kysely:
-        specifier: 0.28.5
-        version: 0.28.5
+        specifier: 0.28.6
+        version: 0.28.6
       lucide-react:
         specifier: 0.542.0
         version: 0.542.0(react@19.1.1)
@@ -272,8 +272,8 @@ importers:
         specifier: 19.1.0-rc.3
         version: 19.1.0-rc.3
       kysely:
-        specifier: 0.28.5
-        version: 0.28.5
+        specifier: 0.28.6
+        version: 0.28.6
       lucide-react:
         specifier: 0.542.0
         version: 0.542.0(react@19.1.1)
@@ -582,8 +582,8 @@ importers:
         specifier: 6.15.0
         version: 6.15.0(prisma@6.15.0(typescript@5.9.2))(typescript@5.9.2)
       kysely:
-        specifier: 0.28.5
-        version: 0.28.5
+        specifier: 0.28.6
+        version: 0.28.6
       mysql2:
         specifier: 3.14.4
         version: 3.14.4
@@ -4679,8 +4679,8 @@ packages:
     resolution: {integrity: sha512-7Bp3TpsE+L+TARSnnDpk3xg8Idi8RwSLdj6CMbNWoOARIrGrbuLGusV0dYwbZOm4bB3jHNxSw8Wk/ByDqJEnDw==}
     engines: {node: '>=18'}
 
-  kysely@0.28.5:
-    resolution: {integrity: sha512-rlB0I/c6FBDWPcQoDtkxi9zIvpmnV5xoIalfCMSMCa7nuA6VGA3F54TW9mEgX4DVf10sXAWCF5fDbamI/5ZpKA==}
+  kysely@0.28.6:
+    resolution: {integrity: sha512-QQlpW/Db5yhhY9+c1jiCBCUCJqZoWLw6c1rE+H+FqGujMuIAxerCSdQNvyP3zyhQUO913J9Ank1NsQEb5a15mA==}
     engines: {node: '>=20.0.0'}
 
   leac@0.6.0:
@@ -11260,7 +11260,7 @@ snapshots:
 
   ky@1.8.1: {}
 
-  kysely@0.28.5: {}
+  kysely@0.28.6: {}
 
   leac@0.6.0: {}
 
