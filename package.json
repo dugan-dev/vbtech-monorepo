@@ -20,7 +20,7 @@
     "@types/aws-lambda": "8.10.152",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
-    "eslint": "9.35.0",
+    "eslint": "9.36.0",
     "husky": "9.1.7",
     "prettier": "3.6.2",
     "prettier-plugin-prisma": "5.0.0",
