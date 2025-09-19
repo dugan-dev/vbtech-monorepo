@@ -24,11 +24,11 @@
     "next": "15.5.3",
     "react": "19.1.1",
     "typescript": "5.9.2",
-    "zod": "4.1.8"
+    "zod": "4.1.9"
   },
   "peerDependencies": {
     "next": "15.5.3",
     "react": "19.1.1",
-    "zod": "4.1.8"
+    "zod": "4.1.9"
   }
 }
