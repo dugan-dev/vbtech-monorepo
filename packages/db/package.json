@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "prisma": "6.16.2",
-    "prisma-kysely": "2.2.0"
+    "prisma-kysely": "2.2.1"
   },
   "prisma": {
     "schema": "./src/prisma/schema"
