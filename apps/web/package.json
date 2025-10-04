@@ -30,8 +30,8 @@
     "nextjs-linkedin-insight-tag": "0.0.6",
     "query-string": "9.3.1",
     "rate-limiter-flexible": "8.0.1",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-email": "4.2.12",
     "react-hook-form": "7.63.0",
     "resend": "6.1.2",
@@ -42,8 +42,8 @@
   },
   "devDependencies": {
     "@types/node": "24.6.2",
-    "@types/react": "19.1.14",
-    "@types/react-dom": "19.1.9",
+    "@types/react": "19.2.0",
+    "@types/react-dom": "19.2.0",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "typescript": "5.9.2"
