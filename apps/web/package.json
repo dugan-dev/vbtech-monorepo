@@ -33,7 +33,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-email": "4.2.12",
-    "react-hook-form": "7.63.0",
+    "react-hook-form": "7.64.0",
     "resend": "6.1.2",
     "server-only": "0.0.1",
     "sharp": "0.34.4",
