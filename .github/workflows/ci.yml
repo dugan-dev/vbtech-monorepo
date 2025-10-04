@@ -42,14 +42,12 @@ jobs:
         env:
           NODE_ENV: production
           # Configuration variables
-          DB_HOST: ${{ vars.DB_HOST }}
-          DB_PORT: ${{ vars.DB_PORT }}
-          DB_USER: ${{ vars.DB_USER }}
-          DB_NAME: ${{ vars.DB_NAME }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           AWS_REGION: ${{ vars.AWS_REGION }}
           NEXT_PUBLIC_TIMEZONE: ${{ vars.NEXT_PUBLIC_TIMEZONE }}
           # Secrets provided at runtime only
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           AWS_COGNITO_USER_POOL_ID: ${{ secrets.AWS_COGNITO_USER_POOL_ID }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
