@@ -34,7 +34,7 @@
     "react-dom": "19.1.1",
     "react-email": "4.2.12",
     "react-hook-form": "7.63.0",
-    "resend": "6.1.0",
+    "resend": "6.1.2",
     "server-only": "0.0.1",
     "sharp": "0.34.4",
     "sonner": "2.0.7",
