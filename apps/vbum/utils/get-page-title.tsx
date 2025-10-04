@@ -23,7 +23,7 @@ export function getPageTitle(pathname: string, slug?: string) {
     case Home({}):
       return "Home";
     case AdminUsers({}):
-      return "User Management";
+      return "User Administration";
     case AdminClients({}):
       return "Manage Clients";
     case AdminHealthPlans({}):

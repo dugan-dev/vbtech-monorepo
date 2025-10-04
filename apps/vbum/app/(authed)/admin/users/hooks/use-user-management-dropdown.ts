@@ -21,13 +21,13 @@ type props = {
  *
  * This hook encapsulates the logic for enabling, disabling, and forcing a password change on a user account.
  * It manages local UI states (e.g., showing an edit user sheet, pending action indicator, temporary password visibility)
- * and integrates with asynchronous action handlers and confirmation dialogs to perform user management operations.
+ * and integrates with asynchronous action handlers and confirmation dialogs to perform user administration operations.
  *
  * @param accountStatus - The current status of the user's account (e.g., "ENABLED", "DISABLED"), determining available actions.
  * @param confirmationStatus - The current confirmation status affecting the execution of certain actions.
  * @param userId - The unique identifier of the user whose account actions are being managed.
  *
- * @returns An object containing state variables and functions for handling user management actions and dialogs.
+ * @returns An object containing state variables and functions for handling user administration actions and dialogs.
  */
 export function useUserManagementDropdown({
   accountStatus,

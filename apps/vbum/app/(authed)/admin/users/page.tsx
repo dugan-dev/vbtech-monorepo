@@ -13,9 +13,9 @@ import { DataTableSkeleton } from "@workspace/ui/components/data-table/data-tabl
 import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 
 /**
- * Renders the admin user management page with authentication, rate limiting, and user type restrictions.
+ * Renders the admin user administration page with authentication, rate limiting, and user type restrictions.
  *
- * Only authenticated users with permitted user types can access this page. If the user is not authenticated, an unauthorized response is returned. A loading skeleton is displayed while user management data is loading.
+ * Only authenticated users with permitted user types can access this page. If the user is not authenticated, an unauthorized response is returned. A loading skeleton is displayed while user administration data is loading.
  */
 export default async function Page() {
   // Get user first, then check rate limiter with user context
