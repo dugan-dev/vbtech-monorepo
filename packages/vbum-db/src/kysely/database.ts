@@ -1,0 +1,29 @@
+import "server-only";
+
+import {
+  CamelCasePlugin,
+  HandleEmptyInListsPlugin,
+  Kysely,
+  replaceWithNoncontingentExpression,
+} from "kysely";
+
+import { DB } from "@workspace/vbum-db/types";
+import { PlanetScaleDialect } from "kysely-planetscale";
+
+const dialect = new PlanetScaleDialect({
+  host: process.env.DATABASE_HOST,
+  username: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+});
+
+await using db = new Kysely<DB>({
+  dialect,
+  plugins: [
+    new CamelCasePlugin(),
+    new HandleEmptyInListsPlugin({
+      strategy: replaceWithNoncontingentExpression,
+    }),
+  ],
+});
+
+export { db };
