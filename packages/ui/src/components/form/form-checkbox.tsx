@@ -3,6 +3,7 @@ import { Control } from "react-hook-form";
 import { Checkbox } from "@workspace/ui/components/checkbox";
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,6 +23,7 @@ type props = {
   isDisabled?: boolean;
   labelFirst?: boolean;
   itemClassName?: string;
+  description?: string;
 };
 
 export function FormCheckbox({
@@ -35,6 +37,7 @@ export function FormCheckbox({
   isDisabled,
   labelFirst,
   itemClassName,
+  description,
 }: props) {
   return labelFirst ? (
     <FormField
@@ -67,6 +70,7 @@ export function FormCheckbox({
               />
             </FormControl>
           </div>
+          {description && <FormDescription>{description}</FormDescription>}
           {!showFormMessageWithLabel && <FormMessage />}
         </FormItem>
       )}
@@ -103,6 +107,7 @@ export function FormCheckbox({
             </FormLabel>
           </div>
           {!showFormMessageWithLabel && <FormMessage />}
+          {description && <FormDescription>{description}</FormDescription>}
         </FormItem>
       )}
     />
