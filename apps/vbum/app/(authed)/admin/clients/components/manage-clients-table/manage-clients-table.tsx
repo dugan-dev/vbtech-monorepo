@@ -15,6 +15,12 @@ type props = {
   clients: Client[];
 };
 
+/**
+ * Render a clients management UI that shows either a data table of clients or an empty-state prompting to add the first client.
+ *
+ * @param clients - Array of client records to display in the table
+ * @returns A React element that displays a data table of clients when `clients` is non-empty; otherwise an empty-state view with an add-client dialog restricted to admin users.
+ */
 export function ManageClientsTable({ clients }: props) {
   if (clients.length === 0) {
     return (

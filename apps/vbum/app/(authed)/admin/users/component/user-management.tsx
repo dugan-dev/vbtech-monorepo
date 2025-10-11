@@ -9,6 +9,11 @@ import { getAllUsers } from "../repos/user-management-repository";
 import { getLastUserSync } from "../repos/user-sync-repository";
 import { UserManagementTable } from "./user-management-table/user-management-table";
 
+/**
+ * Render the user management view that provides clients, user types, users, and last sync time to its children.
+ *
+ * @returns A JSX element containing a UserManagementContextProvider (supplied with clients, userTypes, users, and lastUserSync) that wraps the UserManagementTable component.
+ */
 export async function UserManagement() {
   const [clients, lastUserSync, users] = await Promise.all([
     getAllClients(),

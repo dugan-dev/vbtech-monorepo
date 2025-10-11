@@ -14,6 +14,11 @@ import { SyncUsersActionButton } from "../sync-users-action-button";
 import { UserDialog } from "../user-dialog";
 import { UserManagementTableColumns } from "./user-management-table-columns";
 
+/**
+ * Render the user management interface: an empty-state prompt when no users exist, otherwise a data table with user rows and controls for adding and syncing users.
+ *
+ * @returns The JSX element for the user management view (either the empty state or the populated data table).
+ */
 export function UserManagementTable() {
   const { users, clients } = useUserManagementContext();
   const [open, setIsOpen] = useState(false);
