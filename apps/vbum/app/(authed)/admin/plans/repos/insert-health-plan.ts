@@ -21,17 +21,17 @@ type props = {
 };
 
 /**
- * Creates a new health plan and its associated Plan Benefit Package (PBP) records in the database within a single transaction.
+ * Inserts a new health plan for a client after verifying no existing plan has the same name.
  *
- * Checks for existing health plans with the same name or ID for the specified client and aborts the operation if duplicates are found. On success, inserts the health plan and all related PBPs with relevant metadata.
+ * Performs a transactional duplicate check for `planName` scoped to `clientPubId`, inserts the new `healthPlan` record with audit metadata, and returns success on completion.
  *
- * @param input - The health plan form data, including PBPs to associate.
- * @param pubId - The public identifier for the new health plan.
- * @param clientPubId - The public identifier for the client.
- * @param userId - The identifier of the user performing the operation.
- * @returns An object indicating successful completion.
+ * @param input - Health plan form data; must include `planName`
+ * @param pubId - The public identifier to assign to the new health plan
+ * @param clientPubId - The client's public identifier used to scope duplicate checks
+ * @param userId - Identifier of the user creating the record (stored as creator/updater)
+ * @returns An object with `success: true` when the insert completes
  *
- * @throws {Error} If a health plan with the same name or ID already exists for the client.
+ * @throws {Error} If a health plan with the same name already exists for the client.
  * @throws {Error} If an unsupported field is encountered during duplicate checks.
  */
 export async function insertHealthPlan({

@@ -19,6 +19,15 @@ type props = {
   healthPlanPubId?: string;
 };
 
+/**
+ * Render a health plan form bound to form state, submission handlers, and error dialog.
+ *
+ * @param onSuccess - Optional callback invoked after a successful form submission.
+ * @param formData - Optional initial form values to populate the form (used for editing).
+ * @param clientPubId - Public identifier of the client the health plan belongs to.
+ * @param healthPlanPubId - Optional public identifier of the health plan (present when editing).
+ * @returns A React element that renders the health plan form UI.
+ */
 export function HealthPlanForm({
   onSuccess,
   formData,
