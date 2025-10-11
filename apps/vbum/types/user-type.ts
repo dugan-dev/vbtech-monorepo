@@ -1,13 +1,16 @@
 import { z } from "zod";
 
-type UserType = "internal";
+type UserType = "nurse" | "auditor" | "ops" | "reporting";
 
-const UserTypes = ["internal"] as const;
+const UserTypes = ["nurse", "auditor", "ops", "reporting"] as const;
 
 const UserTypeEnum = z.enum(UserTypes);
 
 const UserTypeLabels = {
-  internal: "Internal VB Tech User",
+  nurse: "Nurse",
+  auditor: "Auditor",
+  ops: "Operations",
+  reporting: "Reporting",
 };
 
 export { UserTypeEnum, UserTypes, UserTypeLabels, type UserType };

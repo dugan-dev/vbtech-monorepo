@@ -7,10 +7,12 @@ import { cognitoClient } from "@/lib/auth/cognito";
 
 import { getAllClients } from "./clients-repository";
 
+export const APP_ATTRS_NAME = "custom:app3:attrs";
+
 // Create configured user repository for VB Utilization Management Eval Tool
 const userRepository = createUserRepository<UserAppAttrs>({
   cognitoClient,
-  customAttrName: "custom:app3:attrs", // VB UM uses app3
+  customAttrName: APP_ATTRS_NAME, // VB UM uses app3
   userPoolId: env.AWS_COGNITO_USER_POOL_ID,
   getAllItems: async () => {
     const clients = await getAllClients();
