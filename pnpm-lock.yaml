@@ -116,7 +116,7 @@ importers:
     dependencies:
       '@aws-amplify/adapter-nextjs':
         specifier: 1.6.10
-        version: 1.6.10(aws-amplify@6.15.7)(next@15.5.4(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        version: 1.6.10(aws-amplify@6.15.7)(next@15.5.4(@opentelemetry/api@1.4.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       '@aws-sdk/client-cognito-identity-provider':
         specifier: 3.901.0
         version: 3.901.0
@@ -228,7 +228,7 @@ importers:
     dependencies:
       '@aws-amplify/adapter-nextjs':
         specifier: 1.6.10
-        version: 1.6.10(aws-amplify@6.15.7)(next@15.5.4(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        version: 1.6.10(aws-amplify@6.15.7)(next@15.5.4(@opentelemetry/api@1.4.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       '@aws-sdk/client-cognito-identity-provider':
         specifier: 3.901.0
         version: 3.901.0
@@ -346,7 +346,7 @@ importers:
     dependencies:
       '@aws-amplify/adapter-nextjs':
         specifier: 1.6.10
-        version: 1.6.10(aws-amplify@6.15.7)(next@15.5.4(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        version: 1.6.10(aws-amplify@6.15.7)(next@15.5.4(@opentelemetry/api@1.4.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       '@aws-sdk/client-cognito-identity-provider':
         specifier: 3.901.0
         version: 3.901.0
@@ -514,8 +514,8 @@ importers:
         specifier: 19.2.0
         version: 19.2.0(react@19.2.0)
       react-email:
-        specifier: 4.2.12
-        version: 4.2.12
+        specifier: 4.3.0
+        version: 4.3.0
       react-hook-form:
         specifier: 7.64.0
         version: 7.64.0(react@19.2.0)
@@ -622,7 +622,7 @@ importers:
     dependencies:
       '@aws-amplify/adapter-nextjs':
         specifier: 1.6.10
-        version: 1.6.10(aws-amplify@6.15.7)(next@15.5.4(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
+        version: 1.6.10(aws-amplify@6.15.7)(next@15.5.4(@opentelemetry/api@1.4.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))
       '@aws-sdk/client-cognito-identity-provider':
         specifier: 3.901.0
         version: 3.901.0
@@ -5607,8 +5607,8 @@ packages:
     peerDependencies:
       react: ^19.2.0
 
-  react-email@4.2.12:
-    resolution: {integrity: sha512-Cp6nYAG9uL4//X/96wDSKxGqVTXsaRMuD1ub0G0iBcfTqLel4VVre3kicq7RraplDuj+ATlqSZu47d7P2ULP5w==}
+  react-email@4.3.0:
+    resolution: {integrity: sha512-XFHCSfhdlO7k5q2TYGwC0HsVh5Yn13YaOdahuJEUEOfOJKHEpSP4PKg7R/RiKFoK9cDvzunhY+58pXxz0vE2zA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -6502,7 +6502,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@aws-amplify/adapter-nextjs@1.6.10(aws-amplify@6.15.7)(next@15.5.4(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))':
+  '@aws-amplify/adapter-nextjs@1.6.10(aws-amplify@6.15.7)(next@15.5.4(@opentelemetry/api@1.4.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))':
     dependencies:
       aws-amplify: 6.15.7
       aws-jwt-verify: 4.0.1
@@ -12105,7 +12105,7 @@ snapshots:
       react: 19.2.0
       scheduler: 0.27.0
 
-  react-email@4.2.12:
+  react-email@4.3.0:
     dependencies:
       '@babel/parser': 7.27.2
       '@babel/traverse': 7.27.1
