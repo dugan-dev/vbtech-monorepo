@@ -9,18 +9,16 @@ import { useDidMountEffect } from "@workspace/ui/hooks/use-did-mount-effect";
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
 
 import { UserCognito } from "@/types/user-cognito";
-import { UserRole } from "@/types/user-role";
 import { UserType } from "@/types/user-type";
 
 import { createUserAction } from "../action/create-user-action";
 import { editUserAction } from "../action/edit-user-action";
-import { UserFormStepValues } from "../component/user-form/steps/user-form-step-values";
 import {
   UserFormDefaultValues,
   UserFormInput,
   UserFormOutput,
   UserFormSchema,
-} from "../component/user-form/user-form-schema";
+} from "../component/user-form-schema";
 
 type props = {
   onSuccess?: () => void;
@@ -39,62 +37,27 @@ type props = {
  *
  * @returns An object containing the form instance, submission handler, step navigation and validation functions, error dialog controls, current step state, and pending status indicators.
  */
-export function useSteppedUserForm({
-  onSuccess,
-  user,
-  setIsSubmitting,
-}: props) {
-  const [currentStep, setCurrentStep] = useState(user ? 3 : 1);
+export function useUserForm({ onSuccess, user, setIsSubmitting }: props) {
   const [selectedUserType, setSelectedUserType] = useState<UserType | null>(
     user?.appAttrs?.type || null,
   );
 
-  // Navigate to next step
-  const nextStep = async () => {
-    let canProceed = false;
-
-    if (currentStep === 1) {
-      // Validate only the basic info fields
-      const result = await form.trigger(["firstName", "lastName", "email"]);
-      canProceed = result;
-    } else if (currentStep === 2) {
-      // Validate only the user type fields
-      const result = await form.trigger(["type", "admin", "super"]);
-      canProceed = result;
-    }
-
-    if (canProceed || currentStep === 3) {
-      setCurrentStep((prev) => Math.min(prev + 1, UserFormStepValues.length));
-    }
-  };
-
-  // Navigate to previous step
-  const prevStep = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 1));
-  };
-
   const revalidationPath = usePathname();
 
   // Create a properly typed default value
-  const defaultValues: UserFormInput = user?.appAttrs
+  const defaultValues: UserFormInput = user
     ? {
-        type: user.appAttrs.type,
+        type: user.appAttrs?.type || UserFormDefaultValues.type,
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        super: user.appAttrs.super,
-        admin: user.appAttrs.admin,
-        ids:
-          user.appAttrs.ids?.map((id) => {
-            const validRoles = id.userRoles.map((role) => role as UserRole);
-            return {
-              id: id.id,
-              userMode: id.userMode,
-              userRoles: validRoles,
-            };
-          }) || [],
+        super: user.appAttrs?.super || UserFormDefaultValues.super,
+        admin: user.appAttrs?.admin || UserFormDefaultValues.admin,
+        ids: user.appAttrs?.ids?.map((id) => id.id) || [],
       }
     : UserFormDefaultValues;
+
+  console.log(defaultValues);
 
   const form = useForm<UserFormInput>({
     resolver: zodResolver(UserFormSchema),
@@ -102,28 +65,8 @@ export function useSteppedUserForm({
     mode: "onChange",
   });
 
-  const firstName = form.watch("firstName");
-  const lastName = form.watch("lastName");
-  const email = form.watch("email");
-  const type = form.watch("type");
-  const ids = form.watch("ids");
-
-  const isStepValid = (step: number) => {
-    if (step === 1) {
-      return (
-        firstName.length > 0 &&
-        lastName.length > 0 &&
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-      );
-    }
-    if (step === 2) {
-      return type !== ""; // Ensure type is selected
-    }
-    if (step === 3) {
-      return ids.length > 0;
-    }
-    return false;
-  };
+  const { watch } = form;
+  const type = watch("type");
 
   const {
     openErrorDialog,
@@ -215,10 +158,5 @@ export function useSteppedUserForm({
     errorMsg,
     errorTitle,
     closeErrorDialog,
-    isStepValid,
-    prevStep,
-    nextStep,
-    currentStep,
-    setCurrentStep,
   };
 }
