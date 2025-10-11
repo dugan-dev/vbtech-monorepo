@@ -5,10 +5,7 @@ import { db } from "@workspace/vbum-db/database";
 import { HealthPlanFormOutput } from "../components/health-plan-form/health-plan-form-schema";
 
 // Define a type that only includes fields that exist in the database table
-type HealthPlanDbFields = Pick<
-  HealthPlanFormOutput,
-  "planName" | "planId" | "phoneNumber" | "faxNumber"
->;
+type HealthPlanDbFields = Pick<HealthPlanFormOutput, "planName">;
 
 type DuplicateCheck = {
   value: string | undefined;
@@ -50,11 +47,6 @@ export async function insertHealthPlan({
         field: "planName",
         displayName: "Health Plan Name",
       },
-      {
-        value: input.planId,
-        field: "planId",
-        displayName: "Health Plan ID",
-      },
     ];
 
     const duplicateResults = await Promise.all(
@@ -69,24 +61,6 @@ export async function insertHealthPlan({
             return query
               .select(["planName"])
               .where("planName", "=", value!)
-              .where("clientPubId", "=", clientPubId)
-              .executeTakeFirst();
-          } else if (field === "planId") {
-            return query
-              .select(["planId"])
-              .where("planId", "=", value!)
-              .where("clientPubId", "=", clientPubId)
-              .executeTakeFirst();
-          } else if (field === "phoneNumber") {
-            return query
-              .select(["phoneNumber"])
-              .where("phoneNumber", "=", value!)
-              .where("clientPubId", "=", clientPubId)
-              .executeTakeFirst();
-          } else if (field === "faxNumber") {
-            return query
-              .select(["faxNumber"])
-              .where("faxNumber", "=", value!)
               .where("clientPubId", "=", clientPubId)
               .executeTakeFirst();
           }
@@ -118,9 +92,6 @@ export async function insertHealthPlan({
         updatedAt: now,
         clientPubId,
         planName: input.planName,
-        planId: input.planId,
-        phoneNumber: input.phoneNumber,
-        faxNumber: input.faxNumber,
         isActive: 1,
       })
       .execute();

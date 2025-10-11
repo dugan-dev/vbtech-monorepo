@@ -10,16 +10,10 @@ import "server-only";
  */
 export async function getHealthPlansForTable(clientPubId: string) {
   return await db
-    .selectFrom("healthPlan")
-    .select([
-      "healthPlan.pubId",
-      "healthPlan.planName",
-      "healthPlan.planId",
-      "healthPlan.phoneNumber",
-      "healthPlan.faxNumber",
-      "healthPlan.isActive",
-    ])
-    .where("healthPlan.clientPubId", "=", clientPubId)
-    .orderBy("healthPlan.planName", "asc")
+    .selectFrom("healthPlan as hp")
+    .innerJoin("client as c", "hp.clientPubId", "c.pubId")
+    .select(["hp.pubId", "hp.planName", "c.clientName", "hp.isActive"])
+    .where("hp.clientPubId", "=", clientPubId)
+    .orderBy("hp.planName", "asc")
     .execute();
 }

@@ -52,29 +52,9 @@ export function HealthPlanForm({
         <fieldset disabled={isPending} className="space-y-4 mb-8">
           <FormInput
             control={form.control}
-            name="clientName"
-            label="Client Name"
+            name="planName"
+            label="Name"
             type="text"
-            isRequired
-          />
-          <FormInput
-            control={form.control}
-            name="clientCode"
-            label="Client Code"
-            type="text"
-            isRequired
-          />
-          <FormCombo
-            control={form.control}
-            name="timezone"
-            label="Timezone"
-            comboItems={timezones}
-            isRequired
-          />
-          <FormTextarea
-            control={form.control}
-            name="description"
-            label="Description"
             isRequired
           />
         </fieldset>

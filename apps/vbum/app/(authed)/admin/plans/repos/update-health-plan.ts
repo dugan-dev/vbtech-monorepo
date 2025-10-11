@@ -37,9 +37,6 @@ export async function updateHealthPlan({ input, pubId, userId }: props) {
         "updatedBy",
         "clientPubId",
         "planName",
-        "planId",
-        "phoneNumber",
-        "faxNumber",
         "isActive",
         "histAddedAt",
       ])
@@ -54,9 +51,6 @@ export async function updateHealthPlan({ input, pubId, userId }: props) {
             "updatedBy",
             "clientPubId",
             "planName",
-            "planId",
-            "phoneNumber",
-            "faxNumber",
             "isActive",
             eb.val(now).as("histAddedAt"),
           ])
@@ -71,9 +65,6 @@ export async function updateHealthPlan({ input, pubId, userId }: props) {
         updatedBy: userId,
         updatedAt: now,
         planName: input.planName,
-        planId: input.planId,
-        phoneNumber: input.phoneNumber,
-        faxNumber: input.faxNumber,
       })
       .where("pubId", "=", pubId)
       .execute();

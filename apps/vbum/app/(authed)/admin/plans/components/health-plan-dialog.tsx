@@ -45,19 +45,19 @@ export function HealthPlanDialog({ formData, clientPubId }: props) {
             ) : (
               <Button>
                 <PlusCircle className="mr-2 h-4 w-4" />
-                Add Client
+                Add Health Plan
               </Button>
             )}
           </DialogTrigger>
         </TooltipTrigger>
         <TooltipContent>
-          {formData ? "Edit Client" : "Add Client"}
+          {formData ? "Edit Health Plan" : "Add Health Plan"}
         </TooltipContent>
       </Tooltip>
       <DialogContent>
         <DialogHeader className="px-6 flex flex-col bg-muted/30">
           <DialogTitle className="w-full text-center text-3xl bg-muted/30">
-            {formData ? "Edit Client" : "Add Client"}
+            {formData ? "Edit Health Plan" : "Add Health Plan"}
           </DialogTitle>
         </DialogHeader>
         <HealthPlanForm
