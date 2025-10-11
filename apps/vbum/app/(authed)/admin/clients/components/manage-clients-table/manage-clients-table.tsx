@@ -6,13 +6,10 @@ import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { EmptyView } from "@workspace/ui/components/empty-view";
 
 import { Client } from "@/types/client";
-import { UserType } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { ClientDialog } from "../client-dialog";
 import { ManageClientsTableColumns } from "./manage-clients-table-columns";
-
-const ALLOWED_USER_TYPES: UserType[] = ["internal"];
 
 type props = {
   clients: Client[];
@@ -42,10 +39,7 @@ export function ManageClientsTable({ clients }: props) {
         enableGlobalSearch: true,
       }}
       itemsAboveTable={
-        <RestrictByUserAppAttrsClient
-          adminOnly
-          allowedUserTypes={ALLOWED_USER_TYPES}
-        >
+        <RestrictByUserAppAttrsClient adminOnly>
           <ClientDialog />
         </RestrictByUserAppAttrsClient>
       }

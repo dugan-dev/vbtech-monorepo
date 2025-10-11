@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { UserAppAttrs } from "@/types/user-app-attrs";
-import { UserType } from "@/types/user-type";
 import { newPubId } from "@/lib/nanoid";
 import { authedActionClient } from "@/lib/safe-action";
 import { editUser } from "@/app/(authed)/admin/users/repos/user-management-repository";
@@ -19,12 +18,9 @@ const schema = z.object({
   formData: ClientFormSchema,
 });
 
-const ALLOWED_USER_TYPES: UserType[] = ["internal"];
-
 export const insertClientAction = authedActionClient
   .metadata({
     actionName: "insertPayerAction",
-    allowedTypes: ALLOWED_USER_TYPES,
     adminOnly: true,
   })
   .schema(schema)
@@ -46,14 +42,14 @@ export const insertClientAction = authedActionClient
               {
                 id: pubId,
                 userMode: "",
-                userRoles: ["admin"],
+                userRoles: [],
               },
             ]
           : [
               {
                 id: pubId,
                 userMode: "",
-                userRoles: ["admin"],
+                userRoles: [],
               },
             ],
     };

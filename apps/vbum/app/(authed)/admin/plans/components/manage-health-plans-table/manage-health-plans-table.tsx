@@ -6,16 +6,10 @@ import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { EmptyView } from "@workspace/ui/components/empty-view";
 
 import { HealthPlan } from "@/types/health-plan";
-import { UserRole } from "@/types/user-role";
-import { UserType } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { HealthPlanDialog } from "../health-plan-dialog";
 import { ManageHealthPlansTableColumns } from "./manage-health-plans-table-columns";
-
-const ALLOWED_USER_TYPES: UserType[] = ["internal"];
-
-const REQUIRED_USER_ROLES: UserRole[] = ["admin"];
 
 type props = {
   plans: HealthPlan[];
@@ -38,11 +32,7 @@ export function ManageHealthPlansTable({ plans, clientPubId }: props) {
         description="Get started by adding the first health plan to the system."
         icon={<HeartHandshake className="h-12 w-12 text-primary/80 mb-4" />}
       >
-        <RestrictByUserAppAttrsClient
-          adminOnly
-          allowedUserTypes={ALLOWED_USER_TYPES}
-          requiredUserRoles={REQUIRED_USER_ROLES}
-        >
+        <RestrictByUserAppAttrsClient adminOnly>
           <HealthPlanDialog clientPubId={clientPubId} />
         </RestrictByUserAppAttrsClient>
       </EmptyView>
@@ -58,11 +48,7 @@ export function ManageHealthPlansTable({ plans, clientPubId }: props) {
         enableGlobalSearch: true,
       }}
       itemsAboveTable={
-        <RestrictByUserAppAttrsClient
-          adminOnly
-          allowedUserTypes={ALLOWED_USER_TYPES}
-          requiredUserRoles={REQUIRED_USER_ROLES}
-        >
+        <RestrictByUserAppAttrsClient adminOnly>
           <HealthPlanDialog clientPubId={clientPubId} />
         </RestrictByUserAppAttrsClient>
       }
