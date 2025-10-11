@@ -19,6 +19,15 @@ type props = {
   healthPlanPubId?: string;
 };
 
+/**
+ * Render a health plan form bound to form state, submission handlers, and error dialog.
+ *
+ * @param onSuccess - Optional callback invoked after a successful form submission.
+ * @param formData - Optional initial form values to populate the form (used for editing).
+ * @param clientPubId - Public identifier of the client the health plan belongs to.
+ * @param healthPlanPubId - Optional public identifier of the health plan (present when editing).
+ * @returns A React element that renders the health plan form UI.
+ */
 export function HealthPlanForm({
   onSuccess,
   formData,
@@ -52,29 +61,9 @@ export function HealthPlanForm({
         <fieldset disabled={isPending} className="space-y-4 mb-8">
           <FormInput
             control={form.control}
-            name="clientName"
-            label="Client Name"
+            name="planName"
+            label="Name"
             type="text"
-            isRequired
-          />
-          <FormInput
-            control={form.control}
-            name="clientCode"
-            label="Client Code"
-            type="text"
-            isRequired
-          />
-          <FormCombo
-            control={form.control}
-            name="timezone"
-            label="Timezone"
-            comboItems={timezones}
-            isRequired
-          />
-          <FormTextarea
-            control={form.control}
-            name="description"
-            label="Description"
             isRequired
           />
         </fieldset>

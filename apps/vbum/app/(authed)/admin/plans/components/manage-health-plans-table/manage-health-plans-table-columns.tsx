@@ -5,7 +5,6 @@ import { parseAsString, useQueryState } from "nuqs";
 
 import { Badge } from "@workspace/ui/components/badge";
 import { DataTableColumnHeader } from "@workspace/ui/components/data-table/data-table-column-header";
-import { formatPhoneNumber } from "@workspace/utils/format-phone-number";
 
 import { HealthPlan } from "@/types/health-plan";
 
@@ -30,6 +29,14 @@ export const ManageHealthPlansTableColumns: ColumnDef<HealthPlan>[] = [
     ),
   },
   {
+    id: "Client Name",
+    accessorKey: "clientName",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Client Name" />
+    ),
+    cell: ({ row }) => row.original.clientName,
+  },
+  {
     id: "Health Plan Name",
     accessorKey: "planName",
     enableSorting: true,
@@ -38,42 +45,6 @@ export const ManageHealthPlansTableColumns: ColumnDef<HealthPlan>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Health Plan Name" />
     ),
-  },
-  {
-    id: "Health Plan ID",
-    accessorKey: "planId",
-    enableSorting: true,
-    sortingFn: "alphanumeric",
-    filterFn: "includesString",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Health Plan ID" />
-    ),
-  },
-  {
-    id: "Phone Number",
-    accessorKey: "phoneNumber",
-    enableSorting: true,
-    sortingFn: "text",
-    filterFn: "includesString",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Phone Number" />
-    ),
-    cell: ({ row }) => {
-      return <div>{formatPhoneNumber(row.original.phoneNumber)}</div>;
-    },
-  },
-  {
-    id: "Fax Number",
-    accessorKey: "faxNumber",
-    enableSorting: true,
-    sortingFn: "text",
-    filterFn: "includesString",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Fax Number" />
-    ),
-    cell: ({ row }) => {
-      return <div>{formatPhoneNumber(row.original.faxNumber)}</div>;
-    },
   },
   {
     id: "Actions",
@@ -92,17 +63,16 @@ export const ManageHealthPlansTableColumns: ColumnDef<HealthPlan>[] = [
 ];
 
 /**
- * Renders the action controls for a health plan row, enabling editing or management of the plan.
+ * Render action controls for a health plan row and open an edit dialog populated with the plan.
  *
- * Constructs form data from the provided health plan and passes it, along with the client ID from the query state, to the {@link HealthPlanSheet} component.
+ * Uses the current "cId" query-state value as `clientPubId` and supplies initial form data derived from `plan` to HealthPlanDialog.
+ *
+ * @param plan - The health plan row to manage; its `planName` and `pubId` are used to populate the dialog.
  */
 function ActionsCell({ plan }: { plan: HealthPlan }) {
   const [cId] = useQueryState("cId", parseAsString.withDefault(""));
   const formData: HealthPlanFormData = {
     planName: plan.planName,
-    planId: plan.planId,
-    phoneNumber: plan.phoneNumber,
-    faxNumber: plan.faxNumber,
   };
   return (
     <div>

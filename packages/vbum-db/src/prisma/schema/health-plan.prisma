@@ -7,13 +7,9 @@ model health_plan {
         updated_by    String   @db.VarChar(50)
         client_pub_id String   @db.VarChar(12)
         plan_name     String   @db.VarChar(255)
-        plan_id       String   @db.VarChar(10)
-        phone_number  String   @db.VarChar(20)
-        fax_number    String   @db.VarChar(20)
         is_active     Boolean  @default(true)
 
         @@index([client_pub_id])
-        @@index([plan_id])
         @@index([is_active])
 }
 
@@ -27,12 +23,8 @@ model health_plan_hist {
         updated_by    String   @db.VarChar(50)
         client_pub_id String   @db.VarChar(12)
         plan_name     String   @db.VarChar(255)
-        plan_id       String   @db.VarChar(10)
-        phone_number  String   @db.VarChar(20)
-        fax_number    String   @db.VarChar(20)
         is_active     Boolean
 
         @@index([client_pub_id])
-        @@index([plan_id])
         @@index([is_active])
 }

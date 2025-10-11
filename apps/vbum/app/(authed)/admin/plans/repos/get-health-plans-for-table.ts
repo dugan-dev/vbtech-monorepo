@@ -3,23 +3,17 @@ import { db } from "@workspace/vbum-db/database";
 import "server-only";
 
 /**
- * Fetches health plan records associated with the specified client public ID.
+ * Retrieve health plans for a client identified by its public ID.
  *
- * @param clientPubId - The public identifier of the client whose health plans are retrieved.
- * @returns A promise that resolves to an array of health plan objects, each including `pubId`, `planName`, `planId`, `phoneNumber`, `faxNumber`, and `isActive`.
+ * @param clientPubId - The public identifier of the client whose health plans to fetch.
+ * @returns An array of records containing `pubId`, `planName`, `clientName`, and `isActive` for each matching health plan.
  */
 export async function getHealthPlansForTable(clientPubId: string) {
   return await db
-    .selectFrom("healthPlan")
-    .select([
-      "healthPlan.pubId",
-      "healthPlan.planName",
-      "healthPlan.planId",
-      "healthPlan.phoneNumber",
-      "healthPlan.faxNumber",
-      "healthPlan.isActive",
-    ])
-    .where("healthPlan.clientPubId", "=", clientPubId)
-    .orderBy("healthPlan.planName", "asc")
+    .selectFrom("healthPlan as hp")
+    .innerJoin("client as c", "hp.clientPubId", "c.pubId")
+    .select(["hp.pubId", "hp.planName", "c.clientName", "hp.isActive"])
+    .where("hp.clientPubId", "=", clientPubId)
+    .orderBy("hp.planName", "asc")
     .execute();
 }

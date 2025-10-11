@@ -11,16 +11,14 @@ type props = {
 };
 
 /**
- * Updates a health plan and its associated Plan Benefit Packages (PBPs) atomically.
+ * Update a health plan and archive its prior state in the history table.
  *
- * Archives the current state of the health plan and PBPs before applying updates. Updates the health plan's details, inserts new PBPs, updates changed PBPs, and deactivates PBPs that are no longer present in the input. All changes are recorded in corresponding history tables for audit purposes.
+ * All modifications are applied within a single database transaction so that either all changes succeed or none are committed.
  *
- * @param input - The updated health plan data, including PBPs.
- * @param pubId - The public identifier of the health plan to update.
- * @param userId - The identifier of the user performing the update.
- * @returns An object with `success: true` if the update completes successfully.
- *
- * @remark All operations are performed within a single database transaction to ensure atomicity. If any step fails, no changes are committed.
+ * @param input - The updated health plan data (includes `planName` and any Plan Benefit Package data when present)
+ * @param pubId - The public identifier of the health plan to update
+ * @param userId - The identifier of the user performing the update
+ * @returns An object with `success: true` if the update completed successfully
  */
 export async function updateHealthPlan({ input, pubId, userId }: props) {
   return await db.transaction().execute(async (trx) => {
@@ -37,9 +35,6 @@ export async function updateHealthPlan({ input, pubId, userId }: props) {
         "updatedBy",
         "clientPubId",
         "planName",
-        "planId",
-        "phoneNumber",
-        "faxNumber",
         "isActive",
         "histAddedAt",
       ])
@@ -54,9 +49,6 @@ export async function updateHealthPlan({ input, pubId, userId }: props) {
             "updatedBy",
             "clientPubId",
             "planName",
-            "planId",
-            "phoneNumber",
-            "faxNumber",
             "isActive",
             eb.val(now).as("histAddedAt"),
           ])
@@ -71,9 +63,6 @@ export async function updateHealthPlan({ input, pubId, userId }: props) {
         updatedBy: userId,
         updatedAt: now,
         planName: input.planName,
-        planId: input.planId,
-        phoneNumber: input.phoneNumber,
-        faxNumber: input.faxNumber,
       })
       .where("pubId", "=", pubId)
       .execute();
