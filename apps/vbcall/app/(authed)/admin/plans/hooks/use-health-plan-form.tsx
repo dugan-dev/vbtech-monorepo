@@ -2,7 +2,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
@@ -85,11 +85,11 @@ export function useHealthPlanForm({
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
-  const planName = form.watch("planName");
-  const planId = form.watch("planId");
-  const phoneNumber = form.watch("phoneNumber");
-  const faxNumber = form.watch("faxNumber");
-  const pbps = form.watch("pbps");
+  const planName = useWatch({ control: form.control, name: "planName" });
+  const planId = useWatch({ control: form.control, name: "planId" });
+  const phoneNumber = useWatch({ control: form.control, name: "phoneNumber" });
+  const faxNumber = useWatch({ control: form.control, name: "faxNumber" });
+  const pbps = useWatch({ control: form.control, name: "pbps" });
 
   const isStepValid = (step: number) => {
     if (step === 1) {

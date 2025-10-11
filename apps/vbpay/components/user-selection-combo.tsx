@@ -41,7 +41,7 @@ export function UserSelectionCombo({
   const instructText = "Select Payer...";
   const placehold = "Search...";
   const notFound = "Payer Not Found";
-  const [isLocked, setIsLocked] = useState(defaultLock);
+  const isLocked = defaultLock || Boolean(slug);
 
   const {
     openErrorDialog,
@@ -66,20 +66,16 @@ export function UserSelectionCombo({
 
   useEffect(() => {
     if (slug && slug !== pId) {
-      setIsLocked(true);
       // Force immediate update without transition
       setPId(slug, { shallow: true });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug, pId]);
+  }, [slug, pId, setPId]);
 
   function toggleLock() {
     if (isLocked) {
       execute({ slug: "" });
-      setIsLocked(false);
     } else {
       execute({ slug: pId });
-      setIsLocked(true);
     }
   }
 

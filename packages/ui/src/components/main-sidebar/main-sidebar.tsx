@@ -21,6 +21,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@workspace/ui/components/sidebar";
+import { useIsMounted } from "@workspace/ui/hooks/use-is-mounted";
 import {
   MainSidebarConfig,
   type UserAttributes,
@@ -73,15 +74,13 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
   const { ThemeToggle, UserAvatar, Link } = components;
   const { chevronRight: ChevronRight, logo: Logo, logoDark: LogoDark } = icons;
 
-  // State for collapsible items
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
-  const [isHydrated, setIsHydrated] = useState(false);
+  // State for collapsible items - initialized from cookies
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>(() =>
+    getCookieValue(config.appTitle),
+  );
 
-  // Hydrate state from cookies after component mounts
-  useEffect(() => {
-    setOpenItems(getCookieValue(config.appTitle));
-    setIsHydrated(true);
-  }, [config.appTitle]);
+  // Track if component has mounted (hydration complete)
+  const isMounted = useIsMounted();
 
   // Save state to cookie whenever it changes
   useEffect(() => {
@@ -168,7 +167,7 @@ export function MainSidebar<TUserRole = string, TUserType = string>({
                 <SidebarMenuItem key={item.id}>
                   {item.items ? (
                     <Collapsible
-                      open={isHydrated ? (openItems[item.id] ?? false) : false}
+                      open={isMounted ? (openItems[item.id] ?? false) : false}
                       onOpenChange={(isOpen) =>
                         handleItemToggle(item.id, isOpen)
                       }

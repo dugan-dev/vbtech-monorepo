@@ -1,11 +1,16 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { fetchNppesApiResponseAction } from "@/actions/fetch-nppes-api-response-action";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
-import { SubmitHandler, useForm, UseFormReturn } from "react-hook-form";
+import {
+  SubmitHandler,
+  useForm,
+  UseFormReturn,
+  useWatch,
+} from "react-hook-form";
 import { toast } from "sonner";
 
 import { useDebounce } from "@workspace/ui/hooks/use-debounce";
@@ -79,46 +84,13 @@ type props = {
 };
 
 export function AddNetworkEntityProvider({ children }: props) {
-  "use no memo";
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetState, setSheetState] = useState<"search" | "advanced">("search");
-
-  const resetAllForms = () => {
-    setSheetState("search");
-    addNetworkEntityForm.reset(AddNetworkEntityFormDefaultValues);
-    nppesSearchForm.reset(NppesNetworkEntitySearchFormDefaultValues);
-    setNppesSearchSelection(AddNetworkEntityFormDefaultValues);
-    setNppesApiResponseData([]);
-  };
-
-  useEffect(() => {
-    if (!sheetOpen) {
-      resetAllForms();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sheetOpen]);
-
   const [nppesSearchSelection, setNppesSearchSelection] =
     useState<AddNetworkEntityFormInput>(AddNetworkEntityFormDefaultValues);
   const [nppesApiResponseData, setNppesApiResponseData] = useState<
     NppesApiResponseResult[]
   >([]);
-
-  useEffect(() => {
-    if (nppesSearchSelection.orgNpi !== "") {
-      const formData = addNetworkEntityForm.getValues();
-      const newFormData: AddNetworkEntityFormInput = {
-        ...formData,
-        marketingName: nppesSearchSelection.marketingName,
-        orgNpi: nppesSearchSelection.orgNpi,
-      };
-      addNetworkEntityForm.reset(newFormData);
-      if (sheetState === "advanced") {
-        setSheetState("search");
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nppesSearchSelection]);
 
   const nppesSearchForm = useForm<NppesNetworkEntitySearchFormInput>({
     resolver: zodResolver(NppesNetworkEntitySearchFormSchema),
@@ -127,25 +99,98 @@ export function AddNetworkEntityProvider({ children }: props) {
 
   const addNetworkEntityForm = useForm<AddNetworkEntityFormInput>({
     resolver: zodResolver(AddNetworkEntityFormSchema),
-    defaultValues: nppesSearchSelection ?? AddNetworkEntityFormDefaultValues,
+    defaultValues: AddNetworkEntityFormDefaultValues,
     mode: "onChange",
     reValidateMode: "onChange",
   });
 
-  const watchOrgNpi =
-    sheetState === "advanced"
-      ? nppesSearchForm.watch("orgNpi")
-      : addNetworkEntityForm.watch("orgNpi");
+  const resetAllForms = useCallback(() => {
+    setSheetState("search");
+    addNetworkEntityForm.reset(AddNetworkEntityFormDefaultValues);
+    nppesSearchForm.reset(NppesNetworkEntitySearchFormDefaultValues);
+    setNppesSearchSelection(AddNetworkEntityFormDefaultValues);
+    setNppesApiResponseData([]);
+  }, [addNetworkEntityForm, nppesSearchForm]);
+
+  const handleSheetOpenChange = useCallback(
+    (open: boolean) => {
+      setSheetOpen(open);
+      if (!open) {
+        resetAllForms();
+      }
+    },
+    [resetAllForms],
+  );
+
+  const handleNppesSearchSelection = useCallback(
+    (data: AddNetworkEntityFormInput) => {
+      setNppesSearchSelection(data);
+
+      if (data.orgNpi !== "") {
+        const formData = addNetworkEntityForm.getValues();
+        const newFormData: AddNetworkEntityFormInput = {
+          ...formData,
+          marketingName: data.marketingName,
+          orgNpi: data.orgNpi,
+        };
+        addNetworkEntityForm.reset(newFormData);
+
+        if (sheetState === "advanced") {
+          setSheetState("search");
+        }
+      }
+    },
+    [addNetworkEntityForm, sheetState],
+  );
+
+  const nppesOrgNpi = useWatch({
+    control: nppesSearchForm.control,
+    name: "orgNpi",
+    defaultValue: "",
+  });
+
+  const addEntityOrgNpi = useWatch({
+    control: addNetworkEntityForm.control,
+    name: "orgNpi",
+    defaultValue: "",
+  });
+
+  const nppesEntityName = useWatch({
+    control: nppesSearchForm.control,
+    name: "entityName",
+    defaultValue: "",
+  });
+
+  const addEntityMarketingName = useWatch({
+    control: addNetworkEntityForm.control,
+    name: "marketingName",
+    defaultValue: "",
+  });
+
+  const nppesCity = useWatch({
+    control: nppesSearchForm.control,
+    name: "city",
+    defaultValue: "",
+  });
+
+  const nppesState = useWatch({
+    control: nppesSearchForm.control,
+    name: "state",
+    defaultValue: "",
+  });
+
+  const nppesZip = useWatch({
+    control: nppesSearchForm.control,
+    name: "zip",
+    defaultValue: "",
+  });
+
+  const watchOrgNpi = sheetState === "advanced" ? nppesOrgNpi : addEntityOrgNpi;
   const watchOrgName =
-    sheetState === "advanced"
-      ? nppesSearchForm.watch("entityName")
-      : addNetworkEntityForm.watch("marketingName");
-  const watchCity =
-    sheetState === "advanced" ? nppesSearchForm.watch("city") : "";
-  const watchState =
-    sheetState === "advanced" ? nppesSearchForm.watch("state") : "";
-  const watchZip =
-    sheetState === "advanced" ? nppesSearchForm.watch("zip") : "";
+    sheetState === "advanced" ? nppesEntityName : addEntityMarketingName;
+  const watchCity = sheetState === "advanced" ? nppesCity : "";
+  const watchState = sheetState === "advanced" ? nppesState : "";
+  const watchZip = sheetState === "advanced" ? nppesZip : "";
 
   const {
     openErrorDialog,
@@ -169,7 +214,7 @@ export function AddNetworkEntityProvider({ children }: props) {
         description: "The network entity has been created successfully.",
       });
       resetAllForms();
-      setSheetOpen(false);
+      handleSheetOpenChange(false);
     },
     onError: ({ error }) => {
       openErrorDialog(
@@ -276,9 +321,9 @@ export function AddNetworkEntityProvider({ children }: props) {
         errorTitle,
         closeErrorDialog,
         isAddNetworkEntityFormSubmitting: isInsertNetworkEntityPending,
-        setNppesSearchSelection,
+        setNppesSearchSelection: handleNppesSearchSelection,
         sheetOpen,
-        setSheetOpen,
+        setSheetOpen: handleSheetOpenChange,
         sheetState,
         setSheetState,
         nppesSearchSelection,

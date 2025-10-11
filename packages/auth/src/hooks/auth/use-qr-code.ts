@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import QRCode from "qrcode";
 
 interface UseQrCodeReturn {
@@ -9,20 +9,65 @@ interface UseQrCodeReturn {
   error: string | null;
 }
 
+interface QrCodeState {
+  qrCodeDataUrl: string | null;
+  isLoading: boolean;
+  error: string | null;
+}
+
+type QrCodeAction =
+  | { type: "LOADING" }
+  | { type: "SUCCESS"; payload: string }
+  | { type: "ERROR"; payload: string }
+  | { type: "NO_DATA" };
+
+function qrCodeReducer(state: QrCodeState, action: QrCodeAction): QrCodeState {
+  switch (action.type) {
+    case "LOADING":
+      return {
+        qrCodeDataUrl: null,
+        isLoading: true,
+        error: null,
+      };
+    case "SUCCESS":
+      return {
+        qrCodeDataUrl: action.payload,
+        isLoading: false,
+        error: null,
+      };
+    case "ERROR":
+      return {
+        qrCodeDataUrl: null,
+        isLoading: false,
+        error: action.payload,
+      };
+    case "NO_DATA":
+      return {
+        qrCodeDataUrl: null,
+        isLoading: false,
+        error: "No data provided for QR code generation",
+      };
+    default:
+      return state;
+  }
+}
+
 export function useQrCode(data: string): UseQrCodeReturn {
-  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [state, dispatch] = useReducer(qrCodeReducer, {
+    qrCodeDataUrl: null,
+    isLoading: Boolean(data),
+    error: data ? null : "No data provided for QR code generation",
+  });
 
   useEffect(() => {
     if (!data) {
-      setIsLoading(false);
-      setError("No data provided for QR code generation");
+      dispatch({ type: "NO_DATA" });
       return;
     }
 
-    setIsLoading(true);
-    setError(null);
+    dispatch({ type: "LOADING" });
+
+    let isMounted = true;
 
     QRCode.toDataURL(data, {
       width: 200,
@@ -33,16 +78,24 @@ export function useQrCode(data: string): UseQrCodeReturn {
       },
     })
       .then((dataUrl) => {
-        setQrCodeDataUrl(dataUrl);
-        setIsLoading(false);
+        if (isMounted) {
+          dispatch({ type: "SUCCESS", payload: dataUrl });
+        }
       })
       .catch((err) => {
-        setError(
-          err instanceof Error ? err.message : "Failed to generate QR code",
-        );
-        setIsLoading(false);
+        if (isMounted) {
+          dispatch({
+            type: "ERROR",
+            payload:
+              err instanceof Error ? err.message : "Failed to generate QR code",
+          });
+        }
       });
+
+    return () => {
+      isMounted = false;
+    };
   }, [data]);
 
-  return { qrCodeDataUrl, isLoading, error };
+  return state;
 }

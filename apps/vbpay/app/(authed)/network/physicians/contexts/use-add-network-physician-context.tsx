@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { fetchNppesApiResponseAction } from "@/actions/fetch-nppes-api-response-action";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +10,7 @@ import {
   SubmitHandler,
   useForm,
   UseFormReturn,
+  useWatch,
 } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -81,8 +82,7 @@ type AddNetworkPhysicianContextType = {
 
   // NPPES Search
   nppesSearchForm: UseFormReturn<NppesNetworkPhysicianSearchFormInput>;
-  nppesSearchSelection: AddNetworkPhysicianFormInput;
-  setNppesSearchSelection: (data: AddNetworkPhysicianFormInput) => void;
+  handleNppesSelection: (data: AddNetworkPhysicianFormInput) => void;
   nppesApiResponseData: NppesApiResponseResult[] | undefined;
   isNppesSearchPending: boolean;
 
@@ -111,60 +111,15 @@ export function AddNetworkPhysicianProvider({
   facilities,
   vendors,
 }: props) {
-  "use no memo";
   const [currentStep, setCurrentStep] = useState(1);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetState, setSheetState] = useState<"search" | "advanced" | "form">(
     "search",
   );
 
-  const resetAllForms = () => {
-    setCurrentStep(1);
-    setSheetState("search");
-    addNetworkPhysicianForm.reset(AddNetworkPhysicianFormDefaultValues);
-    nppesSearchForm.reset(NppesNetworkPhysicianSearchFormDefaultValues);
-    setNppesSearchSelection(AddNetworkPhysicianFormDefaultValues);
-    setNppesApiResponseData([]);
-  };
-
-  useEffect(() => {
-    if (!sheetOpen) {
-      resetAllForms();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sheetOpen]);
-
-  const [nppesSearchSelection, setNppesSearchSelection] =
-    useState<AddNetworkPhysicianFormInput>(
-      AddNetworkPhysicianFormDefaultValues,
-    );
   const [nppesApiResponseData, setNppesApiResponseData] = useState<
     NppesApiResponseResult[]
   >([]);
-
-  useEffect(() => {
-    if (nppesSearchSelection.physInfo.npi !== "") {
-      const formData = addNetworkPhysicianForm.getValues();
-      const newFormData: AddNetworkPhysicianFormInput = {
-        ...formData,
-        physInfo: {
-          ...formData.physInfo,
-          npi: nppesSearchSelection.physInfo.npi,
-          firstName: nppesSearchSelection.physInfo.firstName,
-          lastName: nppesSearchSelection.physInfo.lastName,
-          specialty: nppesSearchSelection.physInfo.specialty,
-          primaryTaxonomyCode:
-            nppesSearchSelection.physInfo.primaryTaxonomyCode,
-          credential: nppesSearchSelection.physInfo.credential,
-        },
-      };
-      addNetworkPhysicianForm.reset(newFormData);
-      if (sheetState === "advanced") {
-        setSheetState("search");
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nppesSearchSelection]);
 
   const nppesSearchForm = useForm<NppesNetworkPhysicianSearchFormInput>({
     resolver: zodResolver(NppesNetworkPhysicianSearchFormSchema),
@@ -176,33 +131,114 @@ export function AddNetworkPhysicianProvider({
     resolver: zodResolver(
       AddNetworkPhysicianFormSchema,
     ) as Resolver<AddNetworkPhysicianFormInput>,
-    defaultValues: nppesSearchSelection ?? AddNetworkPhysicianFormDefaultValues,
+    defaultValues: AddNetworkPhysicianFormDefaultValues,
     mode: "onChange",
     reValidateMode: "onChange",
   });
 
-  const watchIndividualNpi =
-    sheetState === "advanced"
-      ? nppesSearchForm.watch("npi")
-      : addNetworkPhysicianForm.watch("physInfo.npi");
+  const resetAllForms = useCallback(() => {
+    setCurrentStep(1);
+    setSheetState("search");
+    addNetworkPhysicianForm.reset(AddNetworkPhysicianFormDefaultValues);
+    nppesSearchForm.reset(NppesNetworkPhysicianSearchFormDefaultValues);
+    setNppesApiResponseData([]);
+  }, [addNetworkPhysicianForm, nppesSearchForm]);
+
+  const handleSheetOpenChange = useCallback(
+    (open: boolean) => {
+      setSheetOpen(open);
+      if (!open) {
+        resetAllForms();
+      }
+    },
+    [resetAllForms],
+  );
+
+  const handleNppesSelection = useCallback(
+    (data: AddNetworkPhysicianFormInput) => {
+      const formData = addNetworkPhysicianForm.getValues();
+      const newFormData: AddNetworkPhysicianFormInput = {
+        ...formData,
+        physInfo: {
+          ...formData.physInfo,
+          npi: data.physInfo.npi,
+          firstName: data.physInfo.firstName,
+          lastName: data.physInfo.lastName,
+          specialty: data.physInfo.specialty,
+          primaryTaxonomyCode: data.physInfo.primaryTaxonomyCode,
+          credential: data.physInfo.credential,
+          soleProprietor: data.physInfo.soleProprietor,
+        },
+      };
+      addNetworkPhysicianForm.reset(newFormData);
+
+      if (sheetState === "advanced") {
+        setSheetState("search");
+      }
+    },
+    [addNetworkPhysicianForm, sheetState],
+  );
+
+  const nppesNpi = useWatch({
+    control: nppesSearchForm.control,
+    name: "npi",
+  });
+  const physNpi = useWatch({
+    control: addNetworkPhysicianForm.control,
+    name: "physInfo.npi",
+  });
+  const watchIndividualNpi = sheetState === "advanced" ? nppesNpi : physNpi;
+
+  const nppesFirstName = useWatch({
+    control: nppesSearchForm.control,
+    name: "firstName",
+  });
+  const physFirstName = useWatch({
+    control: addNetworkPhysicianForm.control,
+    name: "physInfo.firstName",
+  });
   const watchFirstName =
-    sheetState === "advanced"
-      ? nppesSearchForm.watch("firstName")
-      : addNetworkPhysicianForm.watch("physInfo.firstName");
+    sheetState === "advanced" ? nppesFirstName : physFirstName;
+
+  const nppesLastName = useWatch({
+    control: nppesSearchForm.control,
+    name: "lastName",
+  });
+  const physLastName = useWatch({
+    control: addNetworkPhysicianForm.control,
+    name: "physInfo.lastName",
+  });
   const watchLastName =
-    sheetState === "advanced"
-      ? nppesSearchForm.watch("lastName")
-      : addNetworkPhysicianForm.watch("physInfo.lastName");
-  const watchCity =
-    sheetState === "advanced" ? nppesSearchForm.watch("city") : "";
-  const watchState =
-    sheetState === "advanced" ? nppesSearchForm.watch("state") : "";
-  const watchZip =
-    sheetState === "advanced" ? nppesSearchForm.watch("zip") : "";
+    sheetState === "advanced" ? nppesLastName : physLastName;
+
+  const nppesCity = useWatch({
+    control: nppesSearchForm.control,
+    name: "city",
+  });
+  const watchCity = sheetState === "advanced" ? nppesCity : "";
+
+  const nppesState = useWatch({
+    control: nppesSearchForm.control,
+    name: "state",
+  });
+  const watchState = sheetState === "advanced" ? nppesState : "";
+
+  const nppesZip = useWatch({
+    control: nppesSearchForm.control,
+    name: "zip",
+  });
+  const watchZip = sheetState === "advanced" ? nppesZip : "";
+
+  const nppesTaxonomy = useWatch({
+    control: nppesSearchForm.control,
+    name: "taxonomy",
+  });
+  const physTaxonomy = useWatch({
+    control: addNetworkPhysicianForm.control,
+    name: "physInfo.primaryTaxonomyCode",
+  });
   const watchTaxonomyDesc =
-    sheetState === "advanced"
-      ? nppesSearchForm.watch("taxonomy")
-      : addNetworkPhysicianForm.watch("physInfo.primaryTaxonomyCode");
+    sheetState === "advanced" ? nppesTaxonomy : physTaxonomy;
 
   const {
     openErrorDialog,
@@ -225,8 +261,7 @@ export function AddNetworkPhysicianProvider({
       toast("Success", {
         description: "The physician has been created successfully.",
       });
-      resetAllForms();
-      setSheetOpen(false);
+      handleSheetOpenChange(false);
     },
     onError: ({ error }) => {
       openErrorDialog(
@@ -388,13 +423,6 @@ export function AddNetworkPhysicianProvider({
     });
   }, [debouncedValue]);
 
-  useEffect(() => {
-    if (nppesApiResponseData.length > 0) {
-      setSheetState("search");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   // Create the context value with explicit typing
   const contextValue: AddNetworkPhysicianContextType = {
     addNetworkPhysicianForm,
@@ -411,12 +439,11 @@ export function AddNetworkPhysicianProvider({
     practices,
     facilities,
     vendors,
-    setNppesSearchSelection,
+    handleNppesSelection,
     sheetOpen,
-    setSheetOpen,
+    setSheetOpen: handleSheetOpenChange,
     sheetState,
     setSheetState,
-    nppesSearchSelection,
     nppesSearchForm,
     nppesApiResponseData: nppesApiResponseData,
     isNppesSearchPending,
