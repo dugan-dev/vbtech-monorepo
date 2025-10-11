@@ -17,7 +17,7 @@
     "query-string": "9.3.1"
   },
   "devDependencies": {
-    "@types/react": "19.2.0",
+    "@types/react": "19.2.2",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "eslint": "9.37.0",
