@@ -31,6 +31,16 @@ type props = {
   isActionPending?: boolean;
 };
 
+/**
+ * Render a modal dialog for creating or editing a user.
+ *
+ * @param user - Optional existing user; when provided the dialog is in edit mode
+ * @param open - Whether the dialog is visible
+ * @param setIsOpen - Callback to update the dialog's open state
+ * @param setIsActionPending - Optional callback to mark an action as pending (used by the form)
+ * @param isActionPending - Optional flag indicating whether a save action is in progress
+ * @returns A React element that displays the user form dialog with fields for name, email, type, client access, and permissions
+ */
 export function UserDialog({
   user,
   open,

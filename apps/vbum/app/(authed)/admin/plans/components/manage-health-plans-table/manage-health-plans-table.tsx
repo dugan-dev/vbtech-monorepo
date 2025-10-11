@@ -17,12 +17,12 @@ type props = {
 };
 
 /**
- * Displays a table of health plans or an empty state with an option to add a new plan.
+ * Render a table of health plans or an empty state and provide an admin-only dialog to add a new plan.
  *
- * Renders a data table of health plans if any exist; otherwise, shows an empty state encouraging users to add the first plan. The option to add a new health plan is only available to users with admin privileges, the "internal" user type, and the "edit" role.
+ * When `plans` is empty, displays an empty view prompting to add the first plan; otherwise displays a data table of the provided plans. In both states, the add-new dialog is shown only to users with admin privileges.
  *
- * @param plans - The list of health plans to display.
- * @param clientPubId - The public identifier for the client, used when adding a new health plan.
+ * @param plans - Array of health plans to display.
+ * @param clientPubId - Public client identifier passed to the add-new health plan dialog.
  */
 export function ManageHealthPlansTable({ plans, clientPubId }: props) {
   if (plans.length === 0) {

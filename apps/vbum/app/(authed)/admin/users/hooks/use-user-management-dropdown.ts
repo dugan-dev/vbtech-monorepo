@@ -17,17 +17,12 @@ type props = {
 };
 
 /**
- * Provides state and handlers for managing user account actions within a dropdown interface.
+ * Manage UI state and action handlers for enabling, disabling, and forcing a user's password change from a dropdown.
  *
- * This hook encapsulates the logic for enabling, disabling, and forcing a password change on a user account.
- * It manages local UI states (e.g., showing an edit user sheet, pending action indicator, temporary password visibility)
- * and integrates with asynchronous action handlers and confirmation dialogs to perform user administration operations.
- *
- * @param accountStatus - The current status of the user's account (e.g., "ENABLED", "DISABLED"), determining available actions.
- * @param confirmationStatus - The current confirmation status affecting the execution of certain actions.
- * @param userId - The unique identifier of the user whose account actions are being managed.
- *
- * @returns An object containing state variables and functions for handling user administration actions and dialogs.
+ * @param accountStatus - Current account state (e.g., `"ENABLED"` or `"DISABLED"`) which determines available actions.
+ * @param confirmationStatus - Current confirmation state (e.g., `"CONFIRMED"`) that can restrict force-password-change availability.
+ * @param userId - The identifier of the target user for the actions.
+ * @returns An object with dialog and error state, temporary password visibility, action pending state, setters, and handlers to open/confirm/cancel enable, disable, and force-password-change flows (handlers omitted when not applicable for the given statuses).
  */
 export function useUserManagementDropdown({
   accountStatus,

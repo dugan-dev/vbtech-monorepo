@@ -20,7 +20,14 @@ import { generateTempPassword } from "../utils/generate-temp-password";
 
 const limit = 60;
 
-// List users function
+/**
+ * Retrieve and map all users from the configured Cognito user pool.
+ *
+ * Each returned user is mapped to the project's `UserCognito` shape. If the custom app attributes (stored under `APP_ATTRS_NAME`) are present and valid JSON they are parsed into `appAttrs`; if missing or unparsable the `appAttrs` property is omitted. Default values are applied for missing timestamps and confirmation/account status fields.
+ *
+ * @returns An array of `UserCognito` objects representing users in the user pool; `appAttrs` is included only when present and successfully parsed.
+ * @throws Error if fetching the user list from Cognito fails.
+ */
 async function getAllUsers() {
   const command = new ListUsersCommand({
     UserPoolId: env.AWS_COGNITO_USER_POOL_ID,
@@ -119,19 +126,14 @@ async function createUser(
 }
 
 /**
- * Updates an existing user's attributes in the AWS Cognito user pool.
+ * Update a Cognito user's attributes and revalidate the user's cache tag.
  *
- * This function sends an update command to modify a user's email, first name, last name, and custom application attributes.
- * The email is automatically marked as verified.
+ * The update sets the user's email (marked as verified), given name, family name,
+ * and the custom application attributes stored under the configured APP_ATTRS_NAME.
  *
- * @param email - The new email address for the user.
- * @param firstName - The new given name for the user.
- * @param lastName - The new family name for the user.
- * @param appAttrs - A set of custom application attributes.
- * @param userId - The Cognito username of the user to update.
- * @returns A promise resolving to the response from the Cognito client.
- *
- * @throws {Error} If the update operation fails.
+ * @param appAttrs - Custom application attributes to persist for the user.
+ * @param userId - The Cognito username of the user to update (used as `Username`).
+ * @throws Error if the update operation fails.
  */
 async function editUser(
   email: string,

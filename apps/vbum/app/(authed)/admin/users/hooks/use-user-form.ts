@@ -27,15 +27,14 @@ type props = {
 };
 
 /**
- * Provides state and logic for a multi-step user form with validation, submission, and error handling.
+ * Manage a user creation/edit form with validation, submission, and error dialog handling.
  *
- * Supports both user creation and editing workflows, including step navigation, field validation per step, error dialog management, and asynchronous submission with success and error feedback. Exposes form state, navigation controls, and pending status for UI integration.
+ * Initializes form default values from an optional existing user, performs Zod-based validation, submits create or edit actions, shows success toasts, and exposes error dialog controls.
  *
- * @param onSuccess - Optional callback invoked after successful user creation or update.
- * @param user - Optional existing user data; if provided, the form initializes in edit mode.
- * @param setIsSubmitting - Optional setter to control external submission state.
- *
- * @returns An object containing the form instance, submission handler, step navigation and validation functions, error dialog controls, current step state, and pending status indicators.
+ * @param onSuccess - Optional callback invoked after a successful create or update.
+ * @param user - Optional existing user object; when provided the form is initialized for editing.
+ * @param setIsSubmitting - Optional setter to reflect external submitting state.
+ * @returns An object containing the form instance, the `onSubmit` handler, create/edit pending flags, and error dialog state and controls (`isErrorDialogOpen`, `errorMsg`, `errorTitle`, `closeErrorDialog`).
  */
 export function useUserForm({ onSuccess, user, setIsSubmitting }: props) {
   const [selectedUserType, setSelectedUserType] = useState<UserType | null>(
