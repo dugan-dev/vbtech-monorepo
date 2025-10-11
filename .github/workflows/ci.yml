@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    environment: production
+    environment: Production
     name: Build
     timeout-minutes: 15
     runs-on: ubuntu-latest
