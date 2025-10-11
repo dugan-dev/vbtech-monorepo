@@ -25,7 +25,7 @@ import {
 import { UserCognito } from "@/types/user-cognito";
 
 import { useUserManagementDropdown } from "../../hooks/use-user-management-dropdown";
-import { EditUserSheet } from "../edit-user-sheet";
+import { UserDialog } from "../user-dialog";
 
 type props = {
   accountStatus: string;
@@ -75,11 +75,11 @@ export function UserManagementDropdown({
     confirmForceChangePasswordDialogMsg,
     cancelForceChangePassword,
     confirmForceChangePassword,
-    openEditUserSheet,
-    setOpenEditUserSheet,
+    openUserDialog,
+    setOpenUserDialog,
     isActionPending,
     setIsActionPending,
-    showEditUserSheet,
+    showOpenUserDialog,
   } = useUserManagementDropdown({
     accountStatus,
     confirmationStatus,
@@ -118,13 +118,13 @@ export function UserManagementDropdown({
         description={errorMsg}
       />
 
-      {showEditUserSheet && (
-        <EditUserSheet
-          open={openEditUserSheet}
-          onOpenChange={setOpenEditUserSheet}
+      {showOpenUserDialog && (
+        <UserDialog
+          open={openUserDialog}
+          setIsOpen={setOpenUserDialog}
+          user={user}
           isActionPending={isActionPending}
           setIsActionPending={setIsActionPending}
-          user={user}
         />
       )}
 
@@ -158,7 +158,7 @@ export function UserManagementDropdown({
           {accountStatus === "ENABLED" && (
             <DropdownMenuItem
               disabled={isActionPending}
-              onClick={() => setOpenEditUserSheet(true)}
+              onClick={() => setOpenUserDialog(true)}
             >
               Edit User
             </DropdownMenuItem>

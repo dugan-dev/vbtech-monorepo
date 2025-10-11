@@ -9,7 +9,7 @@ import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserType } from "@/types/user-type";
 import { authedActionClient } from "@/lib/safe-action";
 
-import { UserFormSchema } from "../component/user-form/user-form-schema";
+import { UserFormSchema } from "../component/user-form-schema";
 import { insertUser } from "../repos/insert-user";
 import { createUser } from "../repos/user-management-repository";
 
@@ -23,7 +23,7 @@ export const createUserAction = authedActionClient
     actionName: "createUserAction",
     adminOnly: true,
   })
-  .schema(actionSchema)
+  .inputSchema(actionSchema)
   .action(async ({ parsedInput: { formData, revalidationPath }, ctx }) => {
     // Create user attributes
     const appAttrs: UserAppAttrs = {
@@ -31,11 +31,7 @@ export const createUserAction = authedActionClient
       admin: formData.admin,
       super: formData.super,
       type: formData.type as UserType,
-      ids: formData.ids.map((id) => ({
-        id: id.id,
-        userMode: id.userMode,
-        userRoles: id.userRoles,
-      })),
+      ids: formData.ids.map((id) => ({ id, userMode: "", userRoles: [] })),
     };
 
     // Create user in Cognito

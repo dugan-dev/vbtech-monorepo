@@ -1,14 +1,12 @@
 import * as z from "zod";
 
-import { UserModeEnum } from "@/types/user-mode";
-import { UserRoleEnum } from "@/types/user-role";
 import { UserTypeEnum } from "@/types/user-type";
 
 // Define the raw form input type (what react-hook-form will work with)
 const UserFormSchema = z.object({
   firstName: z.string().min(1, "Required"),
   lastName: z.string().min(1, "Required"),
-  email: z.string().min(1, "Required").email("Invalid email address"),
+  email: z.email("Invalid email address").min(1, "Required"),
   type: UserTypeEnum.or(z.literal("")).superRefine((val, ctx) => {
     if (val === "") {
       ctx.issues.push({
@@ -21,15 +19,7 @@ const UserFormSchema = z.object({
   }),
   super: z.boolean(),
   admin: z.boolean(),
-  ids: z
-    .array(
-      z.object({
-        id: z.string(),
-        userMode: UserModeEnum,
-        userRoles: z.array(UserRoleEnum),
-      }),
-    )
-    .min(1, "Required"),
+  ids: z.array(z.string()).min(1, "Required"),
 });
 
 type UserFormData = z.infer<typeof UserFormSchema>;

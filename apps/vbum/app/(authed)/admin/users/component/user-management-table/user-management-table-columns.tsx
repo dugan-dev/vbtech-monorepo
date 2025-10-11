@@ -198,21 +198,15 @@ export const UserManagementTableColumns: ColumnDef<UserCognito>[] = [
     cell: ({ row }) => {
       const accountStatus = row.original.accountStatus;
       const confirmationStatus = row.original.confirmationStatus;
-      const hasAppAttrs = row.original.appAttrs !== undefined;
-
-      if (hasAppAttrs) {
-        return (
-          <RestrictByUserAppAttrsClient adminOnly>
-            <UserManagementDropdown
-              accountStatus={accountStatus}
-              confirmationStatus={confirmationStatus}
-              user={row.original}
-            />
-          </RestrictByUserAppAttrsClient>
-        );
-      } else {
-        return null;
-      }
+      return (
+        <RestrictByUserAppAttrsClient adminOnly>
+          <UserManagementDropdown
+            accountStatus={accountStatus}
+            confirmationStatus={confirmationStatus}
+            user={row.original}
+          />
+        </RestrictByUserAppAttrsClient>
+      );
     },
   },
 ];

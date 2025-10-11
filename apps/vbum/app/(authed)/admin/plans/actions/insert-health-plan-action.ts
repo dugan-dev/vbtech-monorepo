@@ -5,8 +5,6 @@ import "server-only";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-import { UserRole } from "@/types/user-role";
-import { UserType } from "@/types/user-type";
 import { newPubId } from "@/lib/nanoid";
 import { authedActionClient } from "@/lib/safe-action";
 
@@ -19,17 +17,12 @@ const schema = z.object({
   clientPubId: z.string(),
 });
 
-const ALLOWED_USER_TYPES: UserType[] = ["internal"];
-
-const REQUIRED_USER_ROLE: UserRole = "admin";
-
 export const insertHealthPlanAction = authedActionClient
   .metadata({
     actionName: "insertHealthPlanAction",
-    allowedTypes: ALLOWED_USER_TYPES,
     adminOnly: true,
   })
-  .schema(schema)
+  .inputSchema(schema)
   .action(
     async ({
       parsedInput: { formData, revalidationPath, clientPubId },
@@ -38,18 +31,7 @@ export const insertHealthPlanAction = authedActionClient
       // New PubId for the new HealthPlan
       const pubId = newPubId();
 
-      const { userId, usersAppAttrs } = ctx;
-
-      const clientPermissions = usersAppAttrs.ids?.find(
-        (id) => id.id === clientPubId,
-      );
-
-      if (
-        !clientPermissions ||
-        !clientPermissions.userRoles.includes(REQUIRED_USER_ROLE)
-      ) {
-        throw new Error("User does not have permission to edit this Client.");
-      }
+      const { userId } = ctx;
 
       // Insert health plan
       await insertHealthPlan({

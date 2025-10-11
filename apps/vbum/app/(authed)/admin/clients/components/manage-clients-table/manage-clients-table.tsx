@@ -6,18 +6,21 @@ import { DataTable } from "@workspace/ui/components/data-table/data-table";
 import { EmptyView } from "@workspace/ui/components/empty-view";
 
 import { Client } from "@/types/client";
-import { UserType } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
 import { ClientDialog } from "../client-dialog";
 import { ManageClientsTableColumns } from "./manage-clients-table-columns";
 
-const ALLOWED_USER_TYPES: UserType[] = ["internal"];
-
 type props = {
   clients: Client[];
 };
 
+/**
+ * Render a clients management UI that shows either a data table of clients or an empty-state prompting to add the first client.
+ *
+ * @param clients - Array of client records to display in the table
+ * @returns A React element that displays a data table of clients when `clients` is non-empty; otherwise an empty-state view with an add-client dialog restricted to admin users.
+ */
 export function ManageClientsTable({ clients }: props) {
   if (clients.length === 0) {
     return (
@@ -42,10 +45,7 @@ export function ManageClientsTable({ clients }: props) {
         enableGlobalSearch: true,
       }}
       itemsAboveTable={
-        <RestrictByUserAppAttrsClient
-          adminOnly
-          allowedUserTypes={ALLOWED_USER_TYPES}
-        >
+        <RestrictByUserAppAttrsClient adminOnly>
           <ClientDialog />
         </RestrictByUserAppAttrsClient>
       }

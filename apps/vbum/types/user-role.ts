@@ -1,14 +1,11 @@
 import { z } from "zod";
 
-type UserRole = "nurse" | "manager" | "admin" | "reporting";
+type UserRole = "";
 
-const UserRoles = ["nurse", "manager", "admin", "reporting"] as const;
+const UserRoles = [""] as const;
 
 const UserRoleLabels = {
-  nurse: "Nurse",
-  manager: "Manager",
-  admin: "Admin",
-  reporting: "Reporting",
+  "": "",
 } as const;
 
 const UserRoleEnum = z.enum(UserRoles);

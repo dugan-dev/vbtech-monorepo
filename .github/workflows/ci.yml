@@ -8,15 +8,31 @@ on:
 
 jobs:
   build:
-    environment: production
+    environment: Production
     name: Build
     timeout-minutes: 15
     runs-on: ubuntu-latest
+
     env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
       NEXT_TELEMETRY_DISABLED: "1"
       TURBO_TELEMETRY_DISABLED: "1"
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
+      # DB
+      DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+      DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+
+      # AWS / app config
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+      AWS_COGNITO_USER_POOL_ID: ${{ secrets.AWS_COGNITO_USER_POOL_ID }}
+      NEXT_PUBLIC_TIMEZONE: ${{ vars.NEXT_PUBLIC_TIMEZONE }}
+      PAYLOAD_SECRET_KEY: ${{ secrets.PAYLOAD_SECRET_KEY }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
 
     steps:
       - name: Check out code
@@ -32,25 +48,23 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 22
-          cache: "pnpm"
+          cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      # NEW: ensure Next apps see DB vars via dotenv
+      - name: Write .env.production for Next apps that need DB
+        run: |
+          for app in apps/vbcall apps/vbum apps/vbpay; do
+            if [ -d "$app" ]; then
+              {
+                echo "DATABASE_HOST=${DATABASE_HOST}"
+                echo "DATABASE_USERNAME=${DATABASE_USERNAME}"
+                echo "DATABASE_PASSWORD=${DATABASE_PASSWORD}"
+              } > "$app/.env.production"
+            fi
+          done
 
       - name: Build
         run: pnpm turbo build
-        env:
-          NODE_ENV: production
-          # Configuration variables
-          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-          AWS_REGION: ${{ vars.AWS_REGION }}
-          NEXT_PUBLIC_TIMEZONE: ${{ vars.NEXT_PUBLIC_TIMEZONE }}
-          # Secrets provided at runtime only
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          AWS_COGNITO_USER_POOL_ID: ${{ secrets.AWS_COGNITO_USER_POOL_ID }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          PAYLOAD_SECRET_KEY: ${{ secrets.PAYLOAD_SECRET_KEY }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}

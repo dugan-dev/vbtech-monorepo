@@ -9,7 +9,7 @@ import { UserAppAttrs } from "@/types/user-app-attrs";
 import { UserType } from "@/types/user-type";
 import { authedActionClient } from "@/lib/safe-action";
 
-import { UserFormSchema } from "../component/user-form/user-form-schema";
+import { UserFormSchema } from "../component/user-form-schema";
 import { updateUser } from "../repos/update-user";
 import { editUser } from "../repos/user-management-repository";
 
@@ -21,7 +21,7 @@ const actionSchema = z.object({
 
 export const editUserAction = authedActionClient
   .metadata({ actionName: "editUserAction", adminOnly: true })
-  .schema(actionSchema)
+  .inputSchema(actionSchema)
   .action(
     async ({ parsedInput: { formData, userId, revalidationPath }, ctx }) => {
       // Create user attributes
@@ -30,11 +30,7 @@ export const editUserAction = authedActionClient
         admin: formData.admin,
         super: formData.super,
         type: formData.type as UserType,
-        ids: formData.ids.map((id) => ({
-          id: id.id,
-          userMode: id.userMode,
-          userRoles: id.userRoles,
-        })),
+        ids: formData.ids.map((id) => ({ id, userMode: "", userRoles: [] })),
       };
 
       await Promise.all([
