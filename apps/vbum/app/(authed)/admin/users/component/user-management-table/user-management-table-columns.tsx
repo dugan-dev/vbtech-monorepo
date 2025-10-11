@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { ColumnDef } from "@tanstack/table-core";
 
 import { Badge } from "@workspace/ui/components/badge";
@@ -16,6 +17,7 @@ import { UserTypeLabels } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 import { UserTypeIcon } from "@/components/user-type-icon";
 
+import { UserDialog } from "../user-dialog";
 import { UserManagementDropdown } from "./user-management-dropdown";
 
 export const UserManagementTableColumns: ColumnDef<UserCognito>[] = [
@@ -198,21 +200,15 @@ export const UserManagementTableColumns: ColumnDef<UserCognito>[] = [
     cell: ({ row }) => {
       const accountStatus = row.original.accountStatus;
       const confirmationStatus = row.original.confirmationStatus;
-      const hasAppAttrs = row.original.appAttrs !== undefined;
-
-      if (hasAppAttrs) {
-        return (
-          <RestrictByUserAppAttrsClient adminOnly>
-            <UserManagementDropdown
-              accountStatus={accountStatus}
-              confirmationStatus={confirmationStatus}
-              user={row.original}
-            />
-          </RestrictByUserAppAttrsClient>
-        );
-      } else {
-        return null;
-      }
+      return (
+        <RestrictByUserAppAttrsClient adminOnly>
+          <UserManagementDropdown
+            accountStatus={accountStatus}
+            confirmationStatus={confirmationStatus}
+            user={row.original}
+          />
+        </RestrictByUserAppAttrsClient>
+      );
     },
   },
 ];

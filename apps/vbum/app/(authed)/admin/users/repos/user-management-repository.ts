@@ -2,7 +2,7 @@ import "server-only";
 
 import { revalidateTag } from "next/cache";
 import { env } from "@/env/server";
-import { USERS_DATA_CACHE_TAG } from "@/repos/user-repository";
+import { APP_ATTRS_NAME, USERS_DATA_CACHE_TAG } from "@/repos/user-repository";
 import {
   AdminCreateUserCommand,
   AdminDisableUserCommand,
@@ -40,11 +40,11 @@ async function getAllUsers() {
         app: "",
         super: false,
         admin: false,
-        type: "internal", // Default value from UserType
+        type: "reporting", // Default value from UserType
       };
 
       try {
-        const appAttrsStr = findAttr("custom:app3:attrs");
+        const appAttrsStr = findAttr(APP_ATTRS_NAME);
         if (appAttrsStr) {
           hasAppAttrs = true;
           appAttrs = JSON.parse(appAttrsStr) as UserAppAttrs;
@@ -161,7 +161,7 @@ async function editUser(
         Value: lastName,
       },
       {
-        Name: "custom:app2:attrs",
+        Name: APP_ATTRS_NAME,
         Value: JSON.stringify(appAttrs),
       },
     ],

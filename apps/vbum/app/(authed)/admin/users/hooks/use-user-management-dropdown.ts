@@ -36,7 +36,7 @@ export function useUserManagementDropdown({
 }: props) {
   const revalidationPath = usePathname();
 
-  const [openEditUserSheet, setOpenEditUserSheet] = useState(false);
+  const [openUserDialog, setOpenUserDialog] = useState(false);
   const [isActionPending, setIsActionPending] = useState(false);
   const [tempPassword, setTempPassword] = useState("");
   const [showTempPassword, setShowTempPassword] = useState(false);
@@ -203,7 +203,7 @@ export function useUserManagementDropdown({
       accountStatus === "ENABLED" && confirmationStatus !== "CONFIRMED"
         ? handleForceChangePassword
         : undefined,
-    showEditUserSheet: accountStatus === "ENABLED",
+    showOpenUserDialog: accountStatus === "ENABLED",
     isConfirmEnableUserDialogOpen,
     confirmEnableUserDialogTitle,
     confirmEnableUserDialogMsg,
@@ -219,8 +219,8 @@ export function useUserManagementDropdown({
     confirmForceChangePasswordDialogMsg,
     cancelForceChangePassword,
     confirmForceChangePassword,
-    openEditUserSheet,
-    setOpenEditUserSheet,
+    setOpenUserDialog,
+    openUserDialog,
     isActionPending,
     setIsActionPending,
   };

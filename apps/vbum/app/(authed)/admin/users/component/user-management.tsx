@@ -2,6 +2,8 @@ import "server-only";
 
 import { getAllClients } from "@/repos/clients-repository";
 
+import { UserTypeLabels, UserTypes } from "@/types/user-type";
+
 import { UserManagementContextProvider } from "../contexts/user-management-context";
 import { getAllUsers } from "../repos/user-management-repository";
 import { getLastUserSync } from "../repos/user-sync-repository";
@@ -19,12 +21,18 @@ export async function UserManagement() {
     value: client.pubId,
   }));
 
+  const userTypesCombo = UserTypes.map((ut) => ({
+    label: UserTypeLabels[ut],
+    value: ut,
+  }));
+
   return (
     <div className="mb-4 flex flex-1 flex-col gap-4">
       <UserManagementContextProvider
         clients={clientsCombo}
         lastUserSync={lastUserSync?.lastSyncAt}
         users={users}
+        userTypes={userTypesCombo}
       >
         <UserManagementTable />
       </UserManagementContextProvider>

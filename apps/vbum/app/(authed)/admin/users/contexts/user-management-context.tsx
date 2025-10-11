@@ -8,6 +8,7 @@ import { UserCognito } from "@/types/user-cognito";
 
 type UserManagementContextType = {
   users: UserCognito[];
+  userTypes: ComboItem[];
   clients: ComboItem[];
   lastUserSync?: Date;
 };
@@ -29,18 +30,22 @@ export function useUserManagementContext() {
 type props = {
   users: UserCognito[];
   clients: ComboItem[];
+  userTypes: ComboItem[];
   lastUserSync?: Date;
   children: React.ReactNode;
 };
 
 export function UserManagementContextProvider({
   clients,
+  userTypes,
   lastUserSync,
   users,
   children,
 }: props) {
   return (
-    <UserManagementContext.Provider value={{ clients, lastUserSync, users }}>
+    <UserManagementContext.Provider
+      value={{ clients, lastUserSync, users, userTypes }}
+    >
       {children}
     </UserManagementContext.Provider>
   );
