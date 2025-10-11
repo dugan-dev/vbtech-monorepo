@@ -57,8 +57,6 @@ export function useUserForm({ onSuccess, user, setIsSubmitting }: props) {
       }
     : UserFormDefaultValues;
 
-  console.log(defaultValues);
-
   const form = useForm<UserFormInput>({
     resolver: zodResolver(UserFormSchema),
     defaultValues,

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { ColumnDef } from "@tanstack/table-core";
 
 import { Badge } from "@workspace/ui/components/badge";
@@ -17,7 +16,6 @@ import { UserTypeLabels } from "@/types/user-type";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 import { UserTypeIcon } from "@/components/user-type-icon";
 
-import { UserDialog } from "../user-dialog";
 import { UserManagementDropdown } from "./user-management-dropdown";
 
 export const UserManagementTableColumns: ColumnDef<UserCognito>[] = [
