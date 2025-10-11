@@ -6,9 +6,9 @@ import {
   Kysely,
   replaceWithNoncontingentExpression,
 } from "kysely";
+import { PlanetScaleDialect } from "kysely-planetscale";
 
 import { DB } from "@workspace/vbum-db/types";
-import { PlanetScaleDialect } from "kysely-planetscale";
 
 const dialect = new PlanetScaleDialect({
   host: process.env.DATABASE_HOST,

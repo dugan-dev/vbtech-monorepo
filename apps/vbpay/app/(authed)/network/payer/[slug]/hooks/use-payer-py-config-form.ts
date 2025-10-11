@@ -4,7 +4,7 @@ import { useUserContext } from "@/contexts/user-context";
 import { canUserEditPayer } from "@/utils/can-user-edit-payer";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 
 import { useErrorDialog } from "@workspace/ui/hooks/use-error-dialog";
@@ -90,11 +90,20 @@ export function useSteppedPayerPyConfigForm({
     mode: "onChange",
   });
 
+  // Watch form fields using useWatch hook for React Compiler compatibility
+  const basicInfoFields = useWatch({
+    control: form.control,
+    name: "basicInfo",
+  });
+  const physAssignmentFields = useWatch({
+    control: form.control,
+    name: "physAssignment",
+  });
+
   // Non-async function that can be passed as prop
   const isStepValid = (step: number) => {
     if (step === 1) {
       // Check if there are any errors in the basicInfo fields
-      const basicInfoFields = form.watch("basicInfo");
       const hasBasicInfoErrors =
         Object.keys(form.formState.errors).filter((key) =>
           key.startsWith("basicInfo"),
@@ -103,7 +112,6 @@ export function useSteppedPayerPyConfigForm({
       return basicInfoFields && !hasBasicInfoErrors;
     } else if (step === 2) {
       // Check if there are any errors in the physAssignment fields
-      const physAssignmentFields = form.watch("physAssignment");
       const hasPhysAssignmentErrors =
         Object.keys(form.formState.errors).filter((key) =>
           key.startsWith("physAssignment"),

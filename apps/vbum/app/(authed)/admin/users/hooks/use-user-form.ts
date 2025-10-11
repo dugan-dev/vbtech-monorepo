@@ -2,7 +2,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 
 import { useDidMountEffect } from "@workspace/ui/hooks/use-did-mount-effect";
@@ -62,8 +62,7 @@ export function useUserForm({ onSuccess, user, setIsSubmitting }: props) {
     mode: "onChange",
   });
 
-  const { watch } = form;
-  const type = watch("type");
+  const type = useWatch({ control: form.control, name: "type" });
 
   const {
     openErrorDialog,

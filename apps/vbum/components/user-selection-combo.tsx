@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useEffect, useRef, useState } from "react";
+import { startTransition, useState } from "react";
 import { updateUserSelectionSlugAction } from "@/actions/update-user-selection-slug-action";
 import { Check, ChevronsUpDown, Lock, Unlock } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
@@ -52,14 +52,16 @@ export function UserSelectionCombo({
   const [cId, setCId] = useQueryState(
     "cId",
     parseAsString
-      .withDefault("")
+      .withDefault(defaultLock && slug ? slug : "")
       .withOptions({ startTransition, shallow: false }),
   );
   const [open, setOpen] = useState(false);
   const instructText = "Select Client...";
   const placehold = "Search...";
   const notFound = "Client Not Found";
-  const [isLocked, setIsLocked] = useState(defaultLock);
+  const [isLocked, setIsLocked] = useState(() => {
+    return defaultLock && Boolean(slug);
+  });
 
   const {
     openErrorDialog,
@@ -82,16 +84,6 @@ export function UserSelectionCombo({
     },
   });
 
-  const hasInitialized = useRef(false);
-
-  useEffect(() => {
-    if (!hasInitialized.current && slug && slug !== cId && defaultLock) {
-      hasInitialized.current = true;
-      setIsLocked(true);
-      // Force immediate update without transition
-      setCId(slug, { shallow: true });
-    }
-  }, [slug, cId, defaultLock, setCId]);
   function toggleLock() {
     if (isLocked) {
       execute({ slug: "" });

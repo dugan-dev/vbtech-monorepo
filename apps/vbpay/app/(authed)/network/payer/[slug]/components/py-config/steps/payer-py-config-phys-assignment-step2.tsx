@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import { FormCombo } from "@workspace/ui/components/form/form-combo";
 import { FormSwitch } from "@workspace/ui/components/form/form-switch";
@@ -30,9 +30,11 @@ type props = {
  * @param isSubmitting - Indicates whether the form submission is in progress.
  */
 export function PayerPyConfigPhysAssignmentStep2({ isSubmitting }: props) {
-  "use no memo"; // react compiler was memoizing watch so it was not updating
-  const { control, watch } = useFormContext<PayerPyConfigFormData>();
-  const watchIsPhysAssignmentRequired = watch("physAssignment.isRequired");
+  const { control } = useFormContext<PayerPyConfigFormData>();
+  const watchIsPhysAssignmentRequired = useWatch({
+    control,
+    name: "physAssignment.isRequired",
+  });
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-6">

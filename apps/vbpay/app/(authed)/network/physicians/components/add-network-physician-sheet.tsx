@@ -38,7 +38,7 @@ export function AddNetworkPhysicianSheet() {
     errorMsg,
     errorTitle,
     closeErrorDialog,
-    setNppesSearchSelection,
+    handleNppesSelection,
     nppesApiResponseData,
     isNppesSearchPending,
   } = useAddNetworkPhysicianContext();
@@ -113,7 +113,7 @@ export function AddNetworkPhysicianSheet() {
               <NppesNetworkPhysicianResultsTable
                 nppesResults={nppesApiResponseData}
                 handleReturnFormData={(data) => {
-                  setNppesSearchSelection(data);
+                  handleNppesSelection(data);
                 }}
               />
             )}

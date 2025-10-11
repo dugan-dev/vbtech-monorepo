@@ -87,9 +87,12 @@ export function UserSelectionCombo({
   useEffect(() => {
     if (!hasInitialized.current && slug && slug !== cId && defaultLock) {
       hasInitialized.current = true;
-      setIsLocked(true);
       // Force immediate update without transition
       setCId(slug, { shallow: true });
+      // Use startTransition to defer state update and avoid synchronous setState in effect
+      startTransition(() => {
+        setIsLocked(true);
+      });
     }
   }, [slug, cId, defaultLock, setCId]);
   function toggleLock() {

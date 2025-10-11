@@ -55,9 +55,7 @@ export function useDataTable<TData, TValue>({
   utils,
   meta,
 }: props<TData, TValue>) {
-  // tanstack/react-table is not compatible with react compilier so we need to opt-out of automatic memoization.
   "use no memo";
-
   const fuzzyFilter: FilterFn<TData> = (row, columnId, value, addMeta) => {
     // Rank the item
     const itemRank = rankItem(row.getValue(columnId), value);
@@ -67,6 +65,9 @@ export function useDataTable<TData, TValue>({
     return itemRank.passed;
   };
 
+  // TanStack React Table is not compatible with React Compiler automatic memoization
+  // because it returns functions that reference internal state, making them unsafe to memoize
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,

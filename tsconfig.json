@@ -1,4 +1,10 @@
 {
-  "extends": "@workspace/typescript-config/base.json"
+  "extends": "@workspace/typescript-config/base.json",
+  "exclude": [
+    ".sst",
+    ".sst/**",
+    "**/.sst/**",
+    "node_modules",
+    "**/*node_modules/**"
+  ]
 }
-

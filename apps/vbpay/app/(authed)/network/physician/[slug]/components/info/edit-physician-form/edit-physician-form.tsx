@@ -63,7 +63,6 @@ export function EditPhysicianForm({
   isEditing,
   setIsEditing,
 }: props) {
-  "use no memo";
   const {
     form,
     onSubmit,
