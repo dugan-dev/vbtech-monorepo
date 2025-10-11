@@ -12,9 +12,9 @@ type props = {
 };
 
 /**
- * Render an icon that corresponds to a user's role.
+ * Render an icon that corresponds to a user type.
  *
- * @param userType - The user role to display an icon for. For:
+ * @param userType - The user type to display an icon for. For:
  *   - `"nurse"` → HeartPulse icon
  *   - `"ops"` → SquareActivity icon
  *   - `"auditor"` → ShieldCheck icon
