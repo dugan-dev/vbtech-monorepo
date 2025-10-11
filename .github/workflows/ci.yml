@@ -37,6 +37,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Verify DB envs exist (no values printed)
+        run: |
+          for v in DATABASE_HOST DATABASE_USERNAME DATABASE_PASSWORD; do
+          if [ -z "${!v}" ]; then
+            echo "::error::$v is empty in the job environment"
+            exit 1
+          else
+            echo "$v is set ✔"
+          fi
+          done
+        env:
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+
       - name: Build
         run: pnpm turbo build
         env:
