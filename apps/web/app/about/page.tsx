@@ -8,9 +8,12 @@ import {
 } from "@workspace/ui/components/avatar";
 import { Card } from "@workspace/ui/components/card";
 
+import { HLTHBanner } from "@/components/hlth2025-banner";
+
 export default function Page() {
   return (
     <div className="mt-20 flex flex-col items-center flex-1">
+      <HLTHBanner />
       <section className="py-12">
         <div className="container px-4 md:px-6">
           <div className="grid gap-10 sm:px-10 md:grid-cols-2 md:gap-16">
