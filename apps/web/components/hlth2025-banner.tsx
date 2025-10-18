@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@workspace/ui/components/button";
 
@@ -40,7 +41,7 @@ export function HLTHBanner() {
             asChild
             className="bg-white hover:bg-white/90 text-[#6B2FE0] font-semibold shrink-0"
           >
-            <a href="/contact">Get in Touch</a>
+            <Link href="/contact">Get in Touch</Link>
           </Button>
         </div>
       </div>
