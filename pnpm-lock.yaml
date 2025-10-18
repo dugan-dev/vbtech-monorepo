@@ -505,8 +505,8 @@ importers:
         specifier: 9.3.1
         version: 9.3.1
       rate-limiter-flexible:
-        specifier: 8.0.1
-        version: 8.0.1
+        specifier: 8.1.0
+        version: 8.1.0
       react:
         specifier: 19.2.0
         version: 19.2.0
@@ -645,8 +645,8 @@ importers:
         specifier: 1.5.4
         version: 1.5.4
       rate-limiter-flexible:
-        specifier: 8.0.1
-        version: 8.0.1
+        specifier: 8.1.0
+        version: 8.1.0
       react-hook-form:
         specifier: 7.65.0
         version: 7.65.0(react@19.2.0)
@@ -5580,8 +5580,8 @@ packages:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
 
-  rate-limiter-flexible@8.0.1:
-    resolution: {integrity: sha512-UVJdIvGYUDGH9+f3e63dIyOB1wxCLC9CSH09eXLohENGAsxY9PTwI2uJgY6Kj0ULf7x1Aq4FZIGvhJHXJTbdSQ==}
+  rate-limiter-flexible@8.1.0:
+    resolution: {integrity: sha512-J+4xBdVboibP1h0Imn4nFoCLT+UM9Os9vJaWaRWkLsQxS7jrhLJeLlmzP5hyCEsLwtgFIIY5KcWiJGyyVTMaKg==}
 
   raw-body@3.0.0:
     resolution: {integrity: sha512-RmkhL8CAyCRPXCE28MMH0z2PNWQBNk2Q09ZdxM9IOOXwxwZbN+qbWaatPkdkWIKL2ZVDImrN/pK5HTRz2PcS4g==}
@@ -12072,7 +12072,7 @@ snapshots:
 
   range-parser@1.2.1: {}
 
-  rate-limiter-flexible@8.0.1: {}
+  rate-limiter-flexible@8.1.0: {}
 
   raw-body@3.0.0:
     dependencies:
