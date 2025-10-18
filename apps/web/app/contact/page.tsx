@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { HLTHBanner } from "@/components/hlth2025-banner";
+
 import { ContactForm } from "./components/contact-form";
 import { ContactInfo } from "./components/contact-info";
 
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main className="mt-20 flex flex-col flex-1">
+      <HLTHBanner />
       <section className="bg-[#1A3A5A] text-white py-12">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center">

@@ -1,6 +1,9 @@
+import { HLTHBanner } from "@/components/hlth2025-banner";
+
 export default function Page() {
   return (
     <div className="mt-20 flex flex-col items-center flex-1">
+      <HLTHBanner />
       <main className="flex-1 px-6 py-12">
         <div className="container mx-auto max-w-4xl space-y-8">
           <h1 className="text-4xl font-bold">Privacy Policy</h1>
