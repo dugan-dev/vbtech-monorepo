@@ -16,14 +16,14 @@
   },
   "dependencies": {
     "@planetscale/database": "1.19.0",
-    "@prisma/client": "6.17.1",
+    "@prisma/client": "6.18.0",
     "kysely": "0.28.8",
     "kysely-planetscale": "1.7.1",
     "mysql2": "3.15.2",
     "server-only": "0.0.1"
   },
   "devDependencies": {
-    "prisma": "6.17.1",
+    "prisma": "6.18.0",
     "prisma-kysely": "2.2.1"
   },
   "prisma": {
