@@ -32,7 +32,7 @@
     "rate-limiter-flexible": "8.1.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "react-email": "4.3.1",
+    "react-email": "4.3.2",
     "react-hook-form": "7.65.0",
     "resend": "6.2.2",
     "server-only": "0.0.1",
