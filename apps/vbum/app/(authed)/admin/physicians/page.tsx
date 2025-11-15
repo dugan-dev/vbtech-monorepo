@@ -2,7 +2,7 @@ import "server-only";
 
 import { Suspense } from "react";
 import { unauthorized } from "next/navigation";
-import { AdminClients } from "@/routes";
+import { AdminPhysicians } from "@/routes";
 import { checkPageRateLimit } from "@/utils/rate-limiting";
 
 import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
@@ -15,7 +15,7 @@ import { ManagePhysicians } from "./components/manage-physicians";
 export default async function Page() {
   // Get user first, then check rate limiter with user context
   const user = await authenticatedUser();
-  await checkPageRateLimit({ pathname: AdminClients({}), user });
+  await checkPageRateLimit({ pathname: AdminPhysicians({}), user });
 
   if (!user) {
     return unauthorized();
