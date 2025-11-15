@@ -63,7 +63,7 @@ export default async function WorkList() {
     underReview: openCases.filter((c) => c.status === "Under Review").length,
     escalated: openCases.filter((c) => c.mdReview === 1).length,
     closedToday: closedCases.filter(
-      (c) => c.updatedAt.toLocaleString() === new Date().toLocaleString(),
+      (c) => new Date(c.updatedAt).toDateString() === new Date().toDateString(),
     ).length,
   };
 
