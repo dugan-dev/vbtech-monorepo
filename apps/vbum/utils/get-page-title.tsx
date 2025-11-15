@@ -1,6 +1,7 @@
 import {
   AdminClients,
   AdminHealthPlans,
+  AdminPhysicians,
   AdminUsers,
   Dashboard,
   Home,
@@ -28,6 +29,8 @@ export function getPageTitle(pathname: string, slug?: string) {
       return "Manage Clients";
     case AdminHealthPlans({}):
       return "Manage Health Plans";
+    case AdminPhysicians({}):
+      return "Manage Physicians";
     case Dashboard({}):
       return "Dashboard";
     case RateLimit({ secs: 0 }):

@@ -1,10 +1,14 @@
+import { Suspense } from "react";
 import { unauthorized } from "next/navigation";
 import { Home } from "@/routes";
 import { checkPageRateLimit } from "@/utils/rate-limiting";
 
 import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
 
+import { RestrictByUserAppAttrsServer } from "@/components/restrict-by-user-app-attrs-server";
 import { StandardLayout } from "@/components/standard-layout";
+import WorkList from "@/components/worklist/worklist";
+import { WorklistSkeleton } from "@/components/worklist/worklist-skeleton";
 
 /**
  * Serves the home page for authenticated users within rate limits.
@@ -21,7 +25,11 @@ export default async function Page() {
 
   return (
     <StandardLayout>
-      <h1>Home</h1>
+      <RestrictByUserAppAttrsServer userId={user.userId}>
+        <Suspense fallback={<WorklistSkeleton />}>
+          <WorkList />
+        </Suspense>
+      </RestrictByUserAppAttrsServer>
     </StandardLayout>
   );
 }
