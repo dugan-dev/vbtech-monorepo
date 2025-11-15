@@ -17,10 +17,10 @@ type props = {
 };
 
 /**
- * Render a clients management UI that shows either a data table of clients or an empty-state prompting to add the first client.
+ * Render a physicians management UI that shows either a data table of physicians or an empty-state prompting to add the first physician.
  *
- * @param clients - Array of client records to display in the table
- * @returns A React element that displays a data table of clients when `clients` is non-empty; otherwise an empty-state view with an add-client dialog restricted to admin users.
+ * @param physicians - Array of physician records to display in the table
+ * @returns A React element that displays a data table of physicians when `physicians` is non-empty; otherwise an empty-state view with an add-physician dialog restricted to admin users.
  */
 export function ManagePhysiciansTable({ physicians }: props) {
   const { clients } = usePhysicianContext();
