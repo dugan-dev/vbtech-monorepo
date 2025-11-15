@@ -40,7 +40,7 @@ export function WorklistContent({ openCases, closedCases }: props) {
       const matchesStatus =
         statusFilter === "all" || case_.status === statusFilter;
       const matchesClient =
-        clientFilter === "all" || case_.clientName === clientFilter;
+        clientFilter === "all" || case_.clientPubId === clientFilter;
       return matchesSearch && matchesStatus && matchesClient;
     });
   }, [openCases, search, statusFilter, clientFilter]);
@@ -54,7 +54,7 @@ export function WorklistContent({ openCases, closedCases }: props) {
       const matchesStatus =
         statusFilter === "all" || case_.status === statusFilter;
       const matchesClient =
-        clientFilter === "all" || case_.clientName === clientFilter;
+        clientFilter === "all" || case_.clientPubId === clientFilter;
       return matchesSearch && matchesStatus && matchesClient;
     });
   }, [closedCases, search, statusFilter, clientFilter]);
