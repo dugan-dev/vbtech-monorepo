@@ -21,7 +21,7 @@ export function useWorklistContext() {
   const context = useContext(WorklistContext);
   if (!context) {
     throw new Error(
-      "useWorklistContext must be used within a WorlistContextProvider",
+      "useWorklistContext must be used within a WorklistContextProvider",
     );
   }
   return context;
