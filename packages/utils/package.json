@@ -12,6 +12,7 @@
     "@workspace/typescript-config": "workspace:*"
   },
   "exports": {
+    "./format-currency": "./src/format-currency.ts",
     "./format-date": "./src/format-date.ts",
     "./format-phone-number": "./src/format-phone-number.ts",
     "./format-tax-id": "./src/format-tax-id.ts",

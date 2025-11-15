@@ -1,0 +1,34 @@
+model physician {
+        id                   Int      @id @default(autoincrement()) @db.UnsignedInt
+        pub_id               String   @unique @db.VarChar(50)
+        created_at           DateTime @db.DateTime(0)
+        created_by           String   @db.VarChar(50)
+        updated_at           DateTime @db.DateTime(0)
+        updated_by           String   @db.VarChar(50)
+        name                 String   @db.VarChar(100)
+        clients              String   @db.VarChar(255)
+        rate_review          Decimal  @db.Decimal(5, 2)
+        rate_deny_withdrawal Decimal  @db.Decimal(5, 2)
+        rate_p2p             Decimal  @db.Decimal(5, 2)
+        notes                String?  @db.VarChar(1000)
+        is_active            Boolean  @default(true)
+}
+
+model physician_hist {
+        id                   Int      @id @default(autoincrement()) @db.UnsignedInt
+        hist_added_at        DateTime @db.DateTime(0)
+        pub_id               String   @db.VarChar(50)
+        created_at           DateTime @db.DateTime(0)
+        created_by           String   @db.VarChar(50)
+        updated_at           DateTime @db.DateTime(0)
+        updated_by           String   @db.VarChar(50)
+        name                 String   @db.VarChar(100)
+        clients              String   @db.VarChar(255)
+        rate_review          Decimal  @db.Decimal(5, 2)
+        rate_deny_withdrawal Decimal  @db.Decimal(5, 2)
+        rate_p2p             Decimal  @db.Decimal(5, 2)
+        notes                String?  @db.VarChar(1000)
+        is_active            Boolean  @default(true)
+
+        @@index([pub_id], map: "idx_physHist_pub_id")
+}

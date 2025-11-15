@@ -1,6 +1,7 @@
 import {
   AdminClients,
   AdminHealthPlans,
+  AdminPhysicians,
   AdminUsers,
   Dashboard,
   Home,
@@ -10,6 +11,7 @@ import {
   Handshake,
   HeartHandshake,
   LayoutDashboard,
+  Stethoscope,
   Users,
   Wrench,
 } from "lucide-react";
@@ -61,6 +63,13 @@ export const MAIN_SIDEBAR_CONFIG = [
         title: "Health Plans",
         icon: HeartHandshake,
         href: AdminHealthPlans({}),
+        isAdminOnly: true,
+      },
+      {
+        id: "3.4",
+        title: "Physicians",
+        icon: Stethoscope,
+        href: AdminPhysicians({}),
         isAdminOnly: true,
       },
     ],
