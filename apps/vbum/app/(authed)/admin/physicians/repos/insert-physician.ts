@@ -27,6 +27,7 @@ export async function insertPhysician({ input, pubId, userId }: props) {
     const duplicateResults = await trx
       .selectFrom("physician")
       .select("name")
+      .where("name", "=", input.name)
       .executeTakeFirst();
 
     if (duplicateResults?.name) {
