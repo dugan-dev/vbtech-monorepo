@@ -84,7 +84,7 @@ export async function updateUmCase(
   const now = new Date();
   return await db.transaction().execute(async (trx) => {
     // log history before updating
-    trx
+    await trx
       .insertInto("umCaseHist")
       .columns([
         "histAddedAt",
@@ -134,7 +134,7 @@ export async function updateUmCase(
       .execute();
 
     // update existing case with new form data
-    trx
+    await trx
       .updateTable("umCase")
       .where("pubId", "=", pubId)
       .set({
