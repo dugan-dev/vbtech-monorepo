@@ -10,11 +10,13 @@ import {
   TabsTrigger,
 } from "@workspace/ui/components/tabs";
 
+import { umCase } from "@/types/um-case";
+
 import { WorklistTable } from "./worklist-table";
 
 type props = {
-  openCases: any[];
-  closedCases: any[];
+  openCases: umCase[];
+  closedCases: umCase[];
 };
 
 export function WorklistContent({ openCases, closedCases }: props) {
@@ -34,7 +36,7 @@ export function WorklistContent({ openCases, closedCases }: props) {
       const matchesSearch =
         case_.caseNumber.toLowerCase().includes(search.toLowerCase()) ||
         case_.clientName.toLowerCase().includes(search.toLowerCase()) ||
-        case_.healthPlanName.toLowerCase().includes(search.toLowerCase());
+        case_.planName.toLowerCase().includes(search.toLowerCase());
       const matchesStatus =
         statusFilter === "all" || case_.status === statusFilter;
       const matchesClient =
@@ -48,7 +50,7 @@ export function WorklistContent({ openCases, closedCases }: props) {
       const matchesSearch =
         case_.caseNumber.toLowerCase().includes(search.toLowerCase()) ||
         case_.clientName.toLowerCase().includes(search.toLowerCase()) ||
-        case_.healthPlanName.toLowerCase().includes(search.toLowerCase());
+        case_.planName.toLowerCase().includes(search.toLowerCase());
       const matchesStatus =
         statusFilter === "all" || case_.status === statusFilter;
       const matchesClient =
