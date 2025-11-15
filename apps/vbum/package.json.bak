@@ -4,9 +4,6 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage",
     "dev": "next dev --turbopack",
     "dr:build": "pnpm dlx declarative-routing build",
     "dr:build:watch": "pnpm dlx declarative-routing build --watch",
@@ -14,14 +11,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-  },
-  "devDependencies": {
-    "vitest": "^2.1.8",
-    "@vitest/coverage-v8": "^2.1.8",
-    "@vitejs/plugin-react": "^4.3.4",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.1.0",
-    "jsdom": "^25.0.1"
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "1.6.10",

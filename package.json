@@ -4,6 +4,9 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "test": "turbo test",
+    "test:ui": "turbo test:ui",
+    "test:coverage": "turbo test:coverage",
     "build": "turbo build",
     "check-types": "tsc --noEmit",
     "dev": "turbo dev",
