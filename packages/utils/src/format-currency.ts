@@ -1,4 +1,4 @@
-type FormatCurrencyProps = {
+export type FormatCurrencyProps = {
   value: string | number;
   currency?: string;
   locale?: string;
