@@ -68,10 +68,7 @@ export function PhysicianForm({ onSuccess, formData, physPubId }: props) {
   };
 
   return (
-    <form
-      onSubmit={form.handleSubmit(onSubmit, (e) => console.log(e))}
-      className="w-full max-w-2xl"
-    >
+    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-2xl">
       <div className="max-h-[70vh] overflow-y-auto px-1">
         <ErrorDialog
           open={isErrorDialogOpen}
