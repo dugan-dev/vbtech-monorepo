@@ -83,7 +83,7 @@ export function PhysicianForm({ onSuccess, formData, physPubId }: props) {
           <div className="">
             <h3 className="text-lg font-semibold">Physician Information</h3>
             <p className="text-sm text-muted-foreground">
-              Enter the physician's details and compensation rates
+              {`Enter the physician's details and compensation rates`}
             </p>
           </div>
 

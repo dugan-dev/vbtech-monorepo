@@ -30,10 +30,10 @@ export function HLTHBanner() {
             />
             <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
               <span className="font-semibold text-balance">
-                We're at HLTH 2025 in Las Vegas!
+                {`We're at HLTH 2025 in Las Vegas!`}
               </span>
               <span className="text-sm text-white/90">
-                Let's connect at the conference
+                {`Let's connect at the conference`}
               </span>
             </div>
           </div>
