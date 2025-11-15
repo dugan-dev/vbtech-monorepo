@@ -337,7 +337,7 @@ export function NewCaseSheet({ children }: props) {
                         />
                       )}
                     />
-                    <FormFieldError errors={[errors.caseId]} />
+                    <FormFieldError errors={[errors.procedureCode]} />
                   </Field>
 
                   <Field>
