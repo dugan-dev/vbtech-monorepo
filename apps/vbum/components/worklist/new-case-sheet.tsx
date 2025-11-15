@@ -79,6 +79,7 @@ export function NewCaseSheet({ children }: props) {
     handleSubmit,
     formState: { isValid, errors, isDirty },
     setValue,
+    reset,
   } = useForm<CaseFormInput>({
     resolver: zodResolver(CaseFormSchema),
     defaultValues: CaseFormDefaultValues,
@@ -110,6 +111,8 @@ export function NewCaseSheet({ children }: props) {
       toast("Success", {
         description: "The case has been created successfully.",
       });
+      setOpen(false);
+      reset();
     },
     onError: ({ error }) => {
       openErrorDialog("Error", getErrorMessage(error));
