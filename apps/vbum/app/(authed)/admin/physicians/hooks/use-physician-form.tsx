@@ -71,7 +71,7 @@ export function usePhysicianForm({ onSuccess, formData, physPubId }: props) {
   });
 
   function onSubmit(formData: PhysicianFormInput) {
-    if (formData && physPubId) {
+    if (physPubId) {
       executeUpdatePhysician({
         pubId: physPubId,
         formData,
