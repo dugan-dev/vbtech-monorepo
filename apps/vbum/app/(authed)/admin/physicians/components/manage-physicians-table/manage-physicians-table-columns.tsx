@@ -152,9 +152,9 @@ export const getManagePhysiciansTableColumns = (
       const formData: PhysicianFormData = {
         name: physician.name,
         clients: physician.clients.split(","),
-        rateReview: physician.rateReview,
-        rateDenyWithdraw: physician.rateDenyWithdrawal,
-        rateP2p: physician.rateP2p,
+        rateReview: parseFloat(physician.rateReview),
+        rateDenyWithdraw: parseFloat(physician.rateDenyWithdrawal),
+        rateP2p: parseFloat(physician.rateP2p),
         isActive: physician.isActive === 1 ? true : false,
         notes: physician.notes ?? "",
       };
