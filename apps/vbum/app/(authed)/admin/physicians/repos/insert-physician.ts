@@ -13,7 +13,7 @@ type props = {
 /**
  * Inserts a new physician record into the database after checking for duplicates within a transaction.
  *
- * Checks for existing clients with the same name and aborts the operation if duplicates are found.
+ * Checks for existing physicians with the same name and aborts the operation if duplicates are found.
  *
  * @param input - The physician data to insert.
  * @param pubId - The public identifier associated with the physician.
