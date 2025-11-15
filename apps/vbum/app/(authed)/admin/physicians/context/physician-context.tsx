@@ -14,7 +14,7 @@ export function usePhysicianContext() {
   const context = useContext(PhysicianContext);
   if (!context) {
     throw new Error(
-      "usePhysicianContext must be used within a WorlistContextProvider",
+      "usePhysicianContext must be used within a PhysicianContextProvider",
     );
   }
   return context;
