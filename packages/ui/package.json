@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.1.17",
-    "@turbo/gen": "2.5.8",
+    "@turbo/gen": "2.6.1",
     "@types/node": "24.9.1",
     "@types/qrcode": "1.5.5",
     "@types/react": "19.2.5",
