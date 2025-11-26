@@ -63,8 +63,8 @@ importers:
         specifier: 19.1.0-rc.3
         version: 19.1.0-rc.3
       lucide-react:
-        specifier: 0.554.0
-        version: 0.554.0(react@19.2.0)
+        specifier: 0.555.0
+        version: 0.555.0(react@19.2.0)
       next:
         specifier: 15.5.6
         version: 15.5.6(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -157,8 +157,8 @@ importers:
         specifier: 0.28.8
         version: 0.28.8
       lucide-react:
-        specifier: 0.554.0
-        version: 0.554.0(react@19.2.0)
+        specifier: 0.555.0
+        version: 0.555.0(react@19.2.0)
       nanoid:
         specifier: 5.1.6
         version: 5.1.6
@@ -269,8 +269,8 @@ importers:
         specifier: 0.28.8
         version: 0.28.8
       lucide-react:
-        specifier: 0.554.0
-        version: 0.554.0(react@19.2.0)
+        specifier: 0.555.0
+        version: 0.555.0(react@19.2.0)
       nanoid:
         specifier: 5.1.6
         version: 5.1.6
@@ -387,8 +387,8 @@ importers:
         specifier: 0.28.8
         version: 0.28.8
       lucide-react:
-        specifier: 0.554.0
-        version: 0.554.0(react@19.2.0)
+        specifier: 0.555.0
+        version: 0.555.0(react@19.2.0)
       nanoid:
         specifier: 5.1.6
         version: 5.1.6
@@ -487,8 +487,8 @@ importers:
         specifier: 19.1.0-rc.3
         version: 19.1.0-rc.3
       lucide-react:
-        specifier: 0.554.0
-        version: 0.554.0(react@19.2.0)
+        specifier: 0.555.0
+        version: 0.555.0(react@19.2.0)
       next:
         specifier: 15.5.6
         version: 15.5.6(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -569,8 +569,8 @@ importers:
         specifier: 19.1.0-rc.3
         version: 19.1.0-rc.3
       lucide-react:
-        specifier: 0.554.0
-        version: 0.554.0(react@19.2.0)
+        specifier: 0.555.0
+        version: 0.555.0(react@19.2.0)
       next:
         specifier: 15.5.6
         version: 15.5.6(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -639,8 +639,8 @@ importers:
         specifier: 6.15.8
         version: 6.15.8
       lucide-react:
-        specifier: 0.554.0
-        version: 0.554.0(react@19.2.0)
+        specifier: 0.555.0
+        version: 0.555.0(react@19.2.0)
       qrcode:
         specifier: 1.5.4
         version: 1.5.4
@@ -878,8 +878,8 @@ importers:
         specifier: 1.4.2
         version: 1.4.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       lucide-react:
-        specifier: 0.554.0
-        version: 0.554.0(react@19.2.0)
+        specifier: 0.555.0
+        version: 0.555.0(react@19.2.0)
       next-themes:
         specifier: 0.4.6
         version: 0.4.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -5110,8 +5110,8 @@ packages:
     resolution: {integrity: sha512-Nv9KddBcQSlQopmBHXSsZVY5xsdlZkdH/Iey0BlcBYggMd4two7cZnKOK9vmy3nY0O5RGH99z1PCeTpPqszUYg==}
     engines: {bun: '>=1.0.0', deno: '>=1.30.0', node: '>=8.0.0'}
 
-  lucide-react@0.554.0:
-    resolution: {integrity: sha512-St+z29uthEJVx0Is7ellNkgTEhaeSoA42I7JjOCBCrc5X6LYMGSv0P/2uS5HDLTExP5tpiqRD2PyUEOS6s9UXA==}
+  lucide-react@0.555.0:
+    resolution: {integrity: sha512-D8FvHUGbxWBRQM90NZeIyhAvkFfsh3u9ekrMvJ30Z6gnpBHS6HC6ldLg7tL45hwiIz/u66eKDtdA23gwwGsAHA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -11818,7 +11818,7 @@ snapshots:
 
   lru.min@1.1.2: {}
 
-  lucide-react@0.554.0(react@19.2.0):
+  lucide-react@0.555.0(react@19.2.0):
     dependencies:
       react: 19.2.0
 
