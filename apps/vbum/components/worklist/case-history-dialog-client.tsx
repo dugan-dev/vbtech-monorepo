@@ -182,11 +182,15 @@ export function CaseHistoryDialogClient({ history, currentCase }: props) {
         }
       } else if (key === "physPubId") {
         const currentPhysName =
-          physicians.find((phys) => phys.pubId === currentVal)?.name ??
-          (currentVal as string);
+          (physicians.find((phys) => phys.pubId === currentVal)?.name ??
+          currentVal)
+            ? String(currentVal)
+            : "-";
         const previousPhysName =
-          physicians.find((phys) => phys.pubId === previousVal)?.name ??
-          (previousVal as string);
+          (physicians.find((phys) => phys.pubId === previousVal)?.name ??
+          previousVal)
+            ? String(previousVal)
+            : "-";
 
         if (currentPhysName !== previousPhysName) {
           changes.push({
