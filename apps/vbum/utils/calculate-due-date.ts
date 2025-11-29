@@ -1,12 +1,13 @@
 import { format, isValid, parse } from "date-fns";
 
 /**
- * Calculates the due date based on received date, case type, and TAT days
- * @param receivedDate - The date the case was received (can be string or Date)
- * @param caseType - "Standard" or "Expedited"
- * @param tatStandard - Number of days for standard cases
- * @param tatExpedited - Number of days for expedited cases
- * @returns The calculated due date as a Date object, or null if receivedDate is not provided
+ * Compute the due date from the received date using case type and TAT values.
+ *
+ * @param receivedDate - The received date as a `Date`, ISO-like string (`yyyy-MM-dd`), `M/d/yyyy` string, or other date string; may be `null`
+ * @param caseType - Case priority, where `"Expedited"` uses the expedited TAT and any other value uses the standard TAT
+ * @param tatStandard - Days to add for standard cases
+ * @param tatExpedited - Days to add for expedited cases
+ * @returns A `Date` representing the calculated due date, or `null` if `receivedDate` is missing or cannot be parsed into a valid date
  */
 export function calculateDueDate(
   receivedDate: string | Date | null,
@@ -52,9 +53,9 @@ export function calculateDueDate(
 }
 
 /**
- * Formats a due date for display
- * @param dueDate - The due date to format
- * @returns Formatted date string in "PPP" format (e.g., "April 29, 2023")
+ * Format a due date for display.
+ *
+ * @returns An empty string if `dueDate` is null; otherwise the date formatted using the "PPP" pattern (e.g., "April 29, 2023").
  */
 export function formatDueDate(dueDate: Date | null): string {
   if (!dueDate) {

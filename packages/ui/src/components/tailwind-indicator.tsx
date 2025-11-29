@@ -1,3 +1,10 @@
+/**
+ * Renders a small, fixed badge that indicates the current Tailwind CSS breakpoint during development.
+ *
+ * The badge displays one of `xs`, `sm`, `md`, `lg`, `xl`, or `2xl` depending on the active responsive breakpoint.
+ *
+ * @returns The React element showing the active Tailwind breakpoint, or `null` when running in production.
+ */
 export function TailwindIndicator() {
   if (process.env.NODE_ENV === "production") return null;
 

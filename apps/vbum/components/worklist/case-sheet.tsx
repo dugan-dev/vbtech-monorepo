@@ -87,6 +87,17 @@ type CaseSheetProps = {
   children?: React.ReactNode;
 };
 
+/**
+ * Renders a form-based sheet for creating a new utilization management case or reviewing/updating an existing case.
+ *
+ * The component manages open state (local for "new", URL-driven for "review"), form state and validation, computed fields
+ * (due date and TAT), dynamic procedure codes, conditional fields and validation for MD escalation and follow-up actions,
+ * and submit flows for inserting or updating cases with success and error handling.
+ *
+ * @param mode - "new" to render a creatable case sheet (uses an internal trigger), "review" to open for a selected case via URL state
+ * @param children - Optional trigger node(s) rendered when `mode` is "new"; ignored in "review" mode
+ * @returns A React element containing the case sheet UI (modal bottom sheet) with form controls, actions, and confirmation dialogs
+ */
 export function CaseSheet({ mode, children }: CaseSheetProps) {
   // State management for new mode
   const [localOpen, setLocalOpen] = useState(false);

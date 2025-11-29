@@ -27,14 +27,13 @@ type props = {
 };
 
 /**
- * Render a button-triggered dialog for adding or editing a health plan.
+ * Render a dialog with a button trigger for adding or editing a health plan.
  *
- * When `formData` is provided the trigger and dialog are shown in "edit" mode;
- * otherwise they are shown in "add" mode. The dialog contains a HealthPlanForm
- * and closes when that form signals success.
+ * When `formData` is provided the trigger and dialog are shown in edit mode; otherwise they are shown in add mode. The dialog contains a HealthPlanForm and closes when that form signals success.
  *
- * @param formData - Existing health plan data to populate the form; omit to open the dialog in "add" mode
+ * @param formData - Existing health plan data to populate the form; omit to open the dialog in add mode
  * @param clientPubId - Public identifier of the client the health plan belongs to
+ * @param healthPlanPubId - Optional public identifier of the health plan being edited
  * @returns The dialog element containing the trigger and the HealthPlanForm
  */
 export function HealthPlanDialog({

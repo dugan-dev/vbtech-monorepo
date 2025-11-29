@@ -19,6 +19,15 @@ type props = {
   codeDescription?: string;
 };
 
+/**
+ * Render a modal dialog that displays a placeholder UM (Utilization Management) evaluation UI for a given procedure code.
+ *
+ * @param open - Whether the dialog is visible
+ * @param onOpenChange - Callback invoked when the dialog open state changes
+ * @param procedureCode - Procedure code shown in the dialog header and body
+ * @param codeDescription - Optional human-readable description of the procedure code
+ * @returns The rendered UM Evaluation Tool dialog element
+ */
 export function UmEvalToolDialog({
   open,
   onOpenChange,

@@ -24,6 +24,17 @@ interface ProcedureCodeInputProps {
   id?: string;
 }
 
+/**
+ * Renders a controlled procedure code input with debounced server validation, visual status indicators, and an optional UM Evaluation Tool dialog.
+ *
+ * @param value - Current input value for the procedure code.
+ * @param onChange - Callback invoked with the new input value when the user types.
+ * @param onValidationChange - Optional callback invoked with the latest validation result (`ProcedureCodeValidation | null`) whenever validation completes or is reset.
+ * @param placeholder - Placeholder text shown when the input is empty (defaults to "Enter code").
+ * @param className - Optional additional classes to apply to the input element.
+ * @param id - Optional id attribute for the input element.
+ * @returns A React element containing the procedure code input, validation icon and message, and the UM Evaluation Tool dialog when required.
+ */
 export function ProcedureCodeInput({
   value,
   onChange,

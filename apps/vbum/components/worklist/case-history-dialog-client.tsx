@@ -24,6 +24,17 @@ type props = {
   currentCase: umCase;
 };
 
+/**
+ * Render a modal dialog showing the version history and field-level differences for a case.
+ *
+ * The dialog presents the current case and prior versions, highlights changed fields between
+ * consecutive versions, and provides controls to navigate newer/older versions. Opening the
+ * dialog resets the view to the latest version; closing the dialog returns the view to the latest.
+ *
+ * @param history - Array of historical case versions (previous snapshots) to compare against the current case
+ * @param currentCase - The active case object to display as the current version
+ * @returns A React element that renders a case history dialog with formatted values, diffs, and navigation controls
+ */
 export function CaseHistoryDialogClient({ history, currentCase }: props) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);

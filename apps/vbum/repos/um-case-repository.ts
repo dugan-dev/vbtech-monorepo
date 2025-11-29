@@ -10,6 +10,11 @@ import { CaseStatus, ClosedCaseStatuses } from "@/types/case-status";
 import { newPubId } from "@/lib/nanoid";
 import { CaseFormInput } from "@/components/worklist/case-form-schema";
 
+/**
+ * Retrieve all UM cases with related client, health plan, and assigned user details, ordered by received date.
+ *
+ * @returns An array of UM case records containing: `pubId`, `createdAt`, `createdBy`, `updatedAt`, `updatedBy`, `caseNumber`, `caseType`, `recdDate`, `procedureCodes`, `clientPubId`, `planPubId`, `clientName`, `planName`, `status`, `assignedTo`, `assignedAt`, `assignedToLastName`, `assignedToFirstName`, `assignedToEmail`, `fuAction`, `mdReview`, `physPubId`, `p2pSuccess`, `closedAt`, `mdRecommended`, and `remarks`.
+ */
 async function getAllUmCasesQry() {
   return await db
     .selectFrom("umCase as um")
@@ -52,6 +57,12 @@ export const getAllUmCases = cache(async () => {
   return getAllUmCasesQry();
 });
 
+/**
+ * Retrieve UM cases assigned to a specific user with related client, health plan, and assigned-user details.
+ *
+ * @param assignedTo - The userId of the assignee used to filter UM cases
+ * @returns An array of UM case records including fields from the UM case, client, health plan, and assigned user (e.g., caseNumber, caseType, recdDate, procedureCodes, clientName, planName, assignedTo details, status, closedAt)
+ */
 async function getAllUmCasesForUserQry({ assignedTo }: { assignedTo: string }) {
   return await db
     .selectFrom("umCase as um")
@@ -95,6 +106,18 @@ export const getAllUmCasesForUser = cache(async (assignedTo: string) => {
   return getAllUmCasesForUserQry({ assignedTo });
 });
 
+/**
+ * Update an existing UM case, record a history snapshot, and apply the provided form changes.
+ *
+ * Logs the current row into `umCaseHist` with `histAddedAt` set to the update timestamp, then updates
+ * the `umCase` row with values from `data`. The update sets `updatedBy`/`updatedAt`, conditionally
+ * updates `assignedTo` and `assignedAt` only when the assignee changes, and sets `closedAt` when the
+ * new status is in `ClosedCaseStatuses` and a closed date is provided.
+ *
+ * @param pubId - The public identifier of the UM case to update
+ * @param userId - The user id performing the update (stored in `updatedBy`)
+ * @param data - Form input containing fields to apply to the UM case
+ */
 export async function updateUmCase(
   pubId: string,
   userId: string,
@@ -202,6 +225,13 @@ export async function updateUmCase(
   });
 }
 
+/**
+ * Insert a new UM case record into the database.
+ *
+ * @param data - Form input containing UM case fields to store (case identifiers, client/plan links, dates, status, procedure codes, assignment, physician and MD fields, and remarks)
+ * @param userId - ID of the user performing the insert; used as createdBy/updatedBy
+ * @returns The result of the insert operation
+ */
 export async function insertUmCase(data: CaseFormInput, userId: string) {
   const now = new Date();
   const pubId = newPubId();
@@ -260,6 +290,12 @@ export async function insertUmCase(data: CaseFormInput, userId: string) {
     .execute();
 }
 
+/**
+ * Fetches a UM case by its case number including related client, health plan, and assigned user details.
+ *
+ * @param caseNumber - The case number to look up
+ * @returns The UM case record with related client, health plan, and assigned user fields, or `undefined` if not found
+ */
 export async function getUmCaseByCaseNumber(caseNumber: string) {
   return await db
     .selectFrom("umCase as um")
@@ -298,6 +334,12 @@ export async function getUmCaseByCaseNumber(caseNumber: string) {
     .executeTakeFirst();
 }
 
+/**
+ * Retrieve the history entries for a UM case identified by its case number.
+ *
+ * @param caseNumber - The case's identifier used in the history table (`umCaseHist.pubId`)
+ * @returns An array of history records for the case; each record includes pubId, createdAt, createdBy, updatedBy, updatedAt, updatedByFirstName, updatedByLastName, caseNumber, caseType, recdDate, procedureCodes, clientPubId, planPubId, clientName, planName, status, assignedTo, assignedAt, assignedToFirstName, assignedToLastName, assignedToEmail, fuAction, mdReview, physPubId, p2pSuccess, mdRecommended, closedAt, and remarks
+ */
 async function getUmCaseHistoryQry(caseNumber: string) {
   return await db
     .selectFrom("umCaseHist as um")

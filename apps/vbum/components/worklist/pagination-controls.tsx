@@ -20,6 +20,22 @@ interface PaginationControlsProps {
   onPageSizeChange: (newSize: string) => void;
 }
 
+/**
+ * Renders pagination controls including item range, rows-per-page selector, and navigation buttons.
+ *
+ * Displays the current item range ("Showing X to Y of Z cases"), a selector for page size (10, 25, 50, 100),
+ * previous/next buttons disabled at bounds, and buttons for each page with the current page highlighted.
+ *
+ * @param currentPage - The currently selected page (1-based).
+ * @param totalPages - Total number of pages available.
+ * @param pageSize - Number of items shown per page.
+ * @param totalItems - Total number of items across all pages.
+ * @param startIndex - Zero-based index of the first item shown on the current page.
+ * @param endIndex - Zero-based index of the last item shown on the current page.
+ * @param onPageChange - Called with a page number when the user requests a different page.
+ * @param onPageSizeChange - Called with the new page size value (as a string) when the user selects a different rows-per-page.
+ * @returns The pagination UI as a JSX element.
+ */
 export function PaginationControls({
   currentPage,
   totalPages,
