@@ -10,7 +10,7 @@ model um_case {
         client_pub_id   String    @db.VarChar(12)
         plan_pub_id     String    @db.VarChar(12)
         status          String    @db.VarChar(255)
-        case_number     String    @db.VarChar(50)
+        case_number     String    @unique @db.VarChar(50)
         case_type       String    @db.VarChar(50)
         recd_date       DateTime  @db.Date
         procedure_codes String?   @db.VarChar(10000)
@@ -25,7 +25,6 @@ model um_case {
         @@index([client_pub_id])
         @@index([plan_pub_id])
         @@index([assigned_to])
-        @@index([case_number])
 }
 
 model um_case_hist {
@@ -53,6 +52,7 @@ model um_case_hist {
         closed_at       DateTime? @db.Date()
         remarks         String?   @db.VarChar(1000)
 
+        @@index([pub_id])
         @@index([client_pub_id])
         @@index([plan_pub_id])
         @@index([assigned_to])
