@@ -42,6 +42,8 @@ export type health_plan = {
   updatedBy: string;
   clientPubId: string;
   planName: string;
+  tatStandard: number;
+  tatExpedited: number;
   isActive: Generated<number>;
 };
 export type health_plan_hist = {
@@ -54,6 +56,8 @@ export type health_plan_hist = {
   updatedBy: string;
   clientPubId: string;
   planName: string;
+  tatStandard: number;
+  tatExpedited: number;
   isActive: number;
 };
 export type physician = {
@@ -100,11 +104,15 @@ export type um_case = {
   planPubId: string;
   status: string;
   caseNumber: string;
-  procedureCode: string | null;
+  caseType: string;
+  recdDate: Timestamp;
+  procedureCodes: string | null;
   mdReview: Generated<number>;
-  mdName: string | null;
+  physPubId: string | null;
   fuAction: string | null;
+  mdRecommended: string | null;
   p2pSuccess: Generated<number>;
+  closedAt: Timestamp | null;
   remarks: string | null;
 };
 export type um_case_hist = {
@@ -120,12 +128,16 @@ export type um_case_hist = {
   clientPubId: string;
   planPubId: string;
   status: string;
+  caseType: string;
+  recdDate: Timestamp;
   caseNumber: string;
-  procedureCode: string | null;
+  procedureCodes: string | null;
   mdReview: Generated<number>;
-  mdName: string | null;
+  physPubId: string | null;
   fuAction: string | null;
   p2pSuccess: Generated<number>;
+  mdRecommended: string | null;
+  closedAt: Timestamp | null;
   remarks: string | null;
 };
 export type user = {
