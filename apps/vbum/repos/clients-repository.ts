@@ -14,6 +14,7 @@ async function getAllActiveClientsQry() {
     .selectFrom("client")
     .select(["client.pubId", "client.clientName"])
     .where("client.isActive", "=", 1)
+    .orderBy("client.clientName", "asc")
     .execute();
 }
 
@@ -30,6 +31,7 @@ async function getAllClientsQry() {
   return await db
     .selectFrom("client")
     .select(["client.pubId", "client.clientName"])
+    .orderBy("client.clientName", "asc")
     .execute();
 }
 

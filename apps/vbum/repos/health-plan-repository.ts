@@ -8,9 +8,16 @@ async function getAllActiveHealthPlansQry() {
   return await db
     .selectFrom("healthPlan as hp")
     .innerJoin("client as c", "hp.clientPubId", "c.pubId")
-    .select(["hp.pubId", "hp.clientPubId", "hp.planName"])
+    .select([
+      "hp.pubId",
+      "hp.clientPubId",
+      "hp.planName",
+      "hp.tatStandard",
+      "hp.tatExpedited",
+    ])
     .where("hp.isActive", "=", 1)
     .where("c.isActive", "=", 1)
+    .orderBy("hp.planName", "asc")
     .execute();
 }
 
@@ -27,8 +34,11 @@ async function getAllHealthPlansQry() {
       "hp.clientPubId",
       "c.clientName",
       "hp.planName",
+      "hp.tatStandard",
+      "hp.tatExpedited",
       "hp.isActive",
     ])
+    .orderBy("hp.planName", "asc")
     .execute();
 }
 
