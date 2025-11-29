@@ -37,7 +37,11 @@ type props = {
  * @param clientPubId - Public identifier of the client the health plan belongs to
  * @returns The dialog element containing the trigger and the HealthPlanForm
  */
-export function HealthPlanDialog({ formData, clientPubId }: props) {
+export function HealthPlanDialog({
+  formData,
+  clientPubId,
+  healthPlanPubId,
+}: props) {
   const [open, setOpen] = useState(false);
 
   const handleSuccess = () => {
@@ -75,6 +79,7 @@ export function HealthPlanDialog({ formData, clientPubId }: props) {
           onSuccess={handleSuccess}
           formData={formData}
           clientPubId={clientPubId}
+          healthPlanPubId={healthPlanPubId}
         />
       </DialogContent>
     </Dialog>

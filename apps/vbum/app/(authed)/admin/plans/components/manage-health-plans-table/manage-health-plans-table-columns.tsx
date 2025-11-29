@@ -73,6 +73,8 @@ function ActionsCell({ plan }: { plan: HealthPlan }) {
   const [cId] = useQueryState("cId", parseAsString.withDefault(""));
   const formData: HealthPlanFormData = {
     planName: plan.planName,
+    tatExpedited: String(plan.tatExpedited),
+    tatStandard: String(plan.tatStandard),
   };
   return (
     <div>

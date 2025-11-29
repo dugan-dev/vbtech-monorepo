@@ -17,6 +17,8 @@ export async function getHealthPlansForTable(clientPubId: string) {
       "hp.planName",
       "c.clientName",
       "hp.clientPubId",
+      "hp.tatStandard",
+      "hp.tatExpedited",
       "hp.isActive",
     ])
     .where("hp.clientPubId", "=", clientPubId)

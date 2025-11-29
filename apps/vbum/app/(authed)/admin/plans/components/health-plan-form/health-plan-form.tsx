@@ -1,9 +1,16 @@
 "use client";
 
+import { Controller } from "react-hook-form";
+
 import { ErrorDialog } from "@workspace/ui/components/error-dialog";
+import {
+  Field,
+  FieldLabel,
+  FieldError as FormFieldError,
+} from "@workspace/ui/components/field";
 import { Form } from "@workspace/ui/components/form";
-import { FormInput } from "@workspace/ui/components/form/form-input";
 import { FormSubmitButton } from "@workspace/ui/components/form/form-submit-button";
+import { Input } from "@workspace/ui/components/input";
 
 import { useHealthPlanForm } from "../../hooks/use-health-plan-form";
 import { HealthPlanFormData } from "./health-plan-form-schema";
@@ -55,13 +62,68 @@ export function HealthPlanForm({
       />
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <fieldset disabled={isPending} className="space-y-4 mb-8">
-          <FormInput
-            control={form.control}
-            name="planName"
-            label="Name"
-            type="text"
-            isRequired
-          />
+          <Field>
+            <FieldLabel htmlFor="planName">
+              Name <span className="text-destructive">*</span>
+            </FieldLabel>
+            <Controller
+              name="planName"
+              control={form.control}
+              rules={{ required: "Plan name is required" }}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  id="planName"
+                  placeholder="Enter health plan name"
+                />
+              )}
+            />
+            <FormFieldError errors={[form.formState.errors.planName]} />
+          </Field>
+
+          <Field>
+            <FieldLabel htmlFor="tatStandard">
+              TAT Standard (Days) <span className="text-destructive">*</span>
+            </FieldLabel>
+            <Controller
+              name="tatStandard"
+              control={form.control}
+              rules={{ required: "TAT Standard is required" }}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  id="tatStandard"
+                  type="number"
+                  min="0"
+                  step="1"
+                  placeholder="Enter standard turnaround time in days"
+                />
+              )}
+            />
+            <FormFieldError errors={[form.formState.errors.tatStandard]} />
+          </Field>
+
+          <Field>
+            <FieldLabel htmlFor="tatExpedited">
+              TAT Expedited (Days) <span className="text-destructive">*</span>
+            </FieldLabel>
+            <Controller
+              name="tatExpedited"
+              control={form.control}
+              rules={{ required: "TAT Expedited is required" }}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  id="tatExpedited"
+                  type="number"
+                  min="0"
+                  step="1"
+                  placeholder="Enter expedited turnaround time in days"
+                />
+              )}
+            />
+            <FormFieldError errors={[form.formState.errors.tatExpedited]} />
+          </Field>
         </fieldset>
         <div className="flex justify-end">
           <FormSubmitButton isSaving={isPending} />

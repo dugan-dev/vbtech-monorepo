@@ -149,9 +149,15 @@ export const UserManagementTableColumns: ColumnDef<UserCognito>[] = [
       const user = row.original;
       if (user.appAttrs?.type) {
         const userType = user.appAttrs.type;
+
+        // Filter ids to only existing clients in the clients array
+        const clientIdSet = new Set(clients?.map((c) => c.value) || []);
+        const filteredIds =
+          user.appAttrs?.ids?.filter((id) => clientIdSet.has(id.id)) || [];
+
         return (
           <div className="flex flex-wrap gap-2">
-            {user.appAttrs?.ids?.map((id) => {
+            {filteredIds.map((id) => {
               return (
                 <HoverCard key={id.id + "hover"} openDelay={100}>
                   <HoverCardTrigger>

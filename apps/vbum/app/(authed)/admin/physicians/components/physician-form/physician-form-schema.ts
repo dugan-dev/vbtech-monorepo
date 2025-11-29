@@ -3,18 +3,13 @@ import * as z from "zod";
 const PhysicianFormSchema = z.object({
   name: z.string().min(1, "Required").max(100),
   clients: z.array(z.string().length(12)).min(1, "Required"),
-  rateReview: z.coerce
-    .number()
-    .positive("Review rate must be positive.")
-    .min(0.01, "Review rate must be at least $0.01"),
+  rateReview: z.coerce.number().min(0.0, "Review rate must be at least $0.00"),
   rateDenyWithdraw: z.coerce
     .number()
-    .positive("Denial/withdrawal rate must be positive.")
-    .min(0.01, "Denial/withdrawal rate must be at least $0.01"),
+    .min(0.0, "Denial/withdrawal rate must be at least $0.00"),
   rateP2p: z.coerce
     .number()
-    .positive("Peer-to-peer rate must be positive.")
-    .min(0.01, "Peer-to-peer rate must be at least $0.01"),
+    .min(0.0, "Peer-to-peer rate must be at least $0.00"),
   notes: z
     .string()
     .max(1000)

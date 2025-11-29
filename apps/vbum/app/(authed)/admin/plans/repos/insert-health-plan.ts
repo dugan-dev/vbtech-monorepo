@@ -92,6 +92,12 @@ export async function insertHealthPlan({
         updatedAt: now,
         clientPubId,
         planName: input.planName,
+        tatStandard: input.tatStandard
+          ? Number.parseInt(input.tatStandard, 10)
+          : 0,
+        tatExpedited: input.tatExpedited
+          ? Number.parseInt(input.tatExpedited, 10)
+          : 0,
         isActive: 1,
       })
       .execute();

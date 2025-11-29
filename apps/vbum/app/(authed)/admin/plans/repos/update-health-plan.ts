@@ -35,6 +35,8 @@ export async function updateHealthPlan({ input, pubId, userId }: props) {
         "updatedBy",
         "clientPubId",
         "planName",
+        "tatStandard",
+        "tatExpedited",
         "isActive",
         "histAddedAt",
       ])
@@ -49,6 +51,8 @@ export async function updateHealthPlan({ input, pubId, userId }: props) {
             "updatedBy",
             "clientPubId",
             "planName",
+            "tatStandard",
+            "tatExpedited",
             "isActive",
             eb.val(now).as("histAddedAt"),
           ])
@@ -63,6 +67,12 @@ export async function updateHealthPlan({ input, pubId, userId }: props) {
         updatedBy: userId,
         updatedAt: now,
         planName: input.planName,
+        tatStandard: input.tatStandard
+          ? Number.parseInt(input.tatStandard, 10)
+          : 0,
+        tatExpedited: input.tatExpedited
+          ? Number.parseInt(input.tatExpedited, 10)
+          : 0,
       })
       .where("pubId", "=", pubId)
       .execute();

@@ -91,6 +91,6 @@ export async function getLastUserSync() {
   return await db
     .selectFrom("userSyncTimestamp")
     .select(["lastSyncAt"])
-    .where("appName", "=", "VBCall")
+    .where("appName", "=", "VBUM")
     .executeTakeFirst();
 }
