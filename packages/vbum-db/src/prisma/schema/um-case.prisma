@@ -49,7 +49,7 @@ model um_case_hist {
         fu_action       String?   @db.VarChar(255)
         p2p_success     Boolean   @default(false)
         md_recommended  String?   @db.VarChar(255)
-        closed_at       DateTime? @db.Date()
+        closed_at       DateTime? @db.Date
         remarks         String?   @db.VarChar(1000)
 
         @@index([pub_id])
