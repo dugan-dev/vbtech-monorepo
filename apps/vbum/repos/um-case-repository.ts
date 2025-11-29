@@ -298,7 +298,7 @@ export async function getUmCaseByCaseNumber(caseNumber: string) {
     .executeTakeFirst();
 }
 
-async function getUmCaseHistoryQry(caseNumber: string) {
+async function getUmCaseHistoryQry(pubId: string) {
   return await db
     .selectFrom("umCaseHist as um")
     .innerJoin("client as c", "um.clientPubId", "c.pubId")
@@ -335,11 +335,11 @@ async function getUmCaseHistoryQry(caseNumber: string) {
       "um.closedAt",
       "um.remarks",
     ])
-    .where("um.pubId", "=", caseNumber)
+    .where("um.pubId", "=", pubId)
     .orderBy("um.histAddedAt", "desc")
     .execute();
 }
 
-export const getUmCaseHistory = cache(async (caseNumber: string) => {
-  return getUmCaseHistoryQry(caseNumber);
+export const getUmCaseHistory = cache(async (pubId: string) => {
+  return getUmCaseHistoryQry(pubId);
 });
