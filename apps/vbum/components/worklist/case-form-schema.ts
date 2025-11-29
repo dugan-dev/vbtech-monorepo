@@ -87,8 +87,13 @@ export function umCaseToFormData(caseData: umCase): CaseFormInput {
       ? formatDate({ date: caseData.closedAt })
       : "",
     procedureCodes:
-      caseData.procedureCodes?.split(",").map((value) => ({ code: value })) ||
-      [],
+      !caseData.procedureCodes || !caseData.procedureCodes.trim()
+        ? []
+        : caseData.procedureCodes
+            .split(",")
+            .map((value) => value.trim())
+            .filter((value) => value !== "")
+            .map((value) => ({ code: value })),
     clientPubId: caseData.clientPubId,
     planPubId: caseData.planPubId,
     status: caseData.status,
