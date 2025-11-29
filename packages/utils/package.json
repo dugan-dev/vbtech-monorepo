@@ -14,6 +14,7 @@
   "exports": {
     "./format-currency": "./src/format-currency.ts",
     "./format-date": "./src/format-date.ts",
+    "./format-date-for-db": "./src/format-date-for-db.ts",
     "./format-phone-number": "./src/format-phone-number.ts",
     "./format-tax-id": "./src/format-tax-id.ts",
     "./get-tz-adjusted-full-day-span": "./src/get-tz-adjusted-full-day-span.ts",
