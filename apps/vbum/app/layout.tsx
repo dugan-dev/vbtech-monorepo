@@ -3,6 +3,7 @@ import { Play } from "next/font/google";
 import "@workspace/ui/globals.css";
 
 import { Toaster } from "@workspace/ui/components/sonner";
+import { TailwindIndicator } from "@workspace/ui/components/tailwind-indicator";
 
 import { UnauthedProviders } from "@/components/unauthed-providers";
 
@@ -40,6 +41,7 @@ export default function RootLayout({
             <div className="h-full overflow-y-auto">{children}</div>
           </div>
           <Toaster />
+          <TailwindIndicator />
         </UnauthedProviders>
       </body>
     </html>

@@ -7,6 +7,7 @@ import {
   Home,
 } from "@/routes";
 import {
+  Briefcase,
   File,
   Handshake,
   HeartHandshake,
@@ -21,8 +22,8 @@ import { SidebarNavItem } from "@workspace/ui/types/sidebar-nav-item";
 export const MAIN_SIDEBAR_CONFIG = [
   {
     id: "1",
-    title: "Home",
-    icon: LayoutDashboard,
+    title: "Cases",
+    icon: Briefcase,
     href: Home({}),
   },
   {

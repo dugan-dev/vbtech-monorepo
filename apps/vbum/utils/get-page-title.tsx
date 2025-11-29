@@ -22,7 +22,7 @@ import {
 export function getPageTitle(pathname: string, slug?: string) {
   switch (pathname) {
     case Home({}):
-      return "Home";
+      return "Cases";
     case AdminUsers({}):
       return "User Administration";
     case AdminClients({}):
