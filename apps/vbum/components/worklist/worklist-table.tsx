@@ -146,10 +146,10 @@ function calculateClosedCaseMetrics(
   color: string;
 } {
   // Parse dates robustly without locale-dependent string conversion
-  const received = parseDateSafely(receivedDate);
-  const closed = parseDateSafely(closedDate);
+  const parsedReceived = parseDateSafely(receivedDate);
+  const parsedClosed = parseDateSafely(closedDate);
 
-  if (!received || !closed) {
+  if (!parsedReceived || !parsedClosed) {
     return {
       actualTAT: 0,
       requiredTAT: caseType === "Expedited" ? tatExpedited : tatStandard,
@@ -160,6 +160,9 @@ function calculateClosedCaseMetrics(
     };
   }
 
+  // Clone dates to avoid mutating original objects
+  const received = new Date(parsedReceived);
+  const closed = new Date(parsedClosed);
   received.setHours(0, 0, 0, 0);
   closed.setHours(0, 0, 0, 0);
 
