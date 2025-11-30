@@ -107,6 +107,7 @@ export type procedure_code = {
   ruleSet: string | null;
   ncd: string | null;
   lcd: string | null;
+  roi: string | null;
   isActive: Generated<number>;
 };
 export type procedure_code_hist = {
@@ -126,6 +127,7 @@ export type procedure_code_hist = {
   ruleSet: string | null;
   ncd: string | null;
   lcd: string | null;
+  roi: string | null;
   isActive: number;
 };
 export type um_case = {

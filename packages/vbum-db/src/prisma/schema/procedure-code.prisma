@@ -14,6 +14,7 @@ model procedure_code {
         rule_set      String?  @db.VarChar(50)
         ncd           String?  @db.VarChar(1000)
         lcd           String?  @db.VarChar(1000)
+        roi           Decimal? @db.Decimal(5, 2)
         is_active     Boolean  @default(true)
 }
 
@@ -34,6 +35,7 @@ model procedure_code_hist {
         rule_set      String?  @db.VarChar(50)
         ncd           String?  @db.VarChar(1000)
         lcd           String?  @db.VarChar(1000)
+        roi           Decimal? @db.Decimal(5, 2)
         is_active     Boolean
 
         @@index([pub_id], map: "idx_procedureCodeHist_pub_id")
