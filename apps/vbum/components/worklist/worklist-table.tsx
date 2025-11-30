@@ -1,6 +1,8 @@
 "use client";
 
 import { useWorklistContext } from "@/contexts/worklist-context";
+import { calculateDueDateWithStatus } from "@/utils/calculate-due-date";
+import { isValid, parse } from "date-fns";
 import { AlertCircle } from "lucide-react";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
@@ -58,60 +60,6 @@ function getStatusColor(status: string): string {
 }
 
 /**
- * Compute a case due date, a human-readable due display, and a relative status compared to today.
- *
- * @param receivedDate - The date the case was received; when `null`, the result indicates no due date.
- * @param caseType - Case type string; `"Expedited"` selects `tatExpedited`, otherwise `tatStandard` is used.
- * @param tatStandard - Turnaround time in days for standard cases.
- * @param tatExpedited - Turnaround time in days for expedited cases.
- * @returns An object containing:
- *  - `dueDate`: the calculated due `Date` or `null` if `receivedDate` was `null`;
- *  - `display`: a short human-readable string such as `"Overdue"`, `"Today"`, `"Tomorrow"`, or `"{N} days remaining"`;
- *  - `status`: one of `"overdue"`, `"today"`, `"tomorrow"`, or `"upcoming"` indicating the due date relative to today.
- */
-function calculateDueDate(
-  receivedDate: Date | null,
-  caseType: string,
-  tatStandard: number,
-  tatExpedited: number,
-): {
-  dueDate: Date | null;
-  display: string;
-  status: "overdue" | "today" | "upcoming" | "tomorrow";
-} {
-  if (!receivedDate) {
-    return { dueDate: null, display: "—", status: "upcoming" };
-  }
-
-  const received = new Date(formatDate({ date: receivedDate }));
-  const daysToAdd = caseType === "Expedited" ? tatExpedited : tatStandard;
-  const dueDate = new Date(received);
-  dueDate.setDate(dueDate.getDate() + daysToAdd);
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const due = new Date(dueDate);
-  due.setHours(0, 0, 0, 0);
-
-  const diffTime = due.getTime() - today.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-  if (diffDays < 0) {
-    return { dueDate, display: "Overdue", status: "overdue" };
-  } else if (diffDays === 0) {
-    return { dueDate, display: "Today", status: "today" };
-  } else if (diffDays === 1) {
-    return { dueDate, display: "Tomorrow", status: "tomorrow" };
-  } else {
-    return {
-      dueDate,
-      display: `${diffDays} days remaining`,
-      status: "upcoming",
-    };
-  }
-}
-
-/**
  * Selects the CSS class string used to style a due-date display based on its status.
  *
  * @param status - Due-date status: `"overdue"`, `"today"`, `"tomorrow"`, or `"upcoming"`
@@ -130,6 +78,39 @@ function getDueDateColor(
     case "upcoming":
       return "text-muted-foreground";
   }
+}
+
+/**
+ * Parse a date input into a valid Date object, handling multiple formats.
+ *
+ * @param dateInput - The date as a `Date`, ISO-like string (`yyyy-MM-dd`), `M/d/yyyy` string, or other date string
+ * @returns A valid `Date` object, or `null` if the input cannot be parsed
+ */
+function parseDateSafely(dateInput: Date | string | null): Date | null {
+  if (!dateInput) {
+    return null;
+  }
+
+  let parsed: Date;
+  if (dateInput instanceof Date) {
+    parsed = dateInput;
+  } else if (typeof dateInput === "string") {
+    if (dateInput.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      parsed = parse(dateInput, "yyyy-MM-dd", new Date());
+    } else if (dateInput.match(/^\d{1,2}\/\d{1,2}\/\d{4}$/)) {
+      parsed = parse(dateInput, "M/d/yyyy", new Date());
+    } else {
+      parsed = new Date(dateInput);
+    }
+  } else {
+    return null;
+  }
+
+  if (!isValid(parsed)) {
+    return null;
+  }
+
+  return parsed;
 }
 
 /**
@@ -164,7 +145,11 @@ function calculateClosedCaseMetrics(
   status: "timely" | "late" | "just-in-time";
   color: string;
 } {
-  if (!receivedDate || !closedDate) {
+  // Parse dates robustly without locale-dependent string conversion
+  const received = parseDateSafely(receivedDate);
+  const closed = parseDateSafely(closedDate);
+
+  if (!received || !closed) {
     return {
       actualTAT: 0,
       requiredTAT: caseType === "Expedited" ? tatExpedited : tatStandard,
@@ -175,9 +160,7 @@ function calculateClosedCaseMetrics(
     };
   }
 
-  const received = new Date(formatDate({ date: receivedDate }));
   received.setHours(0, 0, 0, 0);
-  const closed = new Date(formatDate({ date: closedDate }));
   closed.setHours(0, 0, 0, 0);
 
   const diffTime = closed.getTime() - received.getTime();
@@ -291,7 +274,7 @@ export function WorklistTable({ cases, type }: props) {
                 // Calculate metrics based on case type (open vs closed)
                 const openCaseMetrics =
                   type === "open"
-                    ? calculateDueDate(
+                    ? calculateDueDateWithStatus(
                         case_.recdDate,
                         case_.caseType,
                         healthPlan?.tatStandard ?? 14,

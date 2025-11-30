@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { useWorklistContext } from "@/contexts/worklist-context";
+import { calculateDueDateDisplay } from "@/utils/calculate-due-date";
 import { parseAsString, useQueryState } from "nuqs";
 
 import {
@@ -10,54 +11,8 @@ import {
   TabsList,
   TabsTrigger,
 } from "@workspace/ui/components/tabs";
-import { formatDate } from "@workspace/utils/format-date";
 
 import { WorklistTable } from "./worklist-table";
-
-/**
- * Produces a human-readable due date label for a case based on its received date and turnaround times.
- *
- * @param receivedDate - The case received date; when `null` an empty string is returned
- * @param caseType - Case type; `"Expedited"` selects the expedited turnaround, otherwise the standard turnaround is used
- * @param tatStandard - Standard turnaround time in days
- * @param tatExpedited - Expedited turnaround time in days
- * @returns The formatted due date followed by one of: `Overdue`, `Today`, `Tomorrow`, or `X days remaining`; returns an empty string if `receivedDate` is `null`
- */
-function calculateDueDateDisplay(
-  receivedDate: Date | null,
-  caseType: string,
-  tatStandard: number,
-  tatExpedited: number,
-): string {
-  if (!receivedDate) {
-    return "";
-  }
-
-  const received = new Date(formatDate({ date: receivedDate }));
-  const daysToAdd = caseType === "Expedited" ? tatExpedited : tatStandard;
-  const dueDate = new Date(received);
-  dueDate.setDate(dueDate.getDate() + daysToAdd);
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const due = new Date(dueDate);
-  due.setHours(0, 0, 0, 0);
-
-  const diffTime = due.getTime() - today.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-  const formattedDate = formatDate({ date: dueDate });
-
-  if (diffDays < 0) {
-    return `${formattedDate} Overdue`;
-  } else if (diffDays === 0) {
-    return `${formattedDate} Today`;
-  } else if (diffDays === 1) {
-    return `${formattedDate} Tomorrow`;
-  } else {
-    return `${formattedDate} ${diffDays} days remaining`;
-  }
-}
 
 /**
  * Render the worklist UI with tabbed views for open and closed cases.
