@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AlertCircle, CheckCircle2, HeartPulse, Loader2 } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
@@ -48,6 +48,14 @@ export function ProcedureCodeInput({
   const [isValidating, setIsValidating] = useState(false);
   const [showUmEvalDialog, setShowUmEvalDialog] = useState(false);
 
+  // Store onValidationChange in a ref to avoid it being a dependency
+  const onValidationChangeRef = useRef(onValidationChange);
+
+  // Update the ref whenever the callback changes
+  useEffect(() => {
+    onValidationChangeRef.current = onValidationChange;
+  }, [onValidationChange]);
+
   // Debounce the input value
   const debouncedValue = useDebounce(value, 600);
 
@@ -58,7 +66,7 @@ export function ProcedureCodeInput({
       const resetValidation = async () => {
         setValidationState(null);
         setIsValidating(false);
-        onValidationChange?.(null);
+        onValidationChangeRef.current?.(null);
       };
       void resetValidation();
       return;
@@ -72,7 +80,7 @@ export function ProcedureCodeInput({
         const result = await validateProcedureCode(debouncedValue);
         setValidationState(result);
         setIsValidating(false);
-        onValidationChange?.(result);
+        onValidationChangeRef.current?.(result);
       } catch (error) {
         console.error("[v0] Procedure code validation error:", error);
         const errorState = {
@@ -82,12 +90,12 @@ export function ProcedureCodeInput({
         };
         setValidationState(errorState);
         setIsValidating(false);
-        onValidationChange?.(errorState);
+        onValidationChangeRef.current?.(errorState);
       }
     };
 
     void runValidation();
-  }, [debouncedValue, onValidationChange]);
+  }, [debouncedValue]);
 
   const getValidationIcon = () => {
     if (isValidating) {

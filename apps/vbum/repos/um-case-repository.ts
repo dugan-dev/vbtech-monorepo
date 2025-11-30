@@ -334,13 +334,7 @@ export async function getUmCaseByCaseNumber(caseNumber: string) {
     .executeTakeFirst();
 }
 
-/**
- * Retrieve the history entries for a UM case identified by its case number.
- *
- * @param caseNumber - The case's identifier used in the history table (`umCaseHist.pubId`)
- * @returns An array of history records for the case; each record includes pubId, createdAt, createdBy, updatedBy, updatedAt, updatedByFirstName, updatedByLastName, caseNumber, caseType, recdDate, procedureCodes, clientPubId, planPubId, clientName, planName, status, assignedTo, assignedAt, assignedToFirstName, assignedToLastName, assignedToEmail, fuAction, mdReview, physPubId, p2pSuccess, mdRecommended, closedAt, and remarks
- */
-async function getUmCaseHistoryQry(caseNumber: string) {
+async function getUmCaseHistoryQry(pubId: string) {
   return await db
     .selectFrom("umCaseHist as um")
     .innerJoin("client as c", "um.clientPubId", "c.pubId")
@@ -377,11 +371,11 @@ async function getUmCaseHistoryQry(caseNumber: string) {
       "um.closedAt",
       "um.remarks",
     ])
-    .where("um.pubId", "=", caseNumber)
+    .where("um.pubId", "=", pubId)
     .orderBy("um.histAddedAt", "desc")
     .execute();
 }
 
-export const getUmCaseHistory = cache(async (caseNumber: string) => {
-  return getUmCaseHistoryQry(caseNumber);
+export const getUmCaseHistory = cache(async (pubId: string) => {
+  return getUmCaseHistoryQry(pubId);
 });
