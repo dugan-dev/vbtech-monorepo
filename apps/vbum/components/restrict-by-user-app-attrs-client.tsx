@@ -1,3 +1,5 @@
+"use client";
+
 import { useUserContext } from "@/contexts/user-context";
 
 import { RestrictClient } from "@workspace/ui/components/restrict-client";

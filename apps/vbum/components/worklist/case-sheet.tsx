@@ -359,7 +359,7 @@ export function CaseSheet({ mode, children }: CaseSheetProps) {
           <div className="px-12">
             <form onSubmit={handleSubmit(onSubmit)}>
               <fieldset
-                disabled={isPending || userCanEditCase}
+                disabled={isPending || !userCanEditCase}
                 className="space-y-6 py-6"
               >
                 {/* Case Information Section */}
