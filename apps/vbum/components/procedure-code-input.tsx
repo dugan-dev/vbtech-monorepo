@@ -163,14 +163,13 @@ export function ProcedureCodeInput({
         )}
       </div>
 
-      {validationState?.requiresUmEval && (
-        <UmEvalToolDialog
-          open={showUmEvalDialog}
-          onOpenChange={setShowUmEvalDialog}
-          procedureCode={value}
-          codeDescription={validationState.description}
-        />
-      )}
+      <UmEvalToolDialog
+        open={showUmEvalDialog}
+        onOpenChange={setShowUmEvalDialog}
+        procedureCode={value}
+        codeDescription={validationState?.description}
+      />
     </>
   );
 }
+
