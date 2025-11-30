@@ -7,10 +7,13 @@ import { SidebarProvider } from "@workspace/ui/components/sidebar";
 
 import { useAutoLogout } from "@/hooks/use-auto-logout";
 
+import { QueryProvider } from "./query-provider";
+
 /**
- * Provides authentication and sidebar contexts to all nested child components.
+ * Provides authentication, React Query, and sidebar contexts to all nested child components.
  *
- * Wraps {@link children} with both {@link AuthProvider} and {@link SidebarProvider} to ensure access to authentication and sidebar-related state throughout the component tree.
+ * Wraps {@link children} with {@link AuthProvider}, {@link QueryProvider}, and {@link SidebarProvider}
+ * to ensure access to authentication, client-side caching, and sidebar-related state throughout the component tree.
  *
  * @param children - React nodes to render within the context providers.
  */
@@ -20,7 +23,9 @@ export function AuthedProviders({ children }: PropsWithChildren) {
 
   return (
     <AuthProvider>
-      <SidebarProvider>{children}</SidebarProvider>
+      <QueryProvider>
+        <SidebarProvider>{children}</SidebarProvider>
+      </QueryProvider>
     </AuthProvider>
   );
 }
