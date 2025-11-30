@@ -1,0 +1,40 @@
+model procedure_code {
+        id            Int      @id @default(autoincrement()) @db.UnsignedInt
+        pub_id        String   @unique @db.VarChar(50)
+        created_at    DateTime @db.DateTime(0)
+        created_by    String   @db.VarChar(50)
+        updated_at    DateTime @db.DateTime(0)
+        updated_by    String   @db.VarChar(50)
+        proc_code     String   @unique @db.VarChar(50)
+        proc_desc     String   @db.VarChar(1000)
+        in_scope      Boolean  @default(true)
+        program       String   @db.VarChar(50)
+        has_rules     Boolean  @default(false)
+        rule_subgroup String?  @db.VarChar(50)
+        rule_set      String?  @db.VarChar(50)
+        ncd           String?  @db.VarChar(1000)
+        lcd           String?  @db.VarChar(1000)
+        is_active     Boolean  @default(true)
+}
+
+model procedure_code_hist {
+        id            Int      @id @default(autoincrement()) @db.UnsignedInt
+        hist_added_at DateTime @db.DateTime(0)
+        pub_id        String   @db.VarChar(50)
+        created_at    DateTime @db.DateTime(0)
+        created_by    String   @db.VarChar(50)
+        updated_at    DateTime @db.DateTime(0)
+        updated_by    String   @db.VarChar(50)
+        proc_code     String   @db.VarChar(50)
+        proc_desc     String   @db.VarChar(1000)
+        in_scope      Boolean  @default(true)
+        program       String   @db.VarChar(50)
+        has_rules     Boolean  @default(false)
+        rule_subgroup String?  @db.VarChar(50)
+        rule_set      String?  @db.VarChar(50)
+        ncd           String?  @db.VarChar(1000)
+        lcd           String?  @db.VarChar(1000)
+        is_active     Boolean
+
+        @@index([pub_id], map: "idx_procedureCodeHist_pub_id")
+}

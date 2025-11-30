@@ -91,6 +91,43 @@ export type physician_hist = {
   notes: string | null;
   isActive: Generated<number>;
 };
+export type procedure_code = {
+  id: Generated<number>;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  procCode: string;
+  procDesc: string;
+  inScope: Generated<number>;
+  program: string;
+  hasRules: Generated<number>;
+  ruleSubgroup: string | null;
+  ruleSet: string | null;
+  ncd: string | null;
+  lcd: string | null;
+  isActive: Generated<number>;
+};
+export type procedure_code_hist = {
+  id: Generated<number>;
+  histAddedAt: Timestamp;
+  pubId: string;
+  createdAt: Timestamp;
+  createdBy: string;
+  updatedAt: Timestamp;
+  updatedBy: string;
+  procCode: string;
+  procDesc: string;
+  inScope: Generated<number>;
+  program: string;
+  hasRules: Generated<number>;
+  ruleSubgroup: string | null;
+  ruleSet: string | null;
+  ncd: string | null;
+  lcd: string | null;
+  isActive: number;
+};
 export type um_case = {
   id: Generated<number>;
   pubId: string;
@@ -175,6 +212,8 @@ export type DB = {
   healthPlanHist: health_plan_hist;
   physician: physician;
   physicianHist: physician_hist;
+  procedureCode: procedure_code;
+  procedureCodeHist: procedure_code_hist;
   umCase: um_case;
   umCaseHist: um_case_hist;
   user: user;

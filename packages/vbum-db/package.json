@@ -20,14 +20,17 @@
     "kysely": "0.28.8",
     "kysely-planetscale": "1.7.1",
     "mysql2": "3.15.3",
+    "nanoid": "5.1.6",
     "server-only": "0.0.1"
   },
   "devDependencies": {
     "prisma": "6.19.0",
-    "prisma-kysely": "2.2.1"
+    "prisma-kysely": "2.2.1",
+    "tsx": "4.20.6"
   },
   "prisma": {
-    "schema": "./src/prisma/schema"
+    "schema": "./src/prisma/schema",
+    "seed": "node --import tsx/esm src/prisma/seed/seed.ts"
   },
   "exports": {
     "./types": "./src/kysely/types.ts",
