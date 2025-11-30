@@ -22,7 +22,7 @@
     "@workspace/typescript-config": "workspace:*",
     "eslint": "9.39.1",
     "husky": "9.1.7",
-    "prettier": "3.7.2",
+    "prettier": "3.7.3",
     "prettier-plugin-prisma": "5.0.0",
     "prettier-plugin-tailwindcss": "0.7.1",
     "sst": "3.17.24",
