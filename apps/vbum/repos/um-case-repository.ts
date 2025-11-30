@@ -219,7 +219,7 @@ export async function updateUmCase(
           ClosedCaseStatuses.includes(data.status as CaseStatus) &&
           data.closedDate
             ? formatDateForDb({ date: data.closedDate })
-            : undefined,
+            : null,
       })
       .execute();
   });
