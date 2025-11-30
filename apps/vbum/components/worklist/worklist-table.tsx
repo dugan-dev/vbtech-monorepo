@@ -318,10 +318,14 @@ export function WorklistTable({ cases, type }: props) {
                       }
                     >
                       {type === "open"
-                        ? openCaseMetrics?.dueDate && (
+                        ? openCaseMetrics && (
                             <HoverCard>
                               <HoverCardTrigger>
-                                {formatDate({ date: openCaseMetrics.dueDate })}
+                                {openCaseMetrics.dueDate
+                                  ? formatDate({
+                                      date: openCaseMetrics.dueDate,
+                                    })
+                                  : openCaseMetrics.display}
                               </HoverCardTrigger>
                               <HoverCardContent className="w-auto max-w-xs">
                                 <div className="space-y-1">
