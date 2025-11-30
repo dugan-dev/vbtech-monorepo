@@ -14,6 +14,15 @@ import { formatDate } from "@workspace/utils/format-date";
 
 import { WorklistTable } from "./worklist-table";
 
+/**
+ * Produces a human-readable due date label for a case based on its received date and turnaround times.
+ *
+ * @param receivedDate - The case received date; when `null` an empty string is returned
+ * @param caseType - Case type; `"Expedited"` selects the expedited turnaround, otherwise the standard turnaround is used
+ * @param tatStandard - Standard turnaround time in days
+ * @param tatExpedited - Expedited turnaround time in days
+ * @returns The formatted due date followed by one of: `Overdue`, `Today`, `Tomorrow`, or `X days remaining`; returns an empty string if `receivedDate` is `null`
+ */
 function calculateDueDateDisplay(
   receivedDate: Date | null,
   caseType: string,
@@ -50,6 +59,16 @@ function calculateDueDateDisplay(
   }
 }
 
+/**
+ * Render the worklist UI with tabbed views for open and closed cases.
+ *
+ * Uses worklist context and URL query state to compute filtered lists of cases
+ * (search, status, client, and nurse/assigned filters). Each tab displays a
+ * WorklistTable populated with the corresponding filtered cases and shows
+ * counts in the tab headers.
+ *
+ * @returns A React element containing the tabs and tables for filtered open and closed cases.
+ */
 export function WorklistContent() {
   const { openCases, closedCases, physicians, healthPlans } =
     useWorklistContext();

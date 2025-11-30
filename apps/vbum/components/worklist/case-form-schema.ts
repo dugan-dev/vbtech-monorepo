@@ -77,6 +77,12 @@ const CaseFormDefaultValues: CaseFormInput = {
   remarks: "",
 };
 
+/**
+ * Convert a backend `umCase` record into a `CaseFormInput` object suitable for the form.
+ *
+ * @param caseData - The source `umCase` record to convert.
+ * @returns A `CaseFormInput` where date fields are formatted as strings, `procedureCodes` is an array of `{ code }` objects parsed from a comma-separated string, numeric flags (`mdReview`, `p2pSuccess`) are mapped to `"Yes"`/`"No"`, and missing string fields are replaced with empty strings.
+ */
 export function umCaseToFormData(caseData: umCase): CaseFormInput {
   const formData: CaseFormInput = {
     assignedTo: caseData.assignedTo || "",

@@ -63,11 +63,11 @@ export const ManageHealthPlansTableColumns: ColumnDef<HealthPlan>[] = [
 ];
 
 /**
- * Render action controls for a health plan row and open an edit dialog populated with the plan.
+ * Render action controls for a health plan row and present an edit dialog prefilled with the plan's data and current client id.
  *
- * Uses the current "cId" query-state value as `clientPubId` and supplies initial form data derived from `plan` to HealthPlanDialog.
+ * The dialog is initialized with the plan's `planName`, `tatExpedited`, and `tatStandard`, and is associated with the plan's `pubId` as the health plan identifier.
  *
- * @param plan - The health plan row to manage; its `planName` and `pubId` are used to populate the dialog.
+ * @param plan - The health plan to manage; its `planName`, `tatExpedited`, `tatStandard`, and `pubId` are used to populate and identify the dialog
  */
 function ActionsCell({ plan }: { plan: HealthPlan }) {
   const [cId] = useQueryState("cId", parseAsString.withDefault(""));

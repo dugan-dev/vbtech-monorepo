@@ -78,8 +78,10 @@ export interface ProcedureCodeValidation {
 }
 
 /**
- * Validates a procedure code against our contract database
- * Simulates an async API call with a delay
+ * Validate a procedure code against the in-file contract database.
+ *
+ * @param code - Procedure code; leading/trailing whitespace is ignored and letters are treated case-insensitively
+ * @returns A `ProcedureCodeValidation` describing whether the code is covered by the contract. If `isValid` is `true`, `requiresUmEval` and `description` are populated; if `isValid` is `false`, `error` contains a human-readable reason.
  */
 export async function validateProcedureCode(
   code: string,

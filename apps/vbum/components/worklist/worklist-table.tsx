@@ -31,6 +31,12 @@ type props = {
   type: "open" | "closed";
 };
 
+/**
+ * Map a case status label to the Tailwind CSS class string used to style its badge.
+ *
+ * @param status - Case status (e.g., "Approved", "Under Review", "Moved to MD", "Withdrawn", "Offer P2P", "P2P Scheduled", "Not reviewed")
+ * @returns A CSS class string appropriate for styling a status badge (background, text, hover and dark-mode variants)
+ */
 function getStatusColor(status: string): string {
   switch (status) {
     case "Approved":
@@ -51,6 +57,18 @@ function getStatusColor(status: string): string {
   }
 }
 
+/**
+ * Compute a case due date, a human-readable due display, and a relative status compared to today.
+ *
+ * @param receivedDate - The date the case was received; when `null`, the result indicates no due date.
+ * @param caseType - Case type string; `"Expedited"` selects `tatExpedited`, otherwise `tatStandard` is used.
+ * @param tatStandard - Turnaround time in days for standard cases.
+ * @param tatExpedited - Turnaround time in days for expedited cases.
+ * @returns An object containing:
+ *  - `dueDate`: the calculated due `Date` or `null` if `receivedDate` was `null`;
+ *  - `display`: a short human-readable string such as `"Overdue"`, `"Today"`, `"Tomorrow"`, or `"{N} days remaining"`;
+ *  - `status`: one of `"overdue"`, `"today"`, `"tomorrow"`, or `"upcoming"` indicating the due date relative to today.
+ */
 function calculateDueDate(
   receivedDate: Date | null,
   caseType: string,
@@ -93,6 +111,12 @@ function calculateDueDate(
   }
 }
 
+/**
+ * Selects the CSS class string used to style a due-date display based on its status.
+ *
+ * @param status - Due-date status: `"overdue"`, `"today"`, `"tomorrow"`, or `"upcoming"`
+ * @returns The CSS class string to apply to the due-date element
+ */
 function getDueDateColor(
   status: "overdue" | "today" | "upcoming" | "tomorrow",
 ): string {
@@ -108,6 +132,24 @@ function getDueDateColor(
   }
 }
 
+/**
+ * Compute timeliness metrics for a closed case relative to its turnaround time (TAT).
+ *
+ * If either `receivedDate` or `closedDate` is missing, returns default metrics with the required TAT determined by `caseType`.
+ *
+ * @param receivedDate - Date the case was received (or `null` if unknown)
+ * @param closedDate - Date the case was closed (or `null` if unknown)
+ * @param caseType - Case priority type; expected values include `"Expedited"` to select expedited TAT
+ * @param tatStandard - Standard TAT in days
+ * @param tatExpedited - Expedited TAT in days
+ * @returns An object with:
+ *  - `actualTAT`: number of days between received and closed (rounded up)
+ *  - `requiredTAT`: the TAT used for comparison (based on `caseType`)
+ *  - `daysLate`: `actualTAT - requiredTAT` (negative if closed early)
+ *  - `isTimely`: `true` if `daysLate <= 0`, `false` otherwise
+ *  - `status`: `"timely"` when closed before the due date, `"just-in-time"` when closed exactly on the due date, or `"late"` when closed after the due date
+ *  - `color`: CSS class string suitable for styling the status display
+ */
 function calculateClosedCaseMetrics(
   receivedDate: Date | null,
   closedDate: Date | null,
@@ -170,6 +212,17 @@ function calculateClosedCaseMetrics(
   };
 }
 
+/**
+ * Render a paginated worklist table for either open or closed cases.
+ *
+ * Renders case rows with due/closed date metrics, status badges, follow-up action,
+ * MD escalation indicators, and an actions button that sets the selected case for review.
+ * Pagination state (page and pageSize) and the selected case ID are persisted to the URL query string.
+ *
+ * @param cases - Array of cases to display in the table
+ * @param type - Determines table mode: `"open"` shows due dates and review actions; `"closed"` shows closed-date metrics and view actions
+ * @returns The worklist table element including row rendering, pagination controls (when cases exist), and the CaseSheet review viewer
+ */
 export function WorklistTable({ cases, type }: props) {
   const [, setCaseId] = useQueryState(
     "caseId",

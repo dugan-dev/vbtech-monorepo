@@ -16,6 +16,13 @@ import {
 import { CaseStatuses, CaseStatusLabels } from "@/types/case-status";
 import RestrictByUserAppAttrsClient from "@/components/restrict-by-user-app-attrs-client";
 
+/**
+ * Renders a set of worklist filter controls and wires them to query state.
+ *
+ * Includes a debounced search input and dropdowns for status, client, and (when permitted) nurse; updating any control updates the corresponding query parameter.
+ *
+ * @returns The JSX element containing the filter controls
+ */
 export function WorklistFilters() {
   const { clients, nurses } = useWorklistContext();
   const [filters, setFilters] = useQueryStates(
