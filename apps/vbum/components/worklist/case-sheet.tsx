@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState, useTransition } from "react";
 import { usePathname } from "next/navigation";
 import { insertUmCaseAction } from "@/actions/insert-um-case-action";
 import { updateUmCaseAction } from "@/actions/update-um-case-action";
+import { useUserContext } from "@/contexts/user-context";
 import { useWorklistContext } from "@/contexts/worklist-context";
 import { calculateDueDate, formatDueDate } from "@/utils/calculate-due-date";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -70,6 +71,7 @@ import {
 } from "@/types/case-status";
 import { CaseTypeLabels, CaseTypes } from "@/types/case-type";
 import { MDCaseRecommendations } from "@/types/md-case-recommendation";
+import { UserType } from "@/types/user-type";
 
 import { ProcedureCodeInput } from "../procedure-code-input";
 import {
@@ -81,6 +83,7 @@ import {
 import { CaseHistoryDialogClient } from "./case-history-dialog-client";
 
 const MAX_PROCEDURE_CODES = 30;
+const REQUIRE_USER_TYPES_TO_EDIT: UserType[] = ["nurse", "ops"];
 
 type CaseSheetProps = {
   mode: "new" | "review";
@@ -130,6 +133,14 @@ export function CaseSheet({ mode, children }: CaseSheetProps) {
     caseHistory,
     selectedCase,
   } = useWorklistContext();
+
+  const { usersAppAttrs } = useUserContext();
+
+  const userCanEditCase =
+    usersAppAttrs?.type &&
+    REQUIRE_USER_TYPES_TO_EDIT.includes(usersAppAttrs.type)
+      ? true
+      : false;
 
   // Derive form values based on mode
   const values = useMemo(() => {
@@ -328,8 +339,8 @@ export function CaseSheet({ mode, children }: CaseSheetProps) {
                   onClick={handleSubmit(onSubmit)}
                   disabled={
                     mode === "new"
-                      ? !isValid || isPending
-                      : !isDirty || isPending
+                      ? !isValid || isPending || !userCanEditCase
+                      : !isDirty || isPending || !userCanEditCase
                   }
                 >
                   {isPending ? (
@@ -346,589 +357,601 @@ export function CaseSheet({ mode, children }: CaseSheetProps) {
           </SheetHeader>
 
           <div className="px-12">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 py-6">
-              {/* Case Information Section */}
-              <div className="space-y-4">
-                <h3 className="text-sm font-semibold text-foreground">
-                  Case Information
-                </h3>
-
-                <div className="grid gap-4 lg:grid-cols-4">
-                  <Field>
-                    <FieldLabel htmlFor="caseId">
-                      Case ID <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Controller
-                      name="caseId"
-                      control={control}
-                      rules={{ required: "Case ID is required" }}
-                      render={({ field }) => (
-                        <Input
-                          {...field}
-                          id="caseId"
-                          placeholder="Enter case ID"
-                        />
-                      )}
-                    />
-                    <FormFieldError errors={[errors.caseId]} />
-                  </Field>
-
-                  <Field>
-                    <FieldLabel htmlFor="clientPubId">
-                      Client Name <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Controller
-                      name="clientPubId"
-                      control={control}
-                      rules={{ required: "Client is required" }}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={(val) => {
-                            handleClientChange();
-                            field.onChange(val);
-                          }}
-                        >
-                          <SelectTrigger id="clientPubId">
-                            <SelectValue placeholder="Select client" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {clients.map((client) => (
-                              <SelectItem
-                                key={client.value}
-                                value={client.value}
-                              >
-                                {client.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.clientPubId]} />
-                  </Field>
-
-                  <Field>
-                    <FieldLabel htmlFor="planPubId">
-                      Health Plan <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Controller
-                      name="planPubId"
-                      control={control}
-                      rules={{ required: "Health plan is required" }}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                          disabled={!clientPubId}
-                        >
-                          <SelectTrigger id="planPubId">
-                            <SelectValue placeholder="Select health plan" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {healthPlans
-                              .filter(
-                                (plan) => plan.clientPubId === clientPubId,
-                              )
-                              .map((plan) => (
-                                <SelectItem key={plan.pubId} value={plan.pubId}>
-                                  {plan.planName}
-                                </SelectItem>
-                              ))}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    {!clientPubId && (
-                      <FormFieldDescription>
-                        Select a client first
-                      </FormFieldDescription>
-                    )}
-                    <FormFieldError errors={[errors.planPubId]} />
-                  </Field>
-
-                  <Field>
-                    <FieldLabel htmlFor="caseType">
-                      Case Type <span className="text-destructive">*</span>
-                      {tatDays !== null && (
-                        <span className="ml-2 text-xs font-normal text-muted-foreground">
-                          (TAT: {tatDays} days)
-                        </span>
-                      )}
-                    </FieldLabel>
-                    <Controller
-                      name="caseType"
-                      control={control}
-                      rules={{ required: "Case type is required" }}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger id="caseType">
-                            <SelectValue placeholder="Select type" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {CaseTypes.map((type) => (
-                              <SelectItem value={type} key={type}>
-                                {CaseTypeLabels[type]}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.caseType]} />
-                  </Field>
-                </div>
-
-                <div className="grid gap-4 lg:grid-cols-4">
-                  <Field>
-                    <FieldLabel htmlFor="recdDate">
-                      Received Date <span className="text-destructive">*</span>
-                      {dueDate && (
-                        <span className="ml-2 text-xs font-normal text-muted-foreground">
-                          (Due: {formatDueDate(dueDate)})
-                        </span>
-                      )}
-                    </FieldLabel>
-                    <Controller
-                      name="recdDate"
-                      control={control}
-                      rules={{ required: "Received date is required" }}
-                      render={({ field }) => (
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className={cn(
-                                "w-full justify-start text-left font-normal",
-                                !field.value && "text-muted-foreground",
-                              )}
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              {field.value ? (
-                                format(toDate(field.value), "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar
-                              mode="single"
-                              selected={
-                                field.value ? toDate(field.value) : undefined
-                              }
-                              onSelect={(date) => {
-                                if (date) {
-                                  field.onChange(formatDate({ date }));
-                                }
-                              }}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.recdDate]} />
-                  </Field>
-
-                  <Field>
-                    <FieldLabel htmlFor="assignedTo">
-                      Assigned Nurse <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Controller
-                      name="assignedTo"
-                      control={control}
-                      rules={{ required: "Nurse is required" }}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger id="assignedTo">
-                            <SelectValue placeholder="Select Nurse Reviewer" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {nurses
-                              .filter(
-                                (nurse) =>
-                                  nurse.appAttrs?.type === "nurse" &&
-                                  nurse.accountStatus === "ENABLED",
-                              )
-                              .map((nurse) => (
-                                <SelectItem
-                                  key={nurse.userId}
-                                  value={nurse.userId}
-                                >
-                                  {`${nurse.firstName} ${nurse.lastName}`}
-                                </SelectItem>
-                              ))}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.assignedTo]} />
-                  </Field>
-
-                  <Field>
-                    <FieldLabel htmlFor="status">
-                      Status <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Controller
-                      name="status"
-                      control={control}
-                      rules={{ required: "Status is required" }}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger id="status">
-                            <SelectValue placeholder="Select status" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {CaseStatuses.map((status) => (
-                              <SelectItem key={status} value={status}>
-                                {status}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.status]} />
-                  </Field>
-
-                  <Field>
-                    <FieldLabel htmlFor="closedDate">
-                      Closed Date
-                      {ClosedCaseStatuses.includes(status as CaseStatus) && (
-                        <span className="text-destructive"> *</span>
-                      )}
-                    </FieldLabel>
-                    <Controller
-                      name="closedDate"
-                      control={control}
-                      render={({ field }) => (
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              className={cn(
-                                "w-full justify-start text-left font-normal",
-                                !field.value && "text-muted-foreground",
-                              )}
-                            >
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              {field.value ? (
-                                format(toDate(field.value), "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0">
-                            <Calendar
-                              mode="single"
-                              selected={
-                                field.value ? toDate(field.value) : undefined
-                              }
-                              onSelect={(date) => {
-                                if (date) {
-                                  field.onChange(formatDate({ date }));
-                                } else {
-                                  field.onChange("");
-                                }
-                              }}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.closedDate]} />
-                  </Field>
-                </div>
-              </div>
-
-              <Separator />
-
-              {/* Service Details Section */}
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <fieldset
+                disabled={isPending || userCanEditCase}
+                className="space-y-6 py-6"
+              >
+                {/* Case Information Section */}
+                <div className="space-y-4">
                   <h3 className="text-sm font-semibold text-foreground">
-                    Service Details
+                    Case Information
                   </h3>
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    onClick={() => {
-                      append({ code: "" });
-                    }}
-                    disabled={fields.length >= MAX_PROCEDURE_CODES}
-                  >
-                    <Plus className="mr-2 h-4 w-4" />
-                    Add Procedure Code
-                  </Button>
-                </div>
 
-                <div className="grid gap-4 lg:grid-cols-3">
-                  {fields.map((field, index) => (
-                    <Field key={field.id}>
-                      <FieldLabel htmlFor={`procedureCode-${index}`}>
-                        Procedure Code {index + 1}{" "}
+                  <div className="grid gap-4 lg:grid-cols-4">
+                    <Field>
+                      <FieldLabel htmlFor="caseId">
+                        Case ID <span className="text-destructive">*</span>
+                      </FieldLabel>
+                      <Controller
+                        name="caseId"
+                        control={control}
+                        rules={{ required: "Case ID is required" }}
+                        render={({ field }) => (
+                          <Input
+                            {...field}
+                            id="caseId"
+                            placeholder="Enter case ID"
+                          />
+                        )}
+                      />
+                      <FormFieldError errors={[errors.caseId]} />
+                    </Field>
+
+                    <Field>
+                      <FieldLabel htmlFor="clientPubId">
+                        Client Name <span className="text-destructive">*</span>
+                      </FieldLabel>
+                      <Controller
+                        name="clientPubId"
+                        control={control}
+                        rules={{ required: "Client is required" }}
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={(val) => {
+                              handleClientChange();
+                              field.onChange(val);
+                            }}
+                          >
+                            <SelectTrigger id="clientPubId">
+                              <SelectValue placeholder="Select client" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {clients.map((client) => (
+                                <SelectItem
+                                  key={client.value}
+                                  value={client.value}
+                                >
+                                  {client.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                      <FormFieldError errors={[errors.clientPubId]} />
+                    </Field>
+
+                    <Field>
+                      <FieldLabel htmlFor="planPubId">
+                        Health Plan <span className="text-destructive">*</span>
+                      </FieldLabel>
+                      <Controller
+                        name="planPubId"
+                        control={control}
+                        rules={{ required: "Health plan is required" }}
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={field.onChange}
+                            disabled={!clientPubId}
+                          >
+                            <SelectTrigger id="planPubId">
+                              <SelectValue placeholder="Select health plan" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {healthPlans
+                                .filter(
+                                  (plan) => plan.clientPubId === clientPubId,
+                                )
+                                .map((plan) => (
+                                  <SelectItem
+                                    key={plan.pubId}
+                                    value={plan.pubId}
+                                  >
+                                    {plan.planName}
+                                  </SelectItem>
+                                ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                      {!clientPubId && (
+                        <FormFieldDescription>
+                          Select a client first
+                        </FormFieldDescription>
+                      )}
+                      <FormFieldError errors={[errors.planPubId]} />
+                    </Field>
+
+                    <Field>
+                      <FieldLabel htmlFor="caseType">
+                        Case Type <span className="text-destructive">*</span>
+                        {tatDays !== null && (
+                          <span className="ml-2 text-xs font-normal text-muted-foreground">
+                            (TAT: {tatDays} days)
+                          </span>
+                        )}
+                      </FieldLabel>
+                      <Controller
+                        name="caseType"
+                        control={control}
+                        rules={{ required: "Case type is required" }}
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <SelectTrigger id="caseType">
+                              <SelectValue placeholder="Select type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {CaseTypes.map((type) => (
+                                <SelectItem value={type} key={type}>
+                                  {CaseTypeLabels[type]}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                      <FormFieldError errors={[errors.caseType]} />
+                    </Field>
+                  </div>
+
+                  <div className="grid gap-4 lg:grid-cols-4">
+                    <Field>
+                      <FieldLabel htmlFor="recdDate">
+                        Received Date{" "}
+                        <span className="text-destructive">*</span>
+                        {dueDate && (
+                          <span className="ml-2 text-xs font-normal text-muted-foreground">
+                            (Due: {formatDueDate(dueDate)})
+                          </span>
+                        )}
+                      </FieldLabel>
+                      <Controller
+                        name="recdDate"
+                        control={control}
+                        rules={{ required: "Received date is required" }}
+                        render={({ field }) => (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className={cn(
+                                  "w-full justify-start text-left font-normal",
+                                  !field.value && "text-muted-foreground",
+                                )}
+                              >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value ? (
+                                  format(toDate(field.value), "PPP")
+                                ) : (
+                                  <span>Pick a date</span>
+                                )}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                selected={
+                                  field.value ? toDate(field.value) : undefined
+                                }
+                                onSelect={(date) => {
+                                  if (date) {
+                                    field.onChange(formatDate({ date }));
+                                  }
+                                }}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        )}
+                      />
+                      <FormFieldError errors={[errors.recdDate]} />
+                    </Field>
+
+                    <Field>
+                      <FieldLabel htmlFor="assignedTo">
+                        Assigned Nurse{" "}
                         <span className="text-destructive">*</span>
                       </FieldLabel>
-                      <div className="flex gap-2">
-                        <Controller
-                          name={`procedureCodes.${index}.code`}
-                          control={control}
-                          rules={{ required: "Procedure code is required" }}
-                          render={({ field }) => (
-                            <ProcedureCodeInput
-                              id={`procedureCode-${index}`}
-                              value={field.value ?? ""}
-                              onChange={field.onChange}
-                              placeholder="Enter code"
-                              className="flex-1"
-                            />
-                          )}
-                        />
-                        {fields.length > 1 && (
-                          <Button
-                            type="button"
-                            size="icon"
-                            variant="ghost"
-                            onClick={() => remove(index)}
-                            className="shrink-0"
+                      <Controller
+                        name="assignedTo"
+                        control={control}
+                        rules={{ required: "Nurse is required" }}
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={field.onChange}
                           >
-                            <X className="h-4 w-4" />
-                          </Button>
+                            <SelectTrigger id="assignedTo">
+                              <SelectValue placeholder="Select Nurse Reviewer" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {nurses
+                                .filter(
+                                  (nurse) =>
+                                    nurse.appAttrs?.type === "nurse" &&
+                                    nurse.accountStatus === "ENABLED",
+                                )
+                                .map((nurse) => (
+                                  <SelectItem
+                                    key={nurse.userId}
+                                    value={nurse.userId}
+                                  >
+                                    {`${nurse.firstName} ${nurse.lastName}`}
+                                  </SelectItem>
+                                ))}
+                            </SelectContent>
+                          </Select>
                         )}
-                      </div>
-                      <FormFieldError
-                        errors={[errors.procedureCodes?.[index]?.code]}
                       />
+                      <FormFieldError errors={[errors.assignedTo]} />
                     </Field>
-                  ))}
+
+                    <Field>
+                      <FieldLabel htmlFor="status">
+                        Status <span className="text-destructive">*</span>
+                      </FieldLabel>
+                      <Controller
+                        name="status"
+                        control={control}
+                        rules={{ required: "Status is required" }}
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <SelectTrigger id="status">
+                              <SelectValue placeholder="Select status" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {CaseStatuses.map((status) => (
+                                <SelectItem key={status} value={status}>
+                                  {status}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                      <FormFieldError errors={[errors.status]} />
+                    </Field>
+
+                    <Field>
+                      <FieldLabel htmlFor="closedDate">
+                        Closed Date
+                        {ClosedCaseStatuses.includes(status as CaseStatus) && (
+                          <span className="text-destructive"> *</span>
+                        )}
+                      </FieldLabel>
+                      <Controller
+                        name="closedDate"
+                        control={control}
+                        render={({ field }) => (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className={cn(
+                                  "w-full justify-start text-left font-normal",
+                                  !field.value && "text-muted-foreground",
+                                )}
+                              >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {field.value ? (
+                                  format(toDate(field.value), "PPP")
+                                ) : (
+                                  <span>Pick a date</span>
+                                )}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                              <Calendar
+                                mode="single"
+                                selected={
+                                  field.value ? toDate(field.value) : undefined
+                                }
+                                onSelect={(date) => {
+                                  if (date) {
+                                    field.onChange(formatDate({ date }));
+                                  } else {
+                                    field.onChange("");
+                                  }
+                                }}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        )}
+                      />
+                      <FormFieldError errors={[errors.closedDate]} />
+                    </Field>
+                  </div>
                 </div>
-              </div>
 
-              <Separator />
+                <Separator />
 
-              {/* Review Details Section */}
-              <div className="space-y-4">
-                <h3 className="text-sm font-semibold text-foreground">
-                  Review Details
-                </h3>
-
-                <div className="grid gap-4 lg:grid-cols-3">
-                  <Field>
-                    <FieldLabel htmlFor="escalatedToMD">
-                      Escalated to MD Reviewer?
-                    </FieldLabel>
-                    <Controller
-                      name="escalatedToMD"
-                      control={control}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={(value) => {
-                            field.onChange(value);
-                            if (value === "No") {
-                              setValue("physPubId", "");
-                            }
-                          }}
-                        >
-                          <SelectTrigger id="escalatedToMD">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="No">No</SelectItem>
-                            <SelectItem value="Yes">Yes</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.escalatedToMD]} />
-                  </Field>
-
-                  <Field>
-                    <FieldLabel htmlFor="physPubId">
-                      MD Name{" "}
-                      {escalatedToMD === "Yes" && (
-                        <span className="text-destructive">*</span>
-                      )}
-                    </FieldLabel>
-                    <Controller
-                      name="physPubId"
-                      control={control}
-                      rules={{
-                        required:
-                          escalatedToMD === "Yes"
-                            ? "MD name is required when escalated"
-                            : false,
+                {/* Service Details Section */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-semibold text-foreground">
+                      Service Details
+                    </h3>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        append({ code: "" });
                       }}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                          disabled={escalatedToMD !== "Yes"}
-                        >
-                          <SelectTrigger id="physPubId">
-                            <SelectValue placeholder="Select MD" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {physicians.map((phys) => (
-                              <SelectItem value={phys.pubId} key={phys.pubId}>
-                                {phys.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.physPubId]} />
-                  </Field>
+                      disabled={fields.length >= MAX_PROCEDURE_CODES}
+                    >
+                      <Plus className="mr-2 h-4 w-4" />
+                      Add Procedure Code
+                    </Button>
+                  </div>
 
-                  <Field>
-                    <FieldLabel htmlFor="mdRecommended">
-                      MD Recommendation{" "}
-                      {escalatedToMD === "Yes" &&
-                        ClosedCaseStatuses.includes(status as CaseStatus) && (
+                  <div className="grid gap-4 lg:grid-cols-3">
+                    {fields.map((field, index) => (
+                      <Field key={field.id}>
+                        <FieldLabel htmlFor={`procedureCode-${index}`}>
+                          Procedure Code {index + 1}{" "}
+                          <span className="text-destructive">*</span>
+                        </FieldLabel>
+                        <div className="flex gap-2">
+                          <Controller
+                            name={`procedureCodes.${index}.code`}
+                            control={control}
+                            rules={{ required: "Procedure code is required" }}
+                            render={({ field }) => (
+                              <ProcedureCodeInput
+                                id={`procedureCode-${index}`}
+                                value={field.value ?? ""}
+                                onChange={field.onChange}
+                                placeholder="Enter code"
+                                className="flex-1"
+                              />
+                            )}
+                          />
+                          {fields.length > 1 && (
+                            <Button
+                              type="button"
+                              size="icon"
+                              variant="ghost"
+                              onClick={() => remove(index)}
+                              className="shrink-0"
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          )}
+                        </div>
+                        <FormFieldError
+                          errors={[errors.procedureCodes?.[index]?.code]}
+                        />
+                      </Field>
+                    ))}
+                  </div>
+                </div>
+
+                <Separator />
+
+                {/* Review Details Section */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-semibold text-foreground">
+                    Review Details
+                  </h3>
+
+                  <div className="grid gap-4 lg:grid-cols-3">
+                    <Field>
+                      <FieldLabel htmlFor="escalatedToMD">
+                        Escalated to MD Reviewer?
+                      </FieldLabel>
+                      <Controller
+                        name="escalatedToMD"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={(value) => {
+                              field.onChange(value);
+                              if (value === "No") {
+                                setValue("physPubId", "");
+                              }
+                            }}
+                          >
+                            <SelectTrigger id="escalatedToMD">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="No">No</SelectItem>
+                              <SelectItem value="Yes">Yes</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                      <FormFieldError errors={[errors.escalatedToMD]} />
+                    </Field>
+
+                    <Field>
+                      <FieldLabel htmlFor="physPubId">
+                        MD Name{" "}
+                        {escalatedToMD === "Yes" && (
                           <span className="text-destructive">*</span>
                         )}
-                    </FieldLabel>
-                    <Controller
-                      name="mdRecommended"
-                      control={control}
-                      rules={{
-                        required:
-                          escalatedToMD === "Yes" &&
-                          ClosedCaseStatuses.includes(status as CaseStatus)
-                            ? "MD recommendation is required when escalated to MD and status is Approved, Denied, or Withdrawn"
-                            : false,
-                      }}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                          disabled={escalatedToMD !== "Yes" || physPubId === ""}
-                        >
-                          <SelectTrigger id="mdRecommended">
-                            <SelectValue placeholder="Select recommendation" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {MDCaseRecommendations.map((recommendation) => (
-                              <SelectItem
-                                value={recommendation}
-                                key={recommendation}
-                              >
-                                {recommendation}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.mdRecommended]} />
-                  </Field>
+                      </FieldLabel>
+                      <Controller
+                        name="physPubId"
+                        control={control}
+                        rules={{
+                          required:
+                            escalatedToMD === "Yes"
+                              ? "MD name is required when escalated"
+                              : false,
+                        }}
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={field.onChange}
+                            disabled={escalatedToMD !== "Yes"}
+                          >
+                            <SelectTrigger id="physPubId">
+                              <SelectValue placeholder="Select MD" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {physicians.map((phys) => (
+                                <SelectItem value={phys.pubId} key={phys.pubId}>
+                                  {phys.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                      <FormFieldError errors={[errors.physPubId]} />
+                    </Field>
 
-                  <Field>
-                    <FieldLabel htmlFor="followUpAction">
-                      Follow Up Action
-                      {mdRecommended === "Offer P2P" && (
-                        <span className="text-destructive">*</span>
-                      )}
-                    </FieldLabel>
-                    <Controller
-                      name="followUpAction"
-                      control={control}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={(value) => {
-                            field.onChange(value);
-                            if (value !== "P2P Scheduled") {
-                              setValue("p2pSuccessful", "N/A");
+                    <Field>
+                      <FieldLabel htmlFor="mdRecommended">
+                        MD Recommendation{" "}
+                        {escalatedToMD === "Yes" &&
+                          ClosedCaseStatuses.includes(status as CaseStatus) && (
+                            <span className="text-destructive">*</span>
+                          )}
+                      </FieldLabel>
+                      <Controller
+                        name="mdRecommended"
+                        control={control}
+                        rules={{
+                          required:
+                            escalatedToMD === "Yes" &&
+                            ClosedCaseStatuses.includes(status as CaseStatus)
+                              ? "MD recommendation is required when escalated to MD and status is Approved, Denied, or Withdrawn"
+                              : false,
+                        }}
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={field.onChange}
+                            disabled={
+                              escalatedToMD !== "Yes" || physPubId === ""
                             }
-                          }}
-                        >
-                          <SelectTrigger id="followUpAction">
-                            <SelectValue placeholder="Select action" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {CaseFollowUpActions.map((caseFUAction) => (
-                              <SelectItem
-                                value={caseFUAction}
-                                key={caseFUAction}
-                              >
-                                {caseFUAction}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.followUpAction]} />
-                  </Field>
+                          >
+                            <SelectTrigger id="mdRecommended">
+                              <SelectValue placeholder="Select recommendation" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {MDCaseRecommendations.map((recommendation) => (
+                                <SelectItem
+                                  value={recommendation}
+                                  key={recommendation}
+                                >
+                                  {recommendation}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                      <FormFieldError errors={[errors.mdRecommended]} />
+                    </Field>
 
-                  <Field>
-                    <FieldLabel htmlFor="p2pSuccessful">
-                      P2P Successful?
-                    </FieldLabel>
-                    <Controller
-                      name="p2pSuccessful"
-                      control={control}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                          disabled={mdRecommended !== "Offer P2P"}
-                        >
-                          <SelectTrigger id="p2pSuccessful">
-                            <SelectValue placeholder="Select outcome" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="N/A">N/A</SelectItem>
-                            <SelectItem value="Yes">Yes</SelectItem>
-                            <SelectItem value="No">No</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                    <FormFieldError errors={[errors.p2pSuccessful]} />
-                  </Field>
+                    <Field>
+                      <FieldLabel htmlFor="followUpAction">
+                        Follow Up Action
+                        {mdRecommended === "Offer P2P" && (
+                          <span className="text-destructive">*</span>
+                        )}
+                      </FieldLabel>
+                      <Controller
+                        name="followUpAction"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={(value) => {
+                              field.onChange(value);
+                              if (value !== "P2P Scheduled") {
+                                setValue("p2pSuccessful", "N/A");
+                              }
+                            }}
+                          >
+                            <SelectTrigger id="followUpAction">
+                              <SelectValue placeholder="Select action" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {CaseFollowUpActions.map((caseFUAction) => (
+                                <SelectItem
+                                  value={caseFUAction}
+                                  key={caseFUAction}
+                                >
+                                  {caseFUAction}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                      <FormFieldError errors={[errors.followUpAction]} />
+                    </Field>
+
+                    <Field>
+                      <FieldLabel htmlFor="p2pSuccessful">
+                        P2P Successful?
+                      </FieldLabel>
+                      <Controller
+                        name="p2pSuccessful"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={field.onChange}
+                            disabled={mdRecommended !== "Offer P2P"}
+                          >
+                            <SelectTrigger id="p2pSuccessful">
+                              <SelectValue placeholder="Select outcome" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="N/A">N/A</SelectItem>
+                              <SelectItem value="Yes">Yes</SelectItem>
+                              <SelectItem value="No">No</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+                      <FormFieldError errors={[errors.p2pSuccessful]} />
+                    </Field>
+                  </div>
                 </div>
-              </div>
 
-              <Separator />
+                <Separator />
 
-              {/* Remarks Section */}
-              <Field>
-                <FieldLabel htmlFor="remarks">Remarks</FieldLabel>
-                <Controller
-                  name="remarks"
-                  control={control}
-                  render={({ field }) => (
-                    <Textarea
-                      {...field}
-                      id="remarks"
-                      placeholder={
-                        mode === "new"
-                          ? "Add any initial notes or comments..."
-                          : "Add any additional notes or comments..."
-                      }
-                      rows={6}
-                      className="resize-none"
-                    />
-                  )}
-                />
-                <FormFieldError errors={[errors.remarks]} />
-              </Field>
+                {/* Remarks Section */}
+                <Field>
+                  <FieldLabel htmlFor="remarks">Remarks</FieldLabel>
+                  <Controller
+                    name="remarks"
+                    control={control}
+                    render={({ field }) => (
+                      <Textarea
+                        {...field}
+                        id="remarks"
+                        placeholder={
+                          mode === "new"
+                            ? "Add any initial notes or comments..."
+                            : "Add any additional notes or comments..."
+                        }
+                        rows={6}
+                        className="resize-none"
+                      />
+                    )}
+                  />
+                  <FormFieldError errors={[errors.remarks]} />
+                </Field>
+              </fieldset>
             </form>
           </div>
         </SheetContent>

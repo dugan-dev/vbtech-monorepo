@@ -24,14 +24,18 @@ import {
 import { formatDate } from "@workspace/utils/format-date";
 
 import { umCase } from "@/types/um-case";
+import { UserType } from "@/types/user-type";
 import { getClientsForTable } from "@/app/(authed)/admin/clients/repos/get-payers-for-table";
 import { getPhysiciansForTable } from "@/app/(authed)/admin/physicians/repos/get-physicians-for-table";
 import { getAllUsers } from "@/app/(authed)/admin/users/repos/user-management-repository";
 
+import RestrictByUserAppAttrsClient from "../restrict-by-user-app-attrs-client";
 import { CaseSheet } from "./case-sheet";
 import { WorklistContent } from "./worklist-content";
 import { WorklistFilters } from "./worklist-filters";
 import { WorklistSkeleton } from "./worklist-skeleton";
+
+const ALLOWED_USER_TYPES: UserType[] = ["nurse", "ops"];
 
 type Props = {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -174,12 +178,16 @@ export default async function WorkList({ searchParams }: Props) {
                 </CardDescription>
               </div>
               <div className="shrink-0">
-                <CaseSheet mode="new">
-                  <Button size="lg" className="gap-2">
-                    <Plus className="h-4 w-4" />
-                    New Case
-                  </Button>
-                </CaseSheet>
+                <RestrictByUserAppAttrsClient
+                  allowedUserTypes={ALLOWED_USER_TYPES}
+                >
+                  <CaseSheet mode="new">
+                    <Button size="lg" className="gap-2">
+                      <Plus className="h-4 w-4" />
+                      New Case
+                    </Button>
+                  </CaseSheet>
+                </RestrictByUserAppAttrsClient>
               </div>
             </div>
 
