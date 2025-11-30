@@ -3,6 +3,7 @@ import { RateLimiterMemory, RateLimiterRes } from "rate-limiter-flexible";
 import {
   AUTHED_ACTION_RATE_LIMIT,
   PAGE_RATE_LIMIT,
+  READ_ONLY_ACTION_RATE_LIMIT,
   UNAUTHED_ACTION_RATE_LIMIT,
 } from "../../constants/rate-limits";
 
@@ -10,6 +11,7 @@ import {
 let _pageApiLimiter: RateLimiterMemory | undefined;
 let _authedLimiter: RateLimiterMemory | undefined;
 let _unauthedLimiter: RateLimiterMemory | undefined;
+let _readOnlyLimiter: RateLimiterMemory | undefined;
 
 // Lazy initialization with singleton pattern
 const pageApiLimiter = (): RateLimiterMemory => {
@@ -41,12 +43,24 @@ const unauthedLimiter = (): RateLimiterMemory => {
   }));
 };
 
+// Create a rate limiter instance for read-only authenticated actions
+const readOnlyLimiter = (): RateLimiterMemory => {
+  return (_readOnlyLimiter ??= new RateLimiterMemory({
+    keyPrefix: "read-only-safe-action",
+    points: READ_ONLY_ACTION_RATE_LIMIT.POINTS,
+    duration: READ_ONLY_ACTION_RATE_LIMIT.DURATION,
+    blockDuration: READ_ONLY_ACTION_RATE_LIMIT.BLOCK_DURATION,
+  }));
+};
+
 export {
   pageApiLimiter,
   authedLimiter,
   unauthedLimiter,
+  readOnlyLimiter,
   RateLimiterRes,
   PAGE_RATE_LIMIT,
   AUTHED_ACTION_RATE_LIMIT,
   UNAUTHED_ACTION_RATE_LIMIT,
+  READ_ONLY_ACTION_RATE_LIMIT,
 };

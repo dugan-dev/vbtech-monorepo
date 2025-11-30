@@ -22,3 +22,10 @@ export const UNAUTHED_ACTION_RATE_LIMIT = {
   DURATION: 30, // Time window in seconds
   BLOCK_DURATION: 60, // Block duration in seconds (1 minute)
 } as const;
+
+// Read-only action rate limiting (for cached lookups/validations)
+export const READ_ONLY_ACTION_RATE_LIMIT = {
+  POINTS: 100, // Number of requests (higher limit for read-only operations)
+  DURATION: 30, // Time window in seconds
+  BLOCK_DURATION: 60, // Block duration in seconds (1 minute)
+} as const;

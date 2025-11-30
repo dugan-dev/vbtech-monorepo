@@ -15,8 +15,13 @@ import { Separator } from "@workspace/ui/components/separator";
 type props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  program?: string;
   procedureCode: string;
   codeDescription?: string;
+  ruleSet?: string | null;
+  ruleSubgroup?: string | null;
+  ncd?: string | null;
+  lcd?: string | null;
 };
 
 /**
@@ -33,6 +38,11 @@ export function UmEvalToolDialog({
   onOpenChange,
   procedureCode,
   codeDescription,
+  program,
+  ruleSet,
+  ruleSubgroup,
+  ncd,
+  lcd,
 }: props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -69,6 +79,32 @@ export function UmEvalToolDialog({
                 <p className="text-sm">
                   <span className="font-medium">Description:</span>{" "}
                   {codeDescription}
+                </p>
+              )}
+              {program && (
+                <p className="text-sm">
+                  <span className="font-medium">Program:</span> {program}
+                </p>
+              )}
+              {ruleSet && (
+                <p className="text-sm">
+                  <span className="font-medium">Rule Set:</span> {ruleSet}
+                </p>
+              )}
+              {ruleSubgroup && (
+                <p className="text-sm">
+                  <span className="font-medium">Rule Subgroup:</span>{" "}
+                  {ruleSubgroup}
+                </p>
+              )}
+              {ncd && (
+                <p className="text-sm">
+                  <span className="font-medium">NCD:</span> {ncd}
+                </p>
+              )}
+              {lcd && (
+                <p className="text-sm">
+                  <span className="font-medium">LCD:</span> {lcd}
                 </p>
               )}
               <p className="text-sm text-muted-foreground mt-4">

@@ -91,15 +91,14 @@ type CaseSheetProps = {
 };
 
 /**
- * Renders a form-based sheet for creating a new utilization management case or reviewing/updating an existing case.
+ * Display a bottom-sheet form for creating a new utilization management case or reviewing/updating an existing case.
  *
- * The component manages open state (local for "new", URL-driven for "review"), form state and validation, computed fields
- * (due date and TAT), dynamic procedure codes, conditional fields and validation for MD escalation and follow-up actions,
- * and submit flows for inserting or updating cases with success and error handling.
+ * The component supports two modes: "new" (renders an internal trigger and creates a case) and "review" (opens for a selected case via URL state).
+ * It encapsulates form state and validation, computed fields (due date and TAT), dynamic procedure code entries, conditional fields and validation for MD escalation and follow-up actions, and submit flows for inserting or updating cases, including success and error handling and an unsaved-changes confirmation.
  *
- * @param mode - "new" to render a creatable case sheet (uses an internal trigger), "review" to open for a selected case via URL state
- * @param children - Optional trigger node(s) rendered when `mode` is "new"; ignored in "review" mode
- * @returns A React element containing the case sheet UI (modal bottom sheet) with form controls, actions, and confirmation dialogs
+ * @param mode - "new" to render a creatable case sheet, "review" to open the sheet for a selected case via URL state
+ * @param children - Optional trigger node(s) rendered when `mode` is "new"; ignored when `mode` is "review"
+ * @returns A React element containing the case sheet UI with form controls, actions, and confirmation dialogs
  */
 export function CaseSheet({ mode, children }: CaseSheetProps) {
   // State management for new mode
@@ -359,7 +358,7 @@ export function CaseSheet({ mode, children }: CaseSheetProps) {
           <div className="px-12">
             <form onSubmit={handleSubmit(onSubmit)}>
               <fieldset
-                disabled={isPending || userCanEditCase}
+                disabled={isPending || !userCanEditCase}
                 className="space-y-6 py-6"
               >
                 {/* Case Information Section */}
