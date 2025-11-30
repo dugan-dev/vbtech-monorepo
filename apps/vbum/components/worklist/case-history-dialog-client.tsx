@@ -423,12 +423,9 @@ export function CaseHistoryDialogClient({ history, currentCase }: props) {
                             MD Name:
                           </span>{" "}
                           <span className="font-medium">
-                            {
-                              physicians.find(
-                                (phys) =>
-                                  phys.pubId === currentVersion.physPubId,
-                              )?.name
-                            }
+                            {physicians.find(
+                              (phys) => phys.pubId === currentVersion.physPubId,
+                            )?.name ?? "-"}
                           </span>
                         </div>
                       )}
