@@ -259,7 +259,9 @@ export function CaseHistoryDialogClient({ history, currentCase }: props) {
               ) : (
                 <Badge variant="outline">
                   {format(
-                    currentVersion.updatedAt || currentVersion.createdAt,
+                    currentVersion.updatedAt ??
+                      currentVersion.createdAt ??
+                      new Date(),
                     "MMM d, yyyy 'at' h:mm a",
                   )}
                 </Badge>
