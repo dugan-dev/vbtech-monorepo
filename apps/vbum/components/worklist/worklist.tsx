@@ -9,6 +9,7 @@ import {
   getUmCaseHistory,
 } from "@/repos/um-case-repository";
 import { getUsersData } from "@/repos/user-repository";
+import { toDate } from "date-fns";
 import { Plus } from "lucide-react";
 
 import { authenticatedUser } from "@workspace/auth/lib/server/amplify-server-utils";
@@ -104,7 +105,9 @@ export default async function WorkList({ searchParams }: Props) {
     underReview: openCases.filter((c) => c.status === "Under Review").length,
     escalated: openCases.filter((c) => c.mdReview === 1).length,
     closedToday: closedCases.filter(
-      (c) => c.closedAt && isSameDay(new Date(c.closedAt), new Date()),
+      (c) =>
+        c.closedAt &&
+        isSameDay(toDate(formatDate({ date: c.closedAt })), new Date()),
     ).length,
   };
 
