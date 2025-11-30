@@ -3,7 +3,10 @@
 import "server-only";
 
 import { revalidatePath } from "next/cache";
-import { insertUmCase } from "@/repos/um-case-repository";
+import {
+  getUmCaseByCaseNumber,
+  insertUmCase,
+} from "@/repos/um-case-repository";
 import { z } from "zod";
 
 import { UserType } from "@/types/user-type";
@@ -26,7 +29,12 @@ export const insertUmCaseAction = authedActionClient
   .action(async ({ parsedInput: { formData, revalidationPath }, ctx }) => {
     const { userId } = ctx;
 
-    await insertUmCase(formData, userId);
+    const result = await getUmCaseByCaseNumber(formData.caseId);
 
+    if (result !== undefined) {
+      throw new Error("A record with the same case number already exists.");
+    }
+
+    await insertUmCase(formData, userId);
     revalidatePath(revalidationPath);
   });

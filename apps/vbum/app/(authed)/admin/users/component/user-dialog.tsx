@@ -85,10 +85,7 @@ export function UserDialog({
           </DialogHeader>
 
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit, (e) => console.log(e))}
-              className="space-y-8"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <fieldset
                 className="space-y-5 py-4"
                 disabled={isActionPending ?? false}

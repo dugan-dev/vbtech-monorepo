@@ -7,6 +7,8 @@ model health_plan {
         updated_by    String   @db.VarChar(50)
         client_pub_id String   @db.VarChar(12)
         plan_name     String   @db.VarChar(255)
+        tat_standard  Int      @db.UnsignedInt
+        tat_expedited Int      @db.UnsignedInt
         is_active     Boolean  @default(true)
 
         @@index([client_pub_id])
@@ -23,6 +25,8 @@ model health_plan_hist {
         updated_by    String   @db.VarChar(50)
         client_pub_id String   @db.VarChar(12)
         plan_name     String   @db.VarChar(255)
+        tat_standard  Int      @db.UnsignedInt
+        tat_expedited Int      @db.UnsignedInt
         is_active     Boolean
 
         @@index([client_pub_id])

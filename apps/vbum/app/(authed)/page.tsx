@@ -10,12 +10,19 @@ import { StandardLayout } from "@/components/standard-layout";
 import WorkList from "@/components/worklist/worklist";
 import { WorklistSkeleton } from "@/components/worklist/worklist-skeleton";
 
+type PageProps = {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
 /**
- * Serves the home page for authenticated users within rate limits.
+ * Render the authenticated home page while enforcing per-user rate limits.
  *
- * Enforces rate limiting and user authentication before rendering the home page. Returns an unauthorized response if the user is not authenticated.
+ * Applies page rate limiting, requires an authenticated user, and renders the standard layout that includes the work list. Returns an unauthorized response when no user is authenticated.
+ *
+ * @param searchParams - Optional promise resolving to request query parameters; these are forwarded to the WorkList component.
+ * @returns The page element containing the layout and WorkList, or an unauthorized response when authentication is missing.
  */
-export default async function Page() {
+export default async function Page({ searchParams }: PageProps) {
   const user = await authenticatedUser();
   await checkPageRateLimit({ pathname: Home({}), user });
 
@@ -27,7 +34,7 @@ export default async function Page() {
     <StandardLayout>
       <RestrictByUserAppAttrsServer userId={user.userId}>
         <Suspense fallback={<WorklistSkeleton />}>
-          <WorkList />
+          <WorkList searchParams={searchParams} />
         </Suspense>
       </RestrictByUserAppAttrsServer>
     </StandardLayout>

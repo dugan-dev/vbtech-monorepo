@@ -9,20 +9,16 @@ import {
 } from "@/routes";
 
 /**
- * Returns the user interface title string for a given route pathname.
+ * Return the user-facing title for a given route pathname.
  *
- * Maps the provided {@link pathname} to a display title for recognized routes. Throws an error if the route is not recognized.
+ * @returns The display title for the matched route, or an empty string when no title should be shown (for example, the `RateLimit` route).
  *
- * @returns The title string for the matched route, or an empty string if no title should be displayed.
- *
- * @throws {Error} If {@link pathname} does not match any recognized route.
- *
- * @remark Returns an empty string for the 'RateLimit' route to indicate no title should be shown.
+ * @throws Error if `pathname` does not match any recognized route.
  */
 export function getPageTitle(pathname: string, slug?: string) {
   switch (pathname) {
     case Home({}):
-      return "Home";
+      return "Cases";
     case AdminUsers({}):
       return "User Administration";
     case AdminClients({}):
