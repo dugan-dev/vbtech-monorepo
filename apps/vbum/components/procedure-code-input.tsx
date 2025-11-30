@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { validateProcedureCodeAction } from "@/actions/validate-procedure-code-action";
+import { useQuery } from "@tanstack/react-query";
 import { AlertCircle, CheckCircle2, HeartPulse, Loader2 } from "lucide-react";
 
 import { Button } from "@workspace/ui/components/button";
@@ -8,10 +10,7 @@ import { Input } from "@workspace/ui/components/input";
 import { useDebounce } from "@workspace/ui/hooks/use-debounce";
 import { cn } from "@workspace/ui/lib/utils";
 
-import {
-  ProcedureCodeValidation,
-  validateProcedureCode,
-} from "@/lib/validators/procedure-codes";
+import type { ProcedureCodeValidation } from "@/lib/validators/procedure-codes";
 
 import { UmEvalToolDialog } from "./eval-tool/um-eval-tool-dialog";
 
@@ -45,7 +44,6 @@ export function ProcedureCodeInput({
 }: ProcedureCodeInputProps) {
   const [validationState, setValidationState] =
     useState<ProcedureCodeValidation | null>(null);
-  const [isValidating, setIsValidating] = useState(false);
   const [showUmEvalDialog, setShowUmEvalDialog] = useState(false);
 
   // Store onValidationChange in a ref to avoid it being a dependency
@@ -59,46 +57,47 @@ export function ProcedureCodeInput({
   // Debounce the input value
   const debouncedValue = useDebounce(value, 600);
 
-  useEffect(() => {
-    // Only validate if there's a value
-    if (!debouncedValue || debouncedValue.trim() === "") {
-      // Reset validation state asynchronously
-      const resetValidation = async () => {
-        setValidationState(null);
-        setIsValidating(false);
-        onValidationChangeRef.current?.(null);
-      };
-      void resetValidation();
-      return;
-    }
-
-    // Perform async validation
-    const runValidation = async () => {
-      setIsValidating(true);
-
-      try {
-        const result = await validateProcedureCode(debouncedValue);
-        setValidationState(result);
-        setIsValidating(false);
-        onValidationChangeRef.current?.(result);
-      } catch (error) {
-        console.error("[v0] Procedure code validation error:", error);
-        const errorState = {
-          isValid: false,
-          requiresUmEval: false,
-          error: "Validation service unavailable",
-        };
-        setValidationState(errorState);
-        setIsValidating(false);
-        onValidationChangeRef.current?.(errorState);
+  // Use React Query for client-side caching + server action calls
+  const { data, isPending, error } = useQuery({
+    queryKey: ["procedure-code-validation", debouncedValue],
+    queryFn: async () => {
+      if (!debouncedValue || debouncedValue.trim() === "") {
+        return null;
       }
-    };
+      const result = await validateProcedureCodeAction({
+        code: debouncedValue,
+      });
+      return result;
+    },
+    enabled: !!debouncedValue && debouncedValue.trim() !== "",
+    staleTime: 5 * 60 * 1000, // 5 minutes - procedure codes rarely change
+    gcTime: 10 * 60 * 1000, // Keep in cache for 10 minutes
+    retry: 1, // Only retry once on failure
+  });
 
-    void runValidation();
-  }, [debouncedValue]);
+  // Update validation state when query data or error changes
+  useEffect(() => {
+    if (data?.data) {
+      setValidationState(data.data);
+      onValidationChangeRef.current?.(data.data);
+    } else if (error) {
+      const errorState: ProcedureCodeValidation = {
+        isValid: false,
+        requiresUmEval: false,
+        status: "invalid",
+        message: "Validation service unavailable",
+        error: error instanceof Error ? error.message : "Unknown error",
+      };
+      setValidationState(errorState);
+      onValidationChangeRef.current?.(errorState);
+    } else if (!debouncedValue || debouncedValue.trim() === "") {
+      setValidationState(null);
+      onValidationChangeRef.current?.(null);
+    }
+  }, [data, error, debouncedValue]);
 
   const getValidationIcon = () => {
-    if (isValidating) {
+    if (isPending) {
       return <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />;
     }
 
@@ -106,11 +105,13 @@ export function ProcedureCodeInput({
       return null;
     }
 
-    if (!validationState.isValid) {
-      return <AlertCircle className="h-4 w-4 text-destructive" />;
+    // Auto-approval: green checkmark
+    if (validationState.status === "auto-approval") {
+      return <CheckCircle2 className="h-4 w-4 text-green-600" />;
     }
 
-    if (validationState.requiresUmEval) {
+    // UM Eval Required: clickable amber heart pulse button
+    if (validationState.status === "um-eval-required") {
       return (
         <Button
           type="button"
@@ -125,7 +126,13 @@ export function ProcedureCodeInput({
       );
     }
 
-    return <CheckCircle2 className="h-4 w-4 text-green-600" />;
+    // Not in scope: amber/orange alert
+    if (validationState.status === "not-in-scope") {
+      return <AlertCircle className="h-4 w-4 text-amber-600" />;
+    }
+
+    // Not listed or invalid: red alert
+    return <AlertCircle className="h-4 w-4 text-destructive" />;
   };
 
   return (
@@ -147,18 +154,14 @@ export function ProcedureCodeInput({
           <p
             className={cn(
               "text-xs",
-              !validationState.isValid && "text-destructive",
-              validationState.isValid &&
-                !validationState.requiresUmEval &&
-                "text-green-600",
-              validationState.requiresUmEval && "text-amber-600",
+              validationState.status === "auto-approval" && "text-green-600",
+              validationState.status === "um-eval-required" && "text-amber-600",
+              validationState.status === "not-in-scope" && "text-amber-600",
+              validationState.status === "not-listed" && "text-destructive",
+              validationState.status === "invalid" && "text-destructive",
             )}
           >
-            {!validationState.isValid && "Invalid procedure code"}
-            {validationState.isValid &&
-              !validationState.requiresUmEval &&
-              "Valid code"}
-            {validationState.requiresUmEval && "Requires UM Evaluation Tool"}
+            {validationState.message}
           </p>
         )}
       </div>
@@ -166,8 +169,13 @@ export function ProcedureCodeInput({
       <UmEvalToolDialog
         open={showUmEvalDialog}
         onOpenChange={setShowUmEvalDialog}
+        program={validationState?.data?.program}
         procedureCode={value}
         codeDescription={validationState?.description}
+        ruleSet={validationState?.data?.ruleSet}
+        ruleSubgroup={validationState?.data?.ruleSubgroup}
+        ncd={validationState?.data?.ncd}
+        lcd={validationState?.data?.lcd}
       />
     </>
   );
