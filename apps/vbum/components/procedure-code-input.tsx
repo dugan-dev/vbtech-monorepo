@@ -77,10 +77,13 @@ export function ProcedureCodeInput({
 
   // Update validation state when query data or error changes
   useEffect(() => {
-    if (data?.data) {
-      setValidationState(data.data);
-      onValidationChangeRef.current?.(data.data);
-    } else if (error) {
+    // Branch 1: Empty input - clear validation
+    if (!debouncedValue || debouncedValue.trim() === "") {
+      setValidationState(null);
+      onValidationChangeRef.current?.(null);
+    }
+    // Branch 2: Query error
+    else if (error) {
       const errorState: ProcedureCodeValidation = {
         isValid: false,
         requiresUmEval: false,
@@ -90,7 +93,14 @@ export function ProcedureCodeInput({
       };
       setValidationState(errorState);
       onValidationChangeRef.current?.(errorState);
-    } else if (!debouncedValue || debouncedValue.trim() === "") {
+    }
+    // Branch 3: Valid data returned
+    else if (data?.data) {
+      setValidationState(data.data);
+      onValidationChangeRef.current?.(data.data);
+    }
+    // Branch 4: Query returned but no data (edge case to prevent stale state)
+    else if (data !== undefined) {
       setValidationState(null);
       onValidationChangeRef.current?.(null);
     }
