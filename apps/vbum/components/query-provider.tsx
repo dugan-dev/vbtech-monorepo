@@ -4,18 +4,13 @@ import { PropsWithChildren, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 /**
- * Provides React Query client to all nested components.
+ * Wraps children in a QueryClientProvider configured for short-lived client-side caching.
  *
- * Configured with sensible defaults for server action caching:
- * - 1 minute stale time (data considered fresh)
- * - 5 minute garbage collection (cached data retention)
- * - No automatic refetch on window focus
- * - Single retry on failure
- *
- * This provider wraps the application to enable client-side caching
- * for read-only server actions like procedure code validation.
+ * The provider configures sensible defaults for read-only server action caching:
+ * 1 minute stale time, 5 minute garbage collection, no refetch on window focus, and one retry.
  *
  * @param children - React nodes to render within the provider
+ * @returns The React element that provides a configured QueryClient to `children`
  */
 export function QueryProvider({ children }: PropsWithChildren) {
   const [queryClient] = useState(

@@ -9,10 +9,10 @@ const PROCEDURE_CODE_CACHE_TAG = "procedure-codes";
 const REVALIDATE_SECONDS = 3600; // 1 hour
 
 /**
- * Retrieves an active procedure code from the database by code.
+ * Retrieve an active procedure code record by its code.
  *
  * @param procCode - The procedure code to look up
- * @returns A promise that resolves to the procedure code data if found, or undefined if not found
+ * @returns The procedure code data if found, or `undefined` if not found
  */
 async function getActiveProcedureCodeByCodeQry(procCode: string) {
   return await db
