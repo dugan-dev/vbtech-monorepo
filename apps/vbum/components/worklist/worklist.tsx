@@ -37,6 +37,20 @@ type Props = {
 };
 
 /**
+ * Checks if two dates fall on the same calendar day.
+ * @param a - First date to compare
+ * @param b - Second date to compare
+ * @returns true if both dates are on the same year, month, and day
+ */
+function isSameDay(a: Date, b: Date): boolean {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
+/**
  * Renders the WorkList page and supplies its children with server-fetched worklist data.
  *
  * Fetches authenticated user info, clients, health plans, users, physicians, and cases,
@@ -90,9 +104,7 @@ export default async function WorkList({ searchParams }: Props) {
     underReview: openCases.filter((c) => c.status === "Under Review").length,
     escalated: openCases.filter((c) => c.mdReview === 1).length,
     closedToday: closedCases.filter(
-      (c) =>
-        formatDate({ date: c.closedAt ?? c.updatedAt }) ===
-        formatDate({ date: new Date() }),
+      (c) => c.closedAt && isSameDay(new Date(c.closedAt), new Date()),
     ).length,
   };
 
