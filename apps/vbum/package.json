@@ -29,7 +29,7 @@
     "babel-plugin-react-compiler": "19.1.0-rc.3",
     "date-fns": "4.1.0",
     "kysely": "0.28.8",
-    "lucide-react": "0.555.0",
+    "lucide-react": "0.556.0",
     "nanoid": "5.1.6",
     "next": "15.5.7",
     "next-safe-action": "8.0.11",
