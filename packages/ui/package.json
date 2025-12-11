@@ -50,7 +50,7 @@
     "zod": "4.1.13"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.1.17",
+    "@tailwindcss/postcss": "4.1.18",
     "@turbo/gen": "2.6.3",
     "@types/node": "24.10.3",
     "@types/qrcode": "1.5.6",
@@ -59,7 +59,7 @@
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "autoprefixer": "10.4.22",
-    "tailwindcss": "4.1.17"
+    "tailwindcss": "4.1.18"
   },
   "exports": {
     "./globals.css": "./src/styles/globals.css",
