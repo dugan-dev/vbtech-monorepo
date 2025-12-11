@@ -115,8 +115,8 @@ importers:
   apps/vbcall:
     dependencies:
       '@aws-amplify/adapter-nextjs':
-        specifier: 1.6.11
-        version: 1.6.11(aws-amplify@6.15.9)(next@15.5.7(@opentelemetry/api@1.4.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
+        specifier: 1.6.12
+        version: 1.6.12(aws-amplify@6.15.9)(next@15.5.7(@opentelemetry/api@1.4.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
       '@aws-sdk/client-cognito-identity-provider':
         specifier: 3.948.0
         version: 3.948.0
@@ -227,8 +227,8 @@ importers:
   apps/vbpay:
     dependencies:
       '@aws-amplify/adapter-nextjs':
-        specifier: 1.6.11
-        version: 1.6.11(aws-amplify@6.15.9)(next@15.5.7(@opentelemetry/api@1.4.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
+        specifier: 1.6.12
+        version: 1.6.12(aws-amplify@6.15.9)(next@15.5.7(@opentelemetry/api@1.4.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
       '@aws-sdk/client-cognito-identity-provider':
         specifier: 3.948.0
         version: 3.948.0
@@ -345,8 +345,8 @@ importers:
   apps/vbum:
     dependencies:
       '@aws-amplify/adapter-nextjs':
-        specifier: 1.6.11
-        version: 1.6.11(aws-amplify@6.15.9)(next@15.5.7(@opentelemetry/api@1.4.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
+        specifier: 1.6.12
+        version: 1.6.12(aws-amplify@6.15.9)(next@15.5.7(@opentelemetry/api@1.4.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
       '@aws-sdk/client-cognito-identity-provider':
         specifier: 3.948.0
         version: 3.948.0
@@ -627,8 +627,8 @@ importers:
   packages/auth:
     dependencies:
       '@aws-amplify/adapter-nextjs':
-        specifier: 1.6.11
-        version: 1.6.11(aws-amplify@6.15.9)(next@15.5.7(@opentelemetry/api@1.4.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
+        specifier: 1.6.12
+        version: 1.6.12(aws-amplify@6.15.9)(next@15.5.7(@opentelemetry/api@1.4.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))
       '@aws-sdk/client-cognito-identity-provider':
         specifier: 3.948.0
         version: 3.948.0
@@ -1013,8 +1013,8 @@ packages:
   '@armrest/client@0.2.1':
     resolution: {integrity: sha512-kfnhNHog1fLUsHmTegs7xx0c1P7NG5Hry5E0o3yARvKY7MoIdrHK/wbElcLaqU9UL+Oh/VIsTTYa4opvHsnI+A==}
 
-  '@aws-amplify/adapter-nextjs@1.6.11':
-    resolution: {integrity: sha512-J38u8wHBFMcaRGC88QAW0ufqK9y0ElaYFOTjo4MZSkKWS1mP1NP0iL7gUStdufNuoYS2SM1NgH4qsN5/x5vtFg==}
+  '@aws-amplify/adapter-nextjs@1.6.12':
+    resolution: {integrity: sha512-gBYZ3C3B+ZJxfUDP5NFuscL5H7EenLDxYGkrQm4MEe473HDy/qtXSOxZ0aoQUQdm6N9AoFra8JIkVS05HSaFyg==}
     peerDependencies:
       aws-amplify: ^6.13.1
       next: '>=13.5.0 <16.0.0'
@@ -6912,7 +6912,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@aws-amplify/adapter-nextjs@1.6.11(aws-amplify@6.15.9)(next@15.5.7(@opentelemetry/api@1.4.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))':
+  '@aws-amplify/adapter-nextjs@1.6.12(aws-amplify@6.15.9)(next@15.5.7(@opentelemetry/api@1.4.1)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))':
     dependencies:
       aws-amplify: 6.15.9
       aws-jwt-verify: 4.0.1
