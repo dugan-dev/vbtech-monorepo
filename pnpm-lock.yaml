@@ -154,8 +154,8 @@ importers:
         specifier: 19.1.0-rc.3
         version: 19.1.0-rc.3
       kysely:
-        specifier: 0.28.8
-        version: 0.28.8
+        specifier: 0.28.9
+        version: 0.28.9
       lucide-react:
         specifier: 0.560.0
         version: 0.560.0(react@19.2.1)
@@ -266,8 +266,8 @@ importers:
         specifier: 19.1.0-rc.3
         version: 19.1.0-rc.3
       kysely:
-        specifier: 0.28.8
-        version: 0.28.8
+        specifier: 0.28.9
+        version: 0.28.9
       lucide-react:
         specifier: 0.560.0
         version: 0.560.0(react@19.2.1)
@@ -390,8 +390,8 @@ importers:
         specifier: 4.1.0
         version: 4.1.0
       kysely:
-        specifier: 0.28.8
-        version: 0.28.8
+        specifier: 0.28.9
+        version: 0.28.9
       lucide-react:
         specifier: 0.560.0
         version: 0.560.0(react@19.2.1)
@@ -697,11 +697,11 @@ importers:
         specifier: 6.19.1
         version: 6.19.1(prisma@6.19.1(typescript@5.9.3))(typescript@5.9.3)
       kysely:
-        specifier: 0.28.8
-        version: 0.28.8
+        specifier: 0.28.9
+        version: 0.28.9
       kysely-planetscale:
         specifier: 1.7.1
-        version: 1.7.1(@planetscale/database@1.19.0)(kysely@0.28.8)
+        version: 1.7.1(@planetscale/database@1.19.0)(kysely@0.28.9)
       mysql2:
         specifier: 3.15.3
         version: 3.15.3
@@ -969,11 +969,11 @@ importers:
         specifier: 6.19.1
         version: 6.19.1(prisma@6.19.1(typescript@5.9.3))(typescript@5.9.3)
       kysely:
-        specifier: 0.28.8
-        version: 0.28.8
+        specifier: 0.28.9
+        version: 0.28.9
       kysely-planetscale:
         specifier: 1.7.1
-        version: 1.7.1(@planetscale/database@1.19.0)(kysely@0.28.8)
+        version: 1.7.1(@planetscale/database@1.19.0)(kysely@0.28.9)
       mysql2:
         specifier: 3.15.3
         version: 3.15.3
@@ -5153,8 +5153,8 @@ packages:
       '@planetscale/database': '*'
       kysely: '*'
 
-  kysely@0.28.8:
-    resolution: {integrity: sha512-QUOgl5ZrS9IRuhq5FvOKFSsD/3+IA6MLE81/bOOTRA/YQpKDza2sFdN5g6JCB9BOpqMJDGefLCQ9F12hRS13TA==}
+  kysely@0.28.9:
+    resolution: {integrity: sha512-3BeXMoiOhpOwu62CiVpO6lxfq4eS6KMYfQdMsN/2kUCRNuF2YiEr7u0HLHaQU+O4Xu8YXE3bHVkwaQ85i72EuA==}
     engines: {node: '>=20.0.0'}
 
   leac@0.6.0:
@@ -5451,6 +5451,7 @@ packages:
   next@15.5.8:
     resolution: {integrity: sha512-Tma2R50eiM7Fx6fbDeHiThq7sPgl06mBr76j6Ga0lMFGrmaLitFsy31kykgb8Z++DR2uIEKi2RZ0iyjIwFd15Q==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
+    deprecated: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/security-update-2025-12-11 for more details.
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
@@ -12017,13 +12018,13 @@ snapshots:
 
   ky@1.8.1: {}
 
-  kysely-planetscale@1.7.1(@planetscale/database@1.19.0)(kysely@0.28.8):
+  kysely-planetscale@1.7.1(@planetscale/database@1.19.0)(kysely@0.28.9):
     dependencies:
       '@planetscale/database': 1.19.0
       date-fns: 3.6.0
-      kysely: 0.28.8
+      kysely: 0.28.9
 
-  kysely@0.28.8: {}
+  kysely@0.28.9: {}
 
   leac@0.6.0: {}
 
