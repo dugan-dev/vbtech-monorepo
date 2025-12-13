@@ -511,8 +511,8 @@ importers:
         specifier: 9.3.1
         version: 9.3.1
       rate-limiter-flexible:
-        specifier: 9.0.0
-        version: 9.0.0
+        specifier: 9.0.1
+        version: 9.0.1
       react:
         specifier: 19.2.1
         version: 19.2.1
@@ -651,8 +651,8 @@ importers:
         specifier: 1.5.4
         version: 1.5.4
       rate-limiter-flexible:
-        specifier: 9.0.0
-        version: 9.0.0
+        specifier: 9.0.1
+        version: 9.0.1
       react-hook-form:
         specifier: 7.68.0
         version: 7.68.0(react@19.2.1)
@@ -5451,6 +5451,7 @@ packages:
   next@15.5.8:
     resolution: {integrity: sha512-Tma2R50eiM7Fx6fbDeHiThq7sPgl06mBr76j6Ga0lMFGrmaLitFsy31kykgb8Z++DR2uIEKi2RZ0iyjIwFd15Q==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
+    deprecated: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/security-update-2025-12-11 for more details.
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
@@ -5923,8 +5924,8 @@ packages:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
 
-  rate-limiter-flexible@9.0.0:
-    resolution: {integrity: sha512-Dz+NKRx+V9WVLY6QJv2soo/eN+cYL/+/1XggE/tgnGuA+D/Q1em0hWVp6AZd8lfhzZ6+2wrk7TEwYN+x9AsHeg==}
+  rate-limiter-flexible@9.0.1:
+    resolution: {integrity: sha512-sO+QdoGPCxroi4VkO2FIVjfUGuexhRkBc9ROHqu5eVEEz+oPHzQqvCc25ajFfMUBosbNGb6qpNa8xmxH9YNZsg==}
 
   raw-body@3.0.0:
     resolution: {integrity: sha512-RmkhL8CAyCRPXCE28MMH0z2PNWQBNk2Q09ZdxM9IOOXwxwZbN+qbWaatPkdkWIKL2ZVDImrN/pK5HTRz2PcS4g==}
@@ -12717,7 +12718,7 @@ snapshots:
 
   range-parser@1.2.1: {}
 
-  rate-limiter-flexible@9.0.0: {}
+  rate-limiter-flexible@9.0.1: {}
 
   raw-body@3.0.0:
     dependencies:
