@@ -58,7 +58,7 @@
     "@types/react-dom": "19.2.3",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
-    "autoprefixer": "10.4.22",
+    "autoprefixer": "10.4.23",
     "tailwindcss": "4.1.18"
   },
   "exports": {
