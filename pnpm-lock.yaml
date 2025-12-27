@@ -51,8 +51,8 @@ importers:
   apps/next-15-template:
     dependencies:
       '@t3-oss/env-nextjs':
-        specifier: 0.13.8
-        version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
+        specifier: 0.13.10
+        version: 0.13.10(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
       '@workspace/routing':
         specifier: workspace:*
         version: link:../../packages/routing
@@ -127,8 +127,8 @@ importers:
         specifier: 1.3.2
         version: 1.3.2(react@19.2.3)
       '@t3-oss/env-nextjs':
-        specifier: 0.13.8
-        version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
+        specifier: 0.13.10
+        version: 0.13.10(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
       '@tanstack/table-core':
         specifier: 8.21.3
         version: 8.21.3
@@ -239,8 +239,8 @@ importers:
         specifier: 1.3.2
         version: 1.3.2(react@19.2.3)
       '@t3-oss/env-nextjs':
-        specifier: 0.13.8
-        version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
+        specifier: 0.13.10
+        version: 0.13.10(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
       '@tanstack/table-core':
         specifier: 8.21.3
         version: 8.21.3
@@ -357,8 +357,8 @@ importers:
         specifier: 1.3.2
         version: 1.3.2(react@19.2.3)
       '@t3-oss/env-nextjs':
-        specifier: 0.13.8
-        version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
+        specifier: 0.13.10
+        version: 0.13.10(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
       '@tanstack/react-query':
         specifier: 5.90.12
         version: 5.90.12(react@19.2.3)
@@ -475,8 +475,8 @@ importers:
         specifier: 1.0.2
         version: 1.0.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@t3-oss/env-nextjs':
-        specifier: 0.13.8
-        version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
+        specifier: 0.13.10
+        version: 0.13.10(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
       '@vercel/speed-insights':
         specifier: 1.3.1
         version: 1.3.1(next@15.5.9(@opentelemetry/api@1.4.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3)
@@ -563,8 +563,8 @@ importers:
   apps/web-armare:
     dependencies:
       '@t3-oss/env-nextjs':
-        specifier: 0.13.8
-        version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
+        specifier: 0.13.10
+        version: 0.13.10(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
       '@workspace/routing':
         specifier: workspace:*
         version: link:../../packages/routing
@@ -3376,13 +3376,13 @@ packages:
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
-  '@t3-oss/env-core@0.13.8':
-    resolution: {integrity: sha512-L1inmpzLQyYu4+Q1DyrXsGJYCXbtXjC4cICw1uAKv0ppYPQv656lhZPU91Qd1VS6SO/bou1/q5ufVzBGbNsUpw==}
+  '@t3-oss/env-core@0.13.10':
+    resolution: {integrity: sha512-NNFfdlJ+HmPHkLi2HKy7nwuat9SIYOxei9K10lO2YlcSObDILY7mHZNSHsieIM3A0/5OOzw/P/b+yLvPdaG52g==}
     peerDependencies:
       arktype: ^2.1.0
       typescript: '>=5.0.0'
       valibot: ^1.0.0-beta.7 || ^1.0.0
-      zod: ^3.24.0 || ^4.0.0-beta.0
+      zod: ^3.24.0 || ^4.0.0
     peerDependenciesMeta:
       arktype:
         optional: true
@@ -3393,13 +3393,13 @@ packages:
       zod:
         optional: true
 
-  '@t3-oss/env-nextjs@0.13.8':
-    resolution: {integrity: sha512-QmTLnsdQJ8BiQad2W2nvV6oUpH4oMZMqnFEjhVpzU0h3sI9hn8zb8crjWJ1Amq453mGZs6A4v4ihIeBFDOrLeQ==}
+  '@t3-oss/env-nextjs@0.13.10':
+    resolution: {integrity: sha512-JfSA2WXOnvcc/uMdp31paMsfbYhhdvLLRxlwvrnlPE9bwM/n0Z+Qb9xRv48nPpvfMhOrkrTYw1I5Yc06WIKBJQ==}
     peerDependencies:
       arktype: ^2.1.0
       typescript: '>=5.0.0'
       valibot: ^1.0.0-beta.7 || ^1.0.0
-      zod: ^3.24.0 || ^4.0.0-beta.0
+      zod: ^3.24.0 || ^4.0.0
     peerDependenciesMeta:
       arktype:
         optional: true
@@ -10010,15 +10010,15 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@t3-oss/env-core@0.13.8(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)':
+  '@t3-oss/env-core@0.13.10(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)':
     optionalDependencies:
       arktype: 2.1.20
       typescript: 5.9.3
       zod: 4.2.1
 
-  '@t3-oss/env-nextjs@0.13.8(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)':
+  '@t3-oss/env-nextjs@0.13.10(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)':
     dependencies:
-      '@t3-oss/env-core': 0.13.8(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
+      '@t3-oss/env-core': 0.13.10(arktype@2.1.20)(typescript@5.9.3)(zod@4.2.1)
     optionalDependencies:
       arktype: 2.1.20
       typescript: 5.9.3
