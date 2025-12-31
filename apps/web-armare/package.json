@@ -26,7 +26,7 @@
     "server-only": "0.0.1",
     "sharp": "0.34.5",
     "sst": "3.17.25",
-    "zod": "4.3.3"
+    "zod": "4.3.4"
   },
   "devDependencies": {
     "@types/node": "24.10.4",

@@ -18,7 +18,7 @@
     "rate-limiter-flexible": "9.0.1",
     "react-hook-form": "7.69.0",
     "sonner": "2.0.7",
-    "zod": "4.3.3"
+    "zod": "4.3.4"
   },
   "peerDependencies": {
     "next": "15.5.9",
